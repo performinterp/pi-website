@@ -8,6 +8,7 @@ import {
   getMilestones,
   getAboutTeaser,
   getAudienceCards,
+  getConsultancy,
 } from "@/lib/content";
 import LogoTicker from "@/components/logo-ticker";
 import AnimateIn from "@/components/animate-in";
@@ -22,6 +23,7 @@ export default function Home() {
   const milestones = getMilestones();
   const about = getAboutTeaser();
   const audienceCards = getAudienceCards();
+  const consultancy = getConsultancy();
 
   return (
     <>
@@ -90,6 +92,57 @@ export default function Home() {
               </div>
             </AnimateIn>
           ))}
+        </div>
+      </section>
+
+      {/* ─── Consultancy ───────────────────────────────────── */}
+      <section className="section-padding section-gap bg-pi-deep">
+        <div className="mx-auto max-w-5xl">
+          <AnimateIn>
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+              {consultancy.label}
+            </p>
+            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
+              {consultancy.heading}
+            </h2>
+          </AnimateIn>
+          <AnimateIn delay={100}>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/60">
+              {consultancy.body}
+            </p>
+          </AnimateIn>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {consultancy.services.map((service, i) => (
+              <AnimateIn key={service.title} delay={i * 100}>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
+                  <Icon
+                    name={service.icon}
+                    size={24}
+                    className="text-pi-accent"
+                  />
+                  <h3 className="mt-4 font-display text-xl text-white">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/50">
+                    {service.description}
+                  </p>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+
+          <AnimateIn delay={400}>
+            <div className="mt-10">
+              <Link
+                href={consultancy.ctaHref}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors hover:text-white"
+              >
+                {consultancy.ctaLabel}
+                <Icon name="arrow-right" size={16} />
+              </Link>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 

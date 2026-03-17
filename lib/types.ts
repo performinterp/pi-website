@@ -66,6 +66,15 @@ export interface NavigationContent {
   socialLinks: { platform: string; url: string; label: string }[];
 }
 
+export interface ConsultancyContent {
+  label: string;
+  heading: string;
+  body: string;
+  services: { icon: string; title: string; description: string }[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
 export interface ContactCta {
   heading: string;
   subtitle: string;

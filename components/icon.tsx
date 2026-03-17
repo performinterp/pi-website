@@ -18,12 +18,15 @@ import {
   ChevronRight,
   Zap,
   Heart,
+  ClipboardCheck,
+  Settings,
   type LucideIcon,
 } from "lucide-react";
 
 const icons: Record<string, LucideIcon> = {
   award: Award,
   scale: Scale,
+  scales: Scale,
   crown: Crown,
   calendar: Calendar,
   "graduation-cap": GraduationCap,
@@ -41,6 +44,8 @@ const icons: Record<string, LucideIcon> = {
   "chevron-right": ChevronRight,
   zap: Zap,
   heart: Heart,
+  "clipboard-check": ClipboardCheck,
+  settings: Settings,
 };
 
 interface IconProps {
