@@ -16,17 +16,21 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
   const allClients = [...clients, ...clients];
 
   return (
-    <section className="bg-pi-deep py-10">
-      <p className="text-center text-xs uppercase tracking-widest text-white/35 mb-4">
+    <section
+      className="group/ticker relative bg-pi-deep py-10"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <p className="mb-4 text-center text-xs uppercase tracking-widest text-white/35">
         Trusted by
       </p>
 
-      {/* Track wrapper — hides overflow so logos scroll into view cleanly */}
+      {/* Track wrapper */}
       <div className="overflow-hidden">
         <div
-          className="flex"
+          className="flex w-max"
           style={{
-            animation: "ticker-scroll 30s linear infinite",
+            animation: "ticker-scroll 40s linear infinite",
             animationPlayState: paused ? "paused" : "running",
           }}
         >
@@ -53,27 +57,25 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
         </div>
       </div>
 
-      {/* Accessible pause control — WCAG 2.2.2 */}
-      <div className="flex justify-center mt-4">
-        <button
-          type="button"
-          onClick={() => setPaused((p) => !p)}
-          aria-label={paused ? "Play logo ticker" : "Pause logo ticker"}
-          className="flex items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors text-xs"
-        >
-          {paused ? (
-            <>
-              <Play className="w-3 h-3" aria-hidden="true" />
-              <span>Play</span>
-            </>
-          ) : (
-            <>
-              <Pause className="w-3 h-3" aria-hidden="true" />
-              <span>Pause</span>
-            </>
-          )}
-        </button>
-      </div>
+      {/* Accessible pause control — visible on hover/focus only */}
+      <button
+        type="button"
+        onClick={() => setPaused((p) => !p)}
+        aria-label={paused ? "Play logo ticker" : "Pause logo ticker"}
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1 text-xs text-white/0 opacity-0 transition-all duration-300 group-hover/ticker:text-white/40 group-hover/ticker:opacity-100 focus:text-white/60 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-pi-accent"
+      >
+        {paused ? (
+          <>
+            <Play className="h-3 w-3" aria-hidden="true" />
+            <span>Play</span>
+          </>
+        ) : (
+          <>
+            <Pause className="h-3 w-3" aria-hidden="true" />
+            <span>Pause</span>
+          </>
+        )}
+      </button>
     </section>
   );
 }
@@ -84,7 +86,7 @@ function LogoImage({ client }: { client: Client }) {
     <img
       src={client.logo}
       alt={client.name}
-      className="h-8 md:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+      className="h-8 w-auto object-contain opacity-80 transition-opacity duration-300 hover:opacity-100 md:h-10"
     />
   );
 }
