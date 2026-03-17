@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-pi-navy: #020142;
+  --color-pi-deep: #060F2E;
+  --color-pi-dark: #0A1A4F;
+  --color-pi-accent: #0089D9;
+  --color-pi-gold: #CA8A04;
+  --color-pi-gold-light: #EAB308;
+  --color-pi-muted: rgba(255, 255, 255, 0.45);
+  --color-pi-error: #EF4444;
+  --color-pi-success: #22C55E;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-display: "var(--font-display-loaded)", "Georgia", serif;
+  --font-body: "var(--font-body-loaded)", system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-ticker-scroll: ticker-scroll 30s linear infinite;
+  --animate-fade-up: fade-up 0.6s ease-out forwards;
+
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes fade-up {
+    0% { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    background-color: var(--color-pi-navy);
+    color: white;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-pi-accent) 30%, transparent);
+    color: white;
+  }
+}
+
+@utility section-padding {
+  padding-inline: 1.5rem;
+  @media (min-width: 768px) { padding-inline: 3rem; }
+  @media (min-width: 1024px) { padding-inline: 5rem; }
+  @media (min-width: 1280px) { padding-inline: 8rem; }
+}
+
+@utility section-gap {
+  padding-block: 4rem;
+  @media (min-width: 768px) { padding-block: 5rem; }
+  @media (min-width: 1024px) { padding-block: 6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
