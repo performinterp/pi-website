@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getNavigation } from "@/lib/content";
-import NavClient from "./nav-client";
+import NavClient from "@/components/nav-client";
 
 export default function Nav() {
   const nav = getNavigation();
@@ -31,30 +31,7 @@ export default function Nav() {
           />
         </Link>
 
-        {/* Desktop nav */}
-        <nav
-          aria-label="Main navigation"
-          className="hidden md:flex items-center gap-8"
-        >
-          {nav.mainNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="relative text-sm font-medium tracking-wide text-white/80 transition-colors duration-200 hover:text-white after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-pi-accent after:transition-all after:duration-300 after:ease-out hover:after:w-full focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-2 focus:ring-offset-transparent rounded-sm"
-            >
-              {item.label}
-            </Link>
-          ))}
-
-          <Link
-            href={nav.ctaButton.href}
-            className="ml-4 rounded-full bg-pi-accent px-5 py-2.5 text-sm font-semibold tracking-wide text-white shadow-md shadow-pi-accent/30 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/50 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-2 focus:ring-offset-pi-navy"
-          >
-            {nav.ctaButton.label}
-          </Link>
-        </nav>
-
-        {/* Mobile: hamburger + slide-out drawer (client island) */}
+        {/* Desktop nav + Mobile hamburger (client component for active states) */}
         <NavClient nav={nav} />
       </div>
     </header>
