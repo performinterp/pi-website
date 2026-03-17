@@ -84,19 +84,7 @@ function LogoImage({ client }: { client: Client }) {
     <img
       src={client.logo}
       alt={client.name}
-      className="h-8 md:h-10 w-auto object-contain"
-      style={{
-        filter: "grayscale(1) opacity(0.5)",
-        transition: "filter 300ms ease",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLImageElement).style.filter =
-          "grayscale(0) opacity(1)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLImageElement).style.filter =
-          "grayscale(1) opacity(0.5)";
-      }}
+      className="h-8 md:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
     />
   );
 }

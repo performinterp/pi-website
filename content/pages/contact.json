@@ -14,11 +14,11 @@
       "items": [
         {
           "title": "Event organisers",
-          "description": "Tell us the event name, venue, date, and expected audience size. The more detail you provide, the faster we can give you a plan."
+          "description": "Tell us the event name, venue, date and expected audience size. The more detail you provide, the faster we can give you a plan."
         },
         {
           "title": "Deaf community",
-          "description": "Want BSL access at an event that doesn't have it yet? Let us know the event, date, and venue and we'll contact the organiser."
+          "description": "Want BSL access at an event that doesn't have it yet? Let us know the event, date and venue and we'll contact the organiser."
         },
         {
           "title": "Interpreters",
@@ -31,7 +31,7 @@
       "heading": "Direct contact",
       "body": [
         "You can also reach us directly at admin@performanceinterpreting.co.uk.",
-        "Performance Interpreting Ltd is based in the United Kingdom and operates across England, Scotland, Wales, and Ireland."
+        "Performance Interpreting Ltd is based in the United Kingdom and operates across England, Scotland, Wales and Ireland."
       ]
     }
   ]

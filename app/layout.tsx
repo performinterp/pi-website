@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://performanceinterpreting.co.uk"),
   title: "Performance Interpreting — BSL & ISL for Live Events",
   description:
-    "The UK's award-winning BSL and ISL interpreting service. Connecting Deaf audiences to unforgettable live experiences at festivals, sport, arenas, and entertainment.",
+    "The UK's award-winning BSL and ISL interpreting service. Connecting Deaf audiences to unforgettable live experiences at festivals, sport, arenas and entertainment.",
   openGraph: {
     title: "Performance Interpreting — BSL & ISL for Live Events",
     description:
-      "The UK's award-winning BSL and ISL interpreting service. Connecting Deaf audiences to unforgettable live experiences at festivals, sport, arenas, and entertainment.",
+      "The UK's award-winning BSL and ISL interpreting service. Connecting Deaf audiences to unforgettable live experiences at festivals, sport, arenas and entertainment.",
     images: ["/og-image.jpg"],
   },
 };

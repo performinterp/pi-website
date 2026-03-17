@@ -9,7 +9,7 @@
       "heading": "BSL-interpreted events near you",
       "body": [
         "The PI Events App is a free app for the Deaf community — showing every event where BSL or ISL interpreting has been confirmed. Whether it's a festival, a Premier League match, a West End show, or a comedy night, you'll find it here.",
-        "Filter by date, location, event type, and language. Get notified when new events are added in your area. No more calling venues or hoping for the best."
+        "Filter by date, location, event type and language. Get notified when new events are added in your area. No more calling venues or hoping for the best."
       ],
       "items": [
         {
@@ -36,7 +36,7 @@
       "items": [
         {
           "title": "Contact PI directly",
-          "description": "Tell us the event, the date, and the venue. We'll reach out to the organiser on your behalf."
+          "description": "Tell us the event, the date and the venue. We'll reach out to the organiser on your behalf."
         },
         {
           "title": "Know your rights",
@@ -57,7 +57,7 @@
       "label": "PI Events App",
       "heading": "Download the free events app",
       "body": [
-        "The PI Events App is the fastest way to find BSL and ISL interpreted events near you. It's free, updated in real time, and built by the people who deliver the interpreting.",
+        "The PI Events App is the fastest way to find BSL and ISL interpreted events near you. It's free, updated in real time and built by the people who deliver the interpreting.",
         "Available on iOS and Android. Visit app.performanceinterpreting.co.uk for download links and more information."
       ]
     }
