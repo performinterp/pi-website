@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, CSSProperties } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface AnimateInProps {
   children: React.ReactNode;
@@ -8,47 +8,43 @@ interface AnimateInProps {
   className?: string;
 }
 
-export default function AnimateIn({ children, delay, className = "" }: AnimateInProps) {
+export default function AnimateIn({ children, delay = 0, className = "" }: AnimateInProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Respect prefers-reduced-motion
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      el.style.opacity = "1";
-      el.style.transform = "none";
+      setVisible(true);
       return;
     }
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.classList.add("animate-fade-up");
-            observer.disconnect();
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
       },
-      { threshold: 0.1 }
+      { threshold: 0.05, rootMargin: "50px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const style: CSSProperties = {};
-  if (delay !== undefined) {
-    style.animationDelay = `${delay}ms`;
-  }
-
   return (
     <div
       ref={ref}
-      className={`opacity-0 translate-y-6 ${className}`}
-      style={style}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(24px)",
+        transition: `opacity 0.6s ease-out ${delay}ms, transform 0.6s ease-out ${delay}ms`,
+      }}
     >
       {children}
     </div>
