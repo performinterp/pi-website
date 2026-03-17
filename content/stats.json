@@ -1,0 +1,22 @@
+[
+  {
+    "value": 500,
+    "suffix": "+",
+    "label": "Events delivered"
+  },
+  {
+    "value": 27,
+    "suffix": "+",
+    "label": "Major festivals"
+  },
+  {
+    "value": 6,
+    "suffix": "",
+    "label": "Premier League clubs"
+  },
+  {
+    "value": 10,
+    "suffix": "+",
+    "label": "National arenas"
+  }
+]

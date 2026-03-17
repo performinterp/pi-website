@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Arsenal",
+    "logo": "/logos/arsenal.png",
+    "url": "https://www.arsenal.com"
+  },
+  {
+    "name": "The O2",
+    "logo": "/logos/the-o2.png",
+    "url": "https://www.theo2.co.uk"
+  },
+  {
+    "name": "Festival Republic",
+    "logo": "/logos/festival-republic.jpg",
+    "url": "https://www.festivalrepublic.com"
+  },
+  {
+    "name": "Wembley Stadium",
+    "logo": "/logos/wembley.svg",
+    "url": "https://www.wembleystadium.com"
+  },
+  {
+    "name": "Royal Albert Hall",
+    "logo": "/logos/rah.png",
+    "url": "https://www.royalalberthall.com"
+  },
+  {
+    "name": "BBC",
+    "logo": "/logos/bbc.svg",
+    "url": "https://www.bbc.co.uk"
+  },
+  {
+    "name": "UEFA",
+    "logo": "/logos/uefa.jpg",
+    "url": "https://www.uefa.com"
+  },
+  {
+    "name": "Chelsea",
+    "logo": "/logos/chelsea.svg",
+    "url": "https://www.chelseafc.com"
+  },
+  {
+    "name": "Live Nation",
+    "logo": "/logos/live-nation.png",
+    "url": "https://www.livenation.co.uk"
+  },
+  {
+    "name": "NFL",
+    "logo": "/logos/nfl.png",
+    "url": "https://www.nfl.com"
+  },
+  {
+    "name": "Croke Park",
+    "logo": "/logos/croke-park.png",
+    "url": "https://crokepark.ie"
+  },
+  {
+    "name": "3Olympia",
+    "logo": "/logos/3olympia.jpg",
+    "url": "https://www.3olympia.ie"
+  },
+  {
+    "name": "Southbank Centre",
+    "logo": "/logos/southbank.jpg",
+    "url": "https://www.southbankcentre.co.uk"
+  },
+  {
+    "name": "Principality Stadium",
+    "logo": "/logos/principality.png",
+    "url": "https://www.principalitystadium.wales"
+  },
+  {
+    "name": "The FA",
+    "logo": "/logos/the-fa.svg",
+    "url": "https://www.thefa.com"
+  },
+  {
+    "name": "England Netball",
+    "logo": "/logos/netball.png",
+    "url": "https://www.englandnetball.co.uk"
+  },
+  {
+    "name": "MCD",
+    "logo": "/logos/mcd.jpg",
+    "url": "https://www.mcd.ie"
+  },
+  {
+    "name": "O2 Academy",
+    "logo": "/logos/o2-academy.jpg",
+    "url": "https://academymusicgroup.com"
+  },
+  {
+    "name": "Motorpoint Nottingham",
+    "logo": "/logos/motorpoint-nottingham.jpg",
+    "url": "https://www.motorpointnottingham.com"
+  },
+  {
+    "name": "FAB",
+    "logo": "/logos/fab.png"
+  }
+]

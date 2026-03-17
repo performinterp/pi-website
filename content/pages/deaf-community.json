@@ -1,0 +1,65 @@
+{
+  "title": "For the Deaf Community",
+  "subtitle": "Find BSL-interpreted events. Request access at the events you love. Never miss out again.",
+  "heroImage": "/images/concert.jpg",
+  "metaDescription": "Find BSL and ISL interpreted events across the UK and Ireland with the Performance Interpreting events app. Request BSL access at upcoming events and connect with the Deaf community at live entertainment.",
+  "sections": [
+    {
+      "label": "Find Events",
+      "heading": "BSL-interpreted events near you",
+      "body": [
+        "The PI Events App is a free app for the Deaf community — showing every event where BSL or ISL interpreting has been confirmed. Whether it's a festival, a Premier League match, a West End show, or a comedy night, you'll find it here.",
+        "Filter by date, location, event type, and language. Get notified when new events are added in your area. No more calling venues or hoping for the best."
+      ],
+      "items": [
+        {
+          "title": "Download the app",
+          "description": "The PI Events App is free to download on iOS and Android. Search 'Performance Interpreting Events' in the App Store or Google Play."
+        },
+        {
+          "title": "Browse confirmed events",
+          "description": "Only events where BSL/ISL interpreting is actually confirmed appear in the app — no guesswork."
+        },
+        {
+          "title": "Set location alerts",
+          "description": "Get notified when interpreted events are added near you, or for artists and venues you follow."
+        }
+      ]
+    },
+    {
+      "label": "Request Access",
+      "heading": "An event you love doesn't have a BSL interpreter?",
+      "body": [
+        "You have the right to request BSL access at live events. Following the landmark Little Mix BSL case — in which PI provided key testimony — BSL access at live events is a legal requirement under the Equality Act 2010, not a favour.",
+        "If you want to attend an event and there's no interpreting arranged, contact us. We can liaise with the organiser directly and work to get access in place."
+      ],
+      "items": [
+        {
+          "title": "Contact PI directly",
+          "description": "Tell us the event, the date, and the venue. We'll reach out to the organiser on your behalf."
+        },
+        {
+          "title": "Know your rights",
+          "description": "Under the Equality Act 2010, event organisers have a duty to make reasonable adjustments. BSL interpreting at a ticketed live event is considered a reasonable adjustment."
+        }
+      ]
+    },
+    {
+      "label": "What to Expect",
+      "heading": "What BSL interpreting at a live event looks like",
+      "body": [
+        "Live event interpreting is different from other interpreting contexts. Our interpreters are specialists in this environment — which means a better experience for you on the day.",
+        "For most events, the interpreter will be positioned on a raised platform or dedicated stage area with clear sight lines. Lighting is coordinated with the production team so the interpreter is visible throughout. For large shows with multiple interpreters, the team rotates to maintain quality.",
+        "If you have specific seating requirements or questions about a particular event, contact us in advance and we'll do everything we can to help."
+      ]
+    },
+    {
+      "label": "PI Events App",
+      "heading": "Download the free events app",
+      "body": [
+        "The PI Events App is the fastest way to find BSL and ISL interpreted events near you. It's free, updated in real time, and built by the people who deliver the interpreting.",
+        "Available on iOS and Android. Visit app.performanceinterpreting.co.uk for download links and more information."
+      ]
+    }
+  ]
+}

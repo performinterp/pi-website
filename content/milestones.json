@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "award",
+    "title": "Signature Hall of Fame",
+    "description": "Inducted into the industry's highest recognition for excellence in interpreting services.",
+    "accentColor": "gold"
+  },
+  {
+    "icon": "scale",
+    "title": "Landmark Legal Precedent",
+    "description": "Our testimony helped establish that BSL access at live events is a legal requirement — not optional.",
+    "accentColor": "accent"
+  },
+  {
+    "icon": "crown",
+    "title": "Trusted for National Moments",
+    "description": "Selected to manage and deliver Deaf access for Royal events and state ceremonies — BSL, captions, and looping systems.",
+    "accentColor": "gold"
+  }
+]

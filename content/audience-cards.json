@@ -1,0 +1,24 @@
+[
+  {
+    "icon": "calendar",
+    "title": "Event Organisers",
+    "description": "We handle everything from interpreter sourcing and briefing to on-site coordination. Tell us about your event and we'll build a plan that works.",
+    "href": "/organisers",
+    "ctaLabel": "How it works"
+  },
+  {
+    "icon": "hand-metal",
+    "title": "Deaf Community",
+    "description": "Find BSL-interpreted events near you, request access at events you love, and connect with the community through our free events app.",
+    "href": "/deaf-community",
+    "ctaLabel": "Find events"
+  },
+  {
+    "icon": "graduation-cap",
+    "title": "Interpreters",
+    "description": "Join a team that's shaping the future of BSL access in live events. Whether you're starting out or seasoned — explore training, development, and work opportunities.",
+    "href": "https://academy.performanceinterpreting.co.uk",
+    "ctaLabel": "Visit the Academy",
+    "external": true
+  }
+]
