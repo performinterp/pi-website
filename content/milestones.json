@@ -16,5 +16,11 @@
     "title": "Trusted for National Moments",
     "description": "Selected to manage and deliver Deaf access for Royal events and state ceremonies — BSL, captions and looping systems.",
     "accentColor": "gold"
+  },
+  {
+    "icon": "zap",
+    "title": "Proactive Access at Wembley",
+    "description": "Working with Wembley Stadium to provide BSL interpreting at every event — without waiting for a customer request. Access by default, not by exception.",
+    "accentColor": "accent"
   }
 ]
