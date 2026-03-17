@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { X } from "lucide-react";
 import type { NavigationContent } from "@/lib/types";
@@ -15,6 +16,7 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const pathname = usePathname();
 
   // Close on Escape key
   useEffect(() => {
@@ -112,20 +114,28 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
 
         {/* Nav links */}
         <nav aria-label="Mobile navigation" className="flex flex-col flex-1 px-6 py-8 gap-1">
-          {nav.mainNav.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              ref={i === 0 ? firstLinkRef : undefined}
-              onClick={onClose}
-              className="group flex items-center justify-between rounded-lg px-4 py-4 text-lg font-medium tracking-wide text-white/80 hover:text-white hover:bg-white/5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-inset"
-            >
-              <span>{item.label}</span>
-              <span className="text-pi-accent opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xl leading-none">
-                →
-              </span>
-            </Link>
-          ))}
+          {nav.mainNav.map((item, i) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                ref={i === 0 ? firstLinkRef : undefined}
+                onClick={onClose}
+                aria-current={isActive ? "page" : undefined}
+                className={`group flex items-center justify-between rounded-lg px-4 py-4 text-lg font-medium tracking-wide transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-inset ${
+                  isActive
+                    ? "text-white bg-pi-accent/10 border-l-2 border-pi-accent"
+                    : "text-white/80 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <span>{item.label}</span>
+                <span className="text-pi-accent opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xl leading-none">
+                  →
+                </span>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* CTA */}
