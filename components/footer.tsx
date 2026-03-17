@@ -1,0 +1,136 @@
+import Link from "next/link";
+import Image from "next/image";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { getNavigation } from "@/lib/content";
+
+const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number }>> = {
+  Facebook,
+  Instagram,
+  LinkedIn: Linkedin,
+  X: Twitter,
+};
+
+export default function Footer() {
+  const nav = getNavigation();
+
+  return (
+    <footer className="bg-pi-navy border-t border-white/10">
+      {/* Main footer grid */}
+      <div className="section-padding py-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+
+          {/* Column 1 — Brand */}
+          <div className="sm:col-span-2 lg:col-span-1 lg:pr-8">
+            <p className="font-display text-lg font-semibold text-white leading-snug">
+              Performance Interpreting
+            </p>
+            <p className="mt-3 text-sm text-white/50 leading-relaxed">
+              Award-winning BSL &amp; ISL interpreting for live events across the UK and Ireland.
+            </p>
+
+            {/* Social icons */}
+            <div className="mt-6 flex items-center gap-3">
+              {nav.socialLinks.map((social) => {
+                const Icon = SOCIAL_ICONS[social.platform];
+                if (!Icon) return null;
+                return (
+                  <a
+                    key={social.platform}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/60 transition-all duration-300 ease-out hover:bg-white/20 hover:text-white"
+                  >
+                    <Icon size={15} strokeWidth={1.75} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Column 2 — Navigate */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3">
+              Navigate
+            </h3>
+            <ul className="space-y-2.5">
+              {nav.footerNav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-white/40 leading-relaxed transition-colors duration-300 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3 — PI Network */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3">
+              PI Network
+            </h3>
+            <ul className="space-y-2.5">
+              {nav.networkLinks.map((item) => (
+                <li key={item.href}>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-white/40 leading-relaxed transition-colors duration-300 hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="text-sm text-white/40 leading-relaxed transition-colors duration-300 hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4 — Accredited */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3">
+              Accredited
+            </h3>
+            <div className="flex flex-wrap items-center gap-4">
+              <Image
+                src="/logos/nrcpd-logo.png"
+                alt="NRCPD accredited"
+                width={80}
+                height={48}
+                className="object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="section-padding border-t border-white/5 py-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-white/25">
+            &copy; 2026 Performance Interpreting Ltd
+          </p>
+          <Link
+            href="/privacy"
+            className="text-xs text-white/25 transition-colors duration-300 hover:text-white/60"
+          >
+            Privacy Policy
+          </Link>
+        </div>
+      </div>
+    </footer>
+  );
+}

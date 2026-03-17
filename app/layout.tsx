@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/footer";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -50,7 +51,7 @@ export default function RootLayout({
 
         <main id="main-content">{children}</main>
 
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
