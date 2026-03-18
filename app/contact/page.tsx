@@ -83,7 +83,6 @@ export default function ContactPage() {
           label={contactSection.label}
           heading={contactSection.heading}
           body={contactSection.body}
-          alternate
         />
       )}
     </>

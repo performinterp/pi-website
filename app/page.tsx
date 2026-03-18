@@ -72,7 +72,7 @@ export default function Home() {
         </div>
 
         {/* Bottom fade into logo ticker */}
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-pi-deep to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-pi-navy to-transparent" />
       </section>
 
       {/* ─── Logo Ticker ──────────────────────────────────── */}
@@ -147,7 +147,7 @@ export default function Home() {
       </section>
 
       {/* ─── Sectors ──────────────────────────────────────── */}
-      <section className="section-padding section-gap bg-pi-deep">
+      <section className="section-padding section-gap">
         <AnimateIn>
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-accent">
             Where we work
@@ -250,7 +250,7 @@ export default function Home() {
       </section>
 
       {/* ─── About Teaser ─────────────────────────────────── */}
-      <section className="section-padding section-gap bg-pi-deep">
+      <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">

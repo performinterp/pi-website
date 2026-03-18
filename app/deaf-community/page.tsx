@@ -32,12 +32,11 @@ export default function DeafCommunityPage() {
           heading={section.heading}
           body={section.body}
           items={section.items}
-          alternate={i % 2 === 1}
         />
       ))}
 
       {/* App download section with store buttons */}
-      <section className={`section-padding section-gap ${contentSections.length % 2 === 1 ? "bg-pi-deep" : ""}`}>
+      <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">
           <AnimateIn>
             {appSection.label && (

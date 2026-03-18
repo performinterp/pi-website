@@ -6,7 +6,6 @@ interface ContentSectionProps {
   heading?: string;
   body: string[];
   items?: { title: string; description: string; url?: string }[];
-  alternate?: boolean;
 }
 
 export default function ContentSection({
@@ -14,13 +13,10 @@ export default function ContentSection({
   heading,
   body,
   items,
-  alternate = false,
 }: ContentSectionProps) {
   return (
-    <section
-      className={`section-padding section-gap ${alternate ? "bg-pi-deep" : ""}`}
-    >
-      <div className="mx-auto max-w-4xl">
+    <section className="section-padding section-gap">
+      <div className="mx-auto max-w-4xl border-t border-white/[0.06] pt-16">
         <AnimateIn>
           {label && (
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">

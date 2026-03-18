@@ -17,7 +17,7 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
 
   return (
     <section
-      className="group/ticker relative bg-pi-deep py-10"
+      className="group/ticker relative border-y border-white/[0.06] py-10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

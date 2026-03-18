@@ -26,7 +26,6 @@ export default function OrganisersPage() {
           heading={section.heading}
           body={section.body}
           items={section.items}
-          alternate={i % 2 === 1}
         />
       ))}
       <ContactCta />
