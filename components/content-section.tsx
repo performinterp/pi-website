@@ -5,7 +5,7 @@ interface ContentSectionProps {
   label?: string;
   heading?: string;
   body: string[];
-  items?: { title: string; description: string }[];
+  items?: { title: string; description: string; url?: string }[];
   alternate?: boolean;
 }
 
@@ -55,6 +55,16 @@ export default function ContentSection({
                   <p className="mt-2 text-sm leading-relaxed text-white/50">
                     {item.description}
                   </p>
+                  {item.url && (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-pi-accent transition-colors hover:text-white"
+                    >
+                      Read more →
+                    </a>
+                  )}
                 </div>
               </AnimateIn>
             ))}

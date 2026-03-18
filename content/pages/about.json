@@ -1,7 +1,7 @@
 {
   "title": "About Performance Interpreting",
   "subtitle": "Built from the community up — by someone who understood the need first-hand.",
-  "heroImage": "/images/PI-interpreter.jpg",
+  "heroImage": "/images/festival-wide.jpg",
   "metaDescription": "Performance Interpreting was founded by Marie — who is hard of hearing herself — to ensure Deaf audiences have equal access to live events across the UK and Ireland.",
   "sections": [
     {
@@ -48,6 +48,30 @@
       "body": [
         "Over more than a decade, Performance Interpreting has delivered BSL and ISL interpreting at over 500 events across the UK and Ireland. That includes 27+ major festivals, six Premier League clubs and more than ten national arenas.",
         "Our clients include Arsenal, The O2, Wembley Stadium, Royal Albert Hall, Live Nation, Festival Republic, BBC, UEFA, NFL and many more. We have worked at Download, BST Hyde Park, Reading, Leeds, Creamfields, Latitude and across the full Live Nation and Festival Republic portfolios."
+      ]
+    },
+    {
+      "label": "In the Press",
+      "heading": "Featured coverage",
+      "body": [
+        "Our work has been covered by national media and recognised by some of the biggest names in sport and entertainment."
+      ],
+      "items": [
+        {
+          "title": "BBC Bitesize — Marie's Story",
+          "description": "BBC coverage of Marie and Performance Interpreting's mission to bring BSL access to live events across the UK.",
+          "url": "https://www.bbc.co.uk/bitesize/articles/zxt96rd"
+        },
+        {
+          "title": "Arsenal x Cadbury — BSL for Fans",
+          "description": "PI partnered with Arsenal and Cadbury to arrange BSL interpreting for Deaf fans — featuring Ian Wright and the first team.",
+          "url": "https://www.arsenal.com/news/arsenal-extends-partnership-cadbury"
+        },
+        {
+          "title": "Wembley Stadium — BSL at Every Concert",
+          "description": "Wembley Stadium commits to BSL interpretation at all concerts — a partnership with Performance Interpreting to make access the default.",
+          "url": "https://www.wembleystadium.com/news/2021/Sep/16/Wembley-Stadium-commits-to-BSL-Interpretation-of-all-concerts"
+        }
       ]
     }
   ]

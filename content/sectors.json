@@ -1,7 +1,7 @@
 [
   {
     "name": "Festivals",
-    "photo": "/images/concert.jpg",
+    "photo": "/images/festival-crowd.jpg",
     "clients": [
       "BST Hyde Park",
       "Download",
@@ -21,7 +21,7 @@
   },
   {
     "name": "Sport",
-    "photo": "/images/football.jpg",
+    "photo": "/images/football-stadium.jpg",
     "clients": [
       "Arsenal",
       "Chelsea",
@@ -37,7 +37,7 @@
   },
   {
     "name": "Arenas & Venues",
-    "photo": "/images/concert.jpg",
+    "photo": "/images/festival-night.jpg",
     "clients": [
       "The O2",
       "Royal Albert Hall",

@@ -91,6 +91,6 @@ export interface PageContent {
     heading?: string;
     label?: string;
     body: string[];
-    items?: { title: string; description: string }[];
+    items?: { title: string; description: string; url?: string }[];
   }[];
 }
