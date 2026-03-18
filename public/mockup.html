@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PI Homepage — Option B</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #020142;
+    color: white;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .display { font-family: 'DM Serif Display', Georgia, serif; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    background: linear-gradient(180deg, rgba(2,1,66,0) 0%, rgba(2,1,66,0.5) 40%, rgba(2,1,66,0.95) 80%, #020142 100%),
+                url('/images/concert.jpg') center/cover;
+    padding: 0 clamp(1.5rem, 5vw, 8rem);
+  }
+  .hero-content {
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+    max-width: 700px;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .hero p {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+  .hero-ctas {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .btn-primary {
+    background: #0089D9;
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost {
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.03);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  /* ── Statement ── */
+  .statement {
+    padding: clamp(6rem, 12vh, 10rem) clamp(1.5rem, 5vw, 8rem);
+    text-align: center;
+  }
+  .statement h2 {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 800px;
+    margin: 0 auto;
+    color: rgba(255,255,255,0.85);
+  }
+  .statement h2 em {
+    color: #0089D9;
+    font-style: normal;
+  }
+
+  /* ── Numbers ── */
+  .numbers {
+    padding: clamp(2rem, 4vh, 4rem) clamp(1.5rem, 5vw, 8rem);
+    display: flex;
+    justify-content: center;
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+  .number {
+    text-align: center;
+  }
+  .number-value {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .number-value span { color: #0089D9; }
+  .number-label {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── Photo break ── */
+  .photo-break {
+    margin: clamp(4rem, 8vh, 8rem) 0;
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+    background: url('/images/festival-crowd.jpg') center/cover;
+  }
+  .photo-break::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, #020142 0%, transparent 30%, transparent 70%, #020142 100%);
+  }
+  .photo-break-label {
+    position: absolute;
+    bottom: 2rem;
+    left: clamp(1.5rem, 5vw, 8rem);
+    z-index: 1;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── Services (asymmetric) ── */
+  .services {
+    padding: clamp(4rem, 8vh, 8rem) clamp(1.5rem, 5vw, 8rem);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .services-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #0089D9;
+  }
+  .services-title {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.15;
+    margin-top: 0.75rem;
+  }
+  .services-body {
+    padding-top: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: clamp(3rem, 6vh, 5rem);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .service-item {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: #020142;
+  }
+  .service-item h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+  .service-item p {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Milestones (editorial) ── */
+  .milestones {
+    padding: clamp(6rem, 10vh, 10rem) clamp(1.5rem, 5vw, 8rem);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .milestones-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #CA8A04;
+    text-align: center;
+  }
+  .milestone-item {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    align-items: baseline;
+  }
+  .milestone-item:first-of-type {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 2rem;
+  }
+  .milestone-title {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    line-height: 1.2;
+    color: rgba(255,255,255,0.9);
+  }
+  .milestone-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Press ── */
+  .press {
+    padding: clamp(4rem, 8vh, 6rem) clamp(1.5rem, 5vw, 8rem);
+    text-align: center;
+  }
+  .press-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 2rem;
+  }
+  .press-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+    flex-wrap: wrap;
+  }
+  .press-logo {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: clamp(6rem, 12vh, 10rem) clamp(1.5rem, 5vw, 8rem);
+    text-align: center;
+  }
+  .cta h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .cta p {
+    margin-top: 1rem;
+    color: rgba(255,255,255,0.4);
+    font-size: 1.1rem;
+  }
+  .cta .btn-primary {
+    margin-top: 2.5rem;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+  }
+
+  /* ── Annotation (mockup only) ── */
+  .annotation {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0,137,217,0.15);
+    border: 1px solid rgba(0,137,217,0.3);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.7rem;
+    color: rgba(0,137,217,0.8);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<header style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 1.25rem clamp(1.5rem, 5vw, 8rem); display: flex; align-items: center; justify-content: space-between; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);">
+  <img src="/icons/pi-logo-wide.svg" alt="Performance Interpreting" style="height: 2rem; opacity: 0.9;">
+  <nav style="display: flex; align-items: center; gap: 2.5rem;">
+    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500;">About</a>
+    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500;">Organisers</a>
+    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500;">Deaf Community</a>
+    <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500;">Interpreters</a>
+    <a href="#" class="btn-primary" style="padding: 0.625rem 1.5rem; font-size: 0.8rem;">Get a Quote</a>
+  </nav>
+</header>
+
+<div class="annotation">OPTION B — scroll to explore the feel</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="display">Connecting Deaf audiences to unforgettable live experiences.</h1>
+    <p>The UK's leading Deaf access consultancy and BSL interpreting service for festivals, sport, arenas and live entertainment.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Get a Quote</a>
+      <a href="#" class="btn-ghost">Find Events</a>
+    </div>
+  </div>
+</section>
+
+<!-- Statement -->
+<section class="statement">
+  <h2 class="display">Most agencies supply interpreters.<br><em>We design the entire access experience.</em></h2>
+</section>
+
+<!-- Numbers -->
+<section class="numbers">
+  <div class="number">
+    <div class="number-value display">500<span>+</span></div>
+    <div class="number-label">Events per year</div>
+  </div>
+  <div class="number">
+    <div class="number-value display">27<span>+</span></div>
+    <div class="number-label">Major festivals</div>
+  </div>
+  <div class="number">
+    <div class="number-value display">6</div>
+    <div class="number-label">Premier League clubs</div>
+  </div>
+  <div class="number">
+    <div class="number-value display">10<span>+</span></div>
+    <div class="number-label">National arenas</div>
+  </div>
+</section>
+
+<!-- Photo break -->
+<section class="photo-break">
+  <div class="photo-break-label">PI interpreter at Download Festival</div>
+</section>
+
+<!-- Services -->
+<section class="services">
+  <div class="services-header">
+    <div>
+      <div class="services-label">More than interpreters</div>
+      <h2 class="display services-title">Deaf access consultancy for live events</h2>
+    </div>
+    <div class="services-body">
+      From legal compliance and access audits through to production coordination and on-the-day management — PI advises, plans and delivers.
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-item">
+      <h3>Legal & Compliance Advisory</h3>
+      <p>We advise on your obligations under the Equality Act 2010 so you're covered — not just compliant.</p>
+    </div>
+    <div class="service-item">
+      <h3>Access Audits</h3>
+      <p>We assess your current provision and tell you what's working, what's missing and what good looks like.</p>
+    </div>
+    <div class="service-item">
+      <h3>Interpreter Team Design</h3>
+      <p>The right number, the right specialisms, the right rotation schedule. Designed around your event.</p>
+    </div>
+    <div class="service-item">
+      <h3>Production Coordination</h3>
+      <p>Sight-line placement, lighting, stage positioning, comms with your crew. We handle the technical integration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Milestones -->
+<section class="milestones">
+  <div class="milestones-label">Track record</div>
+  <div class="milestone-item">
+    <h3 class="display milestone-title">Signature Hall of Fame</h3>
+    <p class="milestone-desc">Marie was inducted into the industry's highest recognition for outstanding contribution to BSL interpreting services and Deaf access.</p>
+  </div>
+  <div class="milestone-item">
+    <h3 class="display milestone-title">Landmark Legal Precedent</h3>
+    <p class="milestone-desc">Our testimony in the Little Mix BSL case helped establish that BSL access at live events is a legal requirement. That ruling changed the industry.</p>
+  </div>
+  <div class="milestone-item">
+    <h3 class="display milestone-title">Trusted for National Moments</h3>
+    <p class="milestone-desc">Selected to manage full Deaf access for Royal events and state ceremonies — BSL interpreting, live captions and induction loop systems.</p>
+  </div>
+  <div class="milestone-item">
+    <h3 class="display milestone-title">Proactive Access at Wembley</h3>
+    <p class="milestone-desc">Working with Wembley Stadium to provide BSL interpreting at every event as standard. Access by default, not by exception.</p>
+  </div>
+</section>
+
+<!-- About -->
+<section style="padding: clamp(4rem, 8vh, 8rem) clamp(1.5rem, 5vw, 8rem); max-width: 1200px; margin: 0 auto;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center;">
+    <div style="aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: url('/images/festival-interpreter.jpg') center/cover;"></div>
+    <div>
+      <div class="services-label">Our story</div>
+      <h2 class="display" style="font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; margin-top: 0.75rem;">Built from the community up — by someone who understood the need first-hand.</h2>
+      <p style="margin-top: 1.5rem; font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.45);">Performance Interpreting grew from responding to Deaf audiences who wanted access — not from selling a service nobody asked for. Founded by Marie, who is hard of hearing herself, PI was built on genuine understanding of what it means to be left out of the live experience.</p>
+      <a href="#" style="margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem; color: #0089D9; text-decoration: none; font-size: 0.875rem; font-weight: 600;">Read our full story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Audience -->
+<section style="padding: clamp(4rem, 8vh, 6rem) clamp(1.5rem, 5vw, 8rem); max-width: 1200px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: clamp(2rem, 4vh, 3rem);">
+    <div class="services-label" style="text-align: center;">How can we help?</div>
+    <h2 class="display" style="font-size: clamp(1.8rem, 3vw, 2.5rem); margin-top: 0.75rem;">Who we work with</h2>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06);">
+    <div style="background: #020142; padding: clamp(2rem, 3vw, 3rem);">
+      <h3 style="font-size: 1.1rem; font-weight: 600;">Event Organisers</h3>
+      <p style="margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.35);">We handle everything from interpreter sourcing and briefing to on-site coordination. Tell us about your event and we'll build a plan that works.</p>
+      <a href="#" style="margin-top: 1.25rem; display: inline-flex; color: #0089D9; text-decoration: none; font-size: 0.8rem; font-weight: 600;">How it works →</a>
+    </div>
+    <div style="background: #020142; padding: clamp(2rem, 3vw, 3rem);">
+      <h3 style="font-size: 1.1rem; font-weight: 600;">Deaf Community</h3>
+      <p style="margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.35);">Find BSL-interpreted events near you, request access at events you love and connect with the community through our free events app.</p>
+      <a href="#" style="margin-top: 1.25rem; display: inline-flex; color: #0089D9; text-decoration: none; font-size: 0.8rem; font-weight: 600;">Find events →</a>
+    </div>
+    <div style="background: #020142; padding: clamp(2rem, 3vw, 3rem);">
+      <h3 style="font-size: 1.1rem; font-weight: 600;">Interpreters</h3>
+      <p style="margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.35);">Join a team that's shaping the future of BSL access in live events. Explore training, development and work opportunities.</p>
+      <a href="#" style="margin-top: 1.25rem; display: inline-flex; color: #0089D9; text-decoration: none; font-size: 0.8rem; font-weight: 600;">Join the team →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Press -->
+<section class="press">
+  <div class="press-label">Featured in</div>
+  <div class="press-logos">
+    <div class="press-logo">BBC</div>
+    <div class="press-logo">ARSENAL</div>
+    <div class="press-logo">WEMBLEY</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 class="display">Ready to make your<br>event accessible?</h2>
+  <p>Tell us about your event and we'll put together a plan.</p>
+  <a href="#" class="btn-primary">Get a Quote</a>
+</section>
+
+<div style="height: 4rem;"></div>
+
+</body>
+</html>
