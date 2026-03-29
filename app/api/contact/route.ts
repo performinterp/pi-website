@@ -1,12 +1,17 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, message, enquiry_type, urgent } = body;
+
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: "Email service not configured" },
+        { status: 500 }
+      );
+    }
 
     if (!name || !email || !message || !enquiry_type) {
       return NextResponse.json(
@@ -22,6 +27,8 @@ export async function POST(request: Request) {
       interpreter: "Interpreter",
       other: "Other",
     };
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
       from: "PI Website <website@performanceinterpreting.co.uk>",
