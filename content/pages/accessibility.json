@@ -1,0 +1,75 @@
+{
+  "title": "Accessibility Statement",
+  "subtitle": "Our commitment to making this website accessible to everyone.",
+  "heroImage": "/images/concert.jpg",
+  "metaDescription": "Accessibility statement for the Performance Interpreting website. We are committed to making our website accessible to all users, including those who use assistive technologies.",
+  "sections": [
+    {
+      "heading": "Our commitment",
+      "body": [
+        "Performance Interpreting exists to make live events accessible for Deaf audiences. We hold ourselves to the same standard with our digital platforms.",
+        "We are committed to ensuring this website is accessible to as many people as possible, regardless of technology or ability. We aim to comply with the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA."
+      ]
+    },
+    {
+      "heading": "What we do",
+      "body": [
+        "This website has been designed and built with accessibility in mind. We have taken the following steps:"
+      ],
+      "items": [
+        {
+          "title": "Semantic HTML and structure",
+          "description": "We use proper heading hierarchy, landmarks and semantic elements so screen readers and assistive technologies can navigate the site effectively."
+        },
+        {
+          "title": "Keyboard navigation",
+          "description": "All interactive elements are accessible via keyboard. A 'Skip to content' link is provided at the top of every page."
+        },
+        {
+          "title": "Colour contrast",
+          "description": "Text and interactive elements meet WCAG AA contrast ratios against their backgrounds."
+        },
+        {
+          "title": "Alternative text",
+          "description": "Images include descriptive alternative text. Decorative images are marked as such."
+        },
+        {
+          "title": "Responsive design",
+          "description": "The site is usable across screen sizes and supports text resizing without loss of content or functionality."
+        },
+        {
+          "title": "Form accessibility",
+          "description": "All form fields have visible labels and are associated with their inputs programmatically."
+        }
+      ]
+    },
+    {
+      "heading": "Known limitations",
+      "body": [
+        "We are aware that no website is perfectly accessible. If you encounter any barriers while using this site, please let us know. We will make reasonable efforts to address the issue promptly.",
+        "Some third-party content (such as embedded maps or external links) may not meet the same accessibility standards. We encourage those providers to improve their accessibility."
+      ]
+    },
+    {
+      "heading": "BSL content",
+      "body": [
+        "As a BSL interpreting provider, we recognise that written English is not the first language of many Deaf people. We aim to keep our content clear and concise. If you would prefer to communicate with us in BSL, please contact us and we will arrange a BSL conversation."
+      ]
+    },
+    {
+      "heading": "Feedback and contact",
+      "body": [
+        "If you experience any difficulty accessing content on this website, or if you have suggestions for how we can improve accessibility, please contact us:",
+        "Email: admin@performanceinterpreting.co.uk",
+        "We aim to respond to accessibility feedback within 5 working days."
+      ]
+    },
+    {
+      "heading": "Enforcement",
+      "body": [
+        "If you are not satisfied with our response, you can contact the Equality Advisory Support Service (EASS) at equalityadvisoryservice.com or the Equality and Human Rights Commission (EHRC).",
+        "This statement was last updated in March 2026."
+      ]
+    }
+  ]
+}

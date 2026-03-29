@@ -12,6 +12,7 @@ import {
 } from "@/lib/content";
 import LogoTicker from "@/components/logo-ticker";
 import AnimateIn from "@/components/animate-in";
+import AnimatedCounter from "@/components/animated-counter";
 import ContactCta from "@/components/contact-cta";
 import Icon from "@/components/icon";
 
@@ -28,7 +29,7 @@ export default function Home() {
   return (
     <>
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section className="relative flex min-h-[85vh] items-end overflow-hidden">
+      <section className="relative flex min-h-[70vh] items-end overflow-hidden">
         {/* Background image */}
         <Image
           src={hero.posterImage}
@@ -61,12 +62,14 @@ export default function Home() {
               >
                 {hero.primaryCta.label}
               </Link>
-              <Link
+              <a
                 href={hero.secondaryCta.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:border-white/40 hover:bg-white/10"
               >
                 {hero.secondaryCta.label}
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -85,8 +88,7 @@ export default function Home() {
             <AnimateIn key={stat.label} delay={i * 100}>
               <div className="text-center">
                 <p className="font-display text-4xl text-white md:text-5xl">
-                  {stat.value}
-                  <span className="text-pi-accent">{stat.suffix}</span>
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="mt-2 text-sm text-white/50">{stat.label}</p>
               </div>
@@ -194,7 +196,7 @@ export default function Home() {
                     ))}
                     {sector.clients.length > 6 && (
                       <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/50">
-                        +{sector.clients.length - 6} more
+                        + many more
                       </span>
                     )}
                   </div>
@@ -333,6 +335,91 @@ export default function Home() {
             );
           })}
         </div>
+      </section>
+
+      {/* ─── Stay in the Loop ─────────────────────────────── */}
+      <section className="section-padding section-gap bg-pi-deep">
+        <div className="mx-auto max-w-3xl text-center">
+          <AnimateIn>
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+              Stay in the loop
+            </p>
+            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
+              Never miss an interpreted event
+            </h2>
+          </AnimateIn>
+          <AnimateIn delay={100}>
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/60">
+              Love live music? Sports? Festivals? Dance? Comedy? Follow us to be
+              the first to know about:
+            </p>
+            <ul className="mx-auto mt-6 max-w-md space-y-3 text-left text-sm text-white/60">
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-pi-accent">→</span>
+                Upcoming BSL/ISL interpreted shows
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-pi-accent">→</span>
+                Last-minute ticket releases
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-pi-accent">→</span>
+                Access tips and venue info
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-pi-accent">→</span>
+                Behind-the-scenes with our interpreters
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-pi-accent">→</span>
+                Event highlights and community news
+              </li>
+            </ul>
+          </AnimateIn>
+          <AnimateIn delay={200}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="https://instagram.com/performanceinterpreting"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+              </a>
+              <a
+                href="https://www.facebook.com/performanceinterpreting"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+              </a>
+              <a
+                href="https://x.com/performinterp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                X
+              </a>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* ─── Closing Quote ────────────────────────────────── */}
+      <section className="section-padding section-gap">
+        <AnimateIn>
+          <blockquote className="mx-auto max-w-2xl text-center">
+            <p className="font-display text-2xl italic leading-relaxed text-white md:text-3xl">
+              &ldquo;Inclusivity is more than a word; it&rsquo;s an{" "}
+              <span className="text-pi-accent">experience</span>.&rdquo;
+            </p>
+          </blockquote>
+        </AnimateIn>
       </section>
 
       {/* ─── Contact CTA ──────────────────────────────────── */}

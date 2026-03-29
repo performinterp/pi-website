@@ -42,10 +42,30 @@
       "label": "Training & Development",
       "heading": "The PI Academy",
       "body": [
-        "The PI Academy is Performance Interpreting's dedicated training and professional development platform for interpreters who want to specialise in live events. Whether you're coming to events interpreting for the first time or looking to develop your existing practice, the Academy offers structured courses, mentoring and ongoing CPD.",
-        "Courses cover live event-specific vocabulary and preparation, team interpreting in large-scale environments, production coordination and the legal and ethical framework around BSL access in live settings.",
-        "Visit the Academy at academy.performanceinterpreting.co.uk to explore current courses and book your place."
-      ]
+        "The PI Academy is Performance Interpreting's dedicated training and professional development platform — built specifically for interpreters who want to specialise in live events.",
+        "Whether you're stepping into events interpreting for the first time or sharpening your existing practice, the Academy offers structured courses, hands-on mentoring and ongoing CPD that you won't find anywhere else."
+      ],
+      "items": [
+        {
+          "title": "Live event vocabulary",
+          "description": "Specialist preparation for music, sport, comedy and entertainment — the vocabulary and cultural context that standard training doesn't cover."
+        },
+        {
+          "title": "Team interpreting at scale",
+          "description": "How to work in rotation at festivals and arenas, manage handovers mid-performance and maintain quality across long events."
+        },
+        {
+          "title": "Production coordination",
+          "description": "Sight-line positioning, lighting requirements, comms with stage managers and working within production constraints."
+        },
+        {
+          "title": "Legal and ethical framework",
+          "description": "The Equality Act 2010, duty to make reasonable adjustments, and how to advocate for best practice with event organisers."
+        }
+      ],
+      "ctaLabel": "Explore courses at the PI Academy",
+      "ctaHref": "https://academy.performanceinterpreting.co.uk",
+      "ctaExternal": true
     },
     {
       "label": "Get in Touch",

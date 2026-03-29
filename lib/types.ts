@@ -92,5 +92,8 @@ export interface PageContent {
     label?: string;
     body: string[];
     items?: { title: string; description: string; url?: string }[];
+    ctaLabel?: string;
+    ctaHref?: string;
+    ctaExternal?: boolean;
   }[];
 }

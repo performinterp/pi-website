@@ -117,18 +117,36 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Company details */}
+      <div className="section-padding border-t border-white/5 py-5">
+        <p className="text-xs leading-relaxed text-white/20">
+          Performance Interpreting Ltd is registered in England and Wales. Company
+          No. 10684652. VAT No. 265 5979 48. Registered office: Onega House, 112
+          Main Road, Sidcup, United Kingdom, DA14 6NE.
+        </p>
+      </div>
+
       {/* Bottom bar */}
       <div className="section-padding border-t border-white/5 py-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/25">
-            &copy; 2026 Performance Interpreting Ltd
+            &copy; {new Date().getFullYear()} Performance Interpreting Ltd. All
+            rights reserved.
           </p>
-          <Link
-            href="/privacy"
-            className="text-xs text-white/25 transition-colors duration-300 hover:text-white/60"
-          >
-            Privacy Policy
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="/privacy"
+              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/60"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/accessibility"
+              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/60"
+            >
+              Accessibility
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

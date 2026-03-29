@@ -1,28 +1,36 @@
 {
   "title": "For the Deaf Community",
-  "subtitle": "Find BSL-interpreted events. Request access at the events you love. Never miss out again.",
+  "subtitle": "Find BSL-interpreted events. Get support at the venue. Know your rights. Never miss out again.",
   "heroImage": "/images/football-stadium.jpg",
-  "metaDescription": "Find BSL and ISL interpreted events across the UK and Ireland with the Performance Interpreting events app. Request BSL access at upcoming events and connect with the Deaf community at live entertainment.",
+  "metaDescription": "Find BSL and ISL interpreted events across the UK and Ireland with the Performance Interpreting events app. Communication cards, festival checklists, live speech-to-text, and more.",
   "sections": [
     {
-      "label": "Find Events",
-      "heading": "BSL-interpreted events near you",
+      "label": "The PI Events App",
+      "heading": "Everything you need — before, during and after the event",
       "body": [
-        "The PI Events App is a free app for the Deaf community — showing every event where BSL or ISL interpreting has been confirmed. Whether it's a festival, a Premier League match, a West End show, or a comedy night, you'll find it here.",
-        "Filter by date, location, event type and language. Get notified when new events are added in your area. No more calling venues or hoping for the best."
+        "The PI Events App is a free app built for Deaf and hard of hearing audiences. It's not just an events listing — it's a complete toolkit for live events, from finding interpreted shows to getting support at the venue.",
+        "Available on iOS, Android and web. Search 'Performance Interpreting Events' in the App Store or Google Play."
+      ]
+    },
+    {
+      "label": "Find Events",
+      "heading": "Search and discover BSL-interpreted events",
+      "body": [
+        "Browse confirmed BSL and ISL interpreted events across the UK and Ireland. Filter by date, location, event type and language. Only events where interpreting is actually confirmed appear — no guesswork.",
+        "Get push notifications when new interpreted events are added near you, for artists and venues you follow, or for last-minute ticket releases."
       ],
       "items": [
         {
-          "title": "Download the app",
-          "description": "The PI Events App is free to download on iOS and Android. Search 'Performance Interpreting Events' in the App Store or Google Play."
+          "title": "Smart search",
+          "description": "Type-ahead search across events, venues and categories with fuzzy matching — finds what you're looking for even with typos."
         },
         {
-          "title": "Browse confirmed events",
-          "description": "Only events where BSL/ISL interpreting is actually confirmed appear in the app — no guesswork."
+          "title": "Check BSL booking status",
+          "description": "Enter any event name or venue to check whether BSL interpreting has been booked and confirmed."
         },
         {
-          "title": "Set location alerts",
-          "description": "Get notified when interpreted events are added near you, or for artists and venues you follow."
+          "title": "Share and save",
+          "description": "Generate shareable links and add events directly to your calendar with one tap."
         }
       ]
     },
@@ -31,34 +39,88 @@
       "heading": "An event you love doesn't have a BSL interpreter?",
       "body": [
         "You have the right to request BSL access at live events. Following the landmark Little Mix BSL case — in which PI provided key testimony — BSL access at live events is a legal requirement under the Equality Act 2010, not a favour.",
-        "If you want to attend an event and there's no interpreting arranged, contact us. We can liaise with the organiser directly and work to get access in place."
+        "Use the app to submit a request directly. Tell us the event, date and venue and we'll contact the organiser on your behalf."
       ],
       "items": [
         {
-          "title": "Contact PI directly",
-          "description": "Tell us the event, the date and the venue. We'll reach out to the organiser on your behalf."
+          "title": "Request an interpreter",
+          "description": "Fill in the event details and we'll liaise with the organiser to get BSL access in place."
         },
         {
           "title": "Know your rights",
-          "description": "Under the Equality Act 2010, event organisers have a duty to make reasonable adjustments. BSL interpreting at a ticketed live event is considered a reasonable adjustment."
+          "description": "The app includes a full guide to your legal rights under the Equality Act 2010, the DDA 1995 and the Irish Equal Status Acts — in plain English, no legal jargon."
         }
       ]
     },
     {
-      "label": "What to Expect",
-      "heading": "What BSL interpreting at a live event looks like",
+      "label": "At the Event",
+      "heading": "Support tools to use on the day",
       "body": [
-        "Live event interpreting is different from other interpreting contexts. Our interpreters are specialists in this environment — which means a better experience for you on the day.",
-        "For most events, the interpreter will be positioned on a raised platform or dedicated stage area with clear sight lines. Lighting is coordinated with the production team so the interpreter is visible throughout. For large shows with multiple interpreters, the team rotates to maintain quality.",
-        "If you have specific seating requirements or questions about a particular event, contact us in advance and we'll do everything we can to help."
+        "The app includes a set of tools designed to help you communicate and stay safe at live events — even when it's loud, crowded or you can't find the interpreter."
+      ],
+      "items": [
+        {
+          "title": "Communication cards",
+          "description": "Pre-made cards with common phrases you can show to staff — 'I am Deaf', 'Can you repeat that?', 'Where is the BSL interpreter?' Tap to display full screen."
+        },
+        {
+          "title": "Food & drink order builder",
+          "description": "Build your order with quantities and send it as text — no more shouting over the music at the bar."
+        },
+        {
+          "title": "Emergency information",
+          "description": "Pre-filled emergency communication templates and venue safety procedures. Clear layout, large text, high contrast."
+        },
+        {
+          "title": "Live speech-to-text",
+          "description": "Real-time speech recognition that transcribes what people say on screen. Useful for quick conversations with hearing people at the event."
+        },
+        {
+          "title": "Feel the Music",
+          "description": "Converts live sound into haptic vibration feedback on your phone. Feel the bass, the beat and the energy of the performance through your device."
+        }
       ]
     },
     {
-      "label": "PI Events App",
-      "heading": "Download the free events app",
+      "label": "Plan Ahead",
+      "heading": "Festival checklists and venue guides",
       "body": [
-        "The PI Events App is the fastest way to find BSL and ISL interpreted events near you. It's free, updated in real time and built by the people who deliver the interpreting.",
-        "Available on iOS and Android. Visit app.performanceinterpreting.co.uk for download links and more information."
+        "Going to a festival for the first time? The app includes a comprehensive planning checklist — what to bring, accessibility tips, communication planning, booking confirmations to prepare and special considerations for Deaf attendees.",
+        "The app also provides direct links to official festival apps and venue accessibility pages so you can plan your visit with confidence."
+      ]
+    },
+    {
+      "label": "Share Your Experience",
+      "heading": "Feedback that shapes future events",
+      "body": [
+        "After an event, share your experience directly through the app. Your feedback goes straight to the PI team and helps us improve the service for everyone.",
+        "You can submit written feedback or upload a video response in BSL or your preferred language. Real feedback from real attendees is how we hold venues to account and push for better access."
+      ]
+    },
+    {
+      "label": "Download the App",
+      "heading": "Get the PI Events App — free on iOS and Android",
+      "body": [
+        "The PI Events App is free, updated in real time and built by the people who deliver the interpreting. Everything in one place — events, tools, rights, feedback.",
+        "Download from the App Store or Google Play, or open it in your browser at app.performanceinterpreting.co.uk."
+      ]
+    },
+    {
+      "label": "Forms",
+      "heading": "Photo, video and feedback",
+      "body": [
+        "If you're happy to appear in any photos or videos (including interviews) taken during interpreted events, please let us know by filling out the media consent form below.",
+        "If you've joined us at an event, we'd love to hear how it went. Your feedback helps us shape future events and improve the experience for everyone."
+      ],
+      "items": [
+        {
+          "title": "Photo & Video Consent",
+          "description": "Let us know you're happy to appear in event photography and video content. This is entirely optional and you can withdraw consent at any time."
+        },
+        {
+          "title": "Event Feedback",
+          "description": "Share your experience after attending a BSL-interpreted event. It only takes a minute and helps us keep improving."
+        }
       ]
     }
   ]

@@ -10,9 +10,11 @@ const enquiryTypes = [
 ];
 
 export default function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
 
-  if (submitted) {
+  if (status === "sent") {
     return (
       <div className="rounded-2xl border border-pi-success/30 bg-pi-success/5 p-8 text-center md:p-12">
         <p className="font-display text-2xl text-white">Message sent</p>
@@ -23,18 +25,43 @@ export default function ContactForm() {
     );
   }
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement)
+        .value,
+      enquiry_type: (
+        form.elements.namedItem("enquiry_type") as HTMLSelectElement
+      ).value,
+      urgent: (form.elements.namedItem("urgent") as HTMLInputElement).checked,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
-    <form
-      action="https://formspree.io/f/placeholder"
-      method="POST"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSubmitted(true);
-      }}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="enquiry-type" className="block text-sm font-medium text-white/70">
+        <label
+          htmlFor="enquiry-type"
+          className="block text-sm font-medium text-white/70"
+        >
           I am a...
         </label>
         <select
@@ -54,7 +81,10 @@ export default function ContactForm() {
 
       <div className="grid gap-6 md:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-white/70">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-white/70"
+          >
             Name
           </label>
           <input
@@ -67,7 +97,10 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-white/70">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-white/70"
+          >
             Email
           </label>
           <input
@@ -82,7 +115,10 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-white/70">
+        <label
+          htmlFor="message"
+          className="block text-sm font-medium text-white/70"
+        >
           Message
         </label>
         <textarea
@@ -107,11 +143,40 @@ export default function ContactForm() {
         </label>
       </div>
 
+      <div className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          id="consent"
+          name="consent"
+          required
+          className="mt-0.5 h-4 w-4 rounded border-white/15 bg-white/5 text-pi-accent focus:ring-pi-accent"
+        />
+        <label htmlFor="consent" className="text-sm text-white/50">
+          I consent to Performance Interpreting Ltd storing my data in order to
+          respond to my enquiry, in accordance with the{" "}
+          <a
+            href="/privacy"
+            className="text-pi-accent underline hover:text-white"
+          >
+            Privacy Policy
+          </a>
+          .
+        </label>
+      </div>
+
+      {status === "error" && (
+        <p className="text-sm text-pi-error">
+          Something went wrong. Please try again or email us directly at
+          admin@performanceinterpreting.co.uk.
+        </p>
+      )}
+
       <button
         type="submit"
-        className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40"
+        disabled={status === "sending"}
+        className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40 disabled:opacity-50"
       >
-        Send message
+        {status === "sending" ? "Sending..." : "Send message"}
       </button>
     </form>
   );

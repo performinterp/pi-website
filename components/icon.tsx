@@ -20,6 +20,7 @@ import {
   Heart,
   ClipboardCheck,
   Settings,
+  Coffee,
   type LucideIcon,
 } from "lucide-react";
 
@@ -46,6 +47,7 @@ const icons: Record<string, LucideIcon> = {
   heart: Heart,
   "clipboard-check": ClipboardCheck,
   settings: Settings,
+  coffee: Coffee,
 };
 
 interface IconProps {

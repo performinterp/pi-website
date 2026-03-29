@@ -6,6 +6,9 @@ interface ContentSectionProps {
   heading?: string;
   body: string[];
   items?: { title: string; description: string; url?: string }[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaExternal?: boolean;
 }
 
 export default function ContentSection({
@@ -13,6 +16,9 @@ export default function ContentSection({
   heading,
   body,
   items,
+  ctaLabel,
+  ctaHref,
+  ctaExternal,
 }: ContentSectionProps) {
   return (
     <section className="section-padding section-gap">
@@ -65,6 +71,32 @@ export default function ContentSection({
               </AnimateIn>
             ))}
           </div>
+        )}
+
+        {ctaLabel && ctaHref && (
+          <AnimateIn delay={200}>
+            <div className="mt-10">
+              {ctaExternal ? (
+                <a
+                  href={ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40"
+                >
+                  {ctaLabel}
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              ) : (
+                <a
+                  href={ctaHref}
+                  className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40"
+                >
+                  {ctaLabel}
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              )}
+            </div>
+          </AnimateIn>
         )}
       </div>
     </section>
