@@ -25,4 +25,5 @@ export const getAboutTeaser = () => load<AboutTeaser>("about-teaser.json");
 export const getNavigation = () => load<NavigationContent>("navigation.json");
 export const getConsultancy = () => load<ConsultancyContent>("consultancy.json");
 export const getContactCta = () => load<ContactCta>("contact-cta.json");
+export const getTestimonials = () => load<{ quote: string; name: string; context: string; source: string; rating?: number }[]>("testimonials.json");
 export const getPage = (slug: string) => load<PageContent>(`pages/${slug}.json`);
