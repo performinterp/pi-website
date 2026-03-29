@@ -4,6 +4,7 @@ import PageHero from "@/components/page-hero";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import AppStoreButtons from "@/components/app-store-buttons";
+import TestimonialQuote from "@/components/testimonial-quote";
 import Icon from "@/components/icon";
 
 export const metadata: Metadata = {
@@ -123,6 +124,15 @@ export default function DeafCommunityPage() {
         </div>
       </section>
 
+      {/* ─── Attendee quote ────────────────────────────── */}
+      <section className="section-padding pb-0">
+        <TestimonialQuote
+          quote="Interpreters are nearer the main stage this year. I was pleased so I can stand watch the interpreters AND the performances."
+          name="Sarah Jones"
+          context="BST Hyde Park attendee"
+        />
+      </section>
+
       {/* ─── On the day ─────────────────────────────────── */}
       <section className="section-padding section-gap bg-pi-deep">
         <div className="mx-auto max-w-4xl text-center">
@@ -226,6 +236,15 @@ export default function DeafCommunityPage() {
             can to help.
           </p>
         </AnimateIn>
+      </section>
+
+      {/* ─── Repeat booker quote ───────────────────────── */}
+      <section className="section-padding pb-0">
+        <TestimonialQuote
+          quote="Great communication, great help, great organisation. Booked again for Coldplay at Wembley. More people using this service more awareness this will be!"
+          name="Karen Rutter"
+          context="Concert attendee, Liverpool M&S Arena"
+        />
       </section>
 
       {/* ─── Feedback ───────────────────────────────────── */}
