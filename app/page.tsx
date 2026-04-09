@@ -92,7 +92,7 @@ export default function Home() {
                 <p className="font-display text-4xl text-white md:text-5xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </p>
-                <p className="mt-2 text-sm text-white/50">{stat.label}</p>
+                <p className="mt-2 text-sm text-white/70">{stat.label}</p>
               </div>
             </AnimateIn>
           ))}
@@ -111,7 +111,7 @@ export default function Home() {
             </h2>
           </AnimateIn>
           <AnimateIn delay={100}>
-            <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/60">
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80">
               {consultancy.body}
             </p>
           </AnimateIn>
@@ -128,7 +128,7 @@ export default function Home() {
                   <h3 className="mt-4 font-display text-xl text-white">
                     {service.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/50">
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
                     {service.description}
                   </p>
                 </div>
@@ -184,7 +184,7 @@ export default function Home() {
                   <h3 className="font-display text-2xl text-white md:text-3xl">
                     {sector.name}
                   </h3>
-                  <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/60">
+                  <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/80">
                     {sector.description}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -197,7 +197,7 @@ export default function Home() {
                       </span>
                     ))}
                     {sector.clients.length > 6 && (
-                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/50">
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">
                         + many more
                       </span>
                     )}
@@ -209,8 +209,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Milestones ───────────────────────────────────── */}
-      <section className="section-padding section-gap">
+      {/* ─── Milestones — horizontal strip, visually distinct ── */}
+      <section className="section-padding section-gap bg-gradient-to-r from-pi-deep via-pi-navy to-pi-deep">
         <AnimateIn>
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">
             Track record
@@ -220,36 +220,16 @@ export default function Home() {
           </h2>
         </AnimateIn>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {milestones.map((milestone, i) => {
-            const accentClass =
-              milestone.accentColor === "gold"
-                ? "text-pi-gold border-pi-gold/20 bg-pi-gold/5"
-                : "text-pi-accent border-pi-accent/20 bg-pi-accent/5";
-            return (
-              <AnimateIn key={milestone.title} delay={i * 120}>
-                <div
-                  className={`rounded-2xl border p-6 md:p-8 ${accentClass}`}
-                >
-                  <Icon
-                    name={milestone.icon}
-                    size={28}
-                    className={
-                      milestone.accentColor === "gold"
-                        ? "text-pi-gold"
-                        : "text-pi-accent"
-                    }
-                  />
-                  <h3 className="mt-4 font-display text-xl text-white">
-                    {milestone.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/50">
-                    {milestone.description}
-                  </p>
-                </div>
-              </AnimateIn>
-            );
-          })}
+        <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+          {milestones.map((milestone, i) => (
+            <AnimateIn key={milestone.title} delay={i * 120}>
+              <div className="h-full rounded-xl border border-pi-gold/15 bg-pi-gold/[0.03] p-6 md:p-7">
+                <Icon name={milestone.icon} size={28} className="text-pi-gold" />
+                <h3 className="mt-4 font-display text-lg text-white">{milestone.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">{milestone.description}</p>
+              </div>
+            </AnimateIn>
+          ))}
         </div>
       </section>
 
@@ -275,7 +255,7 @@ export default function Home() {
               <h2 className="mt-3 font-display text-2xl leading-snug text-white md:text-3xl">
                 {about.heading}
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-white/60">
+              <p className="mt-5 text-lg leading-relaxed text-white/80">
                 {about.body}
               </p>
               <Link
@@ -300,7 +280,7 @@ export default function Home() {
             <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
               100% recommended
             </h2>
-            <p className="mt-3 text-sm text-white/40">
+            <p className="mt-3 text-sm text-white/60">
               5.0 on Google  ·  33 recommendations on Facebook  ·  10K+ followers
             </p>
           </div>
@@ -309,9 +289,9 @@ export default function Home() {
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.slice(0, 6).map((t, i) => (
             <AnimateIn key={t.name} delay={i * 80}>
-              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
                 {t.rating && (
-                  <div className="mb-3 flex gap-0.5">
+                  <div className="mb-4 flex gap-0.5">
                     {Array.from({ length: t.rating }).map((_, j) => (
                       <svg
                         key={j}
@@ -323,12 +303,12 @@ export default function Home() {
                     ))}
                   </div>
                 )}
-                <p className="flex-1 text-sm italic leading-relaxed text-white/60">
+                <p className="flex-1 text-base italic leading-relaxed text-white/85">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <div className="mt-4 border-t border-white/5 pt-4">
+                <div className="mt-5 border-t border-white/10 pt-5">
                   <p className="text-sm font-semibold text-white">{t.name}</p>
-                  <p className="text-xs text-white/40">{t.context}</p>
+                  <p className="text-xs text-white/60">{t.context}</p>
                 </div>
               </div>
             </AnimateIn>
@@ -357,7 +337,7 @@ export default function Home() {
 
             return (
               <AnimateIn key={card.title} delay={i * 120}>
-                <div className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors duration-300 hover:border-pi-accent/30 hover:bg-pi-accent/5 md:p-8">
+                <div className="group flex h-full flex-col rounded-2xl border-l-4 border-l-pi-accent border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:bg-pi-accent/5 md:p-8">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pi-accent/10">
                     <Icon
                       name={card.icon}
@@ -368,7 +348,7 @@ export default function Home() {
                   <h3 className="mt-5 font-display text-xl text-white">
                     {card.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-white/50">
+                  <p className="mt-2 flex-1 text-base leading-relaxed text-white/70">
                     {card.description}
                   </p>
                   <Tag
@@ -397,11 +377,11 @@ export default function Home() {
             </h2>
           </AnimateIn>
           <AnimateIn delay={100}>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/60">
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/80">
               Love live music? Sports? Festivals? Dance? Comedy? Follow us to be
               the first to know about:
             </p>
-            <ul className="mx-auto mt-6 max-w-md space-y-3 text-left text-sm text-white/60">
+            <ul className="mx-auto mt-6 max-w-md space-y-3 text-left text-sm text-white/80">
               <li className="flex items-start gap-2">
                 <span className="mt-0.5 text-pi-accent">→</span>
                 Upcoming BSL/ISL interpreted shows
@@ -458,20 +438,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Closing Quote ────────────────────────────────── */}
+      {/* ─── Closing CTA with quote ──────────────────────── */}
       <section className="section-padding section-gap">
-        <AnimateIn>
-          <blockquote className="mx-auto max-w-2xl text-center">
-            <p className="font-display text-2xl italic leading-relaxed text-white md:text-3xl">
-              &ldquo;Inclusivity is more than a word; it&rsquo;s an{" "}
-              <span className="text-pi-accent">experience</span>.&rdquo;
+        <div className="rounded-2xl border border-pi-accent/20 bg-gradient-to-br from-pi-accent/10 to-pi-accent/5 p-10 text-center md:p-16">
+          <AnimateIn>
+            <blockquote className="mx-auto max-w-2xl">
+              <p className="font-display text-2xl italic leading-relaxed text-white/90 md:text-3xl">
+                &ldquo;Inclusivity is more than a word; it&rsquo;s an{" "}
+                <span className="text-pi-accent">experience</span>.&rdquo;
+              </p>
+            </blockquote>
+            <div className="mx-auto my-8 h-px w-24 bg-white/15" />
+            <h2 className="font-display text-2xl text-white md:text-3xl">
+              Ready to make your event accessible?
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-base text-white/70">
+              Tell us about your event and we&rsquo;ll put together a plan.
             </p>
-          </blockquote>
-        </AnimateIn>
+            <div className="mt-8">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40"
+              >
+                Get a Quote
+              </Link>
+            </div>
+          </AnimateIn>
+        </div>
       </section>
-
-      {/* ─── Contact CTA ──────────────────────────────────── */}
-      <ContactCta />
     </>
   );
 }

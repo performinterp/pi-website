@@ -44,7 +44,7 @@ export default function ContactPage() {
             <AnimateIn delay={100}>
               <div className="mt-6 space-y-4">
                 {enquirySection.body.map((p, i) => (
-                  <p key={i} className="text-base leading-relaxed text-white/60">
+                  <p key={i} className="text-base leading-relaxed text-white/80">
                     {p}
                   </p>
                 ))}
@@ -60,7 +60,7 @@ export default function ContactPage() {
                     <h3 className="text-sm font-semibold text-white">
                       {item.title}
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-white/50">
+                    <p className="mt-1 text-xs leading-relaxed text-white/70">
                       {item.description}
                     </p>
                   </div>

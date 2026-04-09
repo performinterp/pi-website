@@ -39,7 +39,7 @@ export default function ContentSection({
         <AnimateIn delay={100}>
           <div className="mt-6 space-y-4">
             {body.map((paragraph, i) => (
-              <p key={i} className="text-base leading-relaxed text-white/60">
+              <p key={i} className="text-base leading-relaxed text-white/80">
                 {paragraph}
               </p>
             ))}
@@ -54,7 +54,7 @@ export default function ContentSection({
                   <h3 className="font-display text-lg text-white">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/50">
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
                     {item.description}
                   </p>
                   {item.url && (

@@ -1,6 +1,6 @@
 {
   "title": "For the Deaf Community",
-  "subtitle": "Find BSL-interpreted events. Get support at the venue. Know your rights. Never miss out again.",
+  "subtitle": "Find interpreted events. Get support at the venue. Know your rights. Never miss out again.",
   "heroImage": "/images/football-stadium.jpg",
   "metaDescription": "Find BSL and ISL interpreted events across the UK and Ireland with the Performance Interpreting events app. Communication cards, festival checklists, live speech-to-text, and more.",
   "sections": [
@@ -14,7 +14,7 @@
     },
     {
       "label": "Find Events",
-      "heading": "Search and discover BSL-interpreted events",
+      "heading": "Search and discover interpreted events",
       "body": [
         "Browse confirmed BSL and ISL interpreted events across the UK and Ireland. Filter by date, location, event type and language. Only events where interpreting is actually confirmed appear — no guesswork.",
         "Get push notifications when new interpreted events are added near you, for artists and venues you follow, or for last-minute ticket releases."
@@ -25,8 +25,8 @@
           "description": "Type-ahead search across events, venues and categories with fuzzy matching — finds what you're looking for even with typos."
         },
         {
-          "title": "Check BSL booking status",
-          "description": "Enter any event name or venue to check whether BSL interpreting has been booked and confirmed."
+          "title": "Check interpreting status",
+          "description": "Enter any event name or venue to check whether sign language interpreting has been booked and confirmed."
         },
         {
           "title": "Share and save",
@@ -36,15 +36,15 @@
     },
     {
       "label": "Request Access",
-      "heading": "An event you love doesn't have a BSL interpreter?",
+      "heading": "An event you love doesn't have an interpreter?",
       "body": [
-        "You have the right to request BSL access at live events. Following the landmark Little Mix BSL case — in which PI provided key testimony — BSL access at live events is a legal requirement under the Equality Act 2010, not a favour.",
+        "You have the right to request access at live events. Following the landmark Little Mix BSL case — in which PI provided key testimony — BSL access at live events is a legal requirement under the Equality Act 2010, not a favour.",
         "Use the app to submit a request directly. Tell us the event, date and venue and we'll contact the organiser on your behalf."
       ],
       "items": [
         {
           "title": "Request an interpreter",
-          "description": "Fill in the event details and we'll liaise with the organiser to get BSL access in place."
+          "description": "Fill in the event details and we'll liaise with the organiser to get access in place."
         },
         {
           "title": "Know your rights",
@@ -94,7 +94,7 @@
       "heading": "Feedback that shapes future events",
       "body": [
         "After an event, share your experience directly through the app. Your feedback goes straight to the PI team and helps us improve the service for everyone.",
-        "You can submit written feedback or upload a video response in BSL or your preferred language. Real feedback from real attendees is how we hold venues to account and push for better access."
+        "You can submit written feedback or upload a video response in BSL, ISL or your preferred language. Real feedback from real attendees is how we hold venues to account and push for better access."
       ]
     },
     {
@@ -119,7 +119,7 @@
         },
         {
           "title": "Event Feedback",
-          "description": "Share your experience after attending a BSL-interpreted event. It only takes a minute and helps us keep improving."
+          "description": "Share your experience after attending an interpreted event. It only takes a minute and helps us keep improving."
         }
       ]
     }

@@ -24,7 +24,7 @@ export default function Footer() {
             <p className="font-display text-lg font-semibold text-white leading-snug">
               Performance Interpreting
             </p>
-            <p className="mt-3 text-sm text-white/50 leading-relaxed">
+            <p className="mt-3 text-sm text-white/70 leading-relaxed">
               Award-winning BSL &amp; ISL interpreting for live events across the UK and Ireland.
             </p>
 
@@ -40,7 +40,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/60 transition-all duration-300 ease-out hover:bg-white/20 hover:text-white"
+                    className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/80 transition-all duration-300 ease-out hover:bg-white/20 hover:text-white"
                   >
                     <Icon size={15} strokeWidth={1.75} />
                   </a>
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Column 2 — Navigate */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
               Navigate
             </h3>
             <ul className="space-y-2.5">
@@ -59,7 +59,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-white/40 leading-relaxed transition-colors duration-300 hover:text-white"
+                    className="text-sm text-white/60 leading-relaxed transition-colors duration-300 hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Column 3 — PI Network */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
               PI Network
             </h3>
             <ul className="space-y-2.5">
@@ -81,14 +81,14 @@ export default function Footer() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-white/40 leading-relaxed transition-colors duration-300 hover:text-white"
+                      className="text-sm text-white/60 leading-relaxed transition-colors duration-300 hover:text-white"
                     >
                       {item.label}
                     </a>
                   ) : (
                     <Link
                       href={item.href}
-                      className="text-sm text-white/40 leading-relaxed transition-colors duration-300 hover:text-white"
+                      className="text-sm text-white/60 leading-relaxed transition-colors duration-300 hover:text-white"
                     >
                       {item.label}
                     </Link>
@@ -100,7 +100,7 @@ export default function Footer() {
 
           {/* Column 4 — Accredited */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
               Accredited
             </h3>
             <div className="flex flex-wrap items-center gap-4">
@@ -136,13 +136,13 @@ export default function Footer() {
           <div className="flex gap-4">
             <Link
               href="/privacy"
-              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/60"
+              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/80"
             >
               Privacy Policy
             </Link>
             <Link
               href="/accessibility"
-              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/60"
+              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/80"
             >
               Accessibility
             </Link>

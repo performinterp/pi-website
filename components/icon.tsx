@@ -21,6 +21,7 @@ import {
   ClipboardCheck,
   Settings,
   Coffee,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -48,6 +49,7 @@ const icons: Record<string, LucideIcon> = {
   "clipboard-check": ClipboardCheck,
   settings: Settings,
   coffee: Coffee,
+  smartphone: Smartphone,
 };
 
 interface IconProps {

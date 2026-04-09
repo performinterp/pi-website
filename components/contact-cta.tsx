@@ -6,13 +6,13 @@ export default function ContactCta() {
 
   return (
     <section className="section-padding section-gap">
-      <div className="bg-pi-accent/10 border border-pi-accent/20 rounded-2xl p-8 md:p-12 text-center">
-        <h2 className="font-display text-2xl text-white">{heading}</h2>
-        <p className="mt-3 text-pi-muted">{subtitle}</p>
+      <div className="rounded-2xl border border-pi-accent/20 bg-gradient-to-br from-pi-accent/10 to-pi-accent/5 p-10 text-center md:p-16">
+        <h2 className="font-display text-2xl text-white md:text-3xl">{heading}</h2>
+        <p className="mx-auto mt-4 max-w-md text-base text-white/70">{subtitle}</p>
         <div className="mt-8">
           <Link
             href={ctaHref}
-            className="inline-block bg-pi-accent text-white rounded-lg px-8 py-3 hover:brightness-110 transition font-medium"
+            className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40"
           >
             {ctaLabel}
           </Link>
