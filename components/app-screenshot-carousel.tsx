@@ -21,7 +21,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
   const [pos, setPos] = useState(total);
   const [transitioning, setTransitioning] = useState(true);
   const [paused, setPaused] = useState(false);
-  const [perView, setPerView] = useState(compact ? 1 : 3);
+  const [perView, setPerView] = useState(compact ? 2 : 3);
 
   const activeIndex = ((pos % total) + total) % total;
 
@@ -77,7 +77,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
   // Auto-advance
   useEffect(() => {
     if (paused) return;
-    const interval = setInterval(next, perView === 1 ? 2000 : 3000);
+    const interval = setInterval(next, compact ? 7000 : perView === 1 ? 2000 : 3000);
     return () => clearInterval(interval);
   }, [next, paused, perView]);
 

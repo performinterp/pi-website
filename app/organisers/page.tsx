@@ -143,7 +143,7 @@ export default function OrganisersPage() {
 
       {/* ─── The App — unique selling point ──────────────── */}
       <section className="section-padding section-gap">
-        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+        <div className="grid items-center gap-10 md:grid-cols-[2fr_3fr] md:gap-16">
           <AnimateIn>
             <AppScreenshotCarousel compact />
           </AnimateIn>
