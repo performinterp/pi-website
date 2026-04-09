@@ -13,24 +13,26 @@ const screenshots = [
   { src: "/images/screenshots/bsl-isl-videos.png", label: "BSL & ISL Videos" },
   { src: "/images/screenshots/search-interpreter.png", label: "Interpreter Search" },
   { src: "/images/screenshots/request-interpreter.png", label: "Request an Interpreter" },
+  { src: "/images/screenshots/request-message.png", label: "Your Message to the Venue" },
 ];
 
-export default function AppScreenshotCarousel() {
+export default function AppScreenshotCarousel({ compact = false }: { compact?: boolean }) {
   const total = screenshots.length;
   const [pos, setPos] = useState(total);
   const [transitioning, setTransitioning] = useState(true);
   const [paused, setPaused] = useState(false);
-  const [perView, setPerView] = useState(3);
+  const [perView, setPerView] = useState(compact ? 1 : 3);
 
   const activeIndex = ((pos % total) + total) % total;
 
   // Detect mobile/desktop
   useEffect(() => {
+    if (compact) return;
     const check = () => setPerView(window.innerWidth < 768 ? 1 : 3);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
-  }, []);
+  }, [compact]);
 
   const next = useCallback(() => {
     setTransitioning(true);

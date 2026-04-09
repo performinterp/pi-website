@@ -145,14 +145,7 @@ export default function OrganisersPage() {
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/festival-community.jpg"
-                alt="PI interpreter signing to a diverse crowd at a community festival"
-                fill
-                className="object-cover"
-              />
-            </div>
+            <AppScreenshotCarousel compact />
           </AnimateIn>
 
           <AnimateIn delay={150}>
@@ -189,26 +182,8 @@ export default function OrganisersPage() {
         </div>
       </section>
 
-      {/* ─── App screenshots carousel ────────────────────── */}
-      <section className="section-padding section-gap bg-pi-deep">
-        <AnimateIn>
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              The PI Events App
-            </p>
-            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
-              Free for every Deaf attendee at your event
-            </h2>
-          </div>
-        </AnimateIn>
-        <AnimateIn delay={150}>
-          <div className="mt-12">
-            <AppScreenshotCarousel />
-          </div>
-        </AnimateIn>
-      </section>
 
-      {/* ─── Why PI — image + text ───────────────────────── */}
+{/* ─── Why PI — image + text ───────────────────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
