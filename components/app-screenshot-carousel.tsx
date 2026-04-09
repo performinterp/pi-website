@@ -115,7 +115,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
                 style={{ width: `${itemWidth}%` }}
               >
                 <div className={`flex flex-col items-center gap-3 ${compact ? "px-[5px]" : "px-3"}`}>
-                  <div className={`overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-black shadow-2xl shadow-black/40 ${compact ? "w-full max-w-[155px] mx-auto" : ""}`}>
+                  <div className={`overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-black shadow-2xl shadow-black/40 ${compact ? "w-full max-w-[185px] mx-auto" : ""}`}>
                     <div className={`relative aspect-[9/19.5] ${compact ? "w-full" : "w-[200px] md:w-[210px]"}`}>
                       <Image
                         src={shot.src}
