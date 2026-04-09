@@ -5,15 +5,14 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const screenshots = [
-  { src: "/images/app-language.png", label: "BSL & ISL Language Choice" },
-  { src: "/images/app-listing.png", label: "Event Listings" },
-  { src: "/images/app-browse.png", label: "Browse Categories" },
-  { src: "/images/app-event.png", label: "Event Detail" },
-  { src: "/images/app-support.png", label: "Support Tools" },
-  { src: "/images/app-order.png", label: "Food & Drink Orders" },
-  { src: "/images/app-rights.png", label: "Know Your Rights" },
-  { src: "/images/app-videos.png", label: "BSL & ISL Videos" },
-  { src: "/images/app-checklist.png", label: "Festival Checklist" },
+  { src: "/images/screenshots/browse-categories.png", label: "Browse by Category" },
+  { src: "/images/screenshots/event-detail.png", label: "Event Detail" },
+  { src: "/images/screenshots/my-events.png", label: "My Events" },
+  { src: "/images/screenshots/support-show-staff.png", label: "Support at Events" },
+  { src: "/images/screenshots/order-food.png", label: "Food & Drink Orders" },
+  { src: "/images/screenshots/bsl-isl-videos.png", label: "BSL & ISL Videos" },
+  { src: "/images/screenshots/search-interpreter.png", label: "Interpreter Search" },
+  { src: "/images/screenshots/request-interpreter.png", label: "Request an Interpreter" },
 ];
 
 export default function AppScreenshotCarousel() {
