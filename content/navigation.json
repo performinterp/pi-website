@@ -42,7 +42,7 @@
   "networkLinks": [
     {
       "label": "Events App",
-      "href": "https://app.performanceinterpreting.co.uk",
+      "href": "https://pi-events-guide.vercel.app",
       "external": true
     },
     {

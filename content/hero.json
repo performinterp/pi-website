@@ -2,6 +2,6 @@
   "tagline": "Connecting Deaf audiences to unforgettable live experiences.",
   "subtitle": "The UK's leading Deaf access consultancy and BSL & ISL interpreting service for festivals, sport, arenas and live entertainment.",
   "primaryCta": { "label": "Get a Quote", "href": "/contact" },
-  "secondaryCta": { "label": "Find Events", "href": "https://app.performanceinterpreting.co.uk" },
+  "secondaryCta": { "label": "Find Events", "href": "https://pi-events-guide.vercel.app" },
   "posterImage": "/images/concert.jpg"
 }

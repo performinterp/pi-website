@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <>
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section className="relative flex min-h-[70vh] items-end overflow-hidden">
+      <section className="relative flex min-h-[55vh] items-end overflow-hidden">
         {/* Background image */}
         <Image
           src={hero.posterImage}
@@ -43,7 +43,7 @@ export default function Home() {
         {/* Dark overlay - strong bottom half for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-pi-navy from-10% via-pi-navy/70 via-50% to-transparent" />
 
-        <div className="section-padding relative z-10 w-full pb-20 pt-48 md:pb-24">
+        <div className="section-padding relative z-10 w-full pb-8 pt-32 md:pb-16 md:pt-48">
           <div className="max-w-3xl">
             <h1
               className="font-display text-4xl leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
@@ -167,39 +167,40 @@ export default function Home() {
               key={sector.name}
               className={sector.size === "large" ? "md:col-span-2" : ""}
             >
-              <div className="group relative overflow-hidden rounded-2xl">
+              <div className="group overflow-hidden rounded-2xl">
                 {/* Background image */}
-                <div className="relative aspect-[16/9] md:aspect-[21/9]">
+                <div className="relative aspect-[4/3] md:aspect-[21/9] overflow-hidden">
                   <Image
                     src={sector.photo}
                     alt={sector.name}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-pi-navy via-pi-navy/60 to-transparent" />
+                  {/* Desktop overlay gradient */}
+                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-pi-navy via-pi-navy/60 to-transparent" />
+                  {/* Desktop content overlay */}
+                  <div className="hidden md:block absolute inset-x-0 bottom-0 p-8">
+                    <h3 className="font-display text-3xl text-white">{sector.name}</h3>
+                    <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/80">{sector.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {sector.clients.slice(0, 6).map((client) => (
+                        <span key={client} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">{client}</span>
+                      ))}
+                      {sector.clients.length > 6 && (
+                        <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">+ many more</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-
-                {/* Content overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-                  <h3 className="font-display text-2xl text-white md:text-3xl">
-                    {sector.name}
-                  </h3>
-                  <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/80">
-                    {sector.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {sector.clients.slice(0, 6).map((client) => (
-                      <span
-                        key={client}
-                        className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70"
-                      >
-                        {client}
-                      </span>
+                {/* Mobile content - below image */}
+                <div className="md:hidden bg-white/[0.04] px-5 py-4">
+                  <h3 className="font-display text-xl text-white">{sector.name}</h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {sector.clients.slice(0, 5).map((client) => (
+                      <span key={client} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">{client}</span>
                     ))}
-                    {sector.clients.length > 6 && (
-                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">
-                        + many more
-                      </span>
+                    {sector.clients.length > 5 && (
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">+ many more</span>
                     )}
                   </div>
                 </div>
