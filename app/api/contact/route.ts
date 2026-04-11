@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         `Name: ${name}`,
         `Email: ${email}`,
         `Enquiry type: ${enquiryLabels[enquiry_type] || enquiry_type}`,
-        urgent ? `⚠️ URGENT — event within 2 weeks` : "",
+        urgent ? `⚠️ URGENT - event within 2 weeks` : "",
         "",
         "Message:",
         message,

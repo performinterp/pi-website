@@ -40,7 +40,7 @@ export default function Home() {
           priority
           className="object-cover"
         />
-        {/* Dark overlay — strong bottom half for text legibility */}
+        {/* Dark overlay - strong bottom half for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-pi-navy from-10% via-pi-navy/70 via-50% to-transparent" />
 
         <div className="section-padding relative z-10 w-full pb-20 pt-48 md:pb-24">
@@ -209,7 +209,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Milestones — horizontal strip, visually distinct ── */}
+      {/* ─── Milestones - horizontal strip, visually distinct ── */}
       <section className="section-padding section-gap bg-gradient-to-r from-pi-deep via-pi-navy to-pi-deep">
         <AnimateIn>
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">

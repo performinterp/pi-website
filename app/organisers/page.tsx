@@ -9,7 +9,7 @@ import AppScreenshotCarousel from "@/components/app-screenshot-carousel";
 import Icon from "@/components/icon";
 
 export const metadata: Metadata = {
-  title: "For Event Organisers — Performance Interpreting",
+  title: "For Event Organisers - Performance Interpreting",
   description:
     "Performance Interpreting provides BSL and ISL interpreting for festivals, sport, arenas and live entertainment across the UK and Ireland. Expert logistics, NRCPD-registered interpreters, end-to-end coordination.",
 };
@@ -19,11 +19,11 @@ export default function OrganisersPage() {
     <>
       <PageHero
         title="For Event Organisers"
-        subtitle="Deaf access consultancy and sign language interpreting that fits your event — not the other way around."
+        subtitle="Deaf access consultancy and sign language interpreting that fits your event - not the other way around."
         backgroundImage="/images/concert.jpg"
       />
 
-      {/* ─── What We Offer — image + text ────────────────── */}
+      {/* ─── What We Offer - image + text ────────────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -46,7 +46,7 @@ export default function OrganisersPage() {
                 Deaf access consultancy and full-service interpreting
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                We don&rsquo;t just supply interpreters — we consult, plan and deliver. From advising on your legal obligations under the Equality Act 2010, through to designing your access plan and managing the interpreter team on the day.
+                We don&rsquo;t just supply interpreters - we consult, plan and deliver. From advising on your legal obligations under the Equality Act 2010, through to designing your access plan and managing the interpreter team on the day.
               </p>
 
               <div className="mt-8 space-y-5">
@@ -65,7 +65,7 @@ export default function OrganisersPage() {
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-white">Full access packages</h3>
-                    <p className="mt-0.5 text-base text-white/60">BSL, ISL, live captions, induction loops — tailored to your venue and audience.</p>
+                    <p className="mt-0.5 text-base text-white/60">BSL, ISL, live captions, induction loops - tailored to your venue and audience.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -92,7 +92,7 @@ export default function OrganisersPage() {
         />
       </section>
 
-      {/* ─── How It Works — text + image with steps ──────── */}
+      {/* ─── How It Works - text + image with steps ──────── */}
       <section className="section-padding section-gap bg-pi-deep">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -109,9 +109,9 @@ export default function OrganisersPage() {
 
               <div className="mt-8 space-y-6">
                 {[
-                  { step: "1", title: "Tell us about your event", desc: "Share the basics — event type, venue, date, expected audience size. We'll come back with questions and a plan." },
-                  { step: "2", title: "We build your access plan", desc: "Interpreter numbers, team composition, rotation schedules and venue logistics — all confirmed." },
-                  { step: "3", title: "Pre-event briefing", desc: "Interpreters are briefed on your programme — setlist, speakers, running order, specialist vocabulary." },
+                  { step: "1", title: "Tell us about your event", desc: "Share the basics - event type, venue, date, expected audience size. We'll come back with questions and a plan." },
+                  { step: "2", title: "We build your access plan", desc: "Interpreter numbers, team composition, rotation schedules and venue logistics - all confirmed." },
+                  { step: "3", title: "Pre-event briefing", desc: "Interpreters are briefed on your programme - setlist, speakers, running order, specialist vocabulary." },
                   { step: "4", title: "On-the-day delivery", desc: "Our team arrives early, coordinates with your crew and manages everything throughout." },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-4">
@@ -141,7 +141,7 @@ export default function OrganisersPage() {
         </div>
       </section>
 
-      {/* ─── The App — unique selling point ──────────────── */}
+      {/* ─── The App - unique selling point ──────────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-[2fr_3fr] md:gap-16">
           <AnimateIn>
@@ -157,7 +157,7 @@ export default function OrganisersPage() {
                 A dedicated app for your Deaf audience
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                No other interpreting service offers this. The PI Events App gives your Deaf attendees a free toolkit — event listings with interpreter names, speech-to-text, communication cards for bars and staff, festival checklists and direct feedback after the event.
+                No other interpreting service offers this. The PI Events App gives your Deaf attendees a free toolkit - event listings with interpreter names, speech-to-text, communication cards for bars and staff, festival checklists and direct feedback after the event.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-white/80">
                 For organisers, it means better engagement, measurable access impact and evidence you can use in your reporting. Your event appears in the app automatically when you book with PI.
@@ -183,7 +183,7 @@ export default function OrganisersPage() {
       </section>
 
 
-{/* ─── Why PI — image + text ───────────────────────── */}
+{/* ─── Why PI - image + text ───────────────────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -195,7 +195,7 @@ export default function OrganisersPage() {
                 The difference between a supplier and a consultancy
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Most agencies provide a name and a DBS check. They let you figure out positioning, lighting, rotation schedules and legal compliance on your own. We&rsquo;ve seen the results — interpreters placed where nobody can see them, no rotation plan for a twelve-hour festival and organisers exposed to legal risk they didn&rsquo;t know existed.
+                Most agencies provide a name and a DBS check. They let you figure out positioning, lighting, rotation schedules and legal compliance on your own. We&rsquo;ve seen the results - interpreters placed where nobody can see them, no rotation plan for a twelve-hour festival and organisers exposed to legal risk they didn&rsquo;t know existed.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-white/80">
                 PI operates as a consultancy. That&rsquo;s why Wembley, The O2, Download and the Premier League keep coming back.
@@ -204,11 +204,11 @@ export default function OrganisersPage() {
               <div className="mt-6 space-y-3">
                 <div className="flex items-start gap-3">
                   <Icon name="star" size={16} className="mt-0.5 shrink-0 text-pi-gold" />
-                  <p className="text-base text-white/70">Event-specialist interpreters — not generalists</p>
+                  <p className="text-base text-white/70">Event-specialist interpreters - not generalists</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="shield" size={16} className="mt-0.5 shrink-0 text-pi-gold" />
-                  <p className="text-base text-white/70">NRCPD-registered, every time — no exceptions</p>
+                  <p className="text-base text-white/70">NRCPD-registered, every time - no exceptions</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="zap" size={16} className="mt-0.5 shrink-0 text-pi-gold" />
@@ -216,7 +216,7 @@ export default function OrganisersPage() {
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="shield" size={16} className="mt-0.5 shrink-0 text-pi-gold" />
-                  <p className="text-base text-white/70">Legal compliance confidence — our testimony set the precedent</p>
+                  <p className="text-base text-white/70">Legal compliance confidence - our testimony set the precedent</p>
                 </div>
               </div>
             </div>

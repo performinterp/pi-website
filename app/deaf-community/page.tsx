@@ -11,7 +11,7 @@ import VideoFeedback from "@/components/video-feedback";
 import Icon from "@/components/icon";
 
 export const metadata: Metadata = {
-  title: "For the Deaf Community — Performance Interpreting",
+  title: "For the Deaf Community - Performance Interpreting",
   description:
     "Find BSL and ISL interpreted events across the UK and Ireland with the PI Events App. Communication cards, festival checklists, speech-to-text, and more.",
 };
@@ -39,7 +39,7 @@ const appFeatures = [
     icon: "shield",
     title: "Know your rights",
     description:
-      "The Equality Act 2010 says BSL access at live events is a legal right. The app explains how — in plain English.",
+      "The Equality Act 2010 says BSL access at live events is a legal right. The app explains how - in plain English.",
   },
 ];
 
@@ -52,7 +52,7 @@ const eventDayTools: {
   {
     icon: "users",
     title: "Communication cards",
-    description: "Show staff 'I am Deaf' or 'Where is the BSL interpreter?' — one tap, full screen.",
+    description: "Show staff 'I am Deaf' or 'Where is the BSL interpreter?' - one tap, full screen.",
   },
   {
     icon: "coffee",
@@ -107,7 +107,7 @@ export default function DeafCommunityPage() {
           </AnimateIn>
         </div>
 
-        {/* Feature grid — 4 cards */}
+        {/* Feature grid - 4 cards */}
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
           {appFeatures.map((feature, i) => (
             <AnimateIn key={feature.title} delay={i * 80}>
@@ -269,7 +269,7 @@ export default function DeafCommunityPage() {
         />
       </section>
 
-      {/* ─── Feedback — text + video recorder ────────────── */}
+      {/* ─── Feedback - text + video recorder ────────────── */}
       <section className="section-padding section-gap bg-pi-deep">
         <div className="grid items-start gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -281,7 +281,7 @@ export default function DeafCommunityPage() {
                 Your feedback shapes future events
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Share your experience — written or sign language video. Your feedback goes straight to us and helps hold venues to account.
+                Share your experience - written or sign language video. Your feedback goes straight to us and helps hold venues to account.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
@@ -311,7 +311,7 @@ export default function DeafCommunityPage() {
                 >
                   PI Events App
                 </a>
-                {" "}for the full experience — events, tools, and feedback all in one place.
+                {" "}for the full experience - events, tools, and feedback all in one place.
               </p>
             </div>
           </AnimateIn>
@@ -345,7 +345,7 @@ export default function DeafCommunityPage() {
                 Volunteer with Performance Interpreting
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Volunteering is a way to be part of something bigger — welcoming Deaf attendees, supporting interpreter teams on site, and being at the heart of live access. We welcome Deaf volunteers who are fluent in BSL, and hearing volunteers at BSL Level 6 or above.
+                Volunteering is a way to be part of something bigger - welcoming Deaf attendees, supporting interpreter teams on site, and being at the heart of live access. We welcome Deaf volunteers who are fluent in BSL, and hearing volunteers at BSL Level 6 or above.
               </p>
 
               <div className="mt-6 space-y-3">
@@ -364,7 +364,7 @@ export default function DeafCommunityPage() {
               </div>
 
               <p className="mt-6 text-sm italic text-white/60">
-                &ldquo;It&rsquo;s a community, not a commitment — I came to help, and left inspired.&rdquo;
+                &ldquo;It&rsquo;s a community, not a commitment - I came to help, and left inspired.&rdquo;
               </p>
 
               <a
@@ -392,7 +392,7 @@ export default function DeafCommunityPage() {
               Free on iOS and Android
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">
-              Events, tools, rights, feedback — all in one place.
+              Events, tools, rights, feedback - all in one place.
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>
@@ -403,7 +403,7 @@ export default function DeafCommunityPage() {
         </div>
       </section>
 
-{/* ContactCta removed — doesn't fit this page */}
+{/* ContactCta removed - doesn't fit this page */}
     </>
   );
 }

@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const enquiryTypes = [
-  { value: "organiser", label: "Event organiser — book interpreters" },
-  { value: "deaf-community", label: "Deaf community — request access" },
-  { value: "interpreter", label: "Interpreter — join the team" },
+  { value: "organiser", label: "Event organiser - book interpreters" },
+  { value: "deaf-community", label: "Deaf community - request access" },
+  { value: "interpreter", label: "Interpreter - join the team" },
   { value: "other", label: "Other enquiry" },
 ];
 

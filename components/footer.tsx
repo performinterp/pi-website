@@ -3,11 +3,20 @@ import Image from "next/image";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { getNavigation } from "@/lib/content";
 
+function TikTokIcon({ size = 15 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
+    </svg>
+  );
+}
+
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number }>> = {
   Facebook,
   Instagram,
   LinkedIn: Linkedin,
   X: Twitter,
+  TikTok: TikTokIcon,
 };
 
 export default function Footer() {
@@ -19,7 +28,7 @@ export default function Footer() {
       <div className="section-padding py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
-          {/* Column 1 — Brand */}
+          {/* Column 1 - Brand */}
           <div className="sm:col-span-2 lg:col-span-1 lg:pr-8">
             <p className="font-display text-lg font-semibold text-white leading-snug">
               Performance Interpreting
@@ -49,7 +58,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 — Navigate */}
+          {/* Column 2 - Navigate */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
               Navigate
@@ -68,7 +77,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 — PI Network */}
+          {/* Column 3 - PI Network */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
               PI Network
@@ -98,7 +107,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 — Accredited */}
+          {/* Column 4 - Accredited */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
               Accredited

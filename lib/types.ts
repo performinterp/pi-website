@@ -92,6 +92,7 @@ export interface PageContent {
     label?: string;
     body: string[];
     items?: { title: string; description: string; url?: string }[];
+    variant?: "achievements" | "press";
     ctaLabel?: string;
     ctaHref?: string;
     ctaExternal?: boolean;

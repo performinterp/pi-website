@@ -18,7 +18,7 @@ export default function Nav() {
         {/* Logo */}
         <Link
           href="/"
-          aria-label="Performance Interpreting — home"
+          aria-label="Performance Interpreting - home"
           className="relative z-10 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-2 focus:ring-offset-transparent rounded-sm"
         >
           <Image

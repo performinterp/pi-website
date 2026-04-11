@@ -6,7 +6,7 @@ import ContentSection from "@/components/content-section";
 const page = getPage("accessibility");
 
 export const metadata: Metadata = {
-  title: `${page.title} — Performance Interpreting`,
+  title: `${page.title} - Performance Interpreting`,
   description: page.metaDescription,
 };
 

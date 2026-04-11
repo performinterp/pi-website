@@ -7,7 +7,7 @@ import AnimateIn from "@/components/animate-in";
 import Icon from "@/components/icon";
 
 export const metadata: Metadata = {
-  title: "For Interpreters — Performance Interpreting",
+  title: "For Interpreters - Performance Interpreting",
   description:
     "Join Performance Interpreting as a BSL or ISL event interpreter. Work at festivals, arenas and Premier League clubs. Explore training and development at the PI Academy.",
 };
@@ -21,7 +21,7 @@ export default function InterpretersPage() {
         backgroundImage="/images/festival-crowd-wide.jpg"
       />
 
-      {/* ─── Working with PI — image + text ────────────── */}
+      {/* ─── Working with PI - image + text ────────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -44,17 +44,17 @@ export default function InterpretersPage() {
                 Live events interpreting is its own specialism
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Interpreting at a festival or a Premier League match is a different discipline from a boardroom or a medical setting. The vocabulary, the pace, the physical environment, the team dynamics — all of it demands skills you won&rsquo;t pick up in a standard RSLI/CSW pathway.
+                Interpreting at a festival or a Premier League match is a different discipline from a boardroom or a medical setting. The vocabulary, the pace, the physical environment, the team dynamics - all of it demands skills you won&rsquo;t pick up in a standard RSLI/CSW pathway.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-white/80">
-                Performance Interpreting has built a team of interpreters who thrive in this environment. If you&rsquo;re curious about live events work — or already doing it and want to work with a team that takes it seriously — we&rsquo;d like to hear from you.
+                Performance Interpreting has built a team of interpreters who thrive in this environment. If you&rsquo;re curious about live events work - or already doing it and want to work with a team that takes it seriously - we&rsquo;d like to hear from you.
               </p>
             </div>
           </AnimateIn>
         </div>
       </section>
 
-      {/* ─── What we look for — text + image ─────────────── */}
+      {/* ─── What we look for - text + image ─────────────── */}
       <section className="section-padding section-gap bg-pi-deep">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -132,7 +132,7 @@ export default function InterpretersPage() {
         />
       </section>
 
-      {/* ─── PI Academy — image + text with CTA ────────── */}
+      {/* ─── PI Academy - image + text with CTA ────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -155,7 +155,7 @@ export default function InterpretersPage() {
                 The PI Academy
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Performance Interpreting&rsquo;s dedicated training platform — built specifically for interpreters who want to specialise in live events. Structured courses, hands-on mentoring and ongoing CPD you won&rsquo;t find anywhere else.
+                Performance Interpreting&rsquo;s dedicated training platform - built specifically for interpreters who want to specialise in live events. Structured courses, hands-on mentoring and ongoing CPD you won&rsquo;t find anywhere else.
               </p>
 
               <div className="mt-6 space-y-3">
@@ -165,15 +165,15 @@ export default function InterpretersPage() {
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="users" size={16} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Team interpreting at scale — rotations, handovers, long events</p>
+                  <p className="text-base text-white/70">Team interpreting at scale - rotations, handovers, long events</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="settings" size={16} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Production coordination — sight-lines, lighting, stage comms</p>
+                  <p className="text-base text-white/70">Production coordination - sight-lines, lighting, stage comms</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="shield" size={16} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Legal and ethical framework — Equality Act, reasonable adjustments</p>
+                  <p className="text-base text-white/70">Legal and ethical framework - Equality Act, reasonable adjustments</p>
                 </div>
               </div>
 
@@ -200,7 +200,7 @@ export default function InterpretersPage() {
         />
       </section>
 
-      {/* ─── Volunteering — text + image ───────────────── */}
+      {/* ─── Volunteering - text + image ───────────────── */}
       <section className="section-padding section-gap bg-pi-deep">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -222,7 +222,7 @@ export default function InterpretersPage() {
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="check" size={18} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Help with set-up — banners, equipment, access areas</p>
+                  <p className="text-base text-white/70">Help with set-up - banners, equipment, access areas</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Icon name="check" size={18} className="mt-0.5 shrink-0 text-pi-accent" />
@@ -263,7 +263,7 @@ export default function InterpretersPage() {
         </div>
       </section>
 
-      {/* ─── Get in Touch — text + image ──────────────── */}
+      {/* ─── Get in Touch - text + image ──────────────── */}
       <section className="section-padding section-gap">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
@@ -289,14 +289,14 @@ export default function InterpretersPage() {
                 If you hold NRCPD registration and are interested in live events interpreting work, get in touch. Tell us about your experience, the types of events you&rsquo;ve worked at (or would like to) and any specialist vocabulary areas.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-white/80">
-                We&rsquo;re always building our pool of interpreters ahead of our busiest seasons — festival summer and the autumn arena circuit. The earlier you&rsquo;re in touch, the better.
+                We&rsquo;re always building our pool of interpreters ahead of our busiest seasons - festival summer and the autumn arena circuit. The earlier you&rsquo;re in touch, the better.
               </p>
             </div>
           </AnimateIn>
         </div>
       </section>
 
-{/* ContactCta removed — doesn't fit this page */}
+{/* ContactCta removed - doesn't fit this page */}
     </>
   );
 }

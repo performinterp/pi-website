@@ -26,7 +26,7 @@ export default function PageHero({ title, subtitle, backgroundImage }: PageHeroP
         </>
       )}
 
-      {/* Content — bottom-left aligned like homepage hero */}
+      {/* Content - bottom-left aligned like homepage hero */}
       <div className="relative z-10 w-full pb-12 pt-32 md:pb-16">
         <div className="max-w-3xl">
           <h1

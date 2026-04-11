@@ -8,7 +8,7 @@ import AnimateIn from "@/components/animate-in";
 const page = getPage("contact");
 
 export const metadata: Metadata = {
-  title: `${page.title} — Performance Interpreting`,
+  title: `${page.title} - Performance Interpreting`,
   description: page.metaDescription,
 };
 

@@ -11,7 +11,7 @@ interface LogoTickerProps {
 export default function LogoTicker({ clients }: LogoTickerProps) {
   const [paused, setPaused] = useState(false);
 
-  // Duplicate for seamless loop — animation moves -50% so the second copy
+  // Duplicate for seamless loop - animation moves -50% so the second copy
   // lines up perfectly when it wraps.
   const allClients = [...clients, ...clients];
 

@@ -20,7 +20,7 @@
       "items": [
         {
           "title": "Contact and identity data",
-          "description": "Name, email address, phone number and job title — collected when you contact us, submit an enquiry form, or engage us for services."
+          "description": "Name, email address, phone number and job title - collected when you contact us, submit an enquiry form, or engage us for services."
         },
         {
           "title": "Event and transaction data",
@@ -28,11 +28,11 @@
         },
         {
           "title": "Professional data (interpreters)",
-          "description": "NRCPD registration number, qualifications, professional experience and availability — collected when you apply to work with us."
+          "description": "NRCPD registration number, qualifications, professional experience and availability - collected when you apply to work with us."
         },
         {
           "title": "Usage data",
-          "description": "Technical data about how you use our website and app, including IP address, browser type, pages visited and device information — collected via cookies and analytics tools."
+          "description": "Technical data about how you use our website and app, including IP address, browser type, pages visited and device information - collected via cookies and analytics tools."
         },
         {
           "title": "Communications data",
@@ -86,9 +86,9 @@
       "heading": "Sharing your data",
       "body": [
         "We do not sell your personal data. We share it only where necessary:",
-        "With interpreters and production staff — where needed to deliver services you have engaged us for (e.g., sharing event details with the interpreter team).",
-        "With technology providers — cloud hosting, email, CRM and analytics tools used to operate our business, all bound by data processing agreements.",
-        "With legal and regulatory authorities — where required by law or to protect our legitimate interests.",
+        "With interpreters and production staff - where needed to deliver services you have engaged us for (e.g., sharing event details with the interpreter team).",
+        "With technology providers - cloud hosting, email, CRM and analytics tools used to operate our business, all bound by data processing agreements.",
+        "With legal and regulatory authorities - where required by law or to protect our legitimate interests.",
         "We do not transfer personal data outside the UK or EEA without appropriate safeguards."
       ]
     },

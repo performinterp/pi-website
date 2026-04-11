@@ -6,6 +6,7 @@ interface ContentSectionProps {
   heading?: string;
   body: string[];
   items?: { title: string; description: string; url?: string }[];
+  variant?: "achievements" | "press";
   ctaLabel?: string;
   ctaHref?: string;
   ctaExternal?: boolean;
@@ -16,6 +17,7 @@ export default function ContentSection({
   heading,
   body,
   items,
+  variant,
   ctaLabel,
   ctaHref,
   ctaExternal,
@@ -46,7 +48,53 @@ export default function ContentSection({
           </div>
         </AnimateIn>
 
-        {items && items.length > 0 && (
+        {items && items.length > 0 && variant === "achievements" && (
+          <AnimateIn delay={150}>
+            <div className="mt-8 grid gap-x-12 gap-y-6 md:grid-cols-2">
+              {items.map((item) => (
+                <div key={item.title} className="flex gap-3">
+                  <div className="mt-1 h-4 w-0.5 shrink-0 bg-pi-accent/50" />
+                  <div>
+                    <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-white/60">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
+        )}
+
+        {items && items.length > 0 && variant === "press" && (
+          <div className="mt-8 divide-y divide-white/[0.06]">
+            {items.map((item, i) => (
+              <AnimateIn key={item.title} delay={i * 60}>
+                {item.url ? (
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-start justify-between gap-6 py-5"
+                  >
+                    <div>
+                      <h3 className="text-sm font-semibold text-white transition-colors group-hover:text-pi-accent">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-white/60">{item.description}</p>
+                    </div>
+                    <span className="mt-0.5 shrink-0 text-pi-accent transition-transform group-hover:translate-x-0.5">→</span>
+                  </a>
+                ) : (
+                  <div className="py-5">
+                    <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-white/60">{item.description}</p>
+                  </div>
+                )}
+              </AnimateIn>
+            ))}
+          </div>
+        )}
+
+        {items && items.length > 0 && !variant && (
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {items.map((item, i) => (
               <AnimateIn key={item.title} delay={i * 80}>

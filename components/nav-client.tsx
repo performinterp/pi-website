@@ -48,7 +48,7 @@ export default function NavClient({ nav }: NavClientProps) {
         </Link>
       </nav>
 
-      {/* Hamburger button — visible only below md */}
+      {/* Hamburger button - visible only below md */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open menu"

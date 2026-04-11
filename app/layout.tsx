@@ -20,11 +20,11 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://performanceinterpreting.co.uk"),
-  title: "Performance Interpreting — BSL & ISL for Live Events",
+  title: "Performance Interpreting - BSL & ISL for Live Events",
   description:
     "The UK's award-winning BSL and ISL interpreting service. Connecting Deaf audiences to unforgettable live experiences at festivals, sport, arenas and entertainment.",
   openGraph: {
-    title: "Performance Interpreting — BSL & ISL for Live Events",
+    title: "Performance Interpreting - BSL & ISL for Live Events",
     description:
       "The UK's award-winning BSL and ISL interpreting service. Connecting Deaf audiences to unforgettable live experiences at festivals, sport, arenas and entertainment.",
     images: ["/og-image.jpg"],
@@ -186,7 +186,7 @@ export default function RootLayout({
                       "@type": "Service",
                       "@id": "https://performanceinterpreting.co.uk/#access-consultancy",
                       name: "Deaf Access Consultancy",
-                      description: "End-to-end Deaf access planning for live events — legal compliance advisory, access audits, interpreter team design, production coordination and on-site management.",
+                      description: "End-to-end Deaf access planning for live events - legal compliance advisory, access audits, interpreter team design, production coordination and on-site management.",
                       serviceType: "Accessibility Consulting",
                       provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
                       areaServed: [
@@ -206,7 +206,7 @@ export default function RootLayout({
                       "@type": "Service",
                       "@id": "https://performanceinterpreting.co.uk/#full-access-package",
                       name: "Full Deaf Access Package",
-                      description: "Complete access coordination including BSL & ISL interpreting, live captions and induction loop systems — tailored to your venue and audience.",
+                      description: "Complete access coordination including BSL & ISL interpreting, live captions and induction loop systems - tailored to your venue and audience.",
                       serviceType: "Accessibility Services",
                       provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
                       areaServed: [
@@ -225,7 +225,7 @@ export default function RootLayout({
                     itemOffered: {
                       "@type": "Service",
                       "@id": "https://performanceinterpreting.co.uk/#training",
-                      name: "PI Academy — Interpreter Training",
+                      name: "PI Academy - Interpreter Training",
                       description: "NRCPD-approved CPD courses, mentoring and professional development for sign language interpreters specialising in live events.",
                       serviceType: "Professional Training",
                       provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },

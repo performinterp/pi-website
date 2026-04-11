@@ -1,27 +1,90 @@
 {
   "mainNav": [
-    { "label": "About", "href": "/about" },
-    { "label": "Organisers", "href": "/organisers" },
-    { "label": "Deaf Community", "href": "/deaf-community" },
-    { "label": "Interpreters", "href": "/interpreters" }
+    {
+      "label": "About",
+      "href": "/about"
+    },
+    {
+      "label": "Organisers",
+      "href": "/organisers"
+    },
+    {
+      "label": "Deaf Community",
+      "href": "/deaf-community"
+    },
+    {
+      "label": "Interpreters",
+      "href": "/interpreters"
+    }
   ],
-  "ctaButton": { "label": "Get a Quote", "href": "/contact" },
+  "ctaButton": {
+    "label": "Get a Quote",
+    "href": "/contact"
+  },
   "footerNav": [
-    { "label": "About", "href": "/about" },
-    { "label": "Organisers", "href": "/organisers" },
-    { "label": "Deaf Community", "href": "/deaf-community" },
-    { "label": "Interpreters", "href": "/interpreters" }
+    {
+      "label": "About",
+      "href": "/about"
+    },
+    {
+      "label": "Organisers",
+      "href": "/organisers"
+    },
+    {
+      "label": "Deaf Community",
+      "href": "/deaf-community"
+    },
+    {
+      "label": "Interpreters",
+      "href": "/interpreters"
+    }
   ],
   "networkLinks": [
-    { "label": "Events App", "href": "https://app.performanceinterpreting.co.uk", "external": true },
-    { "label": "PI Academy", "href": "https://academy.performanceinterpreting.co.uk", "external": true },
-    { "label": "Book Courses", "href": "https://courses.performanceinterpreting.co.uk", "external": true },
-    { "label": "Contact", "href": "/contact" }
+    {
+      "label": "Events App",
+      "href": "https://app.performanceinterpreting.co.uk",
+      "external": true
+    },
+    {
+      "label": "PI Academy",
+      "href": "https://academy.performanceinterpreting.co.uk",
+      "external": true
+    },
+    {
+      "label": "Book Courses",
+      "href": "https://courses.performanceinterpreting.co.uk",
+      "external": true
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
   ],
   "socialLinks": [
-    { "platform": "Facebook", "url": "https://www.facebook.com/performanceinterpreting", "label": "Performance Interpreting on Facebook" },
-    { "platform": "Instagram", "url": "https://instagram.com/performanceinterpreting", "label": "Performance Interpreting on Instagram" },
-    { "platform": "LinkedIn", "url": "https://uk.linkedin.com/company/performance-interpreting", "label": "Performance Interpreting on LinkedIn" },
-    { "platform": "X", "url": "https://x.com/performinterp", "label": "Performance Interpreting on X" }
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/performanceinterpreting",
+      "label": "Performance Interpreting on Facebook"
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://instagram.com/performanceinterpreting",
+      "label": "Performance Interpreting on Instagram"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://uk.linkedin.com/company/performance-interpreting",
+      "label": "Performance Interpreting on LinkedIn"
+    },
+    {
+      "platform": "X",
+      "url": "https://x.com/performinterp",
+      "label": "Performance Interpreting on X"
+    },
+    {
+      "platform": "TikTok",
+      "url": "https://www.tiktok.com/@performanceinterpreting",
+      "label": "Performance Interpreting on TikTok"
+    }
   ]
 }
