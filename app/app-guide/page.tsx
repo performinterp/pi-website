@@ -79,6 +79,7 @@ export default function AppGuidePage() {
         title="The PI Events App"
         subtitle="A dedicated toolkit for Deaf audiences at live events. Free on iOS and Android."
         backgroundImage="/images/deaf-app-user.png"
+        imagePosition="center 30%"
       />
 
       {/* ─── Intro ────────────────────────────────────────── */}

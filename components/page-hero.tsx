@@ -4,9 +4,10 @@ interface PageHeroProps {
   title: string;
   subtitle?: string;
   backgroundImage?: string;
+  imagePosition?: string;
 }
 
-export default function PageHero({ title, subtitle, backgroundImage }: PageHeroProps) {
+export default function PageHero({ title, subtitle, backgroundImage, imagePosition }: PageHeroProps) {
   return (
     <section className="relative flex min-h-[50vh] items-end section-padding">
       {/* Background gradient fallback */}
@@ -21,6 +22,7 @@ export default function PageHero({ title, subtitle, backgroundImage }: PageHeroP
             fill
             priority
             className="object-cover"
+            style={imagePosition ? { objectPosition: imagePosition } : undefined}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-pi-navy from-5% via-pi-navy/70 via-40% to-pi-deep/40" />
         </>
