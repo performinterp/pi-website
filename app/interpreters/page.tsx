@@ -296,6 +296,39 @@ export default function InterpretersPage() {
         </div>
       </section>
 
+      {/* ─── PI Uniform ─────────────────────────────────── */}
+      <section className="section-padding section-gap bg-pi-deep">
+        <div className="mx-auto max-w-4xl">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01]">
+            <div className="flex flex-col items-center gap-8 p-8 text-center md:flex-row md:text-left md:p-12 md:gap-12">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-pi-accent/10">
+                <Icon name="shirt" size={36} className="text-pi-accent" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+                  Team kit
+                </p>
+                <h2 className="mt-2 font-display text-2xl text-white md:text-3xl">
+                  Order your PI uniform
+                </h2>
+                <p className="mt-3 text-base leading-relaxed text-white/70">
+                  Branded PI interpreter gear - order direct from our kit portal. Polo shirts, t-shirts and accessories with the PI logo. Delivered to your door.
+                </p>
+              </div>
+              <a
+                href="http://performanceinterpreting.deco-apparel.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center gap-2 rounded-full bg-pi-accent px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all duration-200 hover:brightness-110 hover:shadow-pi-accent/40"
+              >
+                Order kit
+                <Icon name="arrow-right" size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
 {/* ContactCta removed - doesn't fit this page */}
     </>
   );

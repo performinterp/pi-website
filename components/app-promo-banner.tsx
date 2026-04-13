@@ -1,14 +1,21 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
+const HIDE_ON = ["/deaf-community", "/app-guide"];
+
 export default function AppPromoBanner() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const hidden = HIDE_ON.some((p) => pathname.startsWith(p));
+
   useEffect(() => {
+    if (hidden) return;
     if (sessionStorage.getItem("app-promo-dismissed")) {
       setDismissed(true);
       return;
@@ -23,7 +30,7 @@ export default function AppPromoBanner() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [hidden]);
 
   useEffect(() => {
     if (open && videoRef.current) {
@@ -37,7 +44,7 @@ export default function AppPromoBanner() {
     sessionStorage.setItem("app-promo-dismissed", "1");
   }
 
-  if (dismissed) return null;
+  if (dismissed || hidden) return null;
 
   return (
     <>
@@ -77,7 +84,7 @@ export default function AppPromoBanner() {
           <div className="aspect-[1700/1004] w-full bg-black">
             <video
               ref={videoRef}
-              src="/videos/app-guide/request.mp4"
+              src="/videos/app-guide/order.mp4"
               muted
               loop
               playsInline
@@ -89,13 +96,13 @@ export default function AppPromoBanner() {
           {/* Content */}
           <div className="px-6 py-6 text-center sm:px-8 sm:py-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              Only with PI
+              The PI Events App
             </p>
             <h2 className="mt-2 font-display text-2xl text-white sm:text-3xl">
-              Your Deaf audience has a dedicated app
+              See the app in action
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">
-              Request access, find events, order food, know your rights - all in one free app. Watch every feature in action.
+              Find events, order at the bar, know your rights - a free toolkit for Deaf audiences at live events.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link
