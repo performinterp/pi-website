@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
-import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import AppStoreButtons from "@/components/app-store-buttons";
 import AppScreenshotCarousel from "@/components/app-screenshot-carousel";
-import TestimonialQuote from "@/components/testimonial-quote";
+import ReviewCarousel from "@/components/review-carousel";
 import VideoFeedback from "@/components/video-feedback";
 import Icon from "@/components/icon";
 
@@ -16,69 +15,60 @@ export const metadata: Metadata = {
     "Find BSL and ISL interpreted events across the UK and Ireland with the PI Events App. Communication cards, festival checklists, speech-to-text, and more.",
 };
 
-const appFeatures = [
+const reviews = [
   {
-    icon: "calendar",
-    title: "Find events",
-    description:
-      "Search BSL and ISL interpreted events by date, location or type. Push notifications for new events near you.",
+    quote:
+      "Interpreters are nearer the main stage this year. I was pleased so I can stand watch the interpreters AND the performances.",
+    name: "Sarah Jones",
+    context: "BST Hyde Park attendee",
+    rating: 5,
   },
   {
-    icon: "check",
-    title: "Check interpreting status",
-    description:
-      "Enter any event name to check if sign language interpreting is confirmed. No more calling venues.",
+    quote:
+      "Absolutely amazing people. Wish they were at every gig. Really got everyone in the mood.",
+    name: "John Williams",
+    context: "Concert attendee",
+    rating: 5,
   },
   {
-    icon: "hand-metal",
-    title: "Request access",
-    description:
-      "Want an interpreter at an event that doesn't have it? Submit a request and we'll contact the organiser.",
+    quote:
+      "Great communication, great help, great organisation. Booked again for Coldplay at Wembley. More people using this service more awareness this will be!",
+    name: "Karen Rutter",
+    context: "Concert attendee, Liverpool M&S Arena",
   },
   {
-    icon: "shield",
-    title: "Know your rights",
-    description:
-      "The Equality Act 2010 says BSL access at live events is a legal right. The app explains how - in plain English.",
+    quote:
+      "We couldn\u2019t be more grateful to Performance Interpreting for their incredible work. Their amazing team of BSL interpreters brought energy, passion, and accessibility to every performance.",
+    name: "Adam",
+    context: "Event Organiser, Croydon PrideFest",
+    rating: 5,
   },
 ];
 
-const eventDayTools: {
-  icon: string;
-  title: string;
-  description: string;
-  comingSoon?: boolean;
-}[] = [
+const eventTypes = [
   {
-    icon: "users",
-    title: "Communication cards",
-    description: "Show staff 'I am Deaf' or 'Where is the BSL interpreter?' - one tap, full screen.",
+    title: "Concerts",
+    image: "/images/concert.jpg",
+    description:
+      "Interpreters on a raised platform near the stage. Reserved viewing area with clear sight lines.",
   },
   {
-    icon: "coffee",
-    title: "Food & drink orders",
-    description: "Build your order and show it as text. No shouting at the bar.",
+    title: "Festivals",
+    image: "/images/festival-paul.png",
+    description:
+      "Interpreters across multiple stages all day. Dedicated viewing platforms with their own lighting.",
   },
   {
-    icon: "zap",
-    title: "Emergency info",
-    description: "Pre-filled safety templates. Large text, high contrast, always ready.",
+    title: "Sport",
+    image: "/images/football-stadium.jpg",
+    description:
+      "PA announcements, crowd atmosphere and key moments - all interpreted. Accessible seating with a clear view.",
   },
   {
-    icon: "music",
-    title: "Feel the Music",
-    description: "Live sound converted to vibrations on your phone. Feel the bass and the beat.",
-    comingSoon: true,
-  },
-  {
-    icon: "settings",
-    title: "Speech-to-text",
-    description: "Real-time transcription of what people say around you. Tap to start.",
-  },
-  {
-    icon: "clipboard-check",
-    title: "Festival checklist",
-    description: "What to bring, how to prepare, tips for Deaf attendees at outdoor events.",
+    title: "Comedy",
+    image: "/images/theatre-interpreting.jpg",
+    description:
+      "Interpreters match the timing, tone and punchlines. Every joke lands the way it was meant to.",
   },
 ];
 
@@ -88,55 +78,28 @@ export default function DeafCommunityPage() {
       <PageHero
         title="For the Deaf Community"
         subtitle="Find interpreted events. Get support at the venue. Never miss out."
-        backgroundImage="/images/festival-wide.jpg"
+        backgroundImage="/images/deaf-app-user.png"
       />
 
-      {/* ─── App intro ──────────────────────────────────── */}
-      <section className="section-padding section-gap">
-        <div className="mx-auto max-w-4xl text-center">
-          <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              The PI Events App
-            </p>
-            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
-              Your toolkit for live events
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/80">
-              Free on iOS, Android and web. Find interpreted events, get support on the day, share feedback after.
-            </p>
-          </AnimateIn>
-        </div>
+      {/* ─── The PI Events App — carousel first ──────────── */}
+      <section className="section-padding relative overflow-hidden pt-8 pb-16 md:pt-12 md:pb-20">
 
-        {/* Feature grid - 4 cards */}
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
-          {appFeatures.map((feature, i) => (
-            <AnimateIn key={feature.title} delay={i * 80}>
-              <div className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-pi-accent/10">
-                  <Icon name={feature.icon} size={22} className="text-pi-accent" />
-                </div>
-                <div>
-                  <h3 className="font-display text-lg text-white">{feature.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-white/70">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
-      </section>
-
-      {/* ─── App screenshots carousel ──────────────────── */}
-      <section className="section-padding section-gap bg-pi-deep">
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              See it in action
+              The PI Events App
             </p>
-            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
+            <div className="btn-shimmer mx-auto mt-1 mb-4 inline-flex items-center rounded-full bg-gradient-to-r from-pi-gold via-yellow-300 to-pi-gold px-6 py-2 shadow-xl shadow-pi-gold/20">
+              <span className="text-base font-black uppercase tracking-[0.25em] text-pi-navy md:text-lg">
+                100% Free
+              </span>
+            </div>
+            <h2 className="font-display text-3xl text-white md:text-4xl">
               Everything you need, in your pocket
             </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/70">
+              Coming soon to iOS and Android.
+            </p>
           </div>
         </AnimateIn>
         <AnimateIn delay={150}>
@@ -144,186 +107,85 @@ export default function DeafCommunityPage() {
             <AppScreenshotCarousel />
           </div>
         </AnimateIn>
+        <AnimateIn delay={220}>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/app-guide"
+              className="btn-shimmer group inline-flex items-center gap-3 rounded-full bg-pi-accent px-8 py-4 text-base font-bold text-white shadow-lg shadow-pi-accent/30 transition-all duration-200 hover:brightness-110 hover:shadow-xl hover:shadow-pi-accent/40 hover:scale-[1.03]"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              Watch every feature in action
+              <Icon name="arrow-right" size={18} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </AnimateIn>
       </section>
 
-      {/* ─── Attendee quote ────────────────────────────── */}
-      <section className="section-padding pb-0">
-        <TestimonialQuote
-          quote="Interpreters are nearer the main stage this year. I was pleased so I can stand watch the interpreters AND the performances."
-          name="Sarah Jones"
-          context="BST Hyde Park attendee"
-        />
-      </section>
-
-      {/* ─── On the day ─────────────────────────────────── */}
+      {/* ─── Reviews — rotating ──────────────────────────── */}
       <section className="section-padding section-gap bg-pi-deep">
-        <div className="mx-auto max-w-4xl text-center">
-          <AnimateIn>
+        <AnimateIn>
+          <div className="mx-auto mb-10 max-w-4xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              At the event
+              From the community
             </p>
-            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
-              Tools you can use on the day
-            </h2>
-          </AnimateIn>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {eventDayTools.map((tool, i) => (
-            <AnimateIn key={tool.title} delay={i * 60}>
-              <div className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-center">
-                {tool.comingSoon && (
-                  <span className="absolute -right-2 -top-2 rounded-full bg-pi-gold px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-pi-navy shadow-lg">
-                    Coming soon
-                  </span>
-                )}
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-pi-accent/10">
-                  <Icon name={tool.icon} size={22} className="text-pi-accent" />
-                </div>
-                <h3 className="mt-4 font-display text-lg text-white">{tool.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">
-                  {tool.description}
-                </p>
-              </div>
-            </AnimateIn>
-          ))}
-        </div>
+          </div>
+        </AnimateIn>
+        <AnimateIn delay={100}>
+          <ReviewCarousel reviews={reviews} />
+        </AnimateIn>
       </section>
 
-      {/* ─── What it looks like ────────────────────────── */}
+      {/* ─── What interpreted events look like — visual ──── */}
       <section className="section-padding section-gap">
-        <div className="mx-auto max-w-4xl text-center">
-          <AnimateIn>
+        <AnimateIn>
+          <div className="mx-auto max-w-4xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
               What to expect
             </p>
             <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
               What interpreted events look like
             </h2>
-          </AnimateIn>
+          </div>
+        </AnimateIn>
+
+        <div className="mx-auto mt-12 grid max-w-6xl gap-6 md:grid-cols-2">
+          {eventTypes.map((event, i) => (
+            <AnimateIn key={event.title} delay={i * 100}>
+              <div className="group relative overflow-hidden rounded-2xl">
+                <div className="relative aspect-[16/10]">
+                  <Image
+                    src={event.image}
+                    alt={`BSL interpreter at a ${event.title.toLowerCase()} event`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-pi-navy via-pi-navy/50 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <h3 className="font-display text-2xl text-white">
+                      {event.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      {event.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AnimateIn>
+          ))}
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
-          <AnimateIn delay={0}>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pi-accent/10">
-                <Icon name="music" size={22} className="text-pi-accent" />
-              </div>
-              <h3 className="mt-4 font-display text-xl text-white">Concerts</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                The interpreter is positioned on a raised platform near the stage
-                with dedicated lighting. For longer shows, a team rotates to
-                maintain quality. You'll typically be in a reserved viewing area
-                with clear sight lines to both the interpreter and the
-                performer.
-              </p>
-            </div>
-          </AnimateIn>
-
-          <AnimateIn delay={80}>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pi-accent/10">
-                <Icon name="star" size={22} className="text-pi-accent" />
-              </div>
-              <h3 className="mt-4 font-display text-xl text-white">Festivals</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                Interpreters work across multiple stages throughout the day. A
-                dedicated viewing platform is set up at each interpreted stage
-                with its own lighting rig. The team coordinates with production
-                so you know exactly where to go for each act.
-              </p>
-            </div>
-          </AnimateIn>
-
-          <AnimateIn delay={160}>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pi-accent/10">
-                <Icon name="heart" size={22} className="text-pi-accent" />
-              </div>
-              <h3 className="mt-4 font-display text-xl text-white">Sport</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                At Premier League and international matches, interpreters cover
-                the PA announcements, crowd atmosphere, commentary highlights
-                and key moments. You'll be seated in a designated accessible
-                area with a clear view of the interpreter and the pitch.
-              </p>
-            </div>
-          </AnimateIn>
-        </div>
-
-        <AnimateIn delay={200}>
+        <AnimateIn delay={400}>
           <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-white/60">
-            If you have specific seating requirements or questions about a
-            particular event, contact us in advance and we'll do everything we
-            can to help.
+            Specific seating requirements? Contact us in advance and
+            we&rsquo;ll do everything we can to help.
           </p>
         </AnimateIn>
       </section>
 
-      {/* ─── Repeat booker quote ───────────────────────── */}
-      <section className="section-padding pb-0">
-        <TestimonialQuote
-          quote="Great communication, great help, great organisation. Booked again for Coldplay at Wembley. More people using this service more awareness this will be!"
-          name="Karen Rutter"
-          context="Concert attendee, Liverpool M&S Arena"
-        />
-      </section>
-
-      {/* ─── Feedback - text + video recorder ────────────── */}
-      <section className="section-padding section-gap bg-pi-deep">
-        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-16">
-          <AnimateIn>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-                After the event
-              </p>
-              <h2 className="mt-3 font-display text-2xl leading-snug text-white md:text-3xl">
-                Your feedback shapes future events
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Share your experience - written or sign language video. Your feedback goes straight to us and helps hold venues to account.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href="https://tally.so/r/Y5Dd20"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10"
-                >
-                  <Icon name="mail" size={16} />
-                  Written feedback
-                </a>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10"
-                >
-                  <Icon name="clipboard-check" size={16} />
-                  Photo &amp; video consent
-                </Link>
-              </div>
-              <p className="mt-6 text-sm text-white/60">
-                Or use the{" "}
-                <a
-                  href="https://app.performanceinterpreting.co.uk"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-pi-accent transition-colors hover:text-white"
-                >
-                  PI Events App
-                </a>
-                {" "}for the full experience - events, tools, and feedback all in one place.
-              </p>
-            </div>
-          </AnimateIn>
-
-          <AnimateIn delay={150}>
-            <VideoFeedback />
-          </AnimateIn>
-        </div>
-      </section>
-
       {/* ─── Volunteering ─────────────────────────────────── */}
-      <section className="section-padding section-gap">
+      <section className="section-padding section-gap bg-pi-deep">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
@@ -345,27 +207,43 @@ export default function DeafCommunityPage() {
                 Volunteer with Performance Interpreting
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/80">
-                Volunteering is a way to be part of something bigger - welcoming Deaf attendees, supporting interpreter teams on site, and being at the heart of live access. We welcome Deaf volunteers who are fluent in BSL, and hearing volunteers at BSL Level 6 or above.
+                Welcome Deaf attendees, support interpreter teams on site, be at
+                the heart of live access. We welcome Deaf volunteers fluent in
+                BSL, and hearing volunteers at BSL Level 6 or above.
               </p>
 
               <div className="mt-6 space-y-3">
                 <div className="flex items-start gap-3">
-                  <Icon name="heart" size={18} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Free entry to events and festivals</p>
+                  <Icon
+                    name="heart"
+                    size={18}
+                    className="mt-0.5 shrink-0 text-pi-accent"
+                  />
+                  <p className="text-base text-white/70">
+                    Free entry to events and festivals
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Icon name="users" size={18} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Meet the community and make connections</p>
+                  <Icon
+                    name="users"
+                    size={18}
+                    className="mt-0.5 shrink-0 text-pi-accent"
+                  />
+                  <p className="text-base text-white/70">
+                    Meet the community and make connections
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Icon name="star" size={18} className="mt-0.5 shrink-0 text-pi-accent" />
-                  <p className="text-base text-white/70">Experience live-access environments first-hand</p>
+                  <Icon
+                    name="star"
+                    size={18}
+                    className="mt-0.5 shrink-0 text-pi-accent"
+                  />
+                  <p className="text-base text-white/70">
+                    Experience live-access environments first-hand
+                  </p>
                 </div>
               </div>
-
-              <p className="mt-6 text-sm italic text-white/60">
-                &ldquo;It&rsquo;s a community, not a commitment - I came to help, and left inspired.&rdquo;
-              </p>
 
               <a
                 href="https://tally.so/r/wvQ0Kl"
@@ -379,6 +257,73 @@ export default function DeafCommunityPage() {
             </div>
           </AnimateIn>
         </div>
+      </section>
+
+      {/* ─── Feedback — Tally embed + video recorder ────── */}
+      <section className="section-padding section-gap">
+        <AnimateIn>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+              After the event
+            </p>
+            <h2 className="mt-3 font-display text-2xl leading-snug text-white md:text-3xl">
+              Your feedback shapes future events
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-white/70">
+              Share your experience - written or sign language video. Your
+              feedback goes straight to us and helps hold venues to account.
+            </p>
+          </div>
+        </AnimateIn>
+
+        <div className="mx-auto mt-10 grid max-w-5xl items-stretch gap-8 md:grid-cols-2 md:gap-10">
+          {/* Tally embed */}
+          <AnimateIn>
+            <div className="h-full overflow-hidden rounded-2xl border border-white/10 bg-white">
+              <iframe
+                src="https://tally.so/embed/Y5Dd20?alignLeft=1&hideTitle=1&transparentBackground=1"
+                title="Event feedback form"
+                width="100%"
+                height="100%"
+                style={{ minHeight: 360 }}
+                className="border-0"
+                loading="lazy"
+              />
+            </div>
+          </AnimateIn>
+
+          {/* Video feedback */}
+          <AnimateIn delay={150}>
+            <div className="flex h-full flex-col">
+              <VideoFeedback />
+            </div>
+          </AnimateIn>
+        </div>
+
+        {/* Photo & video consent — separate container */}
+        <AnimateIn delay={200}>
+          <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-6 text-center">
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+              <div className="text-left sm:text-center">
+                <p className="text-sm font-semibold text-white">
+                  Happy to appear in event photos or videos?
+                </p>
+                <p className="mt-1 text-xs text-white/50">
+                  Entirely optional. You can withdraw consent at any time.
+                </p>
+              </div>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeUKd3cA2qrMl3mbri1ASi0l4CAKci7THRdG6lVxdGShoGC7g/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10"
+              >
+                <Icon name="clipboard-check" size={16} />
+                Photo &amp; video consent
+              </a>
+            </div>
+          </div>
+        </AnimateIn>
       </section>
 
       {/* ─── Download ───────────────────────────────────── */}
@@ -402,8 +347,6 @@ export default function DeafCommunityPage() {
           </AnimateIn>
         </div>
       </section>
-
-{/* ContactCta removed - doesn't fit this page */}
     </>
   );
 }

@@ -1,20 +1,20 @@
 {
   "mainNav": [
     {
-      "label": "About",
-      "href": "/about"
+      "label": "Deaf Community",
+      "href": "/deaf-community"
     },
     {
       "label": "Organisers",
       "href": "/organisers"
     },
     {
-      "label": "Deaf Community",
-      "href": "/deaf-community"
-    },
-    {
       "label": "Interpreters",
       "href": "/interpreters"
+    },
+    {
+      "label": "About",
+      "href": "/about"
     }
   ],
   "ctaButton": {
@@ -42,8 +42,7 @@
   "networkLinks": [
     {
       "label": "Events App",
-      "href": "https://pi-events-guide.vercel.app",
-      "external": true
+      "href": "/app-guide"
     },
     {
       "label": "PI Academy",

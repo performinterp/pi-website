@@ -177,6 +177,14 @@ export default function OrganisersPage() {
                   <p className="text-base text-white/70">Post-event feedback direct from attendees</p>
                 </div>
               </div>
+
+              <Link
+                href="/app-guide"
+                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors hover:text-white"
+              >
+                Watch the full app tour
+                <Icon name="arrow-right" size={16} />
+              </Link>
             </div>
           </AnimateIn>
         </div>

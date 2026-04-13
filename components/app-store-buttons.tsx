@@ -1,15 +1,11 @@
-import Link from "next/link";
-
 interface AppStoreButtonsProps {
   iosUrl?: string;
   androidUrl?: string;
-  webUrl?: string;
 }
 
 export default function AppStoreButtons({
   iosUrl = "#",
   androidUrl = "#",
-  webUrl = "https://app.performanceinterpreting.co.uk",
 }: AppStoreButtonsProps) {
   return (
     <div className="flex flex-wrap items-center gap-4">
@@ -44,14 +40,6 @@ export default function AppStoreButtons({
           <p className="text-base font-semibold leading-tight text-white">Google Play</p>
         </div>
       </a>
-
-      {/* Web app fallback */}
-      <Link
-        href={webUrl}
-        className="inline-flex items-center gap-2 rounded-xl border border-pi-accent/30 bg-pi-accent/10 px-5 py-3.5 text-sm font-semibold text-pi-accent transition-all duration-200 hover:border-pi-accent/50 hover:bg-pi-accent/20"
-      >
-        Open in browser
-      </Link>
     </div>
   );
 }

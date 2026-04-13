@@ -8,10 +8,10 @@ export default function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-30 w-full">
-      {/* Gradient fade so text below is readable over the hero */}
+      {/* Persistent dark backdrop for text legibility on all scroll positions */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-pi-navy/95 via-pi-navy/80 to-pi-navy/0 md:h-32"
       />
 
       <div className="section-padding relative flex h-16 items-center justify-between md:h-20">
