@@ -78,7 +78,7 @@ export default function DeafCommunityPage() {
       <PageHero
         title="For the Deaf Community"
         subtitle="Find interpreted events. Get support at the venue. Never miss out."
-        backgroundImage="/images/deaf-app-user.png"
+        backgroundImage="/images/festival-wide.jpg"
       />
 
       {/* ─── The PI Events App — carousel first ──────────── */}
