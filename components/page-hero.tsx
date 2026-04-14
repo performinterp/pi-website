@@ -5,11 +5,12 @@ interface PageHeroProps {
   subtitle?: string;
   backgroundImage?: string;
   imagePosition?: string;
+  tall?: boolean;
 }
 
-export default function PageHero({ title, subtitle, backgroundImage, imagePosition }: PageHeroProps) {
+export default function PageHero({ title, subtitle, backgroundImage, imagePosition, tall }: PageHeroProps) {
   return (
-    <section className="relative flex min-h-[50vh] items-end section-padding">
+    <section className={`relative flex items-end section-padding ${tall ? "min-h-[70vh]" : "min-h-[50vh]"}`}>
       {/* Background gradient fallback */}
       <div className="absolute inset-0 bg-gradient-to-br from-pi-deep to-pi-navy" />
 
