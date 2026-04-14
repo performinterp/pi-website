@@ -26,6 +26,9 @@ export default function AboutPage() {
           heading={section.heading}
           body={section.body}
           items={section.items}
+          stats={section.stats}
+          image={section.image}
+          imageAlt={section.imageAlt}
           variant={section.variant}
         />
       ))}

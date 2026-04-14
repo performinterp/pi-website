@@ -1,62 +1,45 @@
 {
   "title": "About Performance Interpreting",
-  "subtitle": "Built from the community up - by someone who understood the need first-hand.",
+  "subtitle": "Founded by Marie Pascall, born with unilateral deafness - built from the community up.",
   "heroImage": "/images/festival-wide.jpg",
-  "metaDescription": "Performance Interpreting was founded by someone who is hard of hearing - to ensure Deaf audiences have equal access to live events across the UK and Ireland.",
+  "metaDescription": "Performance Interpreting was founded by Marie Pascall, who was born with unilateral deafness, to ensure Deaf audiences have equal access to live events across the UK and Ireland.",
   "sections": [
     {
       "label": "Our Story",
       "heading": "Access that comes from lived experience",
       "body": [
-        "Performance Interpreting was founded by someone who is hard of hearing. That personal connection isn't a footnote - it's the foundation. PI didn't start because someone spotted a gap in the market. It started because Deaf audiences were being left out of some of the best live experiences in the country and that was unacceptable.",
-        "From the very first event, PI has been shaped by genuine understanding - what it feels like to sit in a venue and not be able to follow what's happening on stage. That understanding drives every decision about how our interpreters are briefed, positioned and supported on the day."
-      ]
+        "Performance Interpreting was founded by Marie Pascall, who was born with unilateral deafness. That personal connection is not a footnote, it is the foundation. PI did not start because Marie spotted a gap in the market. It started because Deaf audiences were being locked out of some of the best live experiences in the country, and that was unacceptable.",
+        "From the very first event, the question was simple: what does genuine access actually feel like from the audience side? That is the lens every decision passes through - how interpreters are briefed, where they stand on stage, how the day runs, how we protect the experience when things go wrong. It was not a process borrowed from somewhere else. It was built from the inside out.",
+        "A turning point came with the landmark Little Mix BSL case. PI was asked to give evidence, and that testimony helped establish in UK law that BSL access at live events is a legal requirement, not a courtesy. It changed how the whole industry thinks about Deaf inclusion, and it was a direct result of more than a decade of doing the work properly, long before any ruling forced anyone else to.",
+        "Since then, Performance Interpreting has been inducted into Signature's Hall of Fame - the highest recognition in the BSL interpreting industry - and has been trusted to manage full Deaf access at Royal events and state ceremonies. Wembley Stadium committed to BSL interpreting at every concert through a partnership with PI, making proactive access the standard at the national stadium."
+      ],
+      "image": "/images/festival-signing.jpg",
+      "imageAlt": "A Performance Interpreting interpreter signing mid-performance at a festival, crowd and main stage behind"
     },
     {
-      "label": "Recognition",
-      "heading": "Industry recognition and legal milestones",
+      "label": "Our Scale",
+      "heading": "A decade of Deaf access at every major stage",
       "body": [
-        "Performance Interpreting was inducted into Signature's Hall of Fame - the highest recognition in the BSL interpreting industry - in acknowledgement of outstanding contribution to interpreting services and Deaf access.",
-        "PI's work has shaped the legal landscape too. Our testimony in the landmark Little Mix BSL case helped establish that BSL access at live events is a legal requirement, not a courtesy. That ruling changed how the entire industry thinks about Deaf inclusion."
+        "Over more than a decade, PI has delivered BSL and ISL interpreting across the UK and Ireland for clients including Arsenal, The O2, Wembley Stadium, Royal Albert Hall, Live Nation, Festival Republic, BBC, UEFA and NFL. Our interpreters have worked Download, BST Hyde Park, Reading, Leeds, Creamfields, Latitude and across the full Live Nation and Festival Republic portfolios."
       ],
-      "items": [
-        {
-          "title": "Signature Hall of Fame",
-          "description": "Inducted for excellence and outstanding contribution to BSL interpreting services."
-        },
-        {
-          "title": "Little Mix BSL Legal Case",
-          "description": "PI's testimony helped establish BSL access at live events as a legal right under UK equality law."
-        },
-        {
-          "title": "Royal Events & State Ceremonies",
-          "description": "Selected to manage full Deaf access - BSL, captions, looping systems - for Royal events and state ceremonies."
-        },
-        {
-          "title": "Wembley Stadium Partnership",
-          "description": "Wembley committed to BSL interpreting at every concert - a PI partnership that made proactive access the standard at the national stadium."
-        }
-      ],
-      "variant": "achievements"
+      "variant": "stats",
+      "stats": [
+        { "number": "500+", "label": "Events delivered" },
+        { "number": "27+", "label": "Major festivals" },
+        { "number": "6", "label": "Premier League clubs" },
+        { "number": "10+", "label": "National arenas" }
+      ]
     },
     {
       "label": "Accreditation",
       "heading": "Professional standards, rigorously maintained",
       "body": [
-        "All Performance Interpreting interpreters hold NRCPD registration - the UK's national register for communication professionals working with Deaf and deafblind people. This is the professional standard that organisations like the NHS, courts and government bodies require.",
-        "We don't just check registration at onboarding. We maintain active oversight of interpreter qualifications, ongoing professional development and conduct - because your event and your audiences, deserve that assurance."
+        "Every PI interpreter holds NRCPD registration - the UK's national register for communication professionals working with Deaf and deafblind people. It is the standard the NHS, courts and government require, and it is non-negotiable here.",
+        "Registration alone is not enough, though. We maintain active oversight of qualifications, ongoing professional development and conduct, because your event and your audiences deserve more than a box-tick."
       ]
     },
     {
-      "label": "Our Scale",
-      "heading": "500+ events. Every major stage.",
-      "body": [
-        "Over more than a decade, Performance Interpreting has delivered BSL and ISL interpreting at over 500 events across the UK and Ireland. That includes 27+ major festivals, six Premier League clubs and more than ten national arenas.",
-        "Our clients include Arsenal, The O2, Wembley Stadium, Royal Albert Hall, Live Nation, Festival Republic, BBC, UEFA, NFL and many more. We have worked at Download, BST Hyde Park, Reading, Leeds, Creamfields, Latitude and across the full Live Nation and Festival Republic portfolios."
-      ]
-    },
-    {
-      "label": "In the Press",
+      "label": "In the press",
       "heading": "Featured coverage",
       "body": [
         "Our work has been covered by national media and recognised by some of the biggest names in sport and entertainment."

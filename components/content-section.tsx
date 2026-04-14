@@ -1,3 +1,4 @@
+import Image from "next/image";
 import AnimateIn from "./animate-in";
 import Icon from "./icon";
 
@@ -6,7 +7,10 @@ interface ContentSectionProps {
   heading?: string;
   body: string[];
   items?: { title: string; description: string; url?: string }[];
-  variant?: "achievements" | "press";
+  stats?: { number: string; label: string }[];
+  image?: string;
+  imageAlt?: string;
+  variant?: "achievements" | "press" | "stats";
   ctaLabel?: string;
   ctaHref?: string;
   ctaExternal?: boolean;
@@ -17,14 +21,19 @@ export default function ContentSection({
   heading,
   body,
   items,
+  stats,
+  image,
+  imageAlt,
   variant,
   ctaLabel,
   ctaHref,
   ctaExternal,
 }: ContentSectionProps) {
+  const hasImage = Boolean(image);
+
   return (
     <section className="section-padding section-gap">
-      <div className="mx-auto max-w-4xl border-t border-white/[0.06] pt-16">
+      <div className={`mx-auto border-t border-white/[0.06] pt-16 ${hasImage ? "max-w-6xl" : "max-w-4xl"}`}>
         <AnimateIn>
           {label && (
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
@@ -38,15 +47,59 @@ export default function ContentSection({
           )}
         </AnimateIn>
 
-        <AnimateIn delay={100}>
-          <div className="mt-6 space-y-4">
-            {body.map((paragraph, i) => (
-              <p key={i} className="text-base leading-relaxed text-white/80">
-                {paragraph}
-              </p>
-            ))}
+        {hasImage ? (
+          <div className="mt-8 grid gap-8 md:grid-cols-5 md:gap-12 md:items-center">
+            <AnimateIn delay={100}>
+              <div className="space-y-4 md:col-span-3">
+                {body.map((paragraph, i) => (
+                  <p key={i} className="text-base leading-relaxed text-white/80">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </AnimateIn>
+            <AnimateIn delay={150}>
+              <div className="md:col-span-2">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+                  <Image
+                    src={image!}
+                    alt={imageAlt ?? ""}
+                    fill
+                    sizes="(min-width: 768px) 40vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </AnimateIn>
           </div>
-        </AnimateIn>
+        ) : (
+          <AnimateIn delay={100}>
+            <div className="mt-6 space-y-4">
+              {body.map((paragraph, i) => (
+                <p key={i} className="text-base leading-relaxed text-white/80">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </AnimateIn>
+        )}
+
+        {stats && stats.length > 0 && variant === "stats" && (
+          <AnimateIn delay={150}>
+            <div className="mt-10 grid grid-cols-2 gap-6 rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:grid-cols-4 md:gap-8 md:p-10">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="font-display text-4xl text-pi-accent md:text-5xl">
+                    {stat.number}
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-white/60">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
+        )}
 
         {items && items.length > 0 && variant === "achievements" && (
           <AnimateIn delay={150}>
