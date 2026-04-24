@@ -19,7 +19,7 @@ export default function ContactForm() {
       <div className="rounded-2xl border border-pi-success/30 bg-pi-success/5 p-8 text-center md:p-12">
         <p className="font-display text-2xl text-white">Message sent</p>
         <p className="mt-3 text-white/60">
-          We&apos;ll get back to you within one working day.
+          We&apos;ll aim to reply within 48 hours.
         </p>
       </div>
     );
