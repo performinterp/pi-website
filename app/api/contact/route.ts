@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     await resend.emails.send({
       from: "PI Website <website@performanceinterpreting.co.uk>",
-      to: ["admin@performanceinterpreting.co.uk"],
+      to: ["enquiries@performanceinterpreting.co.uk"],
       replyTo: email,
       subject: `${urgentLabel}New enquiry from ${name} (${enquiryLabels[enquiry_type] || enquiry_type})`,
       text: [
