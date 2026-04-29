@@ -96,13 +96,13 @@ export default function AppPromoBanner() {
           {/* Content */}
           <div className="px-6 py-6 text-center sm:px-8 sm:py-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              The PI Events App
+              The PI Events App - coming soon
             </p>
             <h2 className="mt-2 font-display text-2xl text-white sm:text-3xl">
-              See the app in action
+              A free toolkit for Deaf audiences
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">
-              Find events, order at the bar, know your rights - a free toolkit for Deaf audiences at live events.
+              Find events, order at the bar, know your rights. Take a look at what&apos;s coming - free on iOS and Android once App Store review is complete.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link
@@ -110,7 +110,7 @@ export default function AppPromoBanner() {
                 onClick={dismiss}
                 className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all hover:brightness-110"
               >
-                Watch the full tour
+                Read more
               </Link>
               <button
                 onClick={dismiss}

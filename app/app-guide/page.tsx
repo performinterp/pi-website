@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
 import AnimateIn from "@/components/animate-in";
-import AppStoreButtons from "@/components/app-store-buttons";
 import ScrollVideo from "@/components/scroll-video";
 import Icon from "@/components/icon";
 
@@ -77,7 +76,7 @@ export default function AppGuidePage() {
     <>
       <PageHero
         title="The PI Events App"
-        subtitle="A dedicated toolkit for Deaf audiences at live events. Free on iOS and Android."
+        subtitle="A dedicated toolkit for Deaf audiences at live events. Coming soon to iOS and Android."
         backgroundImage="/images/deaf-app-user.png"
         imagePosition="center 30%"
       />
@@ -93,7 +92,7 @@ export default function AppGuidePage() {
               Seven features. One short video each.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-white/80">
-              Each clip plays as you scroll. No other interpreting service offers anything like this - the app activates automatically when you book PI.
+              Each clip plays as you scroll. No other interpreting service offers anything like this.
             </p>
             <div className="mt-6">
               <Link
@@ -176,18 +175,21 @@ export default function AppGuidePage() {
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              Ready?
+              Coming soon
             </p>
             <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
-              Get the app - free
+              Available soon - free on iOS and Android
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">
-              Everything you just watched, in your pocket. Free on iOS and Android.
+              The app is in the final stages of App Store review. Once approved, it&apos;ll be free to download on iOS and Android.
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>
             <div className="mt-8 flex justify-center">
-              <AppStoreButtons />
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/70">
+                <span className="h-2 w-2 rounded-full bg-pi-accent" aria-hidden="true" />
+                Awaiting Apple App Store approval
+              </span>
             </div>
           </AnimateIn>
         </div>
