@@ -95,7 +95,15 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="mx-auto flex w-full max-w-4xl items-center gap-2 md:gap-4">
+      {/* Mobile: native snap-scroll, one phone fully framed per page */}
+      <MobileScreenshotCarousel
+        items={screenshots}
+        activeIndex={activeIndex}
+        onChangeIndex={goTo}
+      />
+
+      {/* Desktop: existing chevron carousel */}
+      <div className="mx-auto hidden w-full max-w-4xl items-center gap-2 md:flex md:gap-4">
         <button
           onClick={prev}
           aria-label="Previous screenshot"
@@ -148,8 +156,8 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
         </button>
       </div>
 
-      {/* Dot indicators */}
-      <div className="flex gap-2">
+      {/* Dot indicators — desktop only; mobile carousel has its own */}
+      <div className="hidden gap-2 md:flex">
         {screenshots.map((shot, i) => (
           <button
             key={shot.src}
@@ -159,6 +167,91 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
               i === activeIndex
                 ? "w-8 bg-pi-accent"
                 : "w-2.5 bg-pi-ink/25 hover:bg-pi-ink/45"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface Shot {
+  src: string;
+  label: string;
+}
+
+function MobileScreenshotCarousel({
+  items,
+  activeIndex,
+  onChangeIndex,
+}: {
+  items: Shot[];
+  activeIndex: number;
+  onChangeIndex: (i: number) => void;
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollIndex, setScrollIndex] = useState(0);
+
+  // Keep the scrollable in sync with the parent's activeIndex
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.children[activeIndex] as HTMLElement | undefined;
+    if (!card) return;
+    const target = card.offsetLeft;
+    if (Math.abs(el.scrollLeft - target) < 4) return;
+    el.scrollTo({ left: target, behavior: "smooth" });
+  }, [activeIndex]);
+
+  // Track user-initiated scroll for dots
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const cardWidth = (el.children[0] as HTMLElement | undefined)?.clientWidth ?? 1;
+      const idx = Math.round(el.scrollLeft / cardWidth);
+      setScrollIndex(Math.min(items.length - 1, Math.max(0, idx)));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [items.length]);
+
+  const dotIndex = scrollIndex;
+
+  return (
+    <div className="md:hidden -mx-5 w-screen max-w-[calc(100vw)]">
+      <div
+        ref={scrollRef}
+        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((shot) => (
+          <div
+            key={shot.src}
+            className="flex w-screen flex-shrink-0 snap-center flex-col items-center gap-4 px-5"
+          >
+            {/* Phone frame — matches phone aspect, sized for mobile viewport */}
+            <div className="overflow-hidden rounded-[1.75rem] border-[5px] border-pi-ink/15 bg-black shadow-2xl shadow-pi-ink/20">
+              <div className="relative aspect-[9/19.5] w-[60vw] max-w-[260px]">
+                <Image src={shot.src} alt={shot.label} fill className="object-cover" />
+              </div>
+            </div>
+            <p className="text-center text-sm font-medium text-pi-ink/75">
+              {shot.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination dots */}
+      <div className="mt-2 flex justify-center gap-1.5">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onChangeIndex(i)}
+            aria-label={`View screenshot ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
+              i === dotIndex ? "w-6 bg-pi-gold" : "w-1.5 bg-pi-ink/20"
             }`}
           />
         ))}
