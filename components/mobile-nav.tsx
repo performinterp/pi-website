@@ -86,20 +86,26 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         onClick={onClose}
       />
 
-      {/* Panel */}
+      {/* Panel — outer wrapper handles fixed positioning + slide animation;
+          inner solid layer handles bg. Splitting these defeats an iOS Safari
+          stacking-context bug where transform on a fixed element drops the
+          bg-color in some compositing paths. */}
       <div
         ref={overlayRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
         onKeyDown={handleKeyDownTrap}
-        style={{ backgroundColor: "#020142" }}
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col shadow-2xl transition-transform duration-300 ease-out ${
+        className={`fixed inset-y-0 right-0 z-50 w-full max-w-sm transition-transform duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        <div
+          className="flex h-full w-full flex-col shadow-2xl"
+          style={{ backgroundColor: "#020142" }}
+        >
         {/* Header row */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10" style={{ backgroundColor: "#020142" }}>
           <span className="text-sm font-medium tracking-widest uppercase text-pi-muted">
             Menu
           </span>
@@ -114,7 +120,11 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         </div>
 
         {/* Nav links */}
-        <nav aria-label="Mobile navigation" className="flex flex-col flex-1 px-6 py-8 gap-1">
+        <nav
+          aria-label="Mobile navigation"
+          className="flex flex-col flex-1 px-6 py-8 gap-1"
+          style={{ backgroundColor: "#020142" }}
+        >
           {nav.mainNav.map((item, i) => {
             const isActive = pathname === item.href;
             return (
@@ -140,7 +150,10 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         </nav>
 
         {/* CTA */}
-        <div className="px-6 pb-10 pt-4 border-t border-white/10">
+        <div
+          className="px-6 pb-10 pt-4 border-t border-white/10"
+          style={{ backgroundColor: "#020142" }}
+        >
           <Link
             href={nav.ctaButton.href}
             onClick={onClose}
@@ -148,6 +161,7 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
           >
             {nav.ctaButton.label}
           </Link>
+        </div>
         </div>
       </div>
     </>

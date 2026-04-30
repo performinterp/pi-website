@@ -182,46 +182,62 @@ interface Shot {
 
 function MobileScreenshotCarousel({
   items,
-  activeIndex,
-  onChangeIndex,
 }: {
   items: Shot[];
-  activeIndex: number;
-  onChangeIndex: (i: number) => void;
+  activeIndex?: number;
+  onChangeIndex?: (i: number) => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollIndex, setScrollIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [userTookControl, setUserTookControl] = useState(false);
 
-  // Keep the scrollable in sync with the parent's activeIndex
+  function takeControl() {
+    setUserTookControl(true);
+  }
+
+  // Auto-advance with seamless loop. Stops once user interacts.
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.children[activeIndex] as HTMLElement | undefined;
-    if (!card) return;
-    const target = card.offsetLeft;
-    if (Math.abs(el.scrollLeft - target) < 4) return;
-    el.scrollTo({ left: target, behavior: "smooth" });
-  }, [activeIndex]);
+    if (userTookControl) return;
+    const interval = setInterval(() => {
+      const el = scrollRef.current;
+      if (!el) return;
+      const cardWidth = (el.children[0] as HTMLElement | undefined)?.clientWidth ?? 1;
+      const nextIdx = (Math.round(el.scrollLeft / cardWidth) + 1) % items.length;
+      const nextCard = el.children[nextIdx] as HTMLElement | undefined;
+      if (!nextCard) return;
+      el.scrollTo({ left: nextCard.offsetLeft, behavior: "smooth" });
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [userTookControl, items.length]);
 
-  // Track user-initiated scroll for dots
+  // Track scroll position for dots / arrows
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     const onScroll = () => {
       const cardWidth = (el.children[0] as HTMLElement | undefined)?.clientWidth ?? 1;
       const idx = Math.round(el.scrollLeft / cardWidth);
-      setScrollIndex(Math.min(items.length - 1, Math.max(0, idx)));
+      setActiveIndex(Math.min(items.length - 1, Math.max(0, idx)));
     };
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, [items.length]);
 
-  const dotIndex = scrollIndex;
+  function scrollToIndex(i: number) {
+    takeControl();
+    const el = scrollRef.current;
+    if (!el) return;
+    const wrappedIdx = ((i % items.length) + items.length) % items.length;
+    const card = el.children[wrappedIdx] as HTMLElement | undefined;
+    if (!card) return;
+    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+  }
 
   return (
-    <div className="md:hidden -mx-5 w-screen max-w-[calc(100vw)]">
+    <div className="md:hidden relative -mx-5 w-screen max-w-[100vw]">
       <div
         ref={scrollRef}
+        onTouchStart={takeControl}
         className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((shot) => (
@@ -229,7 +245,7 @@ function MobileScreenshotCarousel({
             key={shot.src}
             className="flex w-screen flex-shrink-0 snap-center flex-col items-center gap-4 px-5"
           >
-            {/* Phone frame — matches phone aspect, sized for mobile viewport */}
+            {/* Phone frame */}
             <div className="overflow-hidden rounded-[1.75rem] border-[5px] border-pi-ink/15 bg-black shadow-2xl shadow-pi-ink/20">
               <div className="relative aspect-[9/19.5] w-[60vw] max-w-[260px]">
                 <Image src={shot.src} alt={shot.label} fill className="object-cover" />
@@ -242,16 +258,34 @@ function MobileScreenshotCarousel({
         ))}
       </div>
 
+      {/* Ghost arrows — quietly suggest "swipe / tap to navigate" */}
+      <button
+        type="button"
+        onClick={() => scrollToIndex(activeIndex - 1)}
+        aria-label="Previous screenshot"
+        className="absolute left-2 top-[35%] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-pi-ink/60 backdrop-blur-sm shadow-sm transition-all hover:bg-white hover:text-pi-ink active:scale-95"
+      >
+        <ChevronLeft size={18} />
+      </button>
+      <button
+        type="button"
+        onClick={() => scrollToIndex(activeIndex + 1)}
+        aria-label="Next screenshot"
+        className="absolute right-2 top-[35%] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-pi-ink/60 backdrop-blur-sm shadow-sm transition-all hover:bg-white hover:text-pi-ink active:scale-95"
+      >
+        <ChevronRight size={18} />
+      </button>
+
       {/* Pagination dots */}
       <div className="mt-2 flex justify-center gap-1.5">
         {items.map((_, i) => (
           <button
             key={i}
             type="button"
-            onClick={() => onChangeIndex(i)}
+            onClick={() => scrollToIndex(i)}
             aria-label={`View screenshot ${i + 1}`}
             className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
-              i === dotIndex ? "w-6 bg-pi-gold" : "w-1.5 bg-pi-ink/20"
+              i === activeIndex ? "w-6 bg-pi-gold" : "w-1.5 bg-pi-ink/20"
             }`}
           />
         ))}
