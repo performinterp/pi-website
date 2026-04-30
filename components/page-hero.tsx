@@ -22,14 +22,18 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
       }
     >
       {backgroundImage ? (
-        /* Bottom-left corner darken — radial fade so it has no hard edges */
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 130% 65% at 0% 100%, rgba(2,1,66,0.92) 0%, rgba(2,1,66,0.6) 30%, rgba(2,1,66,0.2) 60%, transparent 85%)",
-          }}
-        />
+        <>
+          {/* Subtle full-image tint to keep the brightest highlights from blowing out type */}
+          <div className="absolute inset-0 bg-pi-navy/15" />
+          {/* Bottom-up scrim — darkens the lower portion where the text sits */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(2,1,66,0.88) 0%, rgba(2,1,66,0.7) 30%, rgba(2,1,66,0.35) 55%, rgba(2,1,66,0.1) 75%, transparent 100%)",
+            }}
+          />
+        </>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-pi-deep to-pi-navy" />
       )}
@@ -39,14 +43,14 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
         <div className="max-w-3xl">
           <h1
             className="font-display text-4xl leading-tight text-white md:text-5xl lg:text-6xl"
-            style={{ textShadow: "0 2px 16px rgba(2,1,66,0.5)" }}
+            style={{ textShadow: "0 1px 4px rgba(2,1,66,0.35)" }}
           >
             {title}
           </h1>
           {subtitle && (
             <p
               className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl"
-              style={{ textShadow: "0 1px 8px rgba(2,1,66,0.4)" }}
+              style={{ textShadow: "0 1px 3px rgba(2,1,66,0.25)" }}
             >
               {subtitle}
             </p>
