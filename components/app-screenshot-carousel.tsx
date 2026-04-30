@@ -240,15 +240,28 @@ function MobileScreenshotCarousel({
         onTouchStart={takeControl}
         className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((shot) => (
+        {items.map((shot, idx) => (
           <div
             key={shot.src}
             className="flex w-screen flex-shrink-0 snap-center flex-col items-center gap-4 px-5"
           >
-            {/* Phone frame */}
-            <div className="overflow-hidden rounded-[1.75rem] border-[5px] border-pi-ink/15 bg-black shadow-2xl shadow-pi-ink/20">
+            {/* Phone frame — cream interior so the load moment fades in softly
+                rather than flashing black. First three screenshots eager-load
+                so the auto-advance never has to wait. */}
+            <div className="overflow-hidden rounded-[1.75rem] border-[5px] border-pi-ink/15 bg-pi-canvas-soft shadow-2xl shadow-pi-ink/20">
               <div className="relative aspect-[9/19.5] w-[60vw] max-w-[260px]">
-                <Image src={shot.src} alt={shot.label} fill className="object-cover" />
+                <Image
+                  src={shot.src}
+                  alt={shot.label}
+                  fill
+                  sizes="(max-width: 768px) 60vw, 260px"
+                  priority={idx < 3}
+                  className="object-cover transition-opacity duration-500 ease-out"
+                  onLoad={(e) => {
+                    (e.target as HTMLImageElement).style.opacity = "1";
+                  }}
+                  style={{ opacity: 0 }}
+                />
               </div>
             </div>
             <p className="text-center text-sm font-medium text-pi-ink/75">

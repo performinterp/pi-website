@@ -7,6 +7,7 @@ import AppStoreButtons from "@/components/app-store-buttons";
 import AppScreenshotCarousel from "@/components/app-screenshot-carousel";
 import ReviewCarousel from "@/components/review-carousel";
 import MobileTestimonialsCarousel from "@/components/mobile-testimonials-carousel";
+import MobileEventCard from "@/components/mobile-event-card";
 import VideoFeedback from "@/components/video-feedback";
 import Icon from "@/components/icon";
 
@@ -159,7 +160,8 @@ export default function DeafCommunityPage() {
           </div>
         </AnimateIn>
 
-        <div className="mx-auto mt-12 grid max-w-6xl gap-6 md:grid-cols-2">
+        {/* Desktop: image cards with full overlay text */}
+        <div className="mx-auto mt-12 hidden max-w-6xl gap-6 md:grid md:grid-cols-2">
           {eventTypes.map((event, i) => (
             <AnimateIn key={event.title} delay={i * 100}>
               <div className="group relative overflow-hidden rounded-2xl">
@@ -182,6 +184,18 @@ export default function DeafCommunityPage() {
                 </div>
               </div>
             </AnimateIn>
+          ))}
+        </div>
+
+        {/* Mobile: title-only cards, tap to reveal description */}
+        <div className="mx-auto mt-10 flex max-w-2xl flex-col gap-4 md:hidden">
+          {eventTypes.map((event) => (
+            <MobileEventCard
+              key={event.title}
+              title={event.title}
+              image={event.image}
+              description={event.description}
+            />
           ))}
         </div>
 
