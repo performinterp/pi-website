@@ -6,6 +6,7 @@ import ContactCta from "@/components/contact-cta";
 import TestimonialQuote from "@/components/testimonial-quote";
 import AnimateIn from "@/components/animate-in";
 import AppScreenshotCarousel from "@/components/app-screenshot-carousel";
+import MobileTestimonialsCarousel from "@/components/mobile-testimonials-carousel";
 import Icon from "@/components/icon";
 
 export const metadata: Metadata = {
@@ -83,8 +84,9 @@ export default function OrganisersPage() {
         </div>
       </section>
 
-      {/* ─── Organiser quote ────────────────────────────── */}
-      <section className="section-padding py-12 md:py-16">
+      {/* ─── Organiser quote — desktop only; mobile gets it via the
+            testimonials carousel below ─────────────────── */}
+      <section className="section-padding py-12 md:py-16 hidden md:block">
         <TestimonialQuote
           wide
           quote="We couldn't be more grateful to Performance Interpreting for their incredible work. Their amazing team of BSL interpreters brought energy, passion, and accessibility to every performance."
@@ -129,7 +131,7 @@ export default function OrganisersPage() {
             </div>
           </AnimateIn>
 
-          <AnimateIn delay={150}>
+          <AnimateIn delay={150} className="order-first md:order-none">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/festival-energy.jpg"
@@ -231,7 +233,7 @@ export default function OrganisersPage() {
             </div>
           </AnimateIn>
 
-          <AnimateIn delay={150}>
+          <AnimateIn delay={150} className="order-first md:order-none">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/arsenal-pitchside.jpg"
@@ -257,8 +259,8 @@ export default function OrganisersPage() {
           </div>
         </AnimateIn>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
-          {[
+        {(() => {
+          const reviews = [
             {
               quote: "We couldn't be more grateful to Performance Interpreting for their incredible work. Their amazing team of BSL interpreters brought energy, passion, and accessibility to every performance.",
               name: "Adam",
@@ -277,27 +279,40 @@ export default function OrganisersPage() {
               context: "BST Hyde Park attendee",
               rating: 5,
             },
-          ].map((t, i) => (
-            <AnimateIn key={t.name} delay={i * 80}>
-              <div className="flex h-full flex-col rounded-2xl border border-pi-ink/10 bg-white p-6 shadow-sm md:p-8">
-                <div className="mb-4 flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <svg key={j} className="h-4 w-4 fill-pi-gold" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="flex-1 text-base italic leading-relaxed text-pi-ink/85">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="mt-5 border-t border-pi-ink/10 pt-5">
-                  <p className="text-sm font-semibold text-pi-ink">{t.name}</p>
-                  <p className="text-xs text-pi-ink/60">{t.context}</p>
-                </div>
+          ];
+          return (
+            <>
+              {/* Desktop: 3-col grid */}
+              <div className="mx-auto mt-12 hidden max-w-5xl gap-6 md:grid md:grid-cols-3">
+                {reviews.map((t, i) => (
+                  <AnimateIn key={t.name} delay={i * 80}>
+                    <div className="flex h-full flex-col rounded-2xl border border-pi-ink/10 bg-white p-6 shadow-sm md:p-8">
+                      <div className="mb-4 flex gap-0.5">
+                        {Array.from({ length: t.rating }).map((_, j) => (
+                          <svg key={j} className="h-4 w-4 fill-pi-gold" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+                      <p className="flex-1 text-base italic leading-relaxed text-pi-ink/85">
+                        &ldquo;{t.quote}&rdquo;
+                      </p>
+                      <div className="mt-5 border-t border-pi-ink/10 pt-5">
+                        <p className="text-sm font-semibold text-pi-ink">{t.name}</p>
+                        <p className="text-xs text-pi-ink/60">{t.context}</p>
+                      </div>
+                    </div>
+                  </AnimateIn>
+                ))}
               </div>
-            </AnimateIn>
-          ))}
-        </div>
+
+              {/* Mobile: snap-scroll, same as home page */}
+              <div className="mt-10">
+                <MobileTestimonialsCarousel testimonials={reviews} />
+              </div>
+            </>
+          );
+        })()}
       </section>
 
       <ContactCta />

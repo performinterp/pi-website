@@ -111,7 +111,7 @@ export default function InterpretersPage() {
             </div>
           </AnimateIn>
 
-          <AnimateIn delay={150}>
+          <AnimateIn delay={150} className="order-first md:order-none">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/festival-wide.jpg"
@@ -251,7 +251,7 @@ export default function InterpretersPage() {
             </div>
           </AnimateIn>
 
-          <AnimateIn delay={150}>
+          <AnimateIn delay={150} className="order-first md:order-none">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/volunteers-2.jpg"
