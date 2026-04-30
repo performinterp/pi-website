@@ -79,7 +79,7 @@ export default function AppGuidePage() {
         subtitle="A dedicated toolkit for Deaf audiences at live events. Coming soon to iOS and Android."
         backgroundImage="/images/deaf-app-user.png"
         imagePosition="65% 30%"
-        mobileImagePosition="20% 30%"
+        mobileImagePosition="50% 30%"
       />
 
       {/* ─── Intro ────────────────────────────────────────── */}
