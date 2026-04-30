@@ -81,9 +81,24 @@ export default function MobileEventCard({
           <p className="mt-2 flex-1 text-sm leading-relaxed text-pi-ink/85 text-left">
             {description}
           </p>
-          <div className="mt-2 flex items-center justify-end gap-1 text-[10px] font-semibold uppercase tracking-widest text-pi-ink/40">
-            Tap to close
-          </div>
+          <span
+            className="absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center text-pi-gold transition-colors"
+            aria-hidden="true"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </span>
         </div>
       </div>
     </button>
