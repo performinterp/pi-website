@@ -31,7 +31,7 @@ export default function Footer() {
           {/* Column 1 - Brand */}
           <div className="sm:col-span-2 lg:col-span-1 lg:pr-8">
             <p className="font-display text-lg font-semibold text-white leading-snug">
-              Performance Interpreting
+              Performance Interpreting Ltd
             </p>
             <p className="mt-3 text-sm text-white/70 leading-relaxed">
               Award-winning BSL &amp; ISL interpreting for live events across the UK and Ireland.
@@ -60,7 +60,7 @@ export default function Footer() {
 
           {/* Column 2 - Navigate */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-pi-gold mb-3">
               Navigate
             </h3>
             <ul className="space-y-2.5">
@@ -68,7 +68,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-white/60 leading-relaxed transition-colors duration-300 hover:text-white"
+                    className="text-sm text-white/75 leading-relaxed transition-colors duration-300 hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
 
           {/* Column 3 - PI Network */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-pi-gold mb-3">
               PI Network
             </h3>
             <ul className="space-y-2.5">
@@ -90,14 +90,14 @@ export default function Footer() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-white/60 leading-relaxed transition-colors duration-300 hover:text-white"
+                      className="text-sm text-white/75 leading-relaxed transition-colors duration-300 hover:text-white"
                     >
                       {item.label}
                     </a>
                   ) : (
                     <Link
                       href={item.href}
-                      className="text-sm text-white/60 leading-relaxed transition-colors duration-300 hover:text-white"
+                      className="text-sm text-white/75 leading-relaxed transition-colors duration-300 hover:text-white"
                     >
                       {item.label}
                     </Link>
@@ -107,54 +107,60 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 - Accredited */}
+          {/* Column 4 - Accreditation */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-3">
-              Accredited
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-pi-gold mb-3">
+              Accreditation
             </h3>
-            <div className="flex flex-wrap items-center gap-4">
+            <p className="text-sm leading-relaxed text-white/75 mb-4">
+              All PI interpreters and PI Academy courses are NRCPD registered.
+            </p>
+            <a
+              href="https://www.nrcpd.org.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit NRCPD - National Registers of Communication Professionals working with Deaf and Deafblind People"
+              className="inline-block"
+            >
               <Image
                 src="/logos/nrcpd-logo.png"
-                alt="NRCPD accredited"
-                width={80}
-                height={48}
-                className="object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+                alt="NRCPD - National Registers of Communication Professionals working with Deaf and Deafblind People"
+                width={180}
+                height={58}
+                className="block rounded-sm opacity-95 hover:opacity-100 transition-opacity duration-300"
               />
-            </div>
+            </a>
           </div>
 
         </div>
       </div>
 
-      {/* Company details */}
-      <div className="section-padding border-t border-white/5 py-5">
-        <p className="text-xs leading-relaxed text-white/20">
-          Performance Interpreting Ltd is registered in England and Wales. Company
-          No. 10684652. VAT No. 265 5979 48. Registered office: Onega House, 112
-          Main Road, Sidcup, United Kingdom, DA14 6NE.
-        </p>
-      </div>
-
-      {/* Bottom bar */}
-      <div className="section-padding border-t border-white/5 py-5">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-white/25">
-            &copy; {new Date().getFullYear()} Performance Interpreting Ltd. All
-            rights reserved.
+      {/* Bottom bar - combined company + copyright on a single subtle band */}
+      <div className="bg-pi-deep/60 section-padding py-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <p className="max-w-2xl text-xs leading-relaxed text-white/55">
+            Performance Interpreting Ltd is registered in England and Wales. Company
+            No. 10684652. VAT No. 265 5979 48. Registered office: Onega House, 112
+            Main Road, Sidcup, United Kingdom, DA14 6NE.
           </p>
-          <div className="flex gap-4">
-            <Link
-              href="/privacy"
-              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/80"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/accessibility"
-              className="text-xs text-white/25 transition-colors duration-300 hover:text-white/80"
-            >
-              Accessibility
-            </Link>
+          <div className="flex flex-col gap-2 md:items-end md:text-right">
+            <p className="text-xs text-white/65">
+              &copy; {new Date().getFullYear()} Performance Interpreting Ltd
+            </p>
+            <div className="flex gap-4">
+              <Link
+                href="/privacy"
+                className="text-xs text-white/65 transition-colors duration-300 hover:text-white"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/accessibility"
+                className="text-xs text-white/65 transition-colors duration-300 hover:text-white"
+              >
+                Accessibility
+              </Link>
+            </div>
           </div>
         </div>
       </div>

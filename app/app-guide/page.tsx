@@ -78,26 +78,26 @@ export default function AppGuidePage() {
         title="The PI Events App"
         subtitle="A dedicated toolkit for Deaf audiences at live events. Coming soon to iOS and Android."
         backgroundImage="/images/deaf-app-user.png"
-        imagePosition="center 30%"
+        imagePosition="65% 30%"
       />
 
       {/* ─── Intro ────────────────────────────────────────── */}
-      <section className="section-padding pb-0">
+      <section className="section-padding section-gap pb-0">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
               See it in action
             </p>
-            <h2 className="mt-3 font-display text-2xl leading-snug text-white md:text-3xl">
+            <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
               Seven features. One short video each.
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-white/80">
+            <p className="mt-5 text-lg leading-relaxed text-pi-ink/80">
               Each clip plays as you scroll. No other interpreting service offers anything like this.
             </p>
             <div className="mt-6">
               <Link
                 href="/deaf-community"
-                className="inline-flex items-center gap-1.5 text-sm text-pi-accent transition-colors hover:text-white"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
               >
                 <Icon name="arrow-right" size={14} className="rotate-180" />
                 Back to Deaf Community
@@ -116,26 +116,26 @@ export default function AppGuidePage() {
           <section
             key={step.n}
             className={`section-padding section-gap ${
-              i % 2 === 1 ? "bg-pi-deep" : ""
+              i % 2 === 1 ? "bg-pi-canvas-soft" : ""
             }`}
           >
             {layout === "center" ? (
               <>
                 <div className="mx-auto max-w-3xl text-center">
                   <AnimateIn>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
                       {step.n} &middot; {step.kicker}
                     </p>
-                    <h2 className="mt-3 font-display text-2xl leading-snug text-white md:text-4xl">
+                    <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-4xl">
                       {step.heading}
                     </h2>
-                    <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/80">
+                    <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-pi-ink/80">
                       {step.body}
                     </p>
                   </AnimateIn>
                 </div>
                 <AnimateIn delay={120}>
-                  <div className="relative mx-auto mt-10 aspect-[1700/1004] w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-black/40">
+                  <div className="relative mx-auto mt-10 aspect-[1700/1004] w-full max-w-5xl overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15">
                     <ScrollVideo src={step.video} />
                   </div>
                 </AnimateIn>
@@ -147,19 +147,19 @@ export default function AppGuidePage() {
                 }`}
               >
                 <AnimateIn>
-                  <div className="relative aspect-[1700/1004] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-black/40 md:[direction:ltr]">
+                  <div className="relative aspect-[1700/1004] w-full overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15 md:[direction:ltr]">
                     <ScrollVideo src={step.video} />
                   </div>
                 </AnimateIn>
                 <AnimateIn delay={120}>
                   <div className="md:[direction:ltr]">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
                       {step.n} &middot; {step.kicker}
                     </p>
-                    <h2 className="mt-3 font-display text-2xl leading-snug text-white md:text-3xl">
+                    <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
                       {step.heading}
                     </h2>
-                    <p className="mt-4 text-base leading-relaxed text-white/80 md:text-lg">
+                    <p className="mt-4 text-base leading-relaxed text-pi-ink/80 md:text-lg">
                       {step.body}
                     </p>
                   </div>
@@ -171,23 +171,23 @@ export default function AppGuidePage() {
       })}
 
       {/* ─── Download CTA ─────────────────────────────────── */}
-      <section className="section-padding section-gap bg-pi-deep">
+      <section className="section-padding section-gap bg-pi-canvas-soft">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
               Coming soon
             </p>
-            <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">
+            <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
               Available soon - free on iOS and Android
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pi-ink/80">
               The app is in the final stages of App Store review. Once approved, it&apos;ll be free to download on iOS and Android.
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>
             <div className="mt-8 flex justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/70">
-                <span className="h-2 w-2 rounded-full bg-pi-accent" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-pi-ink/15 bg-white px-5 py-2.5 text-sm font-medium text-pi-ink/75 shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-pi-warmth" aria-hidden="true" />
                 Awaiting Apple App Store approval
               </span>
             </div>
@@ -197,7 +197,7 @@ export default function AppGuidePage() {
 
       {/* ─── AI imagery note ──────────────────────────────── */}
       <div className="section-padding pb-4 pt-0">
-        <p className="text-center text-xs tracking-wide text-white/40">
+        <p className="text-center text-xs tracking-wide text-pi-ink/40">
           Header image generated with AI for illustrative purposes.
         </p>
       </div>

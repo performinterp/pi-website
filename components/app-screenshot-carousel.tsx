@@ -21,14 +21,19 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
   const [pos, setPos] = useState(total);
   const [transitioning, setTransitioning] = useState(true);
   const [paused, setPaused] = useState(false);
-  const [perView, setPerView] = useState(compact ? 2 : 3);
+  const [perView, setPerView] = useState(compact ? 3 : 3);
 
   const activeIndex = ((pos % total) + total) % total;
 
   // Detect mobile/desktop
   useEffect(() => {
-    if (compact) return;
-    const check = () => setPerView(window.innerWidth < 768 ? 1 : 3);
+    const check = () => {
+      if (compact) {
+        setPerView(window.innerWidth < 640 ? 1 : 3);
+      } else {
+        setPerView(window.innerWidth < 768 ? 1 : 3);
+      }
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -94,7 +99,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
         <button
           onClick={prev}
           aria-label="Previous screenshot"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/60 transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10 hover:text-white"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-pi-ink/20 bg-white text-pi-ink/70 shadow-sm transition-all hover:border-pi-accent/40 hover:bg-pi-accent/10 hover:text-pi-accent"
         >
           <ChevronLeft size={20} />
         </button>
@@ -114,8 +119,8 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
                 className="shrink-0"
                 style={{ width: `${itemWidth}%` }}
               >
-                <div className={`flex flex-col items-center gap-3 ${compact ? "px-0" : "px-3"}`}>
-                  <div className={`overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-black shadow-2xl shadow-black/40 ${compact ? "w-full max-w-[208px] mx-auto" : ""}`}>
+                <div className={`flex flex-col items-center gap-3 ${compact ? "px-1" : "px-3"}`}>
+                  <div className={`overflow-hidden rounded-[1.5rem] border-[4px] border-pi-ink/15 bg-black shadow-2xl shadow-pi-ink/20 ${compact ? "w-full max-w-[140px] mx-auto md:max-w-[150px]" : ""}`}>
                     <div className={`relative aspect-[9/19.5] ${compact ? "w-full" : "w-[200px] md:w-[210px]"}`}>
                       <Image
                         src={shot.src}
@@ -125,7 +130,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
                       />
                     </div>
                   </div>
-                  <p className="text-center text-sm font-medium text-white/60">
+                  <p className="text-center text-sm font-medium text-pi-ink/70">
                     {shot.label}
                   </p>
                 </div>
@@ -137,7 +142,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
         <button
           onClick={next}
           aria-label="Next screenshot"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/60 transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10 hover:text-white"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-pi-ink/20 bg-white text-pi-ink/70 shadow-sm transition-all hover:border-pi-accent/40 hover:bg-pi-accent/10 hover:text-pi-accent"
         >
           <ChevronRight size={20} />
         </button>
@@ -153,7 +158,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
             className={`h-2.5 rounded-full transition-all duration-300 ${
               i === activeIndex
                 ? "w-8 bg-pi-accent"
-                : "w-2.5 bg-white/20 hover:bg-white/40"
+                : "w-2.5 bg-pi-ink/25 hover:bg-pi-ink/45"
             }`}
           />
         ))}

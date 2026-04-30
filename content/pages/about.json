@@ -1,7 +1,7 @@
 {
   "title": "About Performance Interpreting",
   "subtitle": "Founded by Marie Pascall, born with unilateral deafness - built from the community up.",
-  "heroImage": "/images/festival-wide.jpg",
+  "heroImage": "/images/about-marie-james.jpg",
   "metaDescription": "Performance Interpreting was founded by Marie Pascall, who was born with unilateral deafness, to ensure Deaf audiences have equal access to live events across the UK and Ireland.",
   "sections": [
     {
@@ -12,9 +12,7 @@
         "From the very first event, the question was simple: what does genuine access actually feel like from the audience side? That is the lens every decision passes through - how interpreters are briefed, where they stand on stage, how the day runs, how we protect the experience when things go wrong. It was not a process borrowed from somewhere else. It was built from the inside out.",
         "A turning point came with the landmark Little Mix BSL case. PI was asked to give evidence, and that testimony helped establish in UK law that BSL access at live events is a legal requirement, not a courtesy. It changed how the whole industry thinks about Deaf inclusion, and it was a direct result of more than a decade of doing the work properly, long before any ruling forced anyone else to.",
         "Since then, Performance Interpreting has been inducted into Signature's Hall of Fame - the highest recognition in the BSL interpreting industry - and has been trusted to manage full Deaf access at Royal events and state ceremonies. Wembley Stadium committed to BSL interpreting at every concert through a partnership with PI, making proactive access the standard at the national stadium."
-      ],
-      "image": "/images/festival-signing.jpg",
-      "imageAlt": "A Performance Interpreting interpreter signing mid-performance at a festival, crowd and main stage behind"
+      ]
     },
     {
       "label": "Our Scale",
@@ -24,7 +22,7 @@
       ],
       "variant": "stats",
       "stats": [
-        { "number": "500+", "label": "Events delivered" },
+        { "number": "600+", "label": "Events delivered" },
         { "number": "27+", "label": "Major festivals" },
         { "number": "6", "label": "Premier League clubs" },
         { "number": "10+", "label": "National arenas" }

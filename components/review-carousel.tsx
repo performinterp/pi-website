@@ -47,13 +47,13 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
                 ))}
               </div>
             )}
-            <p className="font-display text-xl italic leading-relaxed text-white/90 md:text-2xl">
+            <p className="font-display text-xl italic leading-relaxed text-pi-ink/90 md:text-2xl">
               &ldquo;{review.quote}&rdquo;
             </p>
-            <p className="mt-4 text-sm font-semibold text-white">
+            <p className="mt-4 text-sm font-semibold text-pi-ink">
               {review.name}
             </p>
-            <p className="text-xs text-white/50">{review.context}</p>
+            <p className="text-xs text-pi-ink/55">{review.context}</p>
           </div>
         ))}
       </div>
@@ -67,7 +67,7 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
             className={`h-2 rounded-full transition-all duration-300 ${
               i === active
                 ? "w-6 bg-pi-accent"
-                : "w-2 bg-white/20 hover:bg-white/40"
+                : "w-2 bg-pi-ink/25 hover:bg-pi-ink/45"
             }`}
             aria-label={`Review ${i + 1}`}
           />

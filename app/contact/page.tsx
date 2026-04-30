@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getPage } from "@/lib/content";
 import PageHero from "@/components/page-hero";
-import ContentSection from "@/components/content-section";
 import ContactForm from "@/components/contact-form";
 import AnimateIn from "@/components/animate-in";
 
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const enquirySection = page.sections[0];
-  const contactSection = page.sections[1];
 
   return (
     <>
@@ -29,12 +27,12 @@ export default function ContactPage() {
         <div className="mx-auto max-w-4xl">
           <AnimateIn>
             {enquirySection?.label && (
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
                 {enquirySection.label}
               </p>
             )}
             {enquirySection?.heading && (
-              <h2 className="mt-3 font-display text-2xl text-white md:text-3xl">
+              <h2 className="mt-3 font-display text-2xl text-pi-ink md:text-3xl">
                 {enquirySection.heading}
               </h2>
             )}
@@ -44,7 +42,7 @@ export default function ContactPage() {
             <AnimateIn delay={100}>
               <div className="mt-6 space-y-4">
                 {enquirySection.body.map((p, i) => (
-                  <p key={i} className="text-base leading-relaxed text-white/80">
+                  <p key={i} className="text-base leading-relaxed text-pi-ink/80">
                     {p}
                   </p>
                 ))}
@@ -56,11 +54,11 @@ export default function ContactPage() {
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {enquirySection.items.map((item, i) => (
                 <AnimateIn key={item.title} delay={i * 80}>
-                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
-                    <h3 className="text-sm font-semibold text-white">
+                  <div className="rounded-xl border border-pi-ink/10 bg-white p-5 shadow-sm">
+                    <h3 className="text-sm font-semibold text-pi-ink">
                       {item.title}
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-white/70">
+                    <p className="mt-1 text-xs leading-relaxed text-pi-ink/70">
                       {item.description}
                     </p>
                   </div>
@@ -77,14 +75,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Direct contact details */}
-      {contactSection && (
-        <ContentSection
-          label={contactSection.label}
-          heading={contactSection.heading}
-          body={contactSection.body}
-        />
-      )}
     </>
   );
 }

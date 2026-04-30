@@ -6,9 +6,9 @@ export default function ContactCta() {
 
   return (
     <section className="section-padding section-gap">
-      <div className="rounded-2xl border border-pi-accent/20 bg-gradient-to-br from-pi-accent/10 to-pi-accent/5 p-10 text-center md:p-16">
-        <h2 className="font-display text-2xl text-white md:text-3xl">{heading}</h2>
-        <p className="mx-auto mt-4 max-w-md text-base text-white/70">{subtitle}</p>
+      <div className="rounded-2xl border border-pi-accent/25 bg-gradient-to-br from-pi-accent/12 to-pi-accent/5 p-10 text-center md:p-16">
+        <h2 className="font-display text-2xl text-pi-ink md:text-3xl">{heading}</h2>
+        <p className="mx-auto mt-4 max-w-md text-base text-pi-ink/70">{subtitle}</p>
         <div className="mt-8">
           <Link
             href={ctaHref}

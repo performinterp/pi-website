@@ -1,7 +1,7 @@
 [
   {
     "name": "Festivals",
-    "photo": "/images/festival-community.jpg",
+    "photo": "/images/festival-sunset.png",
     "clients": [
       "BST Hyde Park",
       "Download",
@@ -32,7 +32,7 @@
       "We Have Ways"
     ],
     "description": "From boutique stages to 100,000-capacity fields, we've placed sign language interpreters at the UK's biggest festivals. Our teams know how to work in challenging outdoor environments - and how to put Deaf fans at the heart of the experience.",
-    "size": "large"
+    "size": "small"
   },
   {
     "name": "Sport",
@@ -52,7 +52,7 @@
   },
   {
     "name": "Arenas & Venues",
-    "photo": "/images/festival-night.jpg",
+    "photo": "/images/concert.jpg",
     "clients": [
       "The O2",
       "Royal Albert Hall",
@@ -64,6 +64,21 @@
       "Motorpoint Nottingham"
     ],
     "description": "Concerts, comedy, theatre, awards nights. We work with venue operations teams to integrate interpreting seamlessly - sight-line placement, lighting coordination and everything in between.",
+    "size": "small"
+  },
+  {
+    "name": "High Profile",
+    "photo": "/images/high-profile.png",
+    "clients": [
+      "Coldplay",
+      "Little Mix",
+      "Lewis Capaldi",
+      "Olly Murs",
+      "BBC",
+      "Live Nation",
+      "Festival Republic"
+    ],
+    "description": "Headline tours, broadcast events and landmark moments. From the Little Mix legal precedent to nationally televised performances - we deliver when the stakes are highest.",
     "size": "small"
   }
 ]

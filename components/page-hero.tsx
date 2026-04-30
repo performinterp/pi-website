@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface PageHeroProps {
   title: string;
   subtitle?: string;
@@ -10,27 +8,34 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle, backgroundImage, imagePosition, tall }: PageHeroProps) {
   return (
-    <section className={`relative flex items-end section-padding ${tall ? "min-h-[70vh]" : "min-h-[50vh]"}`}>
-      {/* Background gradient fallback */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pi-deep to-pi-navy" />
-
-      {/* Background image with dark overlay */}
-      {backgroundImage && (
-        <>
-          <Image
-            src={backgroundImage}
-            alt=""
-            fill
-            priority
-            className="object-cover"
-            style={imagePosition ? { objectPosition: imagePosition } : undefined}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-pi-navy from-5% via-pi-navy/70 via-40% to-pi-deep/40" />
-        </>
+    <section
+      className={`relative w-full overflow-hidden bg-pi-navy ${tall ? "min-h-[70vh]" : "min-h-[55vh]"}`}
+      style={
+        backgroundImage
+          ? {
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: imagePosition ?? "center",
+              backgroundRepeat: "no-repeat",
+            }
+          : undefined
+      }
+    >
+      {backgroundImage ? (
+        /* Bottom-left corner darken — radial fade so it has no hard edges */
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 130% 65% at 0% 100%, rgba(2,1,66,0.92) 0%, rgba(2,1,66,0.6) 30%, rgba(2,1,66,0.2) 60%, transparent 85%)",
+          }}
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-pi-deep to-pi-navy" />
       )}
 
-      {/* Content - bottom-left aligned like homepage hero */}
-      <div className="relative z-10 w-full pb-12 pt-32 md:pb-16">
+      {/* Content drives section height — no separate min-h on the section */}
+      <div className={`section-padding relative z-10 flex flex-col justify-end pt-24 pb-12 md:pb-16 ${tall ? "min-h-[70vh] md:pt-40" : "min-h-[55vh] md:pt-32"}`}>
         <div className="max-w-3xl">
           <h1
             className="font-display text-4xl leading-tight text-white md:text-5xl lg:text-6xl"
@@ -40,7 +45,7 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
           </h1>
           {subtitle && (
             <p
-              className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl"
+              className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl"
               style={{ textShadow: "0 1px 8px rgba(2,1,66,0.4)" }}
             >
               {subtitle}

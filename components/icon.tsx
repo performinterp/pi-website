@@ -22,6 +22,7 @@ import {
   Settings,
   Coffee,
   Smartphone,
+  Shirt,
   type LucideIcon,
 } from "lucide-react";
 
@@ -50,6 +51,7 @@ const icons: Record<string, LucideIcon> = {
   settings: Settings,
   coffee: Coffee,
   smartphone: Smartphone,
+  shirt: Shirt,
 };
 
 interface IconProps {

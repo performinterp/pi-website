@@ -50,7 +50,7 @@ export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterP
   return (
     <span ref={ref}>
       {count}
-      <span className="text-pi-accent">{suffix}</span>
+      <span className="text-pi-gold">{suffix}</span>
     </span>
   );
 }

@@ -44,7 +44,6 @@ export default function VideoFeedback() {
 
       setProgress(100);
 
-      // Notify PI via the website's own API
       const data = await response.json().catch(() => ({}));
       await fetch("/api/video-feedback", {
         method: "POST",
@@ -75,15 +74,15 @@ export default function VideoFeedback() {
 
   if (stage === "success") {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-green-500/20 bg-green-500/5 p-8 text-center">
-        <CheckCircle size={40} className="text-green-400" />
-        <p className="font-display text-xl text-white">Thank you!</p>
-        <p className="text-base text-white/70">
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-green-500/30 bg-green-50 p-8 text-center">
+        <CheckCircle size={40} className="text-green-600" />
+        <p className="font-display text-xl text-pi-ink">Thank you!</p>
+        <p className="text-base text-pi-ink/70">
           Your video has been received. It means a lot and helps us improve access for everyone.
         </p>
         <button
           onClick={reset}
-          className="mt-4 text-sm font-semibold text-pi-accent transition-colors hover:text-white"
+          className="mt-4 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
         >
           Send another
         </button>
@@ -93,28 +92,28 @@ export default function VideoFeedback() {
 
   if (stage === "uploading") {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-pi-accent/20 bg-pi-accent/5 p-8 text-center">
+      <div className="flex flex-col items-center gap-4 rounded-2xl border border-pi-accent/25 bg-pi-accent/5 p-8 text-center">
         <Loader2 size={32} className="animate-spin text-pi-accent" />
-        <p className="text-base font-semibold text-white">Uploading your video...</p>
-        <div className="h-2 w-full max-w-xs overflow-hidden rounded-full bg-white/10">
+        <p className="text-base font-semibold text-pi-ink">Uploading your video...</p>
+        <div className="h-2 w-full max-w-xs overflow-hidden rounded-full bg-pi-ink/10">
           <div
             className="h-full rounded-full bg-pi-accent transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-sm text-white/60">Please keep this page open</p>
+        <p className="text-sm text-pi-ink/60">Please keep this page open</p>
       </div>
     );
   }
 
   if (stage === "error") {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-500/20 bg-red-500/5 p-8 text-center">
-        <X size={32} className="text-red-400" />
-        <p className="text-base font-semibold text-white">{errorMsg}</p>
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-500/30 bg-red-50 p-8 text-center">
+        <X size={32} className="text-red-600" />
+        <p className="text-base font-semibold text-pi-ink">{errorMsg}</p>
         <button
           onClick={reset}
-          className="mt-2 text-sm font-semibold text-pi-accent transition-colors hover:text-white"
+          className="mt-2 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
         >
           Try again
         </button>
@@ -123,14 +122,14 @@ export default function VideoFeedback() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-white/20 bg-white/[0.02] p-8 text-center transition-colors hover:border-pi-accent/30 hover:bg-pi-accent/5">
+    <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-pi-ink/25 bg-white p-8 text-center shadow-sm transition-colors hover:border-pi-accent/40 hover:bg-pi-accent/5">
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pi-accent/10">
         <Camera size={28} className="text-pi-accent" />
       </div>
-      <p className="font-display text-xl text-white">
+      <p className="font-display text-xl text-pi-ink">
         Record a video in BSL or ISL
       </p>
-      <p className="max-w-sm text-base text-white/70">
+      <p className="max-w-sm text-base text-pi-ink/70">
         Share your experience in sign language. Your feedback goes straight to PI and helps us improve access for everyone.
       </p>
       <div className="mt-2 flex flex-wrap justify-center gap-3">
@@ -141,7 +140,7 @@ export default function VideoFeedback() {
           <Camera size={16} />
           Record video
         </button>
-        <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-pi-accent/30 hover:bg-pi-accent/10">
+        <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-pi-ink/15 bg-pi-canvas-soft px-6 py-3 text-sm font-semibold text-pi-ink transition-all hover:border-pi-accent/40 hover:bg-pi-accent/10">
           <Upload size={16} />
           Upload file
           <input
@@ -152,7 +151,6 @@ export default function VideoFeedback() {
           />
         </label>
       </div>
-      {/* Hidden input for camera capture */}
       <input
         ref={inputRef}
         type="file"
@@ -161,7 +159,7 @@ export default function VideoFeedback() {
         className="hidden"
         onChange={handleChange}
       />
-      <p className="text-xs text-white/40">Max 50MB. MP4, MOV, WebM supported.</p>
+      <p className="text-xs text-pi-ink/50">Max 50MB. MP4, MOV, WebM supported.</p>
     </div>
   );
 }

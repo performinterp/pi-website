@@ -7,6 +7,10 @@
   --color-pi-accent: #0089D9;
   --color-pi-gold: #CA8A04;
   --color-pi-gold-light: #EAB308;
+  --color-pi-warmth: #E07A3C;
+  --color-pi-canvas: #FAF8F3;
+  --color-pi-canvas-soft: #F2EEE5;
+  --color-pi-ink: #0A1A4F;
   --color-pi-muted: rgba(255, 255, 255, 0.45);
   --color-pi-error: #EF4444;
   --color-pi-success: #22C55E;
@@ -22,15 +26,25 @@
 }
 
 @layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
   body {
-    background-color: var(--color-pi-navy);
-    color: white;
+    background-color: var(--color-pi-canvas);
+    color: var(--color-pi-ink);
     -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    margin: 0;
+    padding: 0;
   }
 
   ::selection {
     background-color: color-mix(in srgb, var(--color-pi-accent) 30%, transparent);
-    color: white;
+    color: var(--color-pi-ink);
   }
 }
 

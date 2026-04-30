@@ -17,8 +17,8 @@ export default function ContactForm() {
   if (status === "sent") {
     return (
       <div className="rounded-2xl border border-pi-success/30 bg-pi-success/5 p-8 text-center md:p-12">
-        <p className="font-display text-2xl text-white">Message sent</p>
-        <p className="mt-3 text-white/60">
+        <p className="font-display text-2xl text-pi-ink">Message sent</p>
+        <p className="mt-3 text-pi-ink/65">
           We&apos;ll aim to reply within 48 hours.
         </p>
       </div>
@@ -60,7 +60,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="enquiry-type"
-          className="block text-sm font-medium text-white/70"
+          className="block text-sm font-medium text-pi-ink/80"
         >
           I am a...
         </label>
@@ -68,7 +68,7 @@ export default function ContactForm() {
           id="enquiry-type"
           name="enquiry_type"
           required
-          className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
+          className="mt-2 w-full rounded-lg border border-pi-ink/15 bg-white px-4 py-3 text-pi-ink outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
         >
           <option value="">Select enquiry type</option>
           {enquiryTypes.map((t) => (
@@ -83,7 +83,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-white/70"
+            className="block text-sm font-medium text-pi-ink/80"
           >
             Name
           </label>
@@ -92,14 +92,14 @@ export default function ContactForm() {
             id="name"
             name="name"
             required
-            className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
+            className="mt-2 w-full rounded-lg border border-pi-ink/15 bg-white px-4 py-3 text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
             placeholder="Your name"
           />
         </div>
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-white/70"
+            className="block text-sm font-medium text-pi-ink/80"
           >
             Email
           </label>
@@ -108,7 +108,7 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
-            className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
+            className="mt-2 w-full rounded-lg border border-pi-ink/15 bg-white px-4 py-3 text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
             placeholder="your@email.com"
           />
         </div>
@@ -117,7 +117,7 @@ export default function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-white/70"
+          className="block text-sm font-medium text-pi-ink/80"
         >
           Message
         </label>
@@ -126,7 +126,7 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
-          className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
+          className="mt-2 w-full rounded-lg border border-pi-ink/15 bg-white px-4 py-3 text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
           placeholder="Tell us about your event, access request, or enquiry..."
         />
       </div>
@@ -136,9 +136,9 @@ export default function ContactForm() {
           type="checkbox"
           id="urgent"
           name="urgent"
-          className="h-4 w-4 rounded border-white/15 bg-white/5 text-pi-accent focus:ring-pi-accent"
+          className="h-4 w-4 rounded border-pi-ink/20 bg-white text-pi-accent focus:ring-pi-accent"
         />
-        <label htmlFor="urgent" className="text-sm text-white/50">
+        <label htmlFor="urgent" className="text-sm text-pi-ink/65">
           This is urgent (event within 2 weeks)
         </label>
       </div>
@@ -149,14 +149,14 @@ export default function ContactForm() {
           id="consent"
           name="consent"
           required
-          className="mt-0.5 h-4 w-4 rounded border-white/15 bg-white/5 text-pi-accent focus:ring-pi-accent"
+          className="mt-0.5 h-4 w-4 rounded border-pi-ink/20 bg-white text-pi-accent focus:ring-pi-accent"
         />
-        <label htmlFor="consent" className="text-sm text-white/50">
+        <label htmlFor="consent" className="text-sm text-pi-ink/65">
           I consent to Performance Interpreting Ltd storing my data in order to
           respond to my enquiry, in accordance with the{" "}
           <a
             href="/privacy"
-            className="text-pi-accent underline hover:text-white"
+            className="text-pi-accent underline hover:text-pi-ink"
           >
             Privacy Policy
           </a>
