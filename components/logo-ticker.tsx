@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Pause, Play } from "lucide-react";
 import type { Client } from "@/lib/types";
 
 interface LogoTickerProps {
@@ -17,31 +16,15 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
 
   return (
     <section
-      className="group/ticker relative"
+      className="group/ticker relative bg-pi-canvas border-b border-pi-ink/10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="bg-pi-navy pb-2 pt-6">
-        <p className="text-center text-sm font-semibold uppercase tracking-widest text-white/50">
-          Trusted by
-        </p>
-      </div>
-      <div className="bg-[#f5f5f0] py-5">
-
-      {/* Track wrapper */}
-      <div className="overflow-hidden">
-        <div
-          className="flex w-max"
-          style={{
-            animation: "ticker-scroll 40s linear infinite",
-            animationPlayState: paused ? "paused" : "running",
-          }}
-        >
-          {allClients.map((client, i) => (
-            <div
-              key={`${client.name}-${i}`}
-              className="flex flex-shrink-0 items-center justify-center px-6 md:px-8"
-            >
+      {/* Mobile: static 3-column grid — every logo visible, no animation jank */}
+      <div className="md:hidden section-padding py-6">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-5 items-center justify-items-center">
+          {clients.map((client) => (
+            <div key={client.name} className="flex items-center justify-center">
               {client.url ? (
                 <a
                   href={client.url}
@@ -50,28 +33,64 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
                   aria-label={client.name}
                   className="block"
                 >
-                  <LogoImage client={client} />
+                  <LogoImage client={client} mobile />
                 </a>
               ) : (
-                <LogoImage client={client} />
+                <LogoImage client={client} mobile />
               )}
             </div>
           ))}
         </div>
       </div>
 
+      {/* Desktop: marquee */}
+      <div className="hidden md:flex flex-col items-center justify-center pt-6 pb-6">
+        <div className="w-full overflow-hidden">
+          <div
+            className="flex w-max"
+            style={{
+              animation: "ticker-scroll 40s linear infinite",
+              animationPlayState: paused ? "paused" : "running",
+            }}
+          >
+            {allClients.map((client, i) => (
+              <div
+                key={`${client.name}-${i}`}
+                className="flex flex-shrink-0 items-center justify-center px-8"
+              >
+                {client.url ? (
+                  <a
+                    href={client.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={client.name}
+                    className="block"
+                  >
+                    <LogoImage client={client} />
+                  </a>
+                ) : (
+                  <LogoImage client={client} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-function LogoImage({ client }: { client: Client }) {
+function LogoImage({ client, mobile = false }: { client: Client; mobile?: boolean }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={client.logo}
       alt={client.name}
-      className="h-10 w-auto object-contain transition-opacity duration-300 hover:opacity-80 md:h-12"
+      loading="lazy"
+      decoding="async"
+      className={`w-auto max-w-full object-contain transition-opacity duration-300 hover:opacity-80 ${
+        mobile ? "h-8" : "h-10"
+      }`}
     />
   );
 }
