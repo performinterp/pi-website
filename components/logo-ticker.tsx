@@ -108,29 +108,32 @@ function MobileLogoReveal({ clients }: { clients: Client[] }) {
         ))}
       </div>
 
-      {/* See more pill */}
+      {/* Trusted by — eyebrow + chevron, classy reveal trigger */}
       {!open && (
-        <div className="mt-5 flex justify-center">
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="inline-flex items-center gap-2 rounded-full border border-pi-ink/15 bg-white px-5 py-2 text-xs font-semibold tracking-wide text-pi-ink/80 transition-all duration-200 hover:border-pi-accent/40 hover:text-pi-ink active:scale-[0.98]"
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Show more clients"
+          className="group mt-5 flex w-full flex-col items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-pi-accent focus-visible:ring-offset-4 focus-visible:ring-offset-pi-canvas rounded-md"
+        >
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-pi-ink/50 transition-colors group-hover:text-pi-ink/70">
+            Trusted by
+          </span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-pi-gold transition-transform duration-300 ease-out group-hover:translate-y-0.5"
+            aria-hidden="true"
           >
-            See all {clients.length} clients
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-        </div>
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
       )}
 
       {/* Expanded grid — reveals smoothly, stays open */}
