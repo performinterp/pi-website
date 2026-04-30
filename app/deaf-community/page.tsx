@@ -6,6 +6,7 @@ import AnimateIn from "@/components/animate-in";
 import AppStoreButtons from "@/components/app-store-buttons";
 import AppScreenshotCarousel from "@/components/app-screenshot-carousel";
 import ReviewCarousel from "@/components/review-carousel";
+import MobileTestimonialsCarousel from "@/components/mobile-testimonials-carousel";
 import VideoFeedback from "@/components/video-feedback";
 import Icon from "@/components/icon";
 
@@ -132,9 +133,17 @@ export default function DeafCommunityPage() {
             </p>
           </div>
         </AnimateIn>
+        {/* Desktop: existing rotating review */}
         <AnimateIn delay={100}>
-          <ReviewCarousel reviews={reviews} />
+          <div className="hidden md:block">
+            <ReviewCarousel reviews={reviews} />
+          </div>
         </AnimateIn>
+
+        {/* Mobile: same snap-scroll style as the home page */}
+        <div className="mt-2">
+          <MobileTestimonialsCarousel testimonials={reviews} />
+        </div>
       </section>
 
       {/* ─── What interpreted events look like — visual ──── */}
