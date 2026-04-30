@@ -197,7 +197,7 @@ export default function AppGuidePage() {
       </section>
 
       {/* ─── AI imagery note ──────────────────────────────── */}
-      <div className="section-padding pb-4 pt-0">
+      <div className="section-padding py-8 md:py-10">
         <p className="text-center text-xs tracking-wide text-pi-ink/40">
           Header image generated with AI for illustrative purposes.
         </p>
