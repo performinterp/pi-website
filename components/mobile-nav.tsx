@@ -93,7 +93,8 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         aria-modal="true"
         aria-label="Navigation menu"
         onKeyDown={handleKeyDownTrap}
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-pi-navy shadow-2xl transition-transform duration-300 ease-out ${
+        style={{ backgroundColor: "#020142" }}
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col shadow-2xl transition-transform duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
