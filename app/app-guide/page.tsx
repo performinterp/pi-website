@@ -121,8 +121,8 @@ export default function AppGuidePage() {
             }`}
           >
             {layout === "center" ? (
-              <>
-                <div className="mx-auto max-w-3xl text-center">
+              <div className="flex flex-col">
+                <div className="order-2 mx-auto mt-10 max-w-3xl text-center md:order-1 md:mt-0">
                   <AnimateIn>
                     <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
                       {step.n} &middot; {step.kicker}
@@ -135,12 +135,12 @@ export default function AppGuidePage() {
                     </p>
                   </AnimateIn>
                 </div>
-                <AnimateIn delay={120}>
-                  <div className="relative mx-auto mt-10 aspect-[1700/1004] w-full max-w-5xl overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15">
+                <AnimateIn delay={120} className="order-1 md:order-2">
+                  <div className="relative mx-auto aspect-[1700/1004] w-full max-w-5xl overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15 md:mt-10">
                     <ScrollVideo src={step.video} />
                   </div>
                 </AnimateIn>
-              </>
+              </div>
             ) : (
               <div
                 className={`mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[5fr_2fr] md:gap-12 ${
@@ -197,8 +197,8 @@ export default function AppGuidePage() {
       </section>
 
       {/* ─── AI imagery note ──────────────────────────────── */}
-      <div className="section-padding py-8 md:py-10">
-        <p className="text-center text-xs tracking-wide text-pi-ink/40">
+      <div className="section-padding py-3">
+        <p className="text-center text-[11px] tracking-wide text-pi-ink/40">
           Header image generated with AI for illustrative purposes.
         </p>
       </div>
