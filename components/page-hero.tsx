@@ -1,26 +1,41 @@
+import { useId } from "react";
+
 interface PageHeroProps {
   title: string;
   subtitle?: string;
   backgroundImage?: string;
   imagePosition?: string;
+  mobileImagePosition?: string;
   tall?: boolean;
 }
 
-export default function PageHero({ title, subtitle, backgroundImage, imagePosition, tall }: PageHeroProps) {
+export default function PageHero({ title, subtitle, backgroundImage, imagePosition, mobileImagePosition, tall }: PageHeroProps) {
+  const desktopPos = imagePosition ?? "center";
+  const mobilePos = mobileImagePosition ?? desktopPos;
+  const reactId = useId();
+  const heroId = `hero-${reactId.replace(/[^a-zA-Z0-9]/g, "")}`;
   return (
     <section
+      id={heroId}
       className={`relative w-full overflow-hidden bg-pi-navy ${tall ? "min-h-[70vh]" : "min-h-[55vh]"}`}
       style={
         backgroundImage
           ? {
               backgroundImage: `url(${backgroundImage})`,
               backgroundSize: "cover",
-              backgroundPosition: imagePosition ?? "center",
               backgroundRepeat: "no-repeat",
             }
           : undefined
       }
     >
+      {backgroundImage ? (
+        <style>{`
+          #${heroId} { background-position: ${mobilePos}; }
+          @media (min-width: 768px) {
+            #${heroId} { background-position: ${desktopPos}; }
+          }
+        `}</style>
+      ) : null}
       {backgroundImage ? (
         <>
           {/* Subtle full-image tint to keep the brightest highlights from blowing out type */}
