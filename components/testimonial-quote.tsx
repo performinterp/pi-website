@@ -2,8 +2,8 @@ import AnimateIn from "./animate-in";
 
 interface TestimonialQuoteProps {
   quote: string;
-  name: string;
-  context: string;
+  name?: string;
+  context?: string;
   wide?: boolean;
 }
 
@@ -20,10 +20,12 @@ export default function TestimonialQuote({
         <p className="font-display text-xl italic leading-relaxed text-pi-ink/90 md:text-2xl">
           &ldquo;{quote}&rdquo;
         </p>
-        <footer className="mt-6">
-          <p className="text-base font-semibold text-pi-ink">{name}</p>
-          <p className="text-sm text-pi-ink/60">{context}</p>
-        </footer>
+        {(name || context) && (
+          <footer className="mt-6">
+            {name && <p className="text-base font-semibold text-pi-ink">{name}</p>}
+            {context && <p className="text-sm text-pi-ink/60">{context}</p>}
+          </footer>
+        )}
       </blockquote>
     </AnimateIn>
   );

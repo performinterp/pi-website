@@ -128,8 +128,6 @@ export default function InterpretersPage() {
       <section className="section-padding pt-12 md:pt-16 pb-4 md:pb-6">
         <TestimonialQuote
           quote="I attended the two day festival training weekend and was absolutely blown away by how much I came away with! They created a really supportive and safe space."
-          name="Leah Jewiss"
-          context="PI Academy participant"
         />
       </section>
 
@@ -196,8 +194,6 @@ export default function InterpretersPage() {
       <section className="section-padding pt-4 md:pt-6 pb-12 md:pb-16">
         <TestimonialQuote
           quote="The training offered by Performance Interpreting is invaluable. The trainers made the whole programme so welcoming. I enjoyed pushing through the boundaries of my comfort zone."
-          name="Hayley Wiseman"
-          context="PI Academy participant"
         />
       </section>
 
