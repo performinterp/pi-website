@@ -105,6 +105,79 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Audience Cards (directional — moved up to sit under Stats) ── */}
+      <section className="section-padding section-gap">
+        <AnimateIn>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            How can we help?
+          </p>
+          <h2 className="mt-3 text-center font-display text-3xl text-pi-ink md:text-4xl">
+            Who we work with
+          </h2>
+        </AnimateIn>
+
+        {/* Desktop: 3-column cards */}
+        <div className="mt-12 hidden gap-6 md:grid md:grid-cols-3">
+          {audienceCards.map((card, i) => {
+            const isExternal = card.external;
+            const Tag = isExternal ? "a" : Link;
+            const linkProps = isExternal
+              ? { href: card.href, target: "_blank", rel: "noopener noreferrer" }
+              : { href: card.href };
+
+            return (
+              <AnimateIn key={card.title} delay={i * 120}>
+                <div className="group flex h-full flex-col rounded-2xl border-l-4 border-l-pi-gold border border-pi-ink/10 bg-white p-6 shadow-sm transition-all duration-300 hover:bg-pi-accent/5 hover:border-pi-accent/40 md:p-8">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pi-gold/10">
+                    <Icon
+                      name={card.icon}
+                      size={22}
+                      className="text-pi-gold"
+                    />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl text-pi-ink">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-base leading-relaxed text-pi-ink/70">
+                    {card.description}
+                  </p>
+                  <Tag
+                    {...linkProps}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors group-hover:text-pi-ink"
+                  >
+                    {card.ctaLabel}
+                    <Icon name="arrow-right" size={14} />
+                  </Tag>
+                </div>
+              </AnimateIn>
+            );
+          })}
+        </div>
+
+        {/* Mobile: premium expanders with linked CTA inside */}
+        <div className="mt-10 flex flex-col gap-3 md:hidden">
+          {audienceCards.map((card) => {
+            const isExternal = card.external;
+            const Tag = isExternal ? "a" : Link;
+            const linkProps = isExternal
+              ? { href: card.href, target: "_blank", rel: "noopener noreferrer" }
+              : { href: card.href };
+            return (
+              <MobileExpander key={card.title} icon={card.icon} title={card.title}>
+                <p>{card.description}</p>
+                <Tag
+                  {...linkProps}
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
+                >
+                  {card.ctaLabel}
+                  <Icon name="arrow-right" size={14} />
+                </Tag>
+              </MobileExpander>
+            );
+          })}
+        </div>
+      </section>
+
       {/* ─── Consultancy ───────────────────────────────────── */}
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <div className="mx-auto max-w-5xl">
@@ -347,79 +420,6 @@ export default function Home() {
         {/* Mobile: horizontal snap carousel */}
         <div className="mt-10">
           <MobileTestimonialsCarousel testimonials={testimonials.slice(0, 6)} />
-        </div>
-      </section>
-
-      {/* ─── Audience Cards ───────────────────────────────── */}
-      <section className="section-padding section-gap">
-        <AnimateIn>
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">
-            How can we help?
-          </p>
-          <h2 className="mt-3 text-center font-display text-3xl text-pi-ink md:text-4xl">
-            Who we work with
-          </h2>
-        </AnimateIn>
-
-        {/* Desktop: 3-column cards */}
-        <div className="mt-12 hidden gap-6 md:grid md:grid-cols-3">
-          {audienceCards.map((card, i) => {
-            const isExternal = card.external;
-            const Tag = isExternal ? "a" : Link;
-            const linkProps = isExternal
-              ? { href: card.href, target: "_blank", rel: "noopener noreferrer" }
-              : { href: card.href };
-
-            return (
-              <AnimateIn key={card.title} delay={i * 120}>
-                <div className="group flex h-full flex-col rounded-2xl border-l-4 border-l-pi-gold border border-pi-ink/10 bg-white p-6 shadow-sm transition-all duration-300 hover:bg-pi-accent/5 hover:border-pi-accent/40 md:p-8">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pi-gold/10">
-                    <Icon
-                      name={card.icon}
-                      size={22}
-                      className="text-pi-gold"
-                    />
-                  </div>
-                  <h3 className="mt-5 font-display text-xl text-pi-ink">
-                    {card.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-base leading-relaxed text-pi-ink/70">
-                    {card.description}
-                  </p>
-                  <Tag
-                    {...linkProps}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors group-hover:text-pi-ink"
-                  >
-                    {card.ctaLabel}
-                    <Icon name="arrow-right" size={14} />
-                  </Tag>
-                </div>
-              </AnimateIn>
-            );
-          })}
-        </div>
-
-        {/* Mobile: premium expanders with linked CTA inside */}
-        <div className="mt-10 flex flex-col gap-3 md:hidden">
-          {audienceCards.map((card) => {
-            const isExternal = card.external;
-            const Tag = isExternal ? "a" : Link;
-            const linkProps = isExternal
-              ? { href: card.href, target: "_blank", rel: "noopener noreferrer" }
-              : { href: card.href };
-            return (
-              <MobileExpander key={card.title} icon={card.icon} title={card.title}>
-                <p>{card.description}</p>
-                <Tag
-                  {...linkProps}
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
-                >
-                  {card.ctaLabel}
-                  <Icon name="arrow-right" size={14} />
-                </Tag>
-              </MobileExpander>
-            );
-          })}
         </div>
       </section>
 
