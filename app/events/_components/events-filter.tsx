@@ -207,36 +207,41 @@ export default function EventsFilter({ events, cities, categories }: Props) {
             </select>
           </div>
 
-          <div>
-            <label htmlFor="ev-from" className={labelClass}>
-              From
-            </label>
-            <input
-              id="ev-from"
-              type="date"
-              value={fromDate}
-              onChange={(e) => {
-                setFromDate(e.target.value);
-                setVisible(PAGE_SIZE);
-              }}
-              className={`${inputClass} mt-1.5`}
-            />
-          </div>
+          {/* Date range — pair From and To in a 2-col sub-grid so they share
+              a row even on narrow phones (the parent grid only goes 2-col at
+              md+, leaving these two stacked otherwise). */}
+          <div className="grid grid-cols-2 gap-4 md:contents">
+            <div>
+              <label htmlFor="ev-from" className={labelClass}>
+                From
+              </label>
+              <input
+                id="ev-from"
+                type="date"
+                value={fromDate}
+                onChange={(e) => {
+                  setFromDate(e.target.value);
+                  setVisible(PAGE_SIZE);
+                }}
+                className={`${inputClass} mt-1.5`}
+              />
+            </div>
 
-          <div>
-            <label htmlFor="ev-to" className={labelClass}>
-              To
-            </label>
-            <input
-              id="ev-to"
-              type="date"
-              value={toDate}
-              onChange={(e) => {
-                setToDate(e.target.value);
-                setVisible(PAGE_SIZE);
-              }}
-              className={`${inputClass} mt-1.5`}
-            />
+            <div>
+              <label htmlFor="ev-to" className={labelClass}>
+                To
+              </label>
+              <input
+                id="ev-to"
+                type="date"
+                value={toDate}
+                onChange={(e) => {
+                  setToDate(e.target.value);
+                  setVisible(PAGE_SIZE);
+                }}
+                className={`${inputClass} mt-1.5`}
+              />
+            </div>
           </div>
         </div>
 
