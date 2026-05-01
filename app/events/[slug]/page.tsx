@@ -193,9 +193,115 @@ export default async function EventDetailPage({ params }: Params) {
           </div>
         </div>
 
-        <div className="section-padding section-gap">
-          <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
-            <div className="space-y-10 order-2 lg:order-1">
+        {/*
+          Booking panel is rendered at TWO positions so the visual order is
+          consistent across breakpoints:
+            mobile : Hero → About → Interpretation → [Booking] → Venue → Facilities
+            desktop: same in main col, plus a sticky copy in the right column
+          Each render is gated by responsive utility classes; the inactive
+          copy is display:none, so the user only ever sees one.
+        */}
+        {(() => {
+          const bookingPanel = venueContact || event.eventUrl ? (
+            <div className="rounded-2xl border border-pi-ink/10 bg-white p-6 shadow-sm md:p-7">
+              <h2 className="font-display text-xl text-pi-ink">
+                {isBooked ? "Book access tickets" : "Contact the venue"}
+              </h2>
+              <p className="mt-2 text-sm text-pi-ink/65">
+                {isBooked
+                  ? "Quickest route to your access ticket:"
+                  : "Use these to ask the venue for an interpreter:"}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {venueContact?.vrs && (
+                  <li>
+                    <a
+                      href={venueContact.vrs}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-accent/30 bg-pi-accent/5 p-3.5 transition hover:border-pi-accent hover:bg-pi-accent/10"
+                    >
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-pi-accent">
+                          {venueContact.vrsLabel ?? "SignVideo"} (BSL)
+                        </p>
+                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          Call the access team in BSL
+                        </p>
+                      </div>
+                      <span className="text-pi-accent">→</span>
+                    </a>
+                  </li>
+                )}
+                {venueContact?.email && (
+                  <li>
+                    <Link
+                      href={`/events/request?event=${encodeURIComponent(event.name)}&venue=${encodeURIComponent(event.venue)}&date=${encodeURIComponent(event.isoDate)}`}
+                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-warmth/30 bg-pi-warmth/5 p-3.5 transition hover:border-pi-warmth hover:bg-pi-warmth/10"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth">
+                          ✨ Email the venue
+                        </p>
+                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          Use AI to generate your email
+                        </p>
+                      </div>
+                      <span className="text-pi-warmth">→</span>
+                    </Link>
+                  </li>
+                )}
+                {venueContact?.phone && (
+                  <li>
+                    <a
+                      href={`tel:${venueContact.phone}`}
+                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
+                    >
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
+                          Phone
+                        </p>
+                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          {venueContact.phone}
+                        </p>
+                      </div>
+                      <span className="text-pi-accent">→</span>
+                    </a>
+                  </li>
+                )}
+                {event.eventUrl && (
+                  <li>
+                    <a
+                      href={event.eventUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
+                    >
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
+                          Event page
+                        </p>
+                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          Tickets &amp; venue info
+                        </p>
+                      </div>
+                      <span className="text-pi-accent">→</span>
+                    </a>
+                  </li>
+                )}
+              </ul>
+              {venueContact?.note && !venueContact.bslGuaranteed && (
+                <p className="mt-4 text-xs leading-relaxed text-pi-ink/60">
+                  {venueContact.note}
+                </p>
+              )}
+            </div>
+          ) : null;
+
+          return (
+            <div className="section-padding section-gap">
+              <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+                <div className="space-y-10">
               {event.description && (
                 <section>
                   <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
@@ -246,6 +352,14 @@ export default async function EventDetailPage({ params }: Params) {
                   {event.format && <Detail label="Format">{event.format}</Detail>}
                 </dl>
               </section>
+
+              {/* Mobile-only booking panel — desktop renders the same panel
+                  inside the sticky aside in the right column. */}
+              {bookingPanel && (
+                <div id="request-access" className="lg:hidden">
+                  {bookingPanel}
+                </div>
+              )}
 
               {(venueDetails?.mapsUrl ||
                 venueDetails?.address ||
@@ -321,106 +435,15 @@ export default async function EventDetailPage({ params }: Params) {
               )}
             </div>
 
-            <aside id="request-access" className="order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start space-y-6">
-              {(venueContact || event.eventUrl) && (
-                <div className="rounded-2xl border border-pi-ink/10 bg-white p-6 shadow-sm md:p-7">
-                  <h2 className="font-display text-xl text-pi-ink">
-                    {isBooked ? "Book access tickets" : "Contact the venue"}
-                  </h2>
-                  <p className="mt-2 text-sm text-pi-ink/65">
-                    {isBooked
-                      ? "Quickest route to your access ticket:"
-                      : "Use these to ask the venue for an interpreter:"}
-                  </p>
-                  <ul className="mt-4 space-y-3">
-                    {venueContact?.vrs && (
-                      <li>
-                        <a
-                          href={venueContact.vrs}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-start justify-between gap-3 rounded-xl border border-pi-accent/30 bg-pi-accent/5 p-3.5 transition hover:border-pi-accent hover:bg-pi-accent/10"
-                        >
-                          <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-pi-accent">
-                              {venueContact.vrsLabel ?? "SignVideo"} (BSL)
-                            </p>
-                            <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                              Call the access team in BSL
-                            </p>
-                          </div>
-                          <span className="text-pi-accent">→</span>
-                        </a>
-                      </li>
-                    )}
-                    {venueContact?.email && (
-                      <li>
-                        <Link
-                          href={`/events/request?event=${encodeURIComponent(event.name)}&venue=${encodeURIComponent(event.venue)}&date=${encodeURIComponent(event.isoDate)}`}
-                          className="flex items-start justify-between gap-3 rounded-xl border border-pi-warmth/30 bg-pi-warmth/5 p-3.5 transition hover:border-pi-warmth hover:bg-pi-warmth/10"
-                        >
-                          <div className="min-w-0">
-                            <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth">
-                              ✨ Email the venue
-                            </p>
-                            <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                              Use AI to generate your email
-                            </p>
-                          </div>
-                          <span className="text-pi-warmth">→</span>
-                        </Link>
-                      </li>
-                    )}
-                    {venueContact?.phone && (
-                      <li>
-                        <a
-                          href={`tel:${venueContact.phone}`}
-                          className="flex items-start justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
-                        >
-                          <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
-                              Phone
-                            </p>
-                            <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                              {venueContact.phone}
-                            </p>
-                          </div>
-                          <span className="text-pi-accent">→</span>
-                        </a>
-                      </li>
-                    )}
-                    {event.eventUrl && (
-                      <li>
-                        <a
-                          href={event.eventUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-start justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
-                        >
-                          <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
-                              Event page
-                            </p>
-                            <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                              Tickets &amp; venue info
-                            </p>
-                          </div>
-                          <span className="text-pi-accent">→</span>
-                        </a>
-                      </li>
-                    )}
-                  </ul>
-                  {venueContact?.note && !venueContact.bslGuaranteed && (
-                    <p className="mt-4 text-xs leading-relaxed text-pi-ink/60">
-                      {venueContact.note}
-                    </p>
-                  )}
-                </div>
-              )}
-
+            {/* Desktop sticky aside — hidden on mobile (mobile copy renders
+                inline between Interpretation and Venue above). */}
+            <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
+              {bookingPanel}
             </aside>
-          </div>
-        </div>
+              </div>
+            </div>
+          );
+        })()}
       </article>
     </>
   );
