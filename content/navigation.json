@@ -1,6 +1,10 @@
 {
   "mainNav": [
     {
+      "label": "Events",
+      "href": "/events"
+    },
+    {
       "label": "Deaf Community",
       "href": "/deaf-community"
     },
@@ -22,6 +26,10 @@
     "href": "/contact"
   },
   "footerNav": [
+    {
+      "label": "Events",
+      "href": "/events"
+    },
     {
       "label": "About",
       "href": "/about"

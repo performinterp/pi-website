@@ -82,6 +82,31 @@ export interface ContactCta {
   ctaHref: string;
 }
 
+export type InterpreterStatus = "booked" | "on-request";
+
+export interface Event {
+  name: string;
+  rawDate: string;
+  isoDate: string;
+  venue: string;
+  city: string;
+  time: string;
+  interpreters: string;
+  interpretation: string;
+  language: "BSL" | "ISL" | "BSL_AND_ISL" | "OTHER";
+  category: string;
+  imageUrl: string;
+  eventUrl: string;
+  status: string;
+  source: string;
+  description: string;
+  format: string;
+  soldOut: boolean;
+  addedDate: string | null;
+  interpreterStatus: InterpreterStatus;
+  interpreterStatusLabel: string;
+}
+
 export interface PageContent {
   title: string;
   subtitle: string;
