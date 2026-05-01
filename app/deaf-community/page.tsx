@@ -110,7 +110,15 @@ export default function DeafCommunityPage() {
           </div>
         </AnimateIn>
         <AnimateIn delay={220}>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <Link
+              href="/events"
+              className="group inline-flex items-center gap-2 rounded-full bg-pi-warmth px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-pi-warmth/30 transition-all duration-200 hover:brightness-110 hover:shadow-xl hover:shadow-pi-warmth/40 hover:scale-[1.03]"
+            >
+              <Icon name="calendar" size={18} className="shrink-0" />
+              Find interpreted events
+              <Icon name="arrow-right" size={18} className="transition-transform group-hover:translate-x-1" />
+            </Link>
             <Link
               href="/app-guide"
               className="btn-shimmer group inline-flex items-center gap-3 rounded-full bg-pi-accent px-8 py-4 text-base font-bold text-white shadow-lg shadow-pi-accent/30 transition-all duration-200 hover:brightness-110 hover:shadow-xl hover:shadow-pi-accent/40 hover:scale-[1.03]"
