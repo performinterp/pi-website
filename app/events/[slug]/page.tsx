@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Link2 } from "lucide-react";
+import { Link2, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug, findEventBySlug } from "@/lib/event-slug";
@@ -233,10 +233,10 @@ export default async function EventDetailPage({ params }: Params) {
                         />
                         <div className="min-w-0">
                           <p className="text-xs font-bold uppercase tracking-wider text-pi-accent">
-                            {venueContact.vrsLabel ?? "SignVideo"} (BSL)
+                            {venueContact.vrsLabel ?? "SignVideo"}
                           </p>
                           <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                            Call the access team in BSL
+                            Call the access team
                           </p>
                         </div>
                       </div>
@@ -248,15 +248,20 @@ export default async function EventDetailPage({ params }: Params) {
                   <li>
                     <Link
                       href={`/events/request?event=${encodeURIComponent(event.name)}&venue=${encodeURIComponent(event.venue)}&date=${encodeURIComponent(event.isoDate)}`}
-                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-warmth/30 bg-pi-warmth/5 p-3.5 transition hover:border-pi-warmth hover:bg-pi-warmth/10"
+                      className="flex items-center justify-between gap-3 rounded-xl border border-pi-warmth/30 bg-pi-warmth/5 p-3.5 transition hover:border-pi-warmth hover:bg-pi-warmth/10"
                     >
-                      <div className="min-w-0">
-                        <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth">
-                          ✨ Email the venue
-                        </p>
-                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                          Use AI to generate your email
-                        </p>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-pi-warmth/15 text-pi-warmth">
+                          <Sparkles className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth">
+                            Email the venue
+                          </p>
+                          <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                            Use AI to generate your email
+                          </p>
+                        </div>
                       </div>
                       <span className="text-pi-warmth">→</span>
                     </Link>
