@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import Nav from "@/components/nav";
 import CookieBanner from "@/components/cookie-banner";
 import AppPromoBanner from "@/components/app-promo-banner";
+import Assistant from "@/components/assistant";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -256,6 +257,7 @@ export default function RootLayout({
         <Footer />
         <CookieBanner />
         <AppPromoBanner />
+        <Assistant />
       </body>
     </html>
   );
