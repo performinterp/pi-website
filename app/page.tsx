@@ -424,7 +424,7 @@ export default function Home() {
       </section>
 
       {/* ─── Stay in the Loop ─────────────────────────────── */}
-      <section className="section-padding section-gap bg-pi-canvas-soft">
+      <section className="section-padding section-gap bg-pi-canvas">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
