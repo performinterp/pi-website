@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Link2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug, findEventBySlug } from "@/lib/event-slug";
@@ -219,15 +220,25 @@ export default async function EventDetailPage({ params }: Params) {
                       href={venueContact.vrs}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-accent/30 bg-pi-accent/5 p-3.5 transition hover:border-pi-accent hover:bg-pi-accent/10"
+                      className="flex items-center justify-between gap-3 rounded-xl border border-pi-accent/30 bg-pi-accent/5 p-3.5 transition hover:border-pi-accent hover:bg-pi-accent/10"
                     >
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-pi-accent">
-                          {venueContact.vrsLabel ?? "SignVideo"} (BSL)
-                        </p>
-                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                          Call the access team in BSL
-                        </p>
+                      <div className="flex items-center gap-3 min-w-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src="/signvideo-logo.png"
+                          alt=""
+                          width={32}
+                          height={32}
+                          className="shrink-0 rounded-lg object-cover"
+                        />
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold uppercase tracking-wider text-pi-accent">
+                            {venueContact.vrsLabel ?? "SignVideo"} (BSL)
+                          </p>
+                          <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                            Call the access team in BSL
+                          </p>
+                        </div>
                       </div>
                       <span className="text-pi-accent">→</span>
                     </a>
@@ -275,15 +286,20 @@ export default async function EventDetailPage({ params }: Params) {
                       href={event.eventUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
+                      className="flex items-center justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
                     >
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
-                          Event page
-                        </p>
-                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
-                          Tickets &amp; venue info
-                        </p>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-pi-ink/5 text-pi-ink/60">
+                          <Link2 className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
+                            Event page
+                          </p>
+                          <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                            Tickets &amp; venue info
+                          </p>
+                        </div>
                       </div>
                       <span className="text-pi-accent">→</span>
                     </a>
