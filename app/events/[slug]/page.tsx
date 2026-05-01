@@ -195,7 +195,7 @@ export default async function EventDetailPage({ params }: Params) {
 
         <div className="section-padding section-gap">
           <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
-            <div className="space-y-10">
+            <div className="space-y-10 order-2 lg:order-1">
               {event.description && (
                 <section>
                   <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
@@ -247,6 +247,39 @@ export default async function EventDetailPage({ params }: Params) {
                 </dl>
               </section>
 
+              {(venueDetails?.mapsUrl ||
+                venueDetails?.address ||
+                venueDetails?.postcode) && (
+                <section>
+                  <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
+                    Venue
+                  </h2>
+                  <div className="mt-4 rounded-2xl border border-pi-ink/10 bg-white p-5">
+                    <p className="font-semibold text-pi-ink">{event.venue}</p>
+                    {(venueDetails?.address ||
+                      venueDetails?.address2 ||
+                      venueDetails?.postcode) && (
+                      <address className="mt-2 not-italic text-sm leading-relaxed text-pi-ink/70">
+                        {venueDetails?.address && <>{venueDetails.address}<br /></>}
+                        {venueDetails?.address2 && <>{venueDetails.address2}<br /></>}
+                        {venueDetails?.city && <>{venueDetails.city}<br /></>}
+                        {venueDetails?.postcode && <>{venueDetails.postcode}</>}
+                      </address>
+                    )}
+                    {venueDetails?.mapsUrl && (
+                      <a
+                        href={venueDetails.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent hover:text-pi-ink"
+                      >
+                        Open in Google Maps →
+                      </a>
+                    )}
+                  </div>
+                </section>
+              )}
+
               {features.length > 0 && (
                 <section>
                   <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
@@ -286,42 +319,9 @@ export default async function EventDetailPage({ params }: Params) {
                   </ul>
                 </section>
               )}
-
-              {(venueDetails?.mapsUrl ||
-                venueDetails?.address ||
-                venueDetails?.postcode) && (
-                <section>
-                  <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
-                    Venue
-                  </h2>
-                  <div className="mt-4 rounded-2xl border border-pi-ink/10 bg-white p-5">
-                    <p className="font-semibold text-pi-ink">{event.venue}</p>
-                    {(venueDetails?.address ||
-                      venueDetails?.address2 ||
-                      venueDetails?.postcode) && (
-                      <address className="mt-2 not-italic text-sm leading-relaxed text-pi-ink/70">
-                        {venueDetails?.address && <>{venueDetails.address}<br /></>}
-                        {venueDetails?.address2 && <>{venueDetails.address2}<br /></>}
-                        {venueDetails?.city && <>{venueDetails.city}<br /></>}
-                        {venueDetails?.postcode && <>{venueDetails.postcode}</>}
-                      </address>
-                    )}
-                    {venueDetails?.mapsUrl && (
-                      <a
-                        href={venueDetails.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent hover:text-pi-ink"
-                      >
-                        Open in Google Maps →
-                      </a>
-                    )}
-                  </div>
-                </section>
-              )}
             </div>
 
-            <aside id="request-access" className="lg:sticky lg:top-24 lg:self-start space-y-6">
+            <aside id="request-access" className="order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start space-y-6">
               {(venueContact || event.eventUrl) && (
                 <div className="rounded-2xl border border-pi-ink/10 bg-white p-6 shadow-sm md:p-7">
                   <h2 className="font-display text-xl text-pi-ink">
