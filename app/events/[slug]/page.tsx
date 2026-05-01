@@ -314,11 +314,8 @@ export default async function EventDetailPage({ params }: Params) {
               )}
 
               <section>
-                <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
-                  Interpretation
-                </h2>
                 <div
-                  className={`mt-4 rounded-2xl border p-5 ${
+                  className={`rounded-2xl border p-5 ${
                     isBooked
                       ? "border-pi-success/30 bg-pi-success/5"
                       : "border-pi-warmth/30 bg-pi-warmth/5"
