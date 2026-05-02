@@ -77,7 +77,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
                     href="https://www.legislation.gov.uk/ukpga/2010/15/contents"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pi-accent underline hover:text-pi-ink"
+                    className="font-semibold text-pi-ink underline decoration-pi-accent decoration-2 underline-offset-2 hover:text-pi-accent"
                   >
                     Equality Act 2010
                   </a>{" "}
@@ -88,7 +88,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
                     href="https://www.legislation.gov.uk/ukpga/1995/50/contents"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pi-accent underline hover:text-pi-ink"
+                    className="font-semibold text-pi-ink underline decoration-pi-accent decoration-2 underline-offset-2 hover:text-pi-accent"
                   >
                     Disability Discrimination Act 1995
                   </a>{" "}
@@ -99,7 +99,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
                     href="https://www.irishstatutebook.ie/eli/2000/act/8/enacted/en/html"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pi-accent underline hover:text-pi-ink"
+                    className="font-semibold text-pi-ink underline decoration-pi-accent decoration-2 underline-offset-2 hover:text-pi-accent"
                   >
                     Equal Status Acts 2000-2018
                   </a>{" "}
@@ -110,7 +110,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
                     href="https://www.irishstatutebook.ie/eli/2017/act/40/enacted/en/html"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pi-accent underline hover:text-pi-ink"
+                    className="font-semibold text-pi-ink underline decoration-pi-accent decoration-2 underline-offset-2 hover:text-pi-accent"
                   >
                     Irish Sign Language Act 2017
                   </a>

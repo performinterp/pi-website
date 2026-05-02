@@ -255,7 +255,7 @@ export default async function EventDetailPage({ params }: Params) {
                           <Sparkles className="h-4 w-4" aria-hidden="true" />
                         </span>
                         <div className="min-w-0">
-                          <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth">
+                          <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth-strong">
                             Email the venue
                           </p>
                           <p className="mt-0.5 text-base font-semibold text-pi-ink">
@@ -344,7 +344,7 @@ export default async function EventDetailPage({ params }: Params) {
                 >
                   <p
                     className={`font-display text-xl ${
-                      isBooked ? "text-pi-success" : "text-pi-warmth"
+                      isBooked ? "text-pi-success-strong" : "text-pi-warmth-strong"
                     }`}
                   >
                     {statusBadgeLabel}
@@ -355,7 +355,7 @@ export default async function EventDetailPage({ params }: Params) {
                       : `${langLabel} interpretation is not yet confirmed. The venue accepts requests — use the form on this page and we'll contact them on your behalf.`}
                   </p>
                   {venueContact?.bslGuaranteed && (
-                    <p className="mt-3 rounded-lg bg-pi-success/10 p-3 text-sm font-medium text-pi-success">
+                    <p className="mt-3 rounded-lg bg-pi-success-strong/10 p-3 text-sm font-medium text-pi-success-strong">
                       ✓ {venueContact.note ??
                         `${langLabel} provided at all events at this venue as standard.`}
                     </p>

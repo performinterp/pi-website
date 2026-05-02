@@ -19,8 +19,8 @@
   --color-pi-warmth: #E07A3C;
   /* Darker warmth for use as a background with white text (the standard
      pi-warmth at #E07A3C fails AA against white at any size). */
-  --color-pi-warmth-strong: #B05418;
-  --color-pi-success-strong: #15803D;
+  --color-pi-warmth-strong: #9C4814;
+  --color-pi-success-strong: #106B30;
   --color-pi-canvas: #FAF8F3;
   --color-pi-canvas-soft: #F2EEE5;
   --color-pi-ink: #0A1A4F;
