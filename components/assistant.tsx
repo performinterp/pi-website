@@ -20,6 +20,74 @@ function extractTextFromMessage(m: UIMessage): string {
     .join("");
 }
 
+// Minimal inline Markdown renderer — links, **bold**, paragraphs, bullet lists.
+// We avoid pulling in react-markdown to keep the widget bundle small.
+function renderInline(text: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  // Match either a markdown link [text](url) or **bold**
+  const re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]*)\)|\*\*([^*]+)\*\*/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let key = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) parts.push(text.slice(last, m.index));
+    if (m[1] && m[2]) {
+      const isExternal = m[2].startsWith("http");
+      parts.push(
+        <a
+          key={`l${key++}`}
+          href={m[2]}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          className="text-pi-accent underline underline-offset-2 hover:text-pi-ink"
+        >
+          {m[1]}
+        </a>
+      );
+    } else if (m[3]) {
+      parts.push(
+        <strong key={`b${key++}`} className="font-semibold">
+          {m[3]}
+        </strong>
+      );
+    }
+    last = re.lastIndex;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return parts;
+}
+
+function MarkdownText({ text }: { text: string }) {
+  // Split on blank lines for paragraphs; treat lines starting with "- " or "* "
+  // as a list within the current block.
+  const blocks: React.ReactNode[] = [];
+  const paragraphs = text.split(/\n{2,}/);
+  paragraphs.forEach((para, pi) => {
+    const lines = para.split("\n");
+    const isList = lines.every((l) => /^\s*[-*]\s+/.test(l) || l.trim() === "");
+    if (isList && lines.some((l) => l.trim())) {
+      blocks.push(
+        <ul key={`p${pi}`} className="my-1 ml-4 list-disc space-y-1">
+          {lines
+            .filter((l) => l.trim())
+            .map((l, li) => (
+              <li key={li}>{renderInline(l.replace(/^\s*[-*]\s+/, ""))}</li>
+            ))}
+        </ul>
+      );
+    } else {
+      blocks.push(
+        <p key={`p${pi}`} className={pi === 0 ? "" : "mt-2"}>
+          {lines.flatMap((l, li) =>
+            li === 0 ? renderInline(l) : [<br key={`br${li}`} />, ...renderInline(l)]
+          )}
+        </p>
+      );
+    }
+  });
+  return <>{blocks}</>;
+}
+
 function parseHumanMarker(text: string): { visible: string; summary: HumanSummary } | null {
   const idx = text.indexOf(NEEDS_HUMAN_MARKER);
   if (idx === -1) return null;
@@ -295,11 +363,15 @@ export default function Assistant() {
                             : "bg-pi-canvas-soft text-pi-ink"
                         }`}
                       >
-                        {visible.split("\n").map((line, i) => (
-                          <p key={i} className={i === 0 ? "" : "mt-2"}>
-                            {line}
-                          </p>
-                        ))}
+                        {isUser ? (
+                          visible.split("\n").map((line, i) => (
+                            <p key={i} className={i === 0 ? "" : "mt-2"}>
+                              {line}
+                            </p>
+                          ))
+                        ) : (
+                          <MarkdownText text={visible} />
+                        )}
                       </div>
                     </div>
                   );
