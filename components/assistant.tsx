@@ -156,6 +156,10 @@ export default function Assistant() {
     summary: HumanSummary;
     transcript: { role: "user" | "assistant"; content: string }[];
   } | null>(null);
+  // Tracks message IDs we've already consumed for handoff. Without this,
+  // hitting "Back to chat" would immediately re-trigger the handoff form
+  // because the marker is still present on the last assistant message.
+  const dismissedHandoffIds = useRef<Set<string>>(new Set());
   const [sendState, setSendState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -198,6 +202,7 @@ export default function Assistant() {
   useEffect(() => {
     if (status !== "ready") return;
     if (!lastAssistant) return;
+    if (dismissedHandoffIds.current.has(lastAssistant.id)) return;
     const text = extractTextFromMessage(lastAssistant);
     const parsed = parseHumanMarker(text);
     if (parsed && !handoff) {
@@ -211,6 +216,11 @@ export default function Assistant() {
       setHandoff({ summary: parsed.summary, transcript });
     }
   }, [lastAssistant, messages, status, handoff]);
+
+  function dismissHandoff() {
+    if (lastAssistant) dismissedHandoffIds.current.add(lastAssistant.id);
+    setHandoff(null);
+  }
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -351,7 +361,7 @@ export default function Assistant() {
                 <div className="flex gap-2">
                   <button
                     type="button"
-                    onClick={() => setHandoff(null)}
+                    onClick={dismissHandoff}
                     className="flex-1 rounded-full border border-pi-ink/15 bg-white px-3 py-2 text-xs font-semibold text-pi-ink/70 transition hover:bg-pi-ink/5"
                   >
                     Back to chat
@@ -375,7 +385,7 @@ export default function Assistant() {
               <button
                 type="button"
                 onClick={() => {
-                  setHandoff(null);
+                  dismissHandoff();
                   setSendState("idle");
                 }}
                 className="mt-6 inline-flex items-center gap-2 rounded-full border border-pi-accent/30 bg-pi-accent/5 px-5 py-2 text-xs font-semibold text-pi-accent transition hover:bg-pi-accent hover:text-white"
