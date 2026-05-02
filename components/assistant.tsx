@@ -46,9 +46,18 @@ function extractTextFromMessage(m: UIMessage): string {
 }
 
 function isVideoUrl(url: string): boolean {
-  // Strip any media-fragment suffix (#t=…) before checking.
+  // Belt-and-braces: only render as a video player if the URL is on PI's
+  // own media host AND ends in a video extension. If the model
+  // hallucinates a plausible-looking URL elsewhere, it falls back to a
+  // regular link rather than rendering a broken video element.
   const clean = url.split("#")[0];
-  return /\.(mp4|webm|mov)$/i.test(clean);
+  if (!/\.(mp4|webm|mov)$/i.test(clean)) return false;
+  try {
+    const u = new URL(clean);
+    return u.hostname === "media.performanceinterpreting.co.uk";
+  } catch {
+    return false;
+  }
 }
 
 function SignVideoPlayer({ url, label }: { url: string; label: string }) {
