@@ -27,7 +27,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
           <div className="space-y-6 text-pi-ink/75">
             <div>
               <h2 className="font-display text-2xl text-pi-ink">How it works</h2>
-              <ol className="mt-4 space-y-4 text-sm leading-relaxed">
+              <ol className="mt-4 space-y-4 text-base leading-relaxed">
                 <li className="flex gap-3">
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-pi-warmth/15 text-xs font-bold text-pi-warmth">
                     1
@@ -68,10 +68,10 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
             </div>
             <div className="rounded-2xl border border-pi-accent/20 bg-pi-accent/5 p-5">
               <h3 className="font-display text-lg text-pi-ink">Your Rights</h3>
-              <p className="mt-2 text-sm font-semibold leading-relaxed text-pi-ink/85">
+              <p className="mt-2 text-base font-semibold leading-relaxed text-pi-ink/85">
                 BSL access is your right - not a favour.
               </p>
-              <ul className="mt-2 space-y-1 text-xs text-pi-ink/65">
+              <ul className="mt-2 space-y-1 text-sm text-pi-ink/65">
                 <li>
                   <a
                     href="https://www.legislation.gov.uk/ukpga/2010/15/contents"
@@ -123,7 +123,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
             <h2 className="font-display text-2xl text-pi-ink">
               Enter the details of the event you want to go to
             </h2>
-            <p className="mt-2 text-sm text-pi-ink/65">
+            <p className="mt-2 text-base text-pi-ink/65">
               We&apos;ll generate the email for you to send.
             </p>
             <div className="mt-6">

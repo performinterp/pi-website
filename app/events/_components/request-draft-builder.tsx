@@ -335,7 +335,7 @@ export default function RequestDraftBuilder({
               editHintTimer.current = setTimeout(() => setShowEditHint(false), 2400);
             }}
           >
-            <pre className="max-h-72 cursor-default overflow-auto whitespace-pre-wrap rounded-lg border border-pi-ink/10 bg-white p-3 text-sm leading-relaxed text-pi-ink select-text">
+            <pre className="max-h-72 cursor-default overflow-auto whitespace-pre-wrap rounded-lg border border-pi-ink/10 bg-white p-3 text-base leading-relaxed text-pi-ink select-text">
 {draft.body}
             </pre>
             {showEditHint && (

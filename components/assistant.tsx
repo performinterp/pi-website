@@ -311,7 +311,7 @@ export default function Assistant() {
                   <Mail size={14} aria-hidden="true" />
                   Send to PI
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-pi-ink/70">
+                <p className="mt-1 text-sm leading-relaxed text-pi-ink/70">
                   We&apos;ll reply within 48 hours. Edit anything before sending.
                 </p>
               </div>

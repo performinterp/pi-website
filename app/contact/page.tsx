@@ -55,10 +55,10 @@ export default function ContactPage() {
               {enquirySection.items.map((item, i) => (
                 <AnimateIn key={item.title} delay={i * 80}>
                   <div className="rounded-xl border border-pi-ink/10 bg-white p-5 shadow-sm">
-                    <h3 className="text-sm font-semibold text-pi-ink">
+                    <h3 className="text-base font-semibold text-pi-ink">
                       {item.title}
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-pi-ink/70">
+                    <p className="mt-1 text-sm leading-relaxed text-pi-ink/70">
                       {item.description}
                     </p>
                   </div>

@@ -89,7 +89,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
           <p className="font-display text-lg leading-tight text-pi-ink md:text-xl">
             Can&apos;t find your event?
           </p>
-          <p className="mt-1 text-sm text-pi-ink/65">
+          <p className="mt-1 text-base text-pi-ink/65">
             We&apos;ll contact the venue to request BSL or ISL interpretation on
             your behalf.
           </p>
@@ -262,7 +262,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       {shown.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-pi-ink/15 p-12 text-center">
           <p className="font-display text-2xl text-pi-ink">No matching events</p>
-          <p className="mx-auto mt-3 max-w-md text-sm text-pi-ink/60">
+          <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/60">
             Try widening your filters, or request access for an event you&apos;re
             going to using the button above.
           </p>
@@ -357,7 +357,7 @@ function EventCard({ event }: { event: Event }) {
           {event.city && !event.venue.includes(event.city) ? `, ${event.city}` : ""}
         </p>
         {event.interpreters && (
-          <p className="mt-auto text-xs text-pi-ink/55">
+          <p className="mt-auto text-sm text-pi-ink/55">
             Interpreters: {event.interpreters}
           </p>
         )}
