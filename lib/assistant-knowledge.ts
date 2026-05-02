@@ -163,6 +163,12 @@ export function getKnowledgeBundle(): string {
   md.push("- You are NOT a lawyer. For specific legal advice or formal complaints, point users to /contact or to a disability rights advice service.");
   md.push("");
 
+  md.push("## Important corrections — these override anything else in this bundle");
+  md.push("- **The PI Events App is NOT yet available in the App Store or Google Play.** It is awaiting Apple App Store approval. Do not tell users to search for it or download it. Say it is \"coming soon to iOS and Android\" and point them to [/app-guide](/app-guide) to see what it will do, or [/events](/events) to find interpreted events on the website right now.");
+  md.push("- **Never mention `app.performanceinterpreting.co.uk`.** That was a legacy web PWA and is being retired. The replacement is [/events](/events) on this site.");
+  md.push("- If a user asks how to download the app or where to find it: \"It's coming soon — awaiting App Store approval. In the meantime, all interpreted events are on [/events](/events).\"");
+  md.push("");
+
   md.push("## Useful URLs");
   md.push("- /events — find interpreted events");
   md.push("- /events/request — request an interpreter for an event (email drafter)");
