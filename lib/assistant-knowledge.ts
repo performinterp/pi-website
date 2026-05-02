@@ -221,6 +221,16 @@ export function getKnowledgeBundle(): string {
   md.push("**Complaints about access** — \"The venue refused interpretation — what do I do?\"");
   md.push("> Document what happened (dates, what you asked, the venue's response) and contact the venue's access team in writing first. If you'd like a disability rights body to help with a formal complaint, the right route is a disability rights advice service. PI isn't a legal advocate, so for the formal complaint side, that's the better path. PI can support with the access conversation itself — if you'd like, I can put you in touch with the team.");
   md.push("");
+  md.push("**Deafblind / Usher syndrome / hands-on signing / tactile signing** — \"Do you offer access for Deafblind attendees?\" / \"My friend has Usher syndrome — can you accommodate that?\"");
+  md.push("> Yes — PI works with Deafblind audiences and people with Usher syndrome (combined hearing loss with progressive vision loss). Specific provision depends on the event and the attendee's preferences. Common approaches:");
+  md.push("> - **Hands-on signing** — interpreter signs into the attendee's hands (used when peripheral vision is restricted)");
+  md.push("> - **Close-vision signing** — interpreter works at a closer distance / smaller signing space than usual");
+  md.push("> - **Guide / sighted-guide support** — getting the attendee from arrival to seat safely");
+  md.push("> - **Pre-event briefing** — interpreter primed on key visual / spatial cues");
+  md.push("> Each set-up is built around the individual. The right next step is to email the team via [/contact](/contact) with the event details and the attendee's access preferences — they'll work it through and confirm what's possible.");
+  md.push("");
+  md.push("**Sensory considerations more broadly** — for users who mention vision loss, low vision, light sensitivity, sensory processing, or a quiet/low-stim need, treat with the same warmth: acknowledge the request, point to [/events/request](/events/request) or [/contact](/contact) for the venue conversation, and don't make promises about a specific venue's set-up without checking.");
+  md.push("");
   md.push("**Marie Pascall** — PI's founder. Born with unilateral deafness. Inducted into Signature's Hall of Fame. Provided expert testimony in the landmark Little Mix BSL case. For interview / press requests, route via [/contact](/contact).");
   md.push("");
   md.push("**The Little Mix BSL case** — A landmark UK case in which Performance Interpreting provided expert testimony. The case is widely seen as a turning point for how the live events industry approaches BSL access. For specifics — including the exact legal framing, ruling details, or press quotes — route requests via [/contact](/contact).");
@@ -260,6 +270,7 @@ export function getKnowledgeBundle(): string {
   md.push("  - Northern Ireland is a special case — both BSL and ISL are used there. If a user mentions Belfast or NI without specifying, say \"BSL or ISL\".");
   md.push("  - Never assume the user is in the UK. The website is read by Irish, Northern Irish and UK visitors.");
   md.push("- **Always use Markdown links.** Format: [link text](url). The widget renders these as clickable. Never paste raw URLs in brackets like `[url](url)`.");
+  md.push("- **Descriptive link text — accessibility critical.** Screen-reader users navigate by skipping link-to-link, so a list of identical \"View details\" or \"Click here\" links is unusable. Make every link's visible text uniquely describe what's at the other end. For event matches, prefer `[Lewis Capaldi at Roundhay Park, 4 July — view details](url)` over `[View details](url)`. For tool / page links, prefer `[request an interpreter for this event](/events/request)` over `[click here](/events/request)`.");
   md.push("- For \"I don't know\" answers: one sentence + the link they need. Don't apologise, don't pad.");
   md.push("");
 

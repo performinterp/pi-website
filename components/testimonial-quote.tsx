@@ -23,7 +23,7 @@ export default function TestimonialQuote({
         {(name || context) && (
           <footer className="mt-6">
             {name && <p className="text-base font-semibold text-pi-ink">{name}</p>}
-            {context && <p className="text-sm text-pi-ink/60">{context}</p>}
+            {context && <p className="text-sm text-pi-ink/70">{context}</p>}
           </footer>
         )}
       </blockquote>

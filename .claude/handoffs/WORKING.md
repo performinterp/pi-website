@@ -1,12 +1,12 @@
 ---
-type: pre-compact
+type: stop
 project: /Users/james/Projects/Performance-Interpreting/pi-website
 project_name: Performance-Interpreting / pi-website
-timestamp: 2026-04-30T16:54:15.146914
-trigger: auto-compact
+timestamp: 2026-05-01T10:49:55.304178
+trigger: stop-hook
 ---
 
 ## Current State
-Auto-compaction triggered. Session context was compressed.
-Use /resume or check git log for recent changes.
-Run `git diff --stat` and `git log --oneline -10` to reconstruct context.
+Session ended without /wrap-up.
+Run `git diff --stat` and `git log --oneline -10` to see recent changes.
+Use /resume to reload context, or start fresh.

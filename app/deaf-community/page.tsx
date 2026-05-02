@@ -348,7 +348,7 @@ export default function DeafCommunityPage() {
                 <p className="text-sm font-semibold text-pi-ink">
                   Happy to appear in event photos or videos?
                 </p>
-                <p className="mt-1 text-xs text-pi-ink/55">
+                <p className="mt-1 text-xs text-pi-ink/65">
                   Entirely optional. You can withdraw consent at any time.
                 </p>
               </div>

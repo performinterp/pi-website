@@ -53,7 +53,7 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
             <p className="mt-4 text-sm font-semibold text-pi-ink">
               {review.name}
             </p>
-            <p className="text-xs text-pi-ink/55">{review.context}</p>
+            <p className="text-xs text-pi-ink/65">{review.context}</p>
           </div>
         ))}
       </div>

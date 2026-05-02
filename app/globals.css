@@ -85,5 +85,26 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Windows High Contrast / forced-colors: keep the assistant widget,
+   buttons and form fields visible. Without these, Tailwind backgrounds
+   are stripped and custom-styled buttons can become invisible. */
+@media (forced-colors: active) {
+  button,
+  [role="button"],
+  a {
+    forced-color-adjust: none;
+  }
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
   }
 }

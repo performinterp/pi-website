@@ -231,7 +231,7 @@ export default function InterpretersPage() {
                 </div>
               </div>
 
-              <p className="mt-6 text-sm italic text-pi-ink/60">
+              <p className="mt-6 text-sm italic text-pi-ink/70">
                 &ldquo;Working with Performance Interpreting has been such a supportive journey. Beginning as a volunteer, I was able to observe first-hand the passion and dedication of the team.&rdquo;
               </p>
 

@@ -29,7 +29,7 @@ export default function MobileExpander({
   const cardBorder = isDark ? "border-white/10" : "border-pi-ink/10";
   const ruleColor = "bg-pi-gold";
   const titleColor = isDark ? "text-white" : "text-pi-ink";
-  const subtitleColor = isDark ? "text-white/60" : "text-pi-ink/60";
+  const subtitleColor = isDark ? "text-white/60" : "text-pi-ink/70";
   const chevronColor = isDark ? "text-white/50" : "text-pi-ink/40";
   const bodyColor = isDark ? "text-white/75" : "text-pi-ink/75";
   const dividerColor = isDark ? "border-white/10" : "border-pi-ink/10";

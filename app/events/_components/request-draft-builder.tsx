@@ -126,7 +126,7 @@ export default function RequestDraftBuilder({
 
   const inputClass =
     "w-full rounded-lg border border-pi-ink/15 bg-white px-3 py-2.5 text-sm text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent";
-  const labelClass = "block text-xs font-semibold uppercase tracking-wide text-pi-ink/60";
+  const labelClass = "block text-xs font-semibold uppercase tracking-wide text-pi-ink/70";
 
   return (
     <div className="space-y-5">
@@ -182,7 +182,7 @@ export default function RequestDraftBuilder({
                     >
                       {m.venueName}
                       {m.email ? (
-                        <span className="ml-2 text-xs font-normal text-pi-ink/55">
+                        <span className="ml-2 text-xs font-normal text-pi-ink/65">
                           {m.email}
                         </span>
                       ) : null}
@@ -211,7 +211,7 @@ export default function RequestDraftBuilder({
                     >
                       {m.venueName}
                       {m.email ? (
-                        <span className="ml-2 text-xs font-normal text-pi-ink/55">
+                        <span className="ml-2 text-xs font-normal text-pi-ink/65">
                           {m.email}
                         </span>
                       ) : null}
@@ -233,7 +233,7 @@ export default function RequestDraftBuilder({
           {lookupState === "none" && (
             <p
               id="venue-status"
-              className="mt-2 text-xs text-pi-ink/55"
+              className="mt-2 text-xs text-pi-ink/65"
               role="status"
             >
               We don&apos;t have this venue&apos;s access email yet - you can
@@ -304,7 +304,7 @@ export default function RequestDraftBuilder({
       {isValid && (
         <div className="rounded-2xl border border-pi-ink/10 bg-pi-canvas-soft/40 p-4 md:p-5">
           <div className="flex items-center justify-between gap-2">
-            <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
+            <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/65">
               Email preview
             </p>
             <span className="rounded-full bg-pi-accent/10 px-2.5 py-1 text-[11px] font-semibold text-pi-accent">
@@ -313,17 +313,17 @@ export default function RequestDraftBuilder({
           </div>
           <dl className="mt-3 space-y-1.5 text-xs">
             <div className="flex gap-2">
-              <dt className="w-12 shrink-0 font-semibold text-pi-ink/55">To:</dt>
+              <dt className="w-12 shrink-0 font-semibold text-pi-ink/65">To:</dt>
               <dd className="break-all text-pi-ink">{draft.to}</dd>
             </div>
             {draft.cc && (
               <div className="flex gap-2">
-                <dt className="w-12 shrink-0 font-semibold text-pi-ink/55">CC:</dt>
+                <dt className="w-12 shrink-0 font-semibold text-pi-ink/65">CC:</dt>
                 <dd className="break-all text-pi-ink">{draft.cc}</dd>
               </div>
             )}
             <div className="flex gap-2">
-              <dt className="w-12 shrink-0 font-semibold text-pi-ink/55">Subject:</dt>
+              <dt className="w-12 shrink-0 font-semibold text-pi-ink/65">Subject:</dt>
               <dd className="text-pi-ink">{draft.subject}</dd>
             </div>
           </dl>
@@ -394,12 +394,12 @@ export default function RequestDraftBuilder({
       </div>
 
       {!isValid && (
-        <p className="text-xs text-pi-ink/55">
+        <p className="text-xs text-pi-ink/65">
           Add at least an event name and venue to generate the email.
         </p>
       )}
 
-      <p className="text-[11px] leading-relaxed text-pi-ink/55">
+      <p className="text-[11px] leading-relaxed text-pi-ink/65">
         We&apos;ll always be CC&apos;d ({PI_EMAIL}) so we can step in if the
         venue needs more help. Edit anything before sending - or skip the
         template entirely.

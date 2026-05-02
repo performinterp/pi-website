@@ -40,6 +40,22 @@
         {
           "title": "Form accessibility",
           "description": "All form fields have visible labels and are associated with their inputs programmatically."
+        },
+        {
+          "title": "Reduced motion",
+          "description": "Decorative animations, scroll behaviours and the AI assistant typing indicator respect the operating system's reduced-motion preference."
+        },
+        {
+          "title": "Live announcements",
+          "description": "Streaming responses from PIPA (our AI assistant) are announced to screen readers via an ARIA live region. PIPA is fully keyboard-accessible and can be dismissed with the Escape key."
+        },
+        {
+          "title": "Larger touch targets",
+          "description": "Primary buttons and interactive controls meet WCAG AAA (44 × 44 px) where practical."
+        },
+        {
+          "title": "Descriptive link text",
+          "description": "We avoid generic \"click here\" or \"view details\" links. Every link describes its destination so screen-reader users can navigate by link list."
         }
       ]
     },
@@ -65,10 +81,18 @@
       ]
     },
     {
+      "heading": "Deafblind, Usher syndrome and other access needs",
+      "body": [
+        "Beyond standard BSL or ISL interpreting, Performance Interpreting works with Deafblind audiences, people with Usher syndrome (combined hearing and progressive vision loss), and attendees with low vision, sensory processing differences or other needs.",
+        "Common approaches include hands-on signing, close-vision signing, sighted-guide support and pre-event briefings tailored to the individual. Each set-up is built around the attendee.",
+        "If you have specific access needs that aren't fully covered by what you see on an event detail page, please contact us at admin@performanceinterpreting.co.uk or use the request form on /events/request and tell us what you need. We will work it through with you and the venue."
+      ]
+    },
+    {
       "heading": "Enforcement",
       "body": [
         "If you are not satisfied with our response, you can contact the Equality Advisory Support Service (EASS) at equalityadvisoryservice.com or the Equality and Human Rights Commission (EHRC).",
-        "This statement was last updated in March 2026."
+        "This statement was last updated in May 2026."
       ]
     }
   ]

@@ -194,7 +194,7 @@ export async function POST(req: Request) {
   // — saves ~400-800ms latency and ~$0.0001 per turn on the majority of
   // legitimate traffic. The main system prompt + refusal rules still catch
   // anything off-topic that slips through.
-  const ON_TOPIC_KEYWORDS = /\b(pi|bsl|isl|deaf|interpret(er|ing|s)?|sign\s*lang|access(ibility|ible)?|wembley|the\s*o2|festival|concert|gig|venue|performance\s*interpreting|nrcpd|signature|equality\s*act|disability|companion|pa\s*ticket|hard\s*of\s*hearing|hoh|signvideo|relay)\b/i;
+  const ON_TOPIC_KEYWORDS = /\b(pi|bsl|isl|deaf|deafblind|usher|interpret(er|ing|s)?|sign\s*lang|hands[\s-]*on\s*sign|tactile\s*sign|close[\s-]*vision|access(ibility|ible)?|wembley|the\s*o2|festival|concert|gig|venue|performance\s*interpreting|nrcpd|signature|equality\s*act|disability|companion|pa\s*ticket|hard\s*of\s*hearing|hoh|hearing\s*loss|low\s*vision|sensory|signvideo|relay)\b/i;
   // Also skip when this is a follow-up in an existing conversation. The
   // classifier sees only the last message — a benign follow-up like
   // "set up a request for the first one" lacks keywords and would be

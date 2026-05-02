@@ -101,7 +101,7 @@ export default function VideoFeedback() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-sm text-pi-ink/60">Please keep this page open</p>
+        <p className="text-sm text-pi-ink/70">Please keep this page open</p>
       </div>
     );
   }

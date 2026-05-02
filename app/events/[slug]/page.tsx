@@ -274,7 +274,7 @@ export default async function EventDetailPage({ params }: Params) {
                       className="flex items-start justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
                     >
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
+                        <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/65">
                           Phone
                         </p>
                         <p className="mt-0.5 text-base font-semibold text-pi-ink">
@@ -294,11 +294,11 @@ export default async function EventDetailPage({ params }: Params) {
                       className="flex items-center justify-between gap-3 rounded-xl border border-pi-ink/15 bg-white p-3.5 transition hover:border-pi-accent/50"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-pi-ink/5 text-pi-ink/60">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-pi-ink/5 text-pi-ink/70">
                           <Link2 className="h-4 w-4" aria-hidden="true" />
                         </span>
                         <div className="min-w-0">
-                          <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
+                          <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/65">
                             Event page
                           </p>
                           <p className="mt-0.5 text-base font-semibold text-pi-ink">
@@ -312,7 +312,7 @@ export default async function EventDetailPage({ params }: Params) {
                 )}
               </ul>
               {venueContact?.note && !venueContact.bslGuaranteed && (
-                <p className="mt-4 text-sm leading-relaxed text-pi-ink/60">
+                <p className="mt-4 text-sm leading-relaxed text-pi-ink/70">
                   {venueContact.note}
                 </p>
               )}
@@ -442,7 +442,7 @@ export default async function EventDetailPage({ params }: Params) {
                             <p className="text-base font-semibold text-pi-ink">
                               {def.label}
                             </p>
-                            <p className="text-sm leading-snug text-pi-ink/60">
+                            <p className="text-sm leading-snug text-pi-ink/70">
                               {def.desc}
                             </p>
                           </div>
@@ -471,7 +471,7 @@ export default async function EventDetailPage({ params }: Params) {
 function Detail({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-xs font-semibold uppercase tracking-wide text-pi-ink/55">
+      <dt className="text-xs font-semibold uppercase tracking-wide text-pi-ink/65">
         {label}
       </dt>
       <dd className="mt-1 text-base text-pi-ink">{children}</dd>

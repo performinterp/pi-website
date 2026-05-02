@@ -276,7 +276,7 @@ function MobileScreenshotCarousel({
         type="button"
         onClick={() => scrollToIndex(activeIndex - 1)}
         aria-label="Previous screenshot"
-        className="absolute left-2 top-[35%] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-pi-ink/60 backdrop-blur-sm shadow-sm transition-all hover:bg-white hover:text-pi-ink active:scale-95"
+        className="absolute left-2 top-[35%] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-pi-ink/70 backdrop-blur-sm shadow-sm transition-all hover:bg-white hover:text-pi-ink active:scale-95"
       >
         <ChevronLeft size={18} />
       </button>
@@ -284,7 +284,7 @@ function MobileScreenshotCarousel({
         type="button"
         onClick={() => scrollToIndex(activeIndex + 1)}
         aria-label="Next screenshot"
-        className="absolute right-2 top-[35%] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-pi-ink/60 backdrop-blur-sm shadow-sm transition-all hover:bg-white hover:text-pi-ink active:scale-95"
+        className="absolute right-2 top-[35%] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-pi-ink/70 backdrop-blur-sm shadow-sm transition-all hover:bg-white hover:text-pi-ink active:scale-95"
       >
         <ChevronRight size={18} />
       </button>

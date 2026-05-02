@@ -162,6 +162,10 @@ export default function Assistant() {
   const dismissedHandoffIds = useRef<Set<string>>(new Set());
   const [sendState, setSendState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Refs for keyboard / screen-reader focus management.
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const liveRef = useRef<HTMLDivElement>(null);
 
   const transport = useMemo(
     // Trailing slash matches Next's trailingSlash config — without it
@@ -186,10 +190,45 @@ export default function Assistant() {
     ],
   });
 
-  // Auto-scroll on new content
+  // Auto-scroll on new content. Honour prefers-reduced-motion.
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    if (!scrollRef.current) return;
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    scrollRef.current.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
   }, [messages, status]);
+
+  // Focus management: when the panel opens, move focus into the input so
+  // keyboard users can start typing immediately. When it closes (and we're
+  // not opening for the first time), return focus to the launcher button so
+  // the user's tab order doesn't get dumped at the top of the page.
+  const wasOpenRef = useRef(false);
+  useEffect(() => {
+    if (open) {
+      // Defer to next tick so the panel is mounted and the input is in DOM.
+      const id = window.setTimeout(() => inputRef.current?.focus(), 0);
+      return () => window.clearTimeout(id);
+    }
+    if (wasOpenRef.current) launcherRef.current?.focus();
+    wasOpenRef.current = open;
+  }, [open]);
+  useEffect(() => {
+    if (open) wasOpenRef.current = true;
+  }, [open]);
+
+  // Allow Escape to close the panel.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   // Watch for [NEEDS_HUMAN] marker on the latest assistant message
   const lastAssistant = useMemo(() => {
@@ -272,9 +311,11 @@ export default function Assistant() {
       {/* Floating launcher */}
       <button
         type="button"
+        ref={launcherRef}
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close PIPA" : "Open PIPA assistant"}
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pi-accent text-white shadow-2xl shadow-pi-accent/40 transition-all hover:brightness-110 hover:scale-105 print:hidden md:bottom-6 md:right-6"
+        aria-expanded={open}
+        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pi-accent text-white shadow-2xl shadow-pi-accent/40 transition-all hover:brightness-110 hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100 print:hidden md:bottom-6 md:right-6"
       >
         {open ? <X size={22} /> : <MessageCircle size={22} />}
       </button>
@@ -319,7 +360,7 @@ export default function Assistant() {
               <form onSubmit={onHandoffSubmit} className="mt-4 space-y-3">
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label htmlFor="hf-name" className="block text-xs font-semibold uppercase tracking-wide text-pi-ink/55">Name</label>
+                    <label htmlFor="hf-name" className="block text-xs font-semibold uppercase tracking-wide text-pi-ink/65">Name</label>
                     <input
                       id="hf-name"
                       name="hf-name"
@@ -330,7 +371,7 @@ export default function Assistant() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="hf-email" className="block text-xs font-semibold uppercase tracking-wide text-pi-ink/55">Email</label>
+                    <label htmlFor="hf-email" className="block text-xs font-semibold uppercase tracking-wide text-pi-ink/65">Email</label>
                     <input
                       id="hf-email"
                       name="hf-email"
@@ -342,7 +383,7 @@ export default function Assistant() {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="hf-message" className="block text-xs font-semibold uppercase tracking-wide text-pi-ink/55">Your message (editable)</label>
+                  <label htmlFor="hf-message" className="block text-xs font-semibold uppercase tracking-wide text-pi-ink/65">Your message (editable)</label>
                   <textarea
                     id="hf-message"
                     name="hf-message"
@@ -395,7 +436,14 @@ export default function Assistant() {
             </div>
           ) : (
             <>
-              <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-4">
+              <div
+                ref={scrollRef}
+                className="flex-1 space-y-3 overflow-y-auto p-4"
+                aria-live="polite"
+                aria-atomic="false"
+                aria-relevant="additions text"
+                role="log"
+              >
                 {messages.map((m) => {
                   const text = extractTextFromMessage(m);
                   const parsed = parseHumanMarker(text);
@@ -428,13 +476,14 @@ export default function Assistant() {
                   );
                 })}
                 {isThinking && (
-                  <div className="flex justify-start">
-                    <div className="rounded-2xl bg-pi-canvas-soft px-3 py-2 text-sm text-pi-ink/60">
-                      <span className="inline-flex gap-1">
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-pi-ink/40 [animation-delay:0ms]" />
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-pi-ink/40 [animation-delay:150ms]" />
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-pi-ink/40 [animation-delay:300ms]" />
+                  <div className="flex justify-start" aria-label="PIPA is typing">
+                    <div className="rounded-2xl bg-pi-canvas-soft px-3 py-2 text-sm text-pi-ink/70">
+                      <span className="inline-flex gap-1" aria-hidden="true">
+                        <span className="h-1.5 w-1.5 animate-bounce motion-reduce:animate-none rounded-full bg-pi-ink/40 [animation-delay:0ms]" />
+                        <span className="h-1.5 w-1.5 animate-bounce motion-reduce:animate-none rounded-full bg-pi-ink/40 [animation-delay:150ms]" />
+                        <span className="h-1.5 w-1.5 animate-bounce motion-reduce:animate-none rounded-full bg-pi-ink/40 [animation-delay:300ms]" />
                       </span>
+                      <span className="sr-only">PIPA is typing</span>
                     </div>
                   </div>
                 )}
@@ -457,7 +506,7 @@ export default function Assistant() {
                         key={label}
                         type="button"
                         onClick={() => sendMessage({ text: label })}
-                        className="rounded-full border border-pi-accent/25 bg-white px-2.5 py-1 text-xs text-pi-accent transition hover:bg-pi-accent hover:text-white"
+                        className="rounded-full border border-pi-accent/25 bg-white px-3 py-1.5 text-sm text-pi-accent transition hover:bg-pi-accent hover:text-white motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-1"
                       >
                         {label}
                       </button>
@@ -471,21 +520,26 @@ export default function Assistant() {
                 onSubmit={onSubmit}
                 className="flex items-center gap-2 border-t border-pi-ink/10 bg-pi-canvas/40 p-3"
               >
+                <label htmlFor="pipa-input" className="sr-only">
+                  Type your question for PIPA
+                </label>
                 <input
+                  id="pipa-input"
+                  ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask a question..."
-                  className="flex-1 rounded-full border border-pi-ink/15 bg-white px-3 py-2 text-sm text-pi-ink outline-none focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
+                  className="flex-1 rounded-full border border-pi-ink/15 bg-white px-3 py-2 text-base text-pi-ink outline-none focus:border-pi-accent focus:ring-2 focus:ring-pi-accent"
                   disabled={isThinking}
                 />
                 <button
                   type="submit"
-                  aria-label="Send"
+                  aria-label="Send message to PIPA"
                   disabled={isThinking || !input.trim()}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-pi-accent text-white transition hover:brightness-110 disabled:opacity-40"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-pi-accent text-white transition hover:brightness-110 disabled:opacity-40 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-2"
                 >
-                  <SendHorizonal size={16} />
+                  <SendHorizonal size={18} />
                 </button>
               </form>
             </>

@@ -31,7 +31,7 @@ export default async function EventsPage() {
       />
 
       <section className="section-padding section-gap">
-        <p className="mb-3 text-right text-xs text-pi-ink/55">
+        <p className="mb-3 text-right text-xs text-pi-ink/65">
           {upcoming.length} upcoming{" "}
           {upcoming.length === 1 ? "event" : "events"} - updated every 30 minutes
         </p>

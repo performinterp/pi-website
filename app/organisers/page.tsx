@@ -299,7 +299,7 @@ export default function OrganisersPage() {
                       </p>
                       <div className="mt-5 border-t border-pi-ink/10 pt-5">
                         <p className="text-sm font-semibold text-pi-ink">{t.name}</p>
-                        <p className="text-xs text-pi-ink/60">{t.context}</p>
+                        <p className="text-xs text-pi-ink/70">{t.context}</p>
                       </div>
                     </div>
                   </AnimateIn>

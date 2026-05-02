@@ -381,7 +381,7 @@ export default function Home() {
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
               100% recommended
             </h2>
-            <p className="mt-3 text-sm text-pi-ink/60">
+            <p className="mt-3 text-sm text-pi-ink/70">
               5.0 on Google  ·  33 recommendations on Facebook  ·  10K+ followers
             </p>
           </div>
@@ -410,7 +410,7 @@ export default function Home() {
                 </p>
                 <div className="mt-5 border-t border-pi-ink/10 pt-5">
                   <p className="text-sm font-semibold text-pi-ink">{t.name}</p>
-                  <p className="text-xs text-pi-ink/60">{t.context}</p>
+                  <p className="text-xs text-pi-ink/70">{t.context}</p>
                 </div>
               </div>
             </AnimateIn>

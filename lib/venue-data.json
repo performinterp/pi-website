@@ -59,6 +59,26 @@
       "icon": "icons/quiet-rooms.png",
       "label": "Quiet Room",
       "desc": "Sensory or quiet room available"
+    },
+    "hands-on-signing": {
+      "label": "Hands-on signing room",
+      "desc": "A quiet space where interpreters can work hands-on with Deafblind attendees.",
+      "icon": "icons/hands-on.svg"
+    },
+    "guide-support": {
+      "label": "Sighted-guide support",
+      "desc": "Trained guides available to assist Deafblind or low-vision attendees from arrival to seat.",
+      "icon": "icons/guide.svg"
+    },
+    "low-stim-space": {
+      "label": "Low-stimulation space",
+      "desc": "A quieter, lower-light area away from the main event for sensory regulation.",
+      "icon": "icons/quiet.svg"
+    },
+    "large-print": {
+      "label": "Large-print materials",
+      "desc": "Programmes, signage or wayfinding available in large print on request.",
+      "icon": "icons/large-print.svg"
     }
   },
   "VENUE_ACCESS_FEATURES": {

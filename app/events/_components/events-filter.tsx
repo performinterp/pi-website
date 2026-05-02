@@ -80,7 +80,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
 
   const inputClass =
     "w-full rounded-lg border border-pi-ink/15 bg-white px-3 py-2.5 text-sm text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent";
-  const labelClass = "block text-xs font-semibold uppercase tracking-wide text-pi-ink/60";
+  const labelClass = "block text-xs font-semibold uppercase tracking-wide text-pi-ink/70";
 
   return (
     <>
@@ -246,7 +246,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
         </div>
 
         <div className="mt-5 flex items-center justify-between gap-3">
-          <p className="text-sm text-pi-ink/60" aria-live="polite">
+          <p className="text-sm text-pi-ink/70" aria-live="polite">
             {filtered.length} {filtered.length === 1 ? "match" : "matches"}
           </p>
           <button
@@ -262,7 +262,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       {shown.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-pi-ink/15 p-12 text-center">
           <p className="font-display text-2xl text-pi-ink">No matching events</p>
-          <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/60">
+          <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
             Try widening your filters, or request access for an event you&apos;re
             going to using the button above.
           </p>
@@ -357,7 +357,7 @@ function EventCard({ event }: { event: Event }) {
           {event.city && !event.venue.includes(event.city) ? `, ${event.city}` : ""}
         </p>
         {event.interpreters && (
-          <p className="mt-auto text-sm text-pi-ink/55">
+          <p className="mt-auto text-sm text-pi-ink/65">
             Interpreters: {event.interpreters}
           </p>
         )}
