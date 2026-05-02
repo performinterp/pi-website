@@ -443,6 +443,27 @@ export default function Assistant() {
                     Something went wrong. Try again, or email enquiries@performanceinterpreting.co.uk.
                   </p>
                 )}
+
+                {/* Sample-prompt chips on first turn — only shown until the user sends their first message. */}
+                {messages.length === 1 && !isThinking && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {[
+                      "Find a BSL or ISL gig",
+                      "Request access for an event",
+                      "How do I book accessible seating?",
+                      "Speak to the team",
+                    ].map((label) => (
+                      <button
+                        key={label}
+                        type="button"
+                        onClick={() => sendMessage({ text: label })}
+                        className="rounded-full border border-pi-accent/25 bg-white px-2.5 py-1 text-xs text-pi-accent transition hover:bg-pi-accent hover:text-white"
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Input */}

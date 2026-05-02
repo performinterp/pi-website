@@ -1228,6 +1228,36 @@
       "accessibleParking",
       "assistanceDogs",
       "viewingPlatform"
+    ],
+    "croke park": [
+      "wheelchair"
+    ],
+    "croke park, dublin": [
+      "wheelchair"
+    ],
+    "crokepark": [
+      "wheelchair"
+    ],
+    "3olympia": [
+      "wheelchair"
+    ],
+    "3olympia theatre": [
+      "wheelchair"
+    ],
+    "3olympia, dublin": [
+      "wheelchair"
+    ],
+    "3 olympia": [
+      "wheelchair"
+    ],
+    "3 olympia theatre": [
+      "wheelchair"
+    ],
+    "olympia theatre dublin": [
+      "wheelchair"
+    ],
+    "olympia, dublin": [
+      "wheelchair"
     ]
   },
   "VENUE_DETAILS": {
@@ -1968,6 +1998,69 @@
       "city": "Woodstock",
       "postcode": "OX20 1UL",
       "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Blenheim+Palace+Woodstock+OX20+1UL"
+    },
+    "croke park": {
+      "address": "Jones's Road",
+      "address2": "Drumcondra",
+      "city": "Dublin",
+      "postcode": "D03 P8A1",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Croke+Park%2C+Jones%27s+Road%2C+Drumcondra%2C+Dublin+D03+P8A1%2C+Ireland"
+    },
+    "croke park, dublin": {
+      "address": "Jones's Road",
+      "address2": "Drumcondra",
+      "city": "Dublin",
+      "postcode": "D03 P8A1",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Croke+Park%2C+Jones%27s+Road%2C+Drumcondra%2C+Dublin+D03+P8A1%2C+Ireland"
+    },
+    "crokepark": {
+      "address": "Jones's Road",
+      "address2": "Drumcondra",
+      "city": "Dublin",
+      "postcode": "D03 P8A1",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Croke+Park%2C+Jones%27s+Road%2C+Drumcondra%2C+Dublin+D03+P8A1%2C+Ireland"
+    },
+    "3olympia": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
+    },
+    "3olympia theatre": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
+    },
+    "3olympia, dublin": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
+    },
+    "3 olympia": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
+    },
+    "3 olympia theatre": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
+    },
+    "olympia theatre dublin": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
+    },
+    "olympia, dublin": {
+      "address": "72 Dame Street",
+      "city": "Dublin",
+      "postcode": "D02 K135",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=3Olympia+Theatre%2C+72+Dame+Street%2C+Dublin+D02+K135%2C+Ireland"
     }
   },
   "VENUE_CONTACTS": {
@@ -3249,6 +3342,36 @@
     },
     "opera house, blackpool": {
       "email": "info@wgbpl.co.uk"
+    },
+    "croke park": {
+      "note": "Access contact not on file — direct enquiries via crokepark.ie or use /events/request."
+    },
+    "croke park, dublin": {
+      "note": "Access contact not on file — direct enquiries via crokepark.ie or use /events/request."
+    },
+    "crokepark": {
+      "note": "Access contact not on file — direct enquiries via crokepark.ie or use /events/request."
+    },
+    "3olympia": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
+    },
+    "3olympia theatre": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
+    },
+    "3olympia, dublin": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
+    },
+    "3 olympia": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
+    },
+    "3 olympia theatre": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
+    },
+    "olympia theatre dublin": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
+    },
+    "olympia, dublin": {
+      "note": "Access contact not on file — direct enquiries via 3olympia.ie or use /events/request."
     }
   }
 }

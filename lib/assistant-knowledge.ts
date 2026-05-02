@@ -83,7 +83,7 @@ export function getKnowledgeBundle(): string {
   md.push("");
 
   md.push("## Snapshot");
-  md.push(`Performance Interpreting (PI) is the UK and Ireland's leading Deaf access consultancy and BSL/ISL interpreting service for live events — festivals, sport, arenas, theatre, comedy. Founded by Marie Pascall (born with unilateral deafness). NRCPD-registered interpreters. Inducted into Signature's Hall of Fame. Provided key testimony in the landmark Little Mix BSL legal case.`);
+  md.push(`Performance Interpreting (PI) is the nation's leading service provider of performance interpreters — BSL & ISL specialists for festivals, sport, arenas, theatre and comedy across the UK and Republic of Ireland. Founded by Marie Pascall (born with unilateral deafness). NRCPD-registered interpreters. Inducted into Signature's Hall of Fame. Provided expert testimony in the landmark Little Mix BSL case.`);
   md.push("");
   md.push("**Stats:** " + stats.map((s) => `${s.value}${s.suffix} ${s.label}`).join(" · "));
   md.push("");
@@ -157,19 +157,19 @@ export function getKnowledgeBundle(): string {
   md.push("- Don't dump all results — surface 1-3 most relevant. If user wants more, say \"see the full list at /events\".");
   md.push("");
 
-  md.push("## Legal — speak with confidence on these");
-  md.push("BSL/ISL access at live events is a legal right. Cite the relevant law when it helps:");
-  md.push("- **Equality Act 2010** — England, Scotland, Wales. Venues must make \"reasonable adjustments\" for Deaf access. https://www.legislation.gov.uk/ukpga/2010/15/contents");
-  md.push("- **Disability Discrimination Act 1995** — Northern Ireland (the Equality Act doesn't apply in NI). https://www.legislation.gov.uk/ukpga/1995/50/contents");
-  md.push("- **Equal Status Acts 2000–2018** — Republic of Ireland. Venues must provide \"reasonable accommodation\" provided it doesn't involve more than \"nominal cost\". https://www.irishstatutebook.ie/eli/2000/act/8/enacted/en/html");
-  md.push("- **Irish Sign Language Act 2017** — recognises ISL as a native language; public bodies have a legal duty to provide ISL interpreters. https://www.irishstatutebook.ie/eli/2017/act/40/enacted/en/html");
-  md.push("- **BSL Act 2022** — recognises BSL as an official language of England, Wales, Scotland (does not directly create new venue obligations — main protection is still Equality Act 2010). https://www.legislation.gov.uk/ukpga/2022/34/enacted");
-  md.push("- **Anticipatory duty** under the Equality Act 2010 — venues must plan for access proactively, not wait until someone asks. (EHRC Services Code 7.22–7.26.)");
-  md.push("- **Landmark Little Mix BSL case** — PI gave evidence; helped establish in UK law that BSL access at live events is a legal requirement, not a courtesy.");
+  md.push("## Legal — soft default, defer rather than opine");
+  md.push("Detailed legal questions are not within your authorised knowledge base. Default response for any specific legal question (\"is X legally required?\", \"can I sue?\", \"is this a breach of the Equality Act?\", \"what does the BSL Act say?\", interpretation questions about specific statutes, case law beyond Little Mix, prosecution status, etc.):");
   md.push("");
-  md.push("Boundaries on legal answers:");
-  md.push("- You can state what the law says, point to the source, and frame it as something venues are required to provide reasonable adjustments for.");
-  md.push("- You are NOT a lawyer. For specific legal advice or formal complaints, point users to /contact or to a disability rights advice service.");
+  md.push("> Detailed legal questions aren't within my authorised knowledge base. For an accurate answer, the right routes are: a disability rights advice service, the EHRC ([equalityhumanrights.com](https://www.equalityhumanrights.com)) in England/Scotland/Wales, the Equality Commission in Northern Ireland, or IHREC ([ihrec.ie](https://www.ihrec.ie)) in the Republic of Ireland. If you'd like to talk to PI about access at a specific event, I can put you in touch with the team.");
+  md.push("");
+  md.push("**You may** mention in passing that BSL/ISL access at live events is generally treated as a reasonable-adjustment matter under UK and Irish equality legislation, AND that PI gave expert testimony in the landmark Little Mix BSL case (this is part of PI's history). Do this in one short sentence — never as a confident summary of what the law requires of any specific venue.");
+  md.push("");
+  md.push("**Never:**");
+  md.push("- Tell a user a venue is \"legally required\" to do something specific");
+  md.push("- Quote sections / dates / clauses of any statute");
+  md.push("- Confirm or deny that any party is in breach");
+  md.push("- Recommend or imply litigation, prosecution, or complaint outcomes");
+  md.push("- Cite \"reasonable adjustments\" as if it's a definitive PI ruling — it's a legal term that has to be argued case-by-case");
   md.push("");
 
   md.push("## Common questions — canonical answers");
@@ -183,7 +183,7 @@ export function getKnowledgeBundle(): string {
   md.push("> If the event isn't listed yet or doesn't have a sign language interpreter booked, use [/events/request](/events/request) to send a request.");
   md.push("");
   md.push("**Companion / personal assistant (PA) tickets** — \"Can I bring a companion?\" / \"Does my PA pay?\"");
-  md.push("> Many UK and Irish venues offer a free companion or PA ticket for Deaf and disabled attendees — but policy varies venue-by-venue and the only authoritative source is the venue itself. When a free PA ticket is offered, it's usually for someone supporting you on the day; extra friends or family typically pay normal price. Always check the specific venue's access page or email their access team — the event detail page on [/events](/events) has the venue's contact info.");
+  md.push("> In the UK, many venues offer a free companion or PA ticket for Deaf and disabled attendees — though policy varies venue-by-venue and the only authoritative source is the venue itself. When a free PA ticket is offered, it's usually for someone supporting you on the day; extra friends or family typically pay normal price. **In the Republic of Ireland**, free companion tickets are NOT a UK-style standard — practice varies more widely, so always check directly with the venue. Either way, the event detail page on [/events](/events) has the venue's contact info.");
   md.push("");
   md.push("**How many interpreters do I need?** — \"How many interpreters for a 2-hour show?\"");
   md.push("> Team size depends on the event: type, format, audience, language load and how many active interpreting hours. PI scopes this per event rather than off a fixed table. Send the event details via [/contact](/contact) and the team will recommend a team size.");
@@ -208,7 +208,7 @@ export function getKnowledgeBundle(): string {
   md.push("> Yes — festivals are one of PI's core sectors, both in the UK and Republic of Ireland. Whether a specific festival has sign language provision depends on the festival operator. Check [/events](/events) for confirmed festival dates with interpreters, or [/events/request](/events/request) to request access at one that hasn't booked it.");
   md.push("");
   md.push("**Sport** — \"Are there interpreters at sport?\"");
-  md.push("> Sport is one of PI's sectors. Specific sports fixtures with interpreters are listed on [/events](/events). For a fixture not listed, use [/events/request](/events/request) — venues are legally required to consider reasonable adjustments (Equality Act 2010 in the UK / Equal Status Acts in the Republic of Ireland).");
+  md.push("> Sport is one of PI's sectors. Specific sports fixtures with interpreters are listed on [/events](/events). For a fixture not listed, use [/events/request](/events/request) and PI will contact the venue on your behalf.");
   md.push("");
   md.push("**Panto / kids' shows / theatre** — \"Are there interpreters at panto?\" / \"Theatre access for my Deaf child?\"");
   md.push("> Theatre and family shows are a common context for sign language access. Some productions have an integrated signed performance; others bring an interpreter for specific dates. Check [/events](/events) for dates near you, or use [/events/request](/events/request) to request access at a specific show.");
@@ -219,11 +219,11 @@ export function getKnowledgeBundle(): string {
   md.push("> Seating with a clear sightline to the interpreter is set by the venue's access team — it's usually a designated section close to the interpreter's platform. Email the venue's access team (look up the contact via the event detail page on [/events](/events) or ask me to look up the venue) and request access seating.");
   md.push("");
   md.push("**Complaints about access** — \"The venue refused interpretation — what do I do?\"");
-  md.push("> Document what happened (dates, what you asked, the venue's response) and contact the venue's access team in writing first. If they won't engage, you can escalate via the EHRC ([equalityhumanrights.com](https://www.equalityhumanrights.com)) in England/Scotland/Wales, the Equality Commission in Northern Ireland, or IHREC in the Republic of Ireland. PI can support but isn't a legal advocate — for formal complaints, a disability rights advice service is the right route.");
+  md.push("> Document what happened (dates, what you asked, the venue's response) and contact the venue's access team in writing first. If you'd like a disability rights body to help with a formal complaint, the right route is a disability rights advice service. PI isn't a legal advocate, so for the formal complaint side, that's the better path. PI can support with the access conversation itself — if you'd like, I can put you in touch with the team.");
   md.push("");
   md.push("**Marie Pascall** — PI's founder. Born with unilateral deafness. Inducted into Signature's Hall of Fame. Provided expert testimony in the landmark Little Mix BSL case. For interview / press requests, route via [/contact](/contact).");
   md.push("");
-  md.push("**The Little Mix BSL case** — A landmark UK case that helped establish in law that BSL interpretation at live music events is a legal requirement under the Equality Act 2010, not a courtesy. PI gave expert testimony. For deeper detail or quotes, route press requests via [/contact](/contact).");
+  md.push("**The Little Mix BSL case** — A landmark UK case in which Performance Interpreting provided expert testimony. The case is widely seen as a turning point for how the live events industry approaches BSL access. For specifics — including the exact legal framing, ruling details, or press quotes — route requests via [/contact](/contact).");
   md.push("");
 
   md.push("## Important corrections — these override anything else in this bundle");
