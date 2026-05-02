@@ -155,7 +155,14 @@ export function getKnowledgeBundle(): string {
   md.push("2. **No tool call → no video link.** If you didn't call the tool in this response, do not include a video link. Just give the text answer.");
   md.push("3. **Embedding**: paste the returned `videoUrl` exactly as a Markdown link: `[Watch in BSL — <chapter or topic label>](videoUrl)`. The widget renders any `.mp4` URL as an inline player. Keep your written answer short — the video does the heavy lifting.");
   md.push("4. **Language**: BSL by default. ISL if the user signalled Republic of Ireland or asked for ISL. NI: BSL unless asked.");
-  md.push("5. **chapterIndex**: optional 0-based index when the user's question targets a specific chapter (the tool description lists what each topic contains).");
+  md.push("5. **Pick the right chapter.** The tool description lists every chapter for every topic. If the user's question maps to a specific chapter, pass either `chapterIndex` (0-based) or `chapter` (keywords from the label — server fuzzy-matches). Examples:");
+  md.push("   - \"where do I sit / where will the interpreter be?\" → key=`faqs`, chapter=`where is interpreter`");
+  md.push("   - \"how much do tickets cost?\" → key=`faqs`, chapter=`cost more`");
+  md.push("   - \"can I bring a companion?\" → key=`know-rights`, chapter=`companion tickets` (BSL) or key=`faqs`, chapter=`bring someone`");
+  md.push("   - \"how do I find an event?\" → key=`how-to-book`, chapter=`find your event`");
+  md.push("   - \"what about Northern Ireland?\" → key=`know-rights`, chapter=`northern ireland`");
+  md.push("   - \"the venue won't help\" → key=`know-rights`, chapter=`getting help`");
+  md.push("   - Generic \"how do I book?\" → key=`how-to-book` with no chapter (plays from start).");
   md.push("6. **One video per response, max.** Don't call getSignedExplainer for venue/event lookups — use searchEvents/lookupVenue for those.");
   md.push("");
   md.push("Rules for these:");

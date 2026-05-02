@@ -16,8 +16,8 @@ import { eventSlug } from "@/lib/event-slug";
 import { getVenueContact, getVenueDetails, getVenueFeatures, getAccessFeatureDef } from "@/lib/venues";
 import {
   buildSignVideoUrl,
+  describeCatalogue,
   VIDEO_KEYS,
-  VIDEO_TOPICS,
   type VideoKey,
   type SignLanguage,
 } from "@/lib/sign-videos";
@@ -157,29 +157,31 @@ const tools = {
 
   getSignedExplainer: tool({
     description:
-      "Return a streamable URL to a real interpreter signing an answer to a common Deaf-attendee question, in BSL or ISL. Use this WHENEVER a Deaf user asks a question that maps to one of the catalogued topics — supplement your text answer with the video so they can watch a real interpreter explain it in their language. Catalogue keys and what they cover:\n" +
-      VIDEO_KEYS.map((k) => `- ${k}: ${VIDEO_TOPICS[k]}`).join("\n") +
-      "\n\nLanguage selection: pass BSL by default; pass ISL if the user has signalled they're in the Republic of Ireland or asked for ISL. The optional chapterIndex deep-links to a specific chapter (0-based). Returns the URL with a media-fragment timestamp ready to embed inline.",
+      "Return a streamable URL to a real interpreter signing an answer to a common Deaf-attendee question, in BSL or ISL. Use this WHENEVER a Deaf user asks a question that maps to one of the catalogued topics — supplement your text answer with the video so they can watch a real interpreter explain it in their language. Each topic key is followed by its chapter list (when it has one) — pick the chapter that best matches the user's specific question and pass either `chapterIndex` (0-based) or `chapter` (a fuzzy-matched label/keyword).\n\nBSL catalogue:\n" +
+      describeCatalogue("BSL") +
+      "\n\nISL catalogue:\n" +
+      describeCatalogue("ISL") +
+      "\n\nLanguage: BSL by default; ISL if the user signalled Republic of Ireland or asked for ISL. NI: BSL unless asked.",
     inputSchema: z.object({
       key: z.enum(VIDEO_KEYS as [string, ...string[]]).describe("Topic key from the catalogue."),
       language: z.enum(["BSL", "ISL"]).default("BSL").describe("Sign language to return — default BSL."),
-      chapterIndex: z.number().int().min(0).optional().describe("Optional 0-based chapter index to deep-link into."),
+      chapterIndex: z.number().int().min(0).optional().describe("Optional 0-based chapter index to deep-link into. Use this when you've identified the exact chapter from the catalogue listing in the description."),
+      chapter: z.string().optional().describe("Alternative to chapterIndex — a few keywords from the chapter you want (e.g. 'where will the interpreter be', 'companion ticket'). The server fuzzy-matches against chapter labels for the chosen key."),
     }),
-    execute: async ({ key, language, chapterIndex }) => {
-      const result = buildSignVideoUrl(
-        key as VideoKey,
-        language as SignLanguage,
-        chapterIndex
-      );
+    execute: async ({ key, language, chapterIndex, chapter }) => {
+      const result = buildSignVideoUrl(key as VideoKey, language as SignLanguage, {
+        chapterIndex,
+        chapter,
+      });
       if (!result) return { found: false, key, language };
       return {
         found: true,
         key,
         language,
-        topic: VIDEO_TOPICS[key as VideoKey],
         videoUrl: result.url,
         chapterLabel: result.chapterLabel,
         chapterTime: result.chapterTime,
+        availableChapters: result.availableChapters,
       };
     },
   }),

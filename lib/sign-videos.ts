@@ -224,26 +224,98 @@ export function getSignVideo(
 }
 
 // Build a deep-link URL with a media-fragment timestamp for the given
-// chapter index (or the first chapter if none specified). Browsers honour
-// `#t=START` for HTML5 video.
+// chapter (selected by 0-based index OR by fuzzy-matching a label).
+// Browsers honour `#t=START` for HTML5 video.
 export function buildSignVideoUrl(
   key: VideoKey,
   language: SignLanguage,
-  chapterIndex?: number
-): { url: string; chapterLabel: string | null; chapterTime: number } | null {
+  options?: { chapterIndex?: number; chapter?: string }
+): {
+  url: string;
+  chapterLabel: string | null;
+  chapterTime: number;
+  availableChapters: VideoChapter[];
+} | null {
   const video = getSignVideo(key, language);
   if (!video) return null;
   const chapters = video.chapters ?? [];
   let chapterTime = 0;
   let chapterLabel: string | null = null;
+
   if (
-    typeof chapterIndex === "number" &&
-    chapterIndex >= 0 &&
-    chapterIndex < chapters.length
+    typeof options?.chapterIndex === "number" &&
+    options.chapterIndex >= 0 &&
+    options.chapterIndex < chapters.length
   ) {
-    chapterTime = chapters[chapterIndex].time;
-    chapterLabel = chapters[chapterIndex].label;
+    chapterTime = chapters[options.chapterIndex].time;
+    chapterLabel = chapters[options.chapterIndex].label;
+  } else if (options?.chapter && chapters.length > 0) {
+    const match = findBestChapter(options.chapter, chapters);
+    if (match) {
+      chapterTime = match.time;
+      chapterLabel = match.label;
+    }
   }
+
   const url = chapterTime > 0 ? `${video.src}#t=${chapterTime}` : video.src;
-  return { url, chapterLabel, chapterTime };
+  return { url, chapterLabel, chapterTime, availableChapters: chapters };
+}
+
+// Lightweight fuzzy match — counts shared lowercase word overlaps. Picks
+// the chapter whose label shares the most words with the query, ignoring
+// stop words and tiny ones. Handles inputs like "where will the
+// interpreter be?" → "Q7: Where is interpreter?".
+function findBestChapter(query: string, chapters: VideoChapter[]): VideoChapter | null {
+  const STOP = new Set([
+    "a", "an", "the", "is", "are", "was", "were", "be", "do", "does", "did",
+    "to", "of", "in", "on", "at", "for", "with", "by", "from",
+    "i", "you", "we", "they", "he", "she", "it",
+    "my", "your", "our", "their",
+    "and", "or", "but", "if", "then",
+    "what", "where", "when", "why", "how", "which", "who",
+  ]);
+  const tokenise = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 2 && !STOP.has(w));
+
+  const queryTokens = new Set(tokenise(query));
+  if (queryTokens.size === 0) return null;
+
+  let best: VideoChapter | null = null;
+  let bestScore = 0;
+  for (const ch of chapters) {
+    const labelTokens = tokenise(ch.label);
+    let score = 0;
+    for (const t of labelTokens) if (queryTokens.has(t)) score++;
+    if (score > bestScore) {
+      bestScore = score;
+      best = ch;
+    }
+  }
+  return bestScore > 0 ? best : null;
+}
+
+// Returns a compact, model-friendly listing of every key + chapter labels
+// in the catalogue (in the requested language). Used to inline into the
+// getSignedExplainer tool description so the model can pick the right
+// chapter without a separate round-trip.
+export function describeCatalogue(language: SignLanguage = "BSL"): string {
+  const lines: string[] = [];
+  for (const key of VIDEO_KEYS) {
+    const video = getSignVideo(key, language);
+    if (!video) continue;
+    const chapters = video.chapters ?? [];
+    if (chapters.length === 0) {
+      lines.push(`- \`${key}\`: ${VIDEO_TOPICS[key]}`);
+    } else {
+      lines.push(`- \`${key}\`: ${VIDEO_TOPICS[key]}`);
+      lines.push(
+        `  chapters: ${chapters.map((c, i) => `${i}=${JSON.stringify(c.label)}`).join(", ")}`
+      );
+    }
+  }
+  return lines.join("\n");
 }
