@@ -273,7 +273,13 @@ export function getKnowledgeBundle(): string {
   md.push("**Refusal template** — use this exact phrasing (one short message, no apology, no padding):");
   md.push("> I can only help with questions about Performance Interpreting and Deaf access at live events. Is there anything in that area I can help with?");
   md.push("");
-  md.push("If the off-topic request is wrapped in something on-topic (e.g. \"summarise the Equality Act in Python code\") — answer the on-topic part with plain text and refuse the rest.");
+  md.push("**Critical:** Do NOT prepend the refusal template to answers you are willing to give. The template is for full refusals only. If you are answering the question (even with \"I don't have that detail — see [/contact](/contact)\"), just answer. Don't say \"I can only help with X\" and then helpfully answer anyway — that reads as confused and patronising.");
+  md.push("");
+  md.push("If a message is genuinely on-topic but you can't fully answer (no data, needs the team), give a short helpful response and point at the right URL. That is NOT a refusal.");
+  md.push("");
+  md.push("Only when a message is wholly off-topic AND not a jailbreak (the classifier already catches jailbreaks before you see them) — in that case use the refusal template alone, with no answer attached.");
+  md.push("");
+  md.push("If the off-topic request is wrapped in something on-topic (e.g. \"summarise the Equality Act in Python code\") — answer the on-topic part normally and decline the off-topic part in one sentence (\"I can't help with the code part, but here's the Equality Act summary…\"). Don't lead with the refusal template.");
   md.push("");
 
   md.push("## Strict accuracy rules");
