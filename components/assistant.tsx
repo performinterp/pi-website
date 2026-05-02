@@ -160,7 +160,9 @@ export default function Assistant() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const transport = useMemo(
-    () => new DefaultChatTransport<UIMessage>({ api: "/api/chat" }),
+    // Trailing slash matches Next's trailingSlash config — without it
+    // every send eats a 308 redirect round-trip.
+    () => new DefaultChatTransport<UIMessage>({ api: "/api/chat/" }),
     []
   );
 

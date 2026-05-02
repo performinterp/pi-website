@@ -45,6 +45,10 @@ function pageToMarkdown(slug: string, page: PageContent): string {
   return lines.join("\n");
 }
 
+// Cache the assembled bundle for the lifetime of the server process.
+// IMPORTANT: editing any content/*.json or this file does NOT take effect
+// until the next deploy (or a cold function start). If a copy edit isn't
+// showing up in the assistant, that's why — push a redeploy.
 let cached: string | null = null;
 
 export function getKnowledgeBundle(): string {
@@ -175,7 +179,7 @@ export function getKnowledgeBundle(): string {
   md.push("> If the event isn't listed yet or doesn't have a sign language interpreter booked, use [/events/request](/events/request) to send a request.");
   md.push("");
   md.push("**Companion / personal assistant (PA) tickets** — \"Can I bring a companion?\" / \"Does my PA pay?\"");
-  md.push("> Most UK and Irish venues offer a free companion or PA ticket for Deaf and disabled attendees, but the rules vary venue-by-venue. The free ticket is usually for someone supporting you on the day; if you bring extra friends or family, they pay normal price. Check the specific venue's access page or email their access team — the event detail page on [/events](/events) has the venue's contact info.");
+  md.push("> Many UK and Irish venues offer a free companion or PA ticket for Deaf and disabled attendees — but policy varies venue-by-venue and the only authoritative source is the venue itself. When a free PA ticket is offered, it's usually for someone supporting you on the day; extra friends or family typically pay normal price. Always check the specific venue's access page or email their access team — the event detail page on [/events](/events) has the venue's contact info.");
   md.push("");
   md.push("**How many interpreters do I need?** — \"How many interpreters for a 2-hour show?\"");
   md.push("> Team size depends on the event: type, format, audience, language load and how many active interpreting hours. PI scopes this per event rather than off a fixed table. Send the event details via [/contact](/contact) and the team will recommend a team size.");

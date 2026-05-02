@@ -167,7 +167,23 @@ export async function POST(req: Request) {
         .trim()
     : "";
 
-  if (lastUserText.length > 0) {
+  // Cheap keyword fast-path. If the message clearly references PI, BSL/ISL,
+  // a Deaf-access concept or one of our venues, skip the classifier entirely
+  // — saves ~400-800ms latency and ~$0.0001 per turn on the majority of
+  // legitimate traffic. The main system prompt + refusal rules still catch
+  // anything off-topic that slips through.
+  const ON_TOPIC_KEYWORDS = /\b(pi|bsl|isl|deaf|interpret(er|ing|s)?|sign\s*lang|access(ibility|ible)?|wembley|the\s*o2|festival|concert|gig|venue|performance\s*interpreting|nrcpd|signature|equality\s*act|disability|companion|pa\s*ticket|hard\s*of\s*hearing|hoh|signvideo|relay)\b/i;
+  const skipClassifier = lastUserText.length > 0 && ON_TOPIC_KEYWORDS.test(lastUserText);
+
+  if (lastUserText.length > 0 && skipClassifier) {
+    console.log(JSON.stringify({
+      kind: "assistant_classifier",
+      verdict: "SKIP",
+      preview: lastUserText.slice(0, 120),
+    }));
+  }
+
+  if (lastUserText.length > 0 && !skipClassifier) {
     const classification = await generateText({
       model: anthropic("claude-haiku-4-5"),
       system:
@@ -177,6 +193,11 @@ export async function POST(req: Request) {
     });
 
     const verdict = classification.text.trim().toUpperCase();
+    console.log(JSON.stringify({
+      kind: "assistant_classifier",
+      verdict: verdict.startsWith("OFF") ? "OFF" : "ON",
+      preview: lastUserText.slice(0, 120),
+    }));
     if (verdict.startsWith("OFF")) {
       // Stream a canned refusal back through the same UIMessage protocol so
       // the widget renders it as a normal assistant message.
@@ -215,6 +236,21 @@ export async function POST(req: Request) {
     temperature: 0.2,
     tools,
     stopWhen: stepCountIs(5),
+    onStepFinish: ({ toolCalls, text }) => {
+      for (const call of toolCalls ?? []) {
+        console.log(JSON.stringify({
+          kind: "assistant_tool_call",
+          tool: call.toolName,
+          input: call.input,
+        }));
+      }
+      if (text && text.includes("[NEEDS_HUMAN]")) {
+        console.log(JSON.stringify({
+          kind: "assistant_handoff",
+          preview: lastUserText.slice(0, 120),
+        }));
+      }
+    },
   });
 
   return result.toUIMessageStreamResponse();
