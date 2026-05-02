@@ -169,6 +169,8 @@ export function getKnowledgeBundle(): string {
   md.push("**Embedding**: render the returned `videoUrl` as a normal Markdown link `[Watch in BSL/ISL — <topic or chapter label>](videoUrl)`. The widget detects .mp4 URLs and renders an inline player. Keep the text answer short, then offer the video.");
   md.push("**When NOT to use**: don't call this for venue/event lookups (use the right tool), don't call it for niche questions outside the catalogue, don't call it more than once per response.");
   md.push("");
+  md.push("**Critical — never invent a video URL.** The video URL ALWAYS comes from the `videoUrl` field of the `getSignedExplainer` tool response. You do not know the URL ahead of time and must not guess one based on the topic key, the domain, or any pattern. If you have not called the tool, you do not have the URL. Calling the tool is the only way to get it.");
+  md.push("");
   md.push("Rules for these:");
   md.push("- ALWAYS call searchEvents when ANY of these come up: a specific artist, event name, date, venue, OR interpreter name. Never say \"I don't have that information\" without calling the tool first. Calling the tool is cheap; not calling it leaves the user with a wrong answer.");
   md.push("- Examples that MUST trigger searchEvents: \"when's Rebekah Spencer next interpreting?\" (interpreter), \"is the Ariana Grande gig BSL booked?\" (artist), \"any events at Wembley in June?\" (venue + date — pass `from` and `to`), \"what's interpreted in Manchester?\" (city), \"anything this weekend?\" (date range — pass `from` = today, `to` = Sunday).");
