@@ -4,6 +4,31 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, X, SendHorizonal, Mail } from "lucide-react";
+import Link from "next/link";
+
+const SAME_ORIGIN = "https://performanceinterpreting.co.uk";
+
+function isInternalUrl(url: string): boolean {
+  if (url.startsWith("/")) return true;
+  try {
+    const u = new URL(url);
+    if (u.origin === SAME_ORIGIN) return true;
+    return u.hostname === "performanceinterpreting.co.uk" || u.hostname === "www.performanceinterpreting.co.uk";
+  } catch {
+    return false;
+  }
+}
+
+function toRelativeIfInternal(url: string): string {
+  if (url.startsWith("/")) return url;
+  try {
+    const u = new URL(url);
+    if (u.origin === SAME_ORIGIN || u.hostname.endsWith("performanceinterpreting.co.uk")) {
+      return u.pathname + u.search + u.hash;
+    }
+  } catch {}
+  return url;
+}
 
 const NEEDS_HUMAN_MARKER = "[NEEDS_HUMAN]";
 
@@ -32,18 +57,32 @@ function renderInline(text: string): React.ReactNode[] {
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) parts.push(text.slice(last, m.index));
     if (m[1] && m[2]) {
-      const isExternal = m[2].startsWith("http");
-      parts.push(
-        <a
-          key={`l${key++}`}
-          href={m[2]}
-          target={isExternal ? "_blank" : undefined}
-          rel={isExternal ? "noopener noreferrer" : undefined}
-          className="text-pi-accent underline underline-offset-2 hover:text-pi-ink"
-        >
-          {m[1]}
-        </a>
-      );
+      const url = m[2];
+      const internal = isInternalUrl(url);
+      const linkClass = "text-pi-accent underline underline-offset-2 hover:text-pi-ink";
+      if (internal) {
+        // Use Next.js Link so navigation is client-side. The Assistant lives
+        // in app/layout.tsx so its state (open panel + chat history) is
+        // preserved across internal route transitions.
+        parts.push(
+          <Link key={`l${key++}`} href={toRelativeIfInternal(url)} className={linkClass}>
+            {m[1]}
+          </Link>
+        );
+      } else {
+        // External: open in new tab so we don't lose the conversation.
+        parts.push(
+          <a
+            key={`l${key++}`}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
+            {m[1]}
+          </a>
+        );
+      }
     } else if (m[3]) {
       parts.push(
         <strong key={`b${key++}`} className="font-semibold">
