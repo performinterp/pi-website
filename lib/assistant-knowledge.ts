@@ -141,7 +141,8 @@ export function getKnowledgeBundle(): string {
   md.push("- **buildRequestLink** — generate a /events/request URL pre-filled with event/venue/date so the user lands on the email drafter ready to go.");
   md.push("");
   md.push("Rules for these:");
-  md.push("- ALWAYS call searchEvents when someone asks about a specific event, artist, date, or venue lineup. Never invent dates.");
+  md.push("- ALWAYS call searchEvents when ANY of these come up: a specific artist, event name, date, venue, OR interpreter name. Never say \"I don't have that information\" without calling the tool first. Calling the tool is cheap; not calling it leaves the user with a wrong answer.");
+  md.push("- Examples that MUST trigger searchEvents: \"when's Rebekah Spencer next interpreting?\" (interpreter), \"is the Ariana Grande gig BSL booked?\" (artist), \"any events at Wembley in June?\" (venue + date), \"what's interpreted in Manchester?\" (city).");
   md.push("- When showing event matches, give name + date + venue + interpreter status + a Markdown link to the detail page.");
   md.push("- For events without a booked interpreter, offer to generate a request link via buildRequestLink. Phrase it: \"Want me to set up a quick request for this event?\" — if yes, call the tool and give them the link.");
   md.push("- For venue contact questions, use lookupVenue. SignVideo is the recommended contact for BSL users; access email is for written requests; if neither exists, say so and point to /events/request.");

@@ -18,12 +18,18 @@ interface Body {
 const tools = {
   searchEvents: tool({
     description:
-      "Search the live events list. Use for any question about a specific artist, event, date, or venue lineup. Returns up to 5 most-relevant matches.",
+      "Search the live events list. ALWAYS call this for any question that mentions a specific artist, event name, date, venue, or interpreter (e.g. 'when's Rebekah Spencer next interpreting?', 'is The O2's Ariana Grande gig BSL booked?'). The query field matches across event name, venue, city AND interpreter names. Returns up to 5 most-relevant matches sorted by date.",
     inputSchema: z.object({
       query: z
         .string()
         .optional()
-        .describe("Free text — artist or event name (matches partial)."),
+        .describe(
+          "Free text — artist name, event title, OR interpreter name. Matches partial. Use the user's exact spelling."
+        ),
+      interpreter: z
+        .string()
+        .optional()
+        .describe("Interpreter name. Use this when the question is specifically about an interpreter."),
       city: z.string().optional().describe("Filter by city."),
       venue: z.string().optional().describe("Filter by venue name (partial match)."),
       status: z
@@ -33,11 +39,12 @@ const tools = {
           "Interpreter status — booked = interpreter confirmed, on-request = no interpreter yet but venue accepts requests."
         ),
     }),
-    execute: async ({ query, city, venue, status }) => {
+    execute: async ({ query, interpreter, city, venue, status }) => {
       const events = await fetchEvents();
       const today = new Date();
       today.setUTCHours(0, 0, 0, 0);
       const q = (query ?? "").toLowerCase().trim();
+      const interpQ = (interpreter ?? "").toLowerCase().trim();
       const cityQ = (city ?? "").toLowerCase().trim();
       const venueQ = (venue ?? "").toLowerCase().trim();
       const filtered = events
@@ -47,6 +54,7 @@ const tools = {
             const hay = `${e.name} ${e.venue} ${e.city} ${e.interpreters}`.toLowerCase();
             if (!hay.includes(q)) return false;
           }
+          if (interpQ && !e.interpreters.toLowerCase().includes(interpQ)) return false;
           if (cityQ && !e.city.toLowerCase().includes(cityQ)) return false;
           if (venueQ && !e.venue.toLowerCase().includes(venueQ)) return false;
           if (status && status !== "any" && e.interpreterStatus !== status) return false;
@@ -148,7 +156,7 @@ export async function POST(req: Request) {
       },
     },
     messages: modelMessages,
-    temperature: 0.4,
+    temperature: 0.2,
     tools,
     stopWhen: stepCountIs(5),
   });
