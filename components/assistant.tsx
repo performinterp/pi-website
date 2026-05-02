@@ -179,7 +179,7 @@ export default function Assistant() {
         parts: [
           {
             type: "text",
-            text: "Hi! I'm the Performance Interpreting assistant. I can help with questions about Deaf access at live events, BSL/ISL interpreting, our app, and how we work with venues and organisers. How can I help?",
+            text: "Hi! I'm **PIPA** — Performance Interpreting's Personal Assistant. I can help with Deaf access at live events, BSL & ISL interpreting, our app, and how we work with venues and organisers. What can I help you with?",
           },
         ],
       } as UIMessage,
@@ -273,7 +273,7 @@ export default function Assistant() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close assistant" : "Open assistant"}
+        aria-label={open ? "Close PIPA" : "Open PIPA assistant"}
         className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pi-accent text-white shadow-2xl shadow-pi-accent/40 transition-all hover:brightness-110 hover:scale-105 print:hidden md:bottom-6 md:right-6"
       >
         {open ? <X size={22} /> : <MessageCircle size={22} />}
@@ -285,18 +285,18 @@ export default function Assistant() {
           className="fixed bottom-24 right-3 z-40 flex w-[calc(100vw-1.5rem)] max-w-[400px] flex-col overflow-hidden rounded-2xl border border-pi-ink/10 bg-white shadow-2xl shadow-black/20 print:hidden md:bottom-28 md:right-6"
           style={{ height: "min(70vh, 600px)" }}
           role="dialog"
-          aria-label="Performance Interpreting assistant"
+          aria-label="PIPA — Performance Interpreting assistant"
         >
           {/* Header */}
           <div className="flex items-center justify-between gap-3 border-b border-pi-ink/10 bg-pi-navy px-4 py-3 text-white">
             <div>
-              <p className="font-display text-base">PI Assistant</p>
-              <p className="text-[11px] text-white/65">Ask me about events, access, or our app</p>
+              <p className="font-display text-base">PIPA</p>
+              <p className="text-[11px] text-white/65">Performance Interpreting&apos;s Personal Assistant</p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              aria-label="Close assistant"
+              aria-label="Close PIPA"
               className="rounded-full p-1 transition hover:bg-white/10"
             >
               <X size={18} />
