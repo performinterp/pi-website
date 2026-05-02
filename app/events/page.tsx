@@ -30,7 +30,10 @@ export default async function EventsPage() {
         backgroundImage="/images/concert.jpg"
       />
 
-      <section className="section-padding section-gap">
+      <section className="section-padding section-gap" aria-labelledby="events-heading">
+        <h2 id="events-heading" className="sr-only">
+          Upcoming interpreted events
+        </h2>
         <p className="mb-3 text-right text-xs text-pi-ink/65">
           {upcoming.length} upcoming{" "}
           {upcoming.length === 1 ? "event" : "events"} - updated every 30 minutes

@@ -79,20 +79,27 @@ export default function MobileTestimonialsCarousel({
         ))}
       </div>
 
-      {/* Pagination dots */}
-      <div className="mt-5 flex justify-center gap-1.5">
+      {/* Pagination dots — outer button is the 24×24 touch target,
+          inner span is the visible dot. */}
+      <div className="mt-3 flex justify-center">
         {testimonials.map((_, i) => (
           <button
             key={i}
             type="button"
             onClick={() => scrollTo(i)}
             aria-label={`Go to review ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
-              i === activeIndex
-                ? "w-6 bg-pi-gold"
-                : "w-1.5 bg-pi-ink/20 hover:bg-pi-ink/40"
-            }`}
-          />
+            aria-current={i === activeIndex ? "true" : undefined}
+            className="flex h-6 w-6 items-center justify-center"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-1.5 rounded-full transition-all duration-300 ease-out ${
+                i === activeIndex
+                  ? "w-6 bg-pi-gold"
+                  : "w-1.5 bg-pi-ink/30 group-hover:bg-pi-ink/50"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

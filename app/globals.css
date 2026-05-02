@@ -4,7 +4,10 @@
   --color-pi-navy: #020142;
   --color-pi-deep: #060F2E;
   --color-pi-dark: #0A1A4F;
-  --color-pi-accent: #0089D9;
+  /* Nudged darker (#0089D9 -> #0078C4) so white text on pi-accent buttons
+     clears WCAG AA at normal weight (4.5:1). Visually almost identical to
+     the previous shade — the same brand blue, slightly more saturated. */
+  --color-pi-accent: #0078C4;
   --color-pi-gold: #CA8A04;
   --color-pi-gold-light: #EAB308;
   --color-pi-warmth: #E07A3C;

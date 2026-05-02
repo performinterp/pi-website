@@ -58,19 +58,27 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
         ))}
       </div>
 
-      {/* Dots */}
-      <div className="mt-8 flex items-center justify-center gap-2">
+      {/* Dots — outer button is the 24×24 touch target, inner span is
+          the visible dot. */}
+      <div className="mt-6 flex items-center justify-center">
         {reviews.map((_, i) => (
           <button
             key={i}
+            type="button"
             onClick={() => setActive(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              i === active
-                ? "w-6 bg-pi-accent"
-                : "w-2 bg-pi-ink/25 hover:bg-pi-ink/45"
-            }`}
-            aria-label={`Review ${i + 1}`}
-          />
+            aria-label={`Go to review ${i + 1}`}
+            aria-current={i === active ? "true" : undefined}
+            className="flex h-6 w-6 items-center justify-center"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-2 rounded-full transition-all duration-300 ${
+                i === active
+                  ? "w-6 bg-pi-accent"
+                  : "w-2 bg-pi-ink/30"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

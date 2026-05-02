@@ -113,10 +113,10 @@ function MobileLogoReveal({ clients }: { clients: Client[] }) {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          aria-label="Show more clients"
+          aria-label="Trusted by — show more clients"
           className="group mt-5 flex w-full flex-col items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-pi-accent focus-visible:ring-offset-4 focus-visible:ring-offset-pi-canvas rounded-md"
         >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-pi-ink/50 transition-colors group-hover:text-pi-ink/70">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-pi-ink/65 transition-colors group-hover:text-pi-ink/80">
             Trusted by
           </span>
           <svg
