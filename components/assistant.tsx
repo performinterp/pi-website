@@ -45,8 +45,35 @@ function extractTextFromMessage(m: UIMessage): string {
     .join("");
 }
 
-// Minimal inline Markdown renderer — links, **bold**, paragraphs, bullet lists.
-// We avoid pulling in react-markdown to keep the widget bundle small.
+function isVideoUrl(url: string): boolean {
+  // Strip any media-fragment suffix (#t=…) before checking.
+  const clean = url.split("#")[0];
+  return /\.(mp4|webm|mov)$/i.test(clean);
+}
+
+function SignVideoPlayer({ url, label }: { url: string; label: string }) {
+  return (
+    <span className="my-2 block">
+      <span className="block text-xs font-semibold uppercase tracking-wide text-pi-accent">
+        {label}
+      </span>
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <video
+        src={url}
+        controls
+        playsInline
+        preload="metadata"
+        className="mt-1.5 w-full max-w-[340px] rounded-lg border border-pi-ink/10 bg-black"
+        aria-label={label}
+      />
+    </span>
+  );
+}
+
+// Minimal inline Markdown renderer — links, **bold**, paragraphs, bullet
+// lists, and inline video players for .mp4 URLs (used by the signed
+// explainer tool). We avoid pulling in react-markdown to keep the widget
+// bundle small.
 function renderInline(text: string): React.ReactNode[] {
   const parts: React.ReactNode[] = [];
   // Match either a markdown link [text](url) or **bold**
@@ -58,6 +85,13 @@ function renderInline(text: string): React.ReactNode[] {
     if (m.index > last) parts.push(text.slice(last, m.index));
     if (m[1] && m[2]) {
       const url = m[2];
+      // Video URLs render as inline players, not links. PIPA emits BSL/ISL
+      // explainer clips this way via the getSignedExplainer tool.
+      if (isVideoUrl(url)) {
+        parts.push(<SignVideoPlayer key={`v${key++}`} url={url} label={m[1]} />);
+        last = re.lastIndex;
+        continue;
+      }
       const internal = isInternalUrl(url);
       const linkClass = "text-pi-accent underline underline-offset-2 hover:text-pi-ink";
       if (internal) {
