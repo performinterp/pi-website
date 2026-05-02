@@ -45,15 +45,12 @@ function pageToMarkdown(slug: string, page: PageContent): string {
   return lines.join("\n");
 }
 
-// Cache the assembled bundle for the lifetime of the server process.
-// IMPORTANT: editing any content/*.json or this file does NOT take effect
-// until the next deploy (or a cold function start). If a copy edit isn't
-// showing up in the assistant, that's why — push a redeploy.
-let cached: string | null = null;
-
+// We rebuild the bundle on every request (cost: a few JSON.parse calls,
+// negligible). This keeps today's date fresh and means content/*.json
+// edits show up on the next request — no cache to invalidate. The
+// Anthropic prompt cache still kicks in because the bundle content is
+// byte-identical across requests within the same day.
 export function getKnowledgeBundle(): string {
-  if (cached) return cached;
-
   const stats = load<{ value: number; suffix: string; label: string }[]>("stats.json");
   const milestones = load<{ title: string; description: string }[]>("milestones.json");
   const consultancy = load<{
@@ -139,14 +136,21 @@ export function getKnowledgeBundle(): string {
   md.push("");
 
   md.push("## Events + Venues — use the tools, do not guess");
+  const today = new Date();
+  const todayIso = today.toISOString().slice(0, 10);
+  const todayHuman = today.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+  md.push(`Today's date is **${todayHuman}** (ISO: \`${todayIso}\`). Use this when the user mentions \"this weekend\", \"this month\", \"next month\", \"in May\", etc. — translate the relative reference to ISO dates and pass them to searchEvents via the \`from\` and \`to\` parameters.`);
+  md.push("");
   md.push("You have three tools that read live data:");
-  md.push("- **searchEvents** — find events by artist, venue, city, or interpreter status. Returns name, date, venue, status, and detail-page URL.");
+  md.push("- **searchEvents** — find events by artist, venue, city, interpreter status, or date range. Returns name, date, venue, status, and detail-page URL. Optional `from`/`to` ISO dates — USE THESE for any date-bounded question.");
   md.push("- **lookupVenue** — for any venue, get the access email, SignVideo BSL relay URL (if any), and accessibility features.");
   md.push("- **buildRequestLink** — generate a /events/request URL pre-filled with event/venue/date so the user lands on the email drafter ready to go.");
   md.push("");
   md.push("Rules for these:");
   md.push("- ALWAYS call searchEvents when ANY of these come up: a specific artist, event name, date, venue, OR interpreter name. Never say \"I don't have that information\" without calling the tool first. Calling the tool is cheap; not calling it leaves the user with a wrong answer.");
-  md.push("- Examples that MUST trigger searchEvents: \"when's Rebekah Spencer next interpreting?\" (interpreter), \"is the Ariana Grande gig BSL booked?\" (artist), \"any events at Wembley in June?\" (venue + date), \"what's interpreted in Manchester?\" (city).");
+  md.push("- Examples that MUST trigger searchEvents: \"when's Rebekah Spencer next interpreting?\" (interpreter), \"is the Ariana Grande gig BSL booked?\" (artist), \"any events at Wembley in June?\" (venue + date — pass `from` and `to`), \"what's interpreted in Manchester?\" (city), \"anything this weekend?\" (date range — pass `from` = today, `to` = Sunday).");
+  md.push("- When the user mentions a month, week, weekend, or any date phrase, translate it to ISO dates and pass them to searchEvents — otherwise you only get the next 5 events globally and may falsely report \"nothing in May\" when there are events you didn't see.");
+  md.push("- The tool returns a `truncated: true` flag when more than 5 matches exist. If `truncated`, tell the user there are more and link them to /events.");
   md.push("- When showing event matches, give name + date + venue + interpreter status + a Markdown link to the detail page.");
   md.push("- For events without a booked interpreter, offer to generate a request link via buildRequestLink. Phrase it: \"Want me to set up a quick request for this event?\" — if yes, call the tool and give them the link.");
   md.push("- For venue contact questions, use lookupVenue. SignVideo is the recommended contact for BSL users; access email is for written requests; if neither exists, say so and point to /events/request.");
@@ -295,8 +299,22 @@ export function getKnowledgeBundle(): string {
   md.push("- If they ask something off-topic (anything not about PI / BSL access / Deaf inclusion / live events), politely steer back: \"I can only help with questions about Performance Interpreting and Deaf access at live events. Is there anything in that area I can help with?\"");
   md.push("");
 
-  md.push("## Handoff Protocol — when you can't answer");
-  md.push("When the user asks something this bundle can't answer accurately, OR they explicitly want to talk to a human, your response should END with this exact structured marker (on its own lines, after your message text):");
+  md.push("## Handoff Protocol — when to use [NEEDS_HUMAN]");
+  md.push("This site has a built-in handoff form. When you emit the `[NEEDS_HUMAN]` marker, the chat widget pops up a pre-filled email-the-team form with the conversation transcript attached. PI replies within 48 hours. **This is a much better experience than just pointing the user at /contact** — they don't have to navigate away, and the team gets the conversation context.");
+  md.push("");
+  md.push("**Trigger the handoff (emit the marker) when ANY of these are true:**");
+  md.push("- The user explicitly asks to speak to a human, the team, someone real, customer service, or to escalate (e.g. \"can I speak to someone\", \"put me through to a person\", \"I want to talk to your team\", \"this needs a real person\")");
+  md.push("- The user has a complaint, incident report, or specific dispute that needs a real person to handle");
+  md.push("- The user wants to discuss something time-sensitive, contractual, or emotionally charged");
+  md.push("- You can't answer their question from this bundle AND they've shown they want a real answer (rather than \"check the website\")");
+  md.push("- You've already pointed at /contact in a previous turn and they've come back saying that's not enough");
+  md.push("");
+  md.push("**Do NOT trigger the handoff when:**");
+  md.push("- A simple link to /contact, /events/request, /interpreters or another page is genuinely the best answer (they want self-serve)");
+  md.push("- The user is just exploring or asking informational questions");
+  md.push("- The classifier already caught it as off-topic (you won't see those messages)");
+  md.push("");
+  md.push("**Format — exact structure required for the widget to detect it:**");
   md.push("");
   md.push("```");
   md.push("[NEEDS_HUMAN]");
@@ -305,14 +323,13 @@ export function getKnowledgeBundle(): string {
   md.push("Their question: <one short line — the unresolved question>");
   md.push("```");
   md.push("");
-  md.push("Before that marker, write a brief, warm message such as: \"I'm not able to give you an accurate answer on this one. Would you like me to put you in touch with our team? They'll get back to you within 48 hours.\"");
+  md.push("Before the marker, write a short, warm message: \"Let me put you in touch with the team — they'll get back to you within 48 hours.\" or \"I think this is one for a real person. Want me to send the team a message? They'll reply within 48 hours.\" Don't apologise, don't pad.");
   md.push("");
-  md.push("Do NOT include the marker in normal answers. Only when escalating.");
+  md.push("The widget strips the marker block from the displayed message — the user only sees your warm message, then the email form. So write the message as if it's the last thing they read before the form appears.");
   md.push("");
 
   md.push("## Identity");
   md.push("If asked who you are: \"I'm Performance Interpreting's website assistant. I can help with questions about Deaf access at live events, BSL/ISL interpreting, and how PI works with venues, organisers, the Deaf community and interpreters.\"");
 
-  cached = md.join("\n");
-  return cached;
+  return md.join("\n");
 }

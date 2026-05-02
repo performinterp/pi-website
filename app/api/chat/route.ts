@@ -27,7 +27,7 @@ interface Body {
 const tools = {
   searchEvents: tool({
     description:
-      "Search the live events list. ALWAYS call this for any question that mentions a specific artist, event name, date, venue, or interpreter (e.g. 'when's Rebekah Spencer next interpreting?', 'is The O2's Ariana Grande gig BSL booked?'). The query field matches across event name, venue, city AND interpreter names. Returns up to 5 most-relevant matches sorted by date.",
+      "Search the live events list. ALWAYS call this for any question that mentions a specific artist, event name, date, venue, or interpreter (e.g. 'when's Rebekah Spencer next interpreting?', 'is The O2's Ariana Grande gig BSL booked?'). The query field matches across event name, venue, city AND interpreter names. Use `from`/`to` to constrain by date when the user mentions a month, weekend, or date range — without these you only get the next 5 events globally. Returns up to 5 matches sorted by date.",
     inputSchema: z.object({
       query: z
         .string()
@@ -47,8 +47,20 @@ const tools = {
         .describe(
           "Interpreter status — booked = interpreter confirmed, on-request = no interpreter yet but venue accepts requests."
         ),
+      from: z
+        .string()
+        .optional()
+        .describe(
+          "Inclusive start date in ISO YYYY-MM-DD format. Use when the user asks about a month, week, weekend, or specific date range. Defaults to today."
+        ),
+      to: z
+        .string()
+        .optional()
+        .describe(
+          "Inclusive end date in ISO YYYY-MM-DD format. Use with `from` to bound the search. Defaults to no upper bound."
+        ),
     }),
-    execute: async ({ query, interpreter, city, venue, status }) => {
+    execute: async ({ query, interpreter, city, venue, status, from, to }) => {
       const events = await fetchEvents();
       const today = new Date();
       today.setUTCHours(0, 0, 0, 0);
@@ -56,8 +68,15 @@ const tools = {
       const interpQ = (interpreter ?? "").toLowerCase().trim();
       const cityQ = (city ?? "").toLowerCase().trim();
       const venueQ = (venue ?? "").toLowerCase().trim();
+      const fromDate = from ? new Date(`${from}T00:00:00Z`) : today;
+      const toDate = to ? new Date(`${to}T23:59:59Z`) : null;
       const filtered = events
-        .filter((e) => new Date(`${e.isoDate}T00:00:00Z`) >= today)
+        .filter((e) => {
+          const eventDate = new Date(`${e.isoDate}T00:00:00Z`);
+          if (eventDate < fromDate) return false;
+          if (toDate && eventDate > toDate) return false;
+          return true;
+        })
         .filter((e) => {
           if (q) {
             const hay = `${e.name} ${e.venue} ${e.city} ${e.interpreters}`.toLowerCase();
@@ -68,12 +87,15 @@ const tools = {
           if (venueQ && !e.venue.toLowerCase().includes(venueQ)) return false;
           if (status && status !== "any" && e.interpreterStatus !== status) return false;
           return true;
-        })
-        .slice(0, 5);
+        });
+      const totalMatched = filtered.length;
+      const top = filtered.slice(0, 5);
 
       return {
-        count: filtered.length,
-        events: filtered.map((e) => ({
+        count: top.length,
+        totalMatched,
+        truncated: totalMatched > top.length,
+        events: top.map((e) => ({
           name: e.name,
           date: e.isoDate,
           venue: e.venue,
@@ -173,7 +195,14 @@ export async function POST(req: Request) {
   // legitimate traffic. The main system prompt + refusal rules still catch
   // anything off-topic that slips through.
   const ON_TOPIC_KEYWORDS = /\b(pi|bsl|isl|deaf|interpret(er|ing|s)?|sign\s*lang|access(ibility|ible)?|wembley|the\s*o2|festival|concert|gig|venue|performance\s*interpreting|nrcpd|signature|equality\s*act|disability|companion|pa\s*ticket|hard\s*of\s*hearing|hoh|signvideo|relay)\b/i;
-  const skipClassifier = lastUserText.length > 0 && ON_TOPIC_KEYWORDS.test(lastUserText);
+  // Also skip when this is a follow-up in an existing conversation. The
+  // classifier sees only the last message — a benign follow-up like
+  // "set up a request for the first one" lacks keywords and would be
+  // wrongly refused. The main system prompt's refusal rules still catch
+  // any mid-conversation pivot to off-topic.
+  const isFollowUp = messages.filter((m) => m.role === "assistant").length > 0;
+  const skipClassifier =
+    lastUserText.length > 0 && (ON_TOPIC_KEYWORDS.test(lastUserText) || isFollowUp);
 
   if (lastUserText.length > 0 && skipClassifier) {
     console.log(JSON.stringify({
