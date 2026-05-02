@@ -61,16 +61,33 @@ function isVideoUrl(url: string): boolean {
 }
 
 function SignVideoPlayer({ url, label }: { url: string; label: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  // Browsers allow muted autoplay, but the `autoPlay` attribute is flaky
+  // when the element mounts mid-stream from a re-render. Explicitly call
+  // play() once the metadata is ready so it fires reliably. Sign-language
+  // videos have no audio so muted is the right default.
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    const tryPlay = () => {
+      v.muted = true;
+      v.play().catch(() => {
+        // Some browsers still block — controls are visible so the user
+        // can tap play. No console noise.
+      });
+    };
+    if (v.readyState >= 1) tryPlay();
+    else v.addEventListener("loadedmetadata", tryPlay, { once: true });
+    return () => v.removeEventListener("loadedmetadata", tryPlay);
+  }, [url]);
   return (
     <span className="my-2 block">
       <span className="block text-xs font-semibold uppercase tracking-wide text-pi-accent">
         {label}
       </span>
-      {/* Autoplay is allowed because the video is muted (browser policy).
-          Sign-language videos have no audio anyway, so muted autoplay
-          gives Deaf users immediate playback without needing to tap. */}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
+        ref={ref}
         src={url}
         controls
         autoPlay
@@ -102,7 +119,11 @@ function renderInline(text: string): React.ReactNode[] {
       // Video URLs render as inline players, not links. PIPA emits BSL/ISL
       // explainer clips this way via the getSignedExplainer tool.
       if (isVideoUrl(url)) {
-        parts.push(<SignVideoPlayer key={`v${key++}`} url={url} label={m[1]} />);
+        // Use the URL itself as the React key so the same video element is
+        // preserved across text-delta re-renders during streaming. Without
+        // a stable key, React would unmount/remount the <video> on every
+        // chunk and the autoplay would never settle.
+        parts.push(<SignVideoPlayer key={`v:${url}`} url={url} label={m[1]} />);
         last = re.lastIndex;
         continue;
       }
