@@ -208,7 +208,7 @@ export default async function EventDetailPage({ params }: Params) {
               <h2 className="font-display text-xl text-pi-ink">
                 {isBooked ? "Book access tickets" : "Contact the venue"}
               </h2>
-              <p className="mt-2 text-sm text-pi-ink/65">
+              <p className="mt-2 text-base text-pi-ink/65">
                 {isBooked
                   ? "Quickest route to your access ticket:"
                   : "Use these to ask the venue for an interpreter:"}
@@ -235,7 +235,7 @@ export default async function EventDetailPage({ params }: Params) {
                           <p className="text-xs font-bold uppercase tracking-wider text-pi-accent">
                             {venueContact.vrsLabel ?? "SignVideo"}
                           </p>
-                          <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          <p className="mt-0.5 text-base font-semibold text-pi-ink">
                             Call the access team
                           </p>
                         </div>
@@ -258,7 +258,7 @@ export default async function EventDetailPage({ params }: Params) {
                           <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth">
                             Email the venue
                           </p>
-                          <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          <p className="mt-0.5 text-base font-semibold text-pi-ink">
                             Use AI to generate your email
                           </p>
                         </div>
@@ -277,7 +277,7 @@ export default async function EventDetailPage({ params }: Params) {
                         <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
                           Phone
                         </p>
-                        <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                        <p className="mt-0.5 text-base font-semibold text-pi-ink">
                           {venueContact.phone}
                         </p>
                       </div>
@@ -301,7 +301,7 @@ export default async function EventDetailPage({ params }: Params) {
                           <p className="text-xs font-bold uppercase tracking-wider text-pi-ink/55">
                             Event page
                           </p>
-                          <p className="mt-0.5 text-sm font-semibold text-pi-ink">
+                          <p className="mt-0.5 text-base font-semibold text-pi-ink">
                             Tickets &amp; venue info
                           </p>
                         </div>
@@ -312,7 +312,7 @@ export default async function EventDetailPage({ params }: Params) {
                 )}
               </ul>
               {venueContact?.note && !venueContact.bslGuaranteed && (
-                <p className="mt-4 text-xs leading-relaxed text-pi-ink/60">
+                <p className="mt-4 text-sm leading-relaxed text-pi-ink/60">
                   {venueContact.note}
                 </p>
               )}
@@ -349,13 +349,13 @@ export default async function EventDetailPage({ params }: Params) {
                   >
                     {statusBadgeLabel}
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-pi-ink/75">
+                  <p className="mt-2 text-base leading-relaxed text-pi-ink/75">
                     {isBooked
                       ? `${langLabel} interpretation is confirmed for this performance.`
                       : `${langLabel} interpretation is not yet confirmed. The venue accepts requests — use the form on this page and we'll contact them on your behalf.`}
                   </p>
                   {venueContact?.bslGuaranteed && (
-                    <p className="mt-3 rounded-lg bg-pi-success/10 p-3 text-xs font-medium text-pi-success">
+                    <p className="mt-3 rounded-lg bg-pi-success/10 p-3 text-sm font-medium text-pi-success">
                       ✓ {venueContact.note ??
                         `${langLabel} provided at all events at this venue as standard.`}
                     </p>
@@ -392,7 +392,7 @@ export default async function EventDetailPage({ params }: Params) {
                     {(venueDetails?.address ||
                       venueDetails?.address2 ||
                       venueDetails?.postcode) && (
-                      <address className="mt-2 not-italic text-sm leading-relaxed text-pi-ink/70">
+                      <address className="mt-2 not-italic text-base leading-relaxed text-pi-ink/70">
                         {venueDetails?.address && <>{venueDetails.address}<br /></>}
                         {venueDetails?.address2 && <>{venueDetails.address2}<br /></>}
                         {venueDetails?.city && <>{venueDetails.city}<br /></>}
@@ -404,7 +404,7 @@ export default async function EventDetailPage({ params }: Params) {
                         href={venueDetails.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent hover:text-pi-ink"
+                        className="mt-4 inline-flex items-center gap-2 text-base font-semibold text-pi-accent hover:text-pi-ink"
                       >
                         Open in Google Maps →
                       </a>
@@ -418,7 +418,7 @@ export default async function EventDetailPage({ params }: Params) {
                   <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
                     Accessible facilities
                   </h2>
-                  <p className="mt-2 text-sm text-pi-ink/65">
+                  <p className="mt-2 text-base text-pi-ink/65">
                     Verified from the venue&apos;s official accessibility page.
                   </p>
                   <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -439,10 +439,10 @@ export default async function EventDetailPage({ params }: Params) {
                             className="shrink-0"
                           />
                           <div className="min-w-0">
-                            <p className="text-sm font-semibold text-pi-ink">
+                            <p className="text-base font-semibold text-pi-ink">
                               {def.label}
                             </p>
-                            <p className="text-xs leading-snug text-pi-ink/60">
+                            <p className="text-sm leading-snug text-pi-ink/60">
                               {def.desc}
                             </p>
                           </div>
@@ -474,7 +474,7 @@ function Detail({ label, children }: { label: string; children: React.ReactNode 
       <dt className="text-xs font-semibold uppercase tracking-wide text-pi-ink/55">
         {label}
       </dt>
-      <dd className="mt-1 text-sm text-pi-ink">{children}</dd>
+      <dd className="mt-1 text-base text-pi-ink">{children}</dd>
     </div>
   );
 }
