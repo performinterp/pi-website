@@ -133,7 +133,6 @@ export default function RootLayout({
                 "https://uk.linkedin.com/company/performance-interpreting",
                 "https://x.com/performinterp",
                 "https://academy.performanceinterpreting.co.uk",
-                "https://app.performanceinterpreting.co.uk",
                 "https://courses.performanceinterpreting.co.uk",
               ],
               vatID: "GB265597948",
