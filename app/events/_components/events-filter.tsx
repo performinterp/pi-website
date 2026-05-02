@@ -96,7 +96,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
         </div>
         <Link
           href="/events/request"
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-pi-warmth px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
         >
           Request an Interpreter →
         </Link>
@@ -294,11 +294,11 @@ export default function EventsFilter({ events, cities, categories }: Props) {
 
 function EventCard({ event }: { event: Event }) {
   const isBooked = event.interpreterStatus === "booked";
-  const stripBg = isBooked ? "bg-pi-success" : "bg-pi-warmth";
+  const stripBg = isBooked ? "bg-pi-success-strong" : "bg-pi-warmth-strong";
   const stripLabelClass = isBooked
-    ? "text-pi-success bg-pi-success/10"
-    : "text-pi-warmth bg-pi-warmth/10";
-  const langPillBg = isBooked ? "bg-pi-success" : "bg-pi-warmth";
+    ? "text-pi-success-strong bg-pi-success-strong/10"
+    : "text-pi-warmth-strong bg-pi-warmth-strong/10";
+  const langPillBg = isBooked ? "bg-pi-success-strong" : "bg-pi-warmth-strong";
   const langLabel =
     event.language === "BSL_AND_ISL"
       ? "BSL & ISL"

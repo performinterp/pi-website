@@ -108,7 +108,7 @@ export default function Home() {
       {/* ─── Audience Cards (directional — moved up to sit under Stats) ── */}
       <section className="section-padding section-gap">
         <AnimateIn>
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
             How can we help?
           </p>
           <h2 className="mt-3 text-center font-display text-3xl text-pi-ink md:text-4xl">
@@ -182,7 +182,7 @@ export default function Home() {
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <div className="mx-auto max-w-5xl">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               {consultancy.label}
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
@@ -246,7 +246,7 @@ export default function Home() {
       {/* ─── Sectors ──────────────────────────────────────── */}
       <section className="section-padding section-gap">
         <AnimateIn>
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
             Where we work
           </p>
           <h2 className="mt-3 text-center font-display text-3xl text-pi-ink md:text-4xl">
@@ -283,7 +283,7 @@ export default function Home() {
       {/* ─── Milestones - horizontal strip, visually distinct ── */}
       <section className="section-padding section-gap bg-gradient-to-r from-pi-deep via-pi-navy to-pi-deep">
         <AnimateIn>
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
             Track record
           </p>
           <h2 className="mt-3 text-center font-display text-3xl text-white md:text-4xl">
@@ -350,7 +350,7 @@ export default function Home() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 {about.label}
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -375,7 +375,7 @@ export default function Home() {
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               What people say
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
@@ -427,7 +427,7 @@ export default function Home() {
       <section className="section-padding section-gap bg-pi-canvas">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               Stay in the loop
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">

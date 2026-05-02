@@ -8,9 +8,19 @@
      clears WCAG AA at normal weight (4.5:1). Visually almost identical to
      the previous shade — the same brand blue, slightly more saturated. */
   --color-pi-accent: #0078C4;
+  /* AA-compliant variant of pi-accent for use on dark backgrounds (footer
+     links etc.) where the standard accent fails contrast against navy. */
+  --color-pi-accent-on-dark: #4DB1F0;
   --color-pi-gold: #CA8A04;
+  /* Darker gold for text on light backgrounds (the standard pi-gold fails
+     AA contrast on canvas at small sizes). */
+  --color-pi-gold-dark: #8C5F03;
   --color-pi-gold-light: #EAB308;
   --color-pi-warmth: #E07A3C;
+  /* Darker warmth for use as a background with white text (the standard
+     pi-warmth at #E07A3C fails AA against white at any size). */
+  --color-pi-warmth-strong: #B05418;
+  --color-pi-success-strong: #15803D;
   --color-pi-canvas: #FAF8F3;
   --color-pi-canvas-soft: #F2EEE5;
   --color-pi-ink: #0A1A4F;

@@ -28,7 +28,7 @@ export default function CookieBanner() {
       <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-pi-navy/95 p-3 shadow-2xl backdrop-blur-md md:flex md:items-center md:gap-6 md:rounded-2xl md:p-6">
         <p className="flex-1 text-xs leading-snug text-white/70 md:text-sm md:leading-relaxed">
           We use cookies to make this site work and to understand how it&apos;s used. See our{" "}
-          <Link href="/privacy" className="text-pi-accent underline hover:text-white">
+          <Link href="/privacy" className="text-pi-accent-on-dark underline hover:text-white">
             Privacy Policy
           </Link>
           .

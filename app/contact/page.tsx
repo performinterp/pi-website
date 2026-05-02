@@ -27,7 +27,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-4xl">
           <AnimateIn>
             {enquirySection?.label && (
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 {enquirySection.label}
               </p>
             )}

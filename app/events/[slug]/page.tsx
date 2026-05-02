@@ -74,7 +74,7 @@ export default async function EventDetailPage({ params }: Params) {
         : event.language;
 
   const isBooked = event.interpreterStatus === "booked";
-  const statusBadgeClass = isBooked ? "bg-pi-success" : "bg-pi-warmth";
+  const statusBadgeClass = isBooked ? "bg-pi-success-strong" : "bg-pi-warmth-strong";
   const statusBadgeLabel = isBooked
     ? `${langLabel} Interpreter Booked`
     : `${langLabel} Available on Request`;

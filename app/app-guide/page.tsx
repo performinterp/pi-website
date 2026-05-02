@@ -86,7 +86,7 @@ export default function AppGuidePage() {
       <section className="section-padding section-gap pb-0">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               See it in action
             </p>
             <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -124,7 +124,7 @@ export default function AppGuidePage() {
               <div className="flex flex-col">
                 <div className="order-2 mx-auto mt-10 max-w-3xl text-center md:order-1 md:mt-0">
                   <AnimateIn>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                       {step.n} &middot; {step.kicker}
                     </p>
                     <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-4xl">
@@ -154,7 +154,7 @@ export default function AppGuidePage() {
                 </AnimateIn>
                 <AnimateIn delay={120}>
                   <div className="md:[direction:ltr]">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                       {step.n} &middot; {step.kicker}
                     </p>
                     <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -175,7 +175,7 @@ export default function AppGuidePage() {
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               Coming soon
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">

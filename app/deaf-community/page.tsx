@@ -88,7 +88,7 @@ export default function DeafCommunityPage() {
 
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               The PI Events App
             </p>
             <div className="btn-shimmer mx-auto mt-2 mb-4 inline-flex items-center rounded-full bg-gradient-to-r from-pi-gold via-yellow-300 to-pi-gold px-6 py-2 shadow-xl shadow-pi-gold/20">
@@ -137,7 +137,7 @@ export default function DeafCommunityPage() {
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <AnimateIn>
           <div className="mx-auto mb-10 max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               From the community
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function DeafCommunityPage() {
       <section className="section-padding section-gap">
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               What to expect
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
@@ -240,7 +240,7 @@ export default function DeafCommunityPage() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Get involved
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -303,7 +303,7 @@ export default function DeafCommunityPage() {
       <section className="section-padding section-gap">
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               After the event
             </p>
             <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -370,7 +370,7 @@ export default function DeafCommunityPage() {
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               The PI Events App
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">

@@ -38,7 +38,7 @@ export default function InterpretersPage() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Working with PI
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -60,7 +60,7 @@ export default function InterpretersPage() {
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 What we look for
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -147,7 +147,7 @@ export default function InterpretersPage() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Training &amp; Development
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -202,7 +202,7 @@ export default function InterpretersPage() {
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Start here
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -276,7 +276,7 @@ export default function InterpretersPage() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Get in Touch
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -315,7 +315,7 @@ export default function InterpretersPage() {
                 />
               </div>
               <div className="flex-1">
-                <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+                <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                   Team kit
                 </p>
                 <h2 className="mt-2 font-display text-2xl text-pi-ink md:text-3xl">

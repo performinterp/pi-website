@@ -40,7 +40,7 @@ export default function OrganisersPage() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 What we offer
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -100,7 +100,7 @@ export default function OrganisersPage() {
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 How it works
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -153,7 +153,7 @@ export default function OrganisersPage() {
 
           <AnimateIn delay={150}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Only with PI
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -199,7 +199,7 @@ export default function OrganisersPage() {
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Why PI
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
@@ -250,7 +250,7 @@ export default function OrganisersPage() {
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <AnimateIn>
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               What people say
             </p>
             <h2 className="mt-3 font-display text-2xl text-pi-ink md:text-3xl">
