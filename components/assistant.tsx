@@ -66,12 +66,17 @@ function SignVideoPlayer({ url, label }: { url: string; label: string }) {
       <span className="block text-xs font-semibold uppercase tracking-wide text-pi-accent">
         {label}
       </span>
+      {/* Autoplay is allowed because the video is muted (browser policy).
+          Sign-language videos have no audio anyway, so muted autoplay
+          gives Deaf users immediate playback without needing to tap. */}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
         src={url}
         controls
+        autoPlay
+        muted
         playsInline
-        preload="metadata"
+        preload="auto"
         className="mt-1.5 w-full max-w-[340px] rounded-lg border border-pi-ink/10 bg-black"
         aria-label={label}
       />
