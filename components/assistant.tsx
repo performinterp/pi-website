@@ -625,6 +625,20 @@ export default function Assistant() {
                 aria-atomic="false"
                 aria-relevant="additions text"
                 role="log"
+                onClick={(e) => {
+                  // On mobile (panel is full-screen) the underlying page
+                  // would otherwise stay hidden after a Next/Link tap.
+                  // Auto-dismiss on internal-link clicks so the user can
+                  // see the page they navigated to. Conversation state is
+                  // preserved (Assistant lives in the root layout).
+                  const target = e.target as HTMLElement | null;
+                  const anchor = target?.closest("a");
+                  if (!anchor) return;
+                  const href = anchor.getAttribute("href") || "";
+                  if (!href.startsWith("/")) return; // external links open in new tab
+                  if (window.matchMedia("(min-width: 640px)").matches) return; // desktop unchanged
+                  setOpen(false);
+                }}
               >
                 {messages.map((m) => {
                   const text = extractTextFromMessage(m);
