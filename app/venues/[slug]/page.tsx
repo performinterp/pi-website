@@ -58,7 +58,7 @@ export default async function VenueDetailPage({ params }: Params) {
 
   return (
     <>
-      <section className="relative bg-pi-deep px-5 py-10 text-white md:py-14">
+      <section className="relative bg-pi-deep px-5 pb-10 pt-28 text-white md:pb-14 md:pt-32">
         {venue.imageUrl && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}

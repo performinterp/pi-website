@@ -122,16 +122,17 @@ export default function VenuesIndexPage() {
           <ul className="mt-4 space-y-3">
             <li className="rounded-xl border border-pi-ink/10 bg-white p-4">
               <p className="text-base font-semibold text-pi-ink">
-                You have an event in mind and want BSL or ISL at it
+                You have an event in mind and want BSL or ISL access
               </p>
               <p className="mt-1 text-sm text-pi-ink/70">
-                Send us the event details and we&apos;ll contact the venue on your behalf.
+                Use our email drafter — we&apos;ll help you write a clear email to the venue&apos;s
+                access team and PI will be CC&apos;d so we can support the conversation.
               </p>
               <Link
-                href="/events/request"
+                href="/events/request/"
                 className="mt-3 inline-flex items-center gap-2 rounded-full bg-pi-warmth-strong px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-pi-warmth/30 transition hover:brightness-110"
               >
-                Request access for an event →
+                Draft an access request →
               </Link>
             </li>
             <li className="rounded-xl border border-pi-ink/10 bg-white p-4">
@@ -139,7 +140,8 @@ export default function VenuesIndexPage() {
                 You want to know if a venue is accessible
               </p>
               <p className="mt-1 text-sm text-pi-ink/70">
-                Ask PIPA — our assistant can look up venue contacts and access info.
+                Ask PIPA — our assistant can look up venue contacts, BSL relay numbers and
+                accessibility info.
               </p>
               <p className="mt-3 text-sm text-pi-ink/55">
                 Tap the chat button at the bottom-right of the page.
@@ -147,13 +149,13 @@ export default function VenuesIndexPage() {
             </li>
             <li className="rounded-xl border border-pi-ink/10 bg-white p-4">
               <p className="text-base font-semibold text-pi-ink">
-                You want to ask the team something else
+                You want to ask the PI team something directly
               </p>
               <p className="mt-1 text-sm text-pi-ink/70">
-                Get in touch directly.
+                Get in touch — we reply within 48 hours.
               </p>
               <Link
-                href="/contact"
+                href="/contact/"
                 className="mt-3 inline-flex items-center gap-2 rounded-full border border-pi-accent/40 bg-white px-5 py-2.5 text-sm font-bold text-pi-accent transition hover:bg-pi-accent hover:text-white"
               >
                 Contact PI →
