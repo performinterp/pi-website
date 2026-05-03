@@ -495,17 +495,19 @@ export default function Assistant() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close PIPA" : "Open PIPA assistant"}
         aria-expanded={open}
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pi-accent text-white shadow-2xl shadow-pi-accent/40 transition-all hover:brightness-110 hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100 print:hidden md:bottom-6 md:right-6"
+        className={`fixed bottom-5 right-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-pi-accent text-white shadow-2xl shadow-pi-accent/40 transition-all hover:brightness-110 hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100 print:hidden md:bottom-6 md:right-6 ${open ? "hidden sm:flex" : "flex"}`}
       >
         {open ? <X size={22} /> : <MessageCircle size={22} />}
       </button>
 
-      {/* Panel */}
+      {/* Panel — full-screen on mobile (no chrome conflicts with iOS URL
+          bar / bottom toolbar via env safe areas), floating bottom-right
+          card on tablet/desktop. */}
       {open && (
         <div
-          className="fixed bottom-24 right-3 z-40 flex w-[calc(100vw-1.5rem)] max-w-[400px] flex-col overflow-hidden rounded-2xl border border-pi-ink/10 bg-white shadow-2xl shadow-black/20 print:hidden md:bottom-28 md:right-6"
-          style={{ height: "min(70vh, 600px)" }}
+          className="fixed inset-0 z-40 flex flex-col overflow-hidden border border-pi-ink/10 bg-white shadow-2xl shadow-black/20 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] print:hidden sm:inset-auto sm:bottom-24 sm:right-3 sm:w-[calc(100vw-1.5rem)] sm:max-w-[400px] sm:rounded-2xl sm:h-[min(70vh,600px)] sm:pt-0 sm:pb-0 md:bottom-28 md:right-6"
           role="dialog"
+          aria-modal="true"
           aria-label="PIPA — Performance Interpreting assistant"
         >
           {/* Header */}
