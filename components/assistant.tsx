@@ -107,8 +107,10 @@ function SignVideoPlayer({ url, label }: { url: string; label: string }) {
 // bundle small.
 function renderInline(text: string): React.ReactNode[] {
   const parts: React.ReactNode[] = [];
-  // Match either a markdown link [text](url) or **bold**
-  const re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]*)\)|\*\*([^*]+)\*\*/g;
+  // Match either a markdown link [text](url) or **bold**.
+  // The bold pattern allows ANYTHING (including a link inside) so bold-wrapped
+  // links like **[SignVideo](url)** render correctly — see recursion below.
+  const re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]*)\)|\*\*([\s\S]+?)\*\*/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let key = 0;
@@ -153,9 +155,11 @@ function renderInline(text: string): React.ReactNode[] {
         );
       }
     } else if (m[3]) {
+      // Recurse so bold-wrapped links / formatting render correctly,
+      // e.g. **[SignVideo](https://...)**.
       parts.push(
         <strong key={`b${key++}`} className="font-semibold">
-          {m[3]}
+          {renderInline(m[3])}
         </strong>
       );
     }
