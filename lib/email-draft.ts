@@ -2,7 +2,7 @@
 // handleRequestBSLForm, copyMessage, openEmail (lines 9650–9870).
 // If the app changes its template, re-port — don't drift.
 
-export const PI_EMAIL = "office@performanceinterpreting.co.uk";
+export const PI_EMAIL = "enquiries@performanceinterpreting.co.uk";
 
 export const ACCESS_NEEDS_LABELS: Record<string, string> = {
   wheelchair: "Wheelchair accessible seating",
