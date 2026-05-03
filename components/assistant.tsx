@@ -238,9 +238,9 @@ function audienceGreeting(a: Audience | null): string {
     case "deaf":
       return "Welcome back! What can I help you with today? I'll show signed BSL or ISL videos when there's one for your question.";
     case "organiser":
-      return "Welcome back. I can help with quotes, lead times, venue partnerships and how PI works with event organisers.";
+      return "Welcome back. I can help with compliance, full-service access for your event, and capturing the details the team needs to send you a tailored quote.";
     case "interpreter":
-      return "Welcome back. I can help with PI's interpreter roster, Academy training, festival work and getting involved.";
+      return "Welcome back. I can help with joining PI's team, the PI Academy, festival work and more.";
     default:
       return "Hi! I'm **PIPA** — Performance Interpreting's Personal Assistant. I can help with Deaf access at live events, BSL & ISL interpreting, our app, and how we work with venues and organisers. What can I help you with?";
   }
@@ -257,15 +257,15 @@ function audienceChips(a: Audience | null): string[] {
       ];
     case "organiser":
       return [
-        "Get a quote for an event",
-        "What's the lead time?",
-        "How do you work with venues?",
+        "Get a tailored quote",
+        "What are my compliance duties?",
+        "What does full-service access include?",
         "Speak to the team",
       ];
     case "interpreter":
       return [
-        "How do I join PI's roster?",
-        "What's PI Academy?",
+        "Join the PI team",
+        "Explore the PI Academy",
         "Festival work with PI",
         "Volunteer with PI",
       ];
@@ -701,8 +701,8 @@ export default function Assistant() {
                       {(
                         [
                           { id: "deaf", label: "I'm Deaf or hard of hearing", hint: "I'll show signed BSL or ISL videos when there's one." },
-                          { id: "organiser", label: "I'm an event organiser", hint: "Quotes, lead times, working with venues." },
-                          { id: "interpreter", label: "I'm an interpreter", hint: "PI roster, Academy, festival work." },
+                          { id: "organiser", label: "I'm an event organiser", hint: "Compliance, full-service access, tailored quotes from the team." },
+                          { id: "interpreter", label: "I'm an interpreter", hint: "Join the team, explore the Academy and more." },
                         ] as { id: Audience; label: string; hint: string }[]
                       ).map((a) => (
                         <button
