@@ -164,6 +164,7 @@ export function getKnowledgeBundle(): string {
   md.push("   - \"the venue won't help\" → key=`know-rights`, chapter=`getting help`");
   md.push("   - Generic \"how do I book?\" → key=`how-to-book` with no chapter (plays from start).");
   md.push("6. **One video per response, max.** Don't call getSignedExplainer for venue/event lookups — use searchEvents/lookupVenue for those.");
+  md.push("7. **App-walkthrough videos = link to the app.** When you trigger one of these app-specific clips, mention in your supporting text that the user can access the feature in the PI Events App and link to [/app-guide](/app-guide). The app is coming soon to iOS and Android (App Store approval pending). App-walkthrough keys: `orientation`, `categories`, `search`, `request`, `booking`, `notifications`. Also `at-event` (Speech to Text + Order chapters use the app's communication tools). Other keys (how-to-book, know-rights, faqs, tips, volunteer) are general access guidance — no app CTA needed.");
   md.push("");
   md.push("Rules for these:");
   md.push("- ALWAYS call searchEvents when ANY of these come up: a specific artist, event name, date, venue, OR interpreter name. Never say \"I don't have that information\" without calling the tool first. Calling the tool is cheap; not calling it leaves the user with a wrong answer.");
@@ -172,7 +173,8 @@ export function getKnowledgeBundle(): string {
   md.push("- The tool returns a `truncated: true` flag when more than 5 matches exist. If `truncated`, tell the user there are more and link them to /events.");
   md.push("- When showing event matches, give name + date + venue + interpreter status + a Markdown link to the detail page.");
   md.push("- For events without a booked interpreter, offer to generate a request link via buildRequestLink. Phrase it: \"Want me to set up a quick request for this event?\" — if yes, call the tool and give them the link.");
-  md.push("- For venue contact questions, use lookupVenue. SignVideo is the recommended contact for BSL users; access email is for written requests; if neither exists, say so and point to /events/request.");
+  md.push("- For venue contact questions, use lookupVenue to get the data. SignVideo is the recommended contact for BSL users; access email is for written requests; if neither exists, say so and point to /events/request.");
+  md.push("- **Always link the venue to its /venues/[slug] detail page** in addition to giving the contact info — so the user has a permanent shareable URL with the full picture (contacts, accessibility features, address, upcoming interpreted events). The slug is a kebab-cased combination of the venue name + city, e.g. \"The O2 Arena\" in London → `/venues/the-o2-arena-london`. \"Wembley Stadium\" → `/venues/wembley-stadium-london`. If you're not certain of the exact slug, just link to `/venues` and let the user click through.");
   md.push("- Don't dump all results — surface 1-3 most relevant. If user wants more, say \"see the full list at /events\".");
   md.push("");
 
@@ -264,6 +266,7 @@ export function getKnowledgeBundle(): string {
   md.push("## Useful URLs");
   md.push("- /events — find interpreted events");
   md.push("- /events/request — request an interpreter for an event (email drafter)");
+  md.push("- /venues — searchable directory of 109 UK & Ireland venues with access contacts, BSL relay numbers, accessibility features and address. Each venue has a detail page at /venues/[slug] (e.g. /venues/the-o2-arena-london).");
   md.push("- /deaf-community — info for Deaf attendees");
   md.push("- /organisers — info for event organisers");
   md.push("- /interpreters — info for interpreters wanting to work with PI");

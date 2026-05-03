@@ -1,0 +1,708 @@
+[
+  {
+    "country": "England",
+    "cities": [
+      {
+        "name": "Bath",
+        "venues": [
+          {
+            "key": "Bath Forum, Bath",
+            "display": "Bath Forum"
+          }
+        ]
+      },
+      {
+        "name": "Birmingham",
+        "venues": [
+          {
+            "key": "BP Pulse LIVE (NEC), Birmingham",
+            "display": "BP Pulse LIVE (NEC)"
+          },
+          {
+            "key": "Resorts World Arena, Birmingham",
+            "display": "Resorts World Arena"
+          },
+          {
+            "key": "Symphony Hall, Birmingham",
+            "display": "Symphony Hall"
+          },
+          {
+            "key": "Utilita Arena Birmingham, Birmingham",
+            "display": "Utilita Arena Birmingham"
+          },
+          {
+            "key": "Villa Park (Aston Villa), Birmingham",
+            "display": "Villa Park (Aston Villa)"
+          }
+        ]
+      },
+      {
+        "name": "Blackpool",
+        "venues": [
+          {
+            "key": "Blackpool Opera House, Blackpool",
+            "display": "Blackpool Opera House"
+          }
+        ]
+      },
+      {
+        "name": "Bournemouth",
+        "venues": [
+          {
+            "key": "Bournemouth International Centre, Bournemouth",
+            "display": "Bournemouth International Centre"
+          }
+        ]
+      },
+      {
+        "name": "Brighton",
+        "venues": [
+          {
+            "key": "Amex Stadium (Brighton FC), Brighton",
+            "display": "Amex Stadium (Brighton FC)"
+          },
+          {
+            "key": "Brighton Centre, Brighton",
+            "display": "Brighton Centre"
+          }
+        ]
+      },
+      {
+        "name": "Bristol",
+        "venues": [
+          {
+            "key": "Bristol Hippodrome, Bristol",
+            "display": "Bristol Hippodrome"
+          }
+        ]
+      },
+      {
+        "name": "Burnley",
+        "venues": [
+          {
+            "key": "Turf Moor (Burnley FC), Burnley",
+            "display": "Turf Moor (Burnley FC)"
+          }
+        ]
+      },
+      {
+        "name": "Cambridge",
+        "venues": [
+          {
+            "key": "Cambridge Corn Exchange, Cambridge",
+            "display": "Cambridge Corn Exchange"
+          }
+        ]
+      },
+      {
+        "name": "Coventry",
+        "venues": [
+          {
+            "key": "Coventry Building Society Arena, Coventry",
+            "display": "Coventry Building Society Arena"
+          }
+        ]
+      },
+      {
+        "name": "Derby",
+        "venues": [
+          {
+            "key": "Derby Arena, Derby",
+            "display": "Derby Arena"
+          }
+        ]
+      },
+      {
+        "name": "Exeter",
+        "venues": [
+          {
+            "key": "Westpoint Arena, Exeter",
+            "display": "Westpoint Arena"
+          }
+        ]
+      },
+      {
+        "name": "Gateshead",
+        "venues": [
+          {
+            "key": "The Glasshouse (Sage Gateshead), Gateshead",
+            "display": "The Glasshouse (Sage Gateshead)"
+          }
+        ]
+      },
+      {
+        "name": "Gloucester",
+        "venues": [
+          {
+            "key": "Kingsholm Stadium (Gloucester Rugby), Gloucester",
+            "display": "Kingsholm Stadium (Gloucester Rugby)"
+          }
+        ]
+      },
+      {
+        "name": "Hull",
+        "venues": [
+          {
+            "key": "Connexin Live, Hull",
+            "display": "Connexin Live"
+          }
+        ]
+      },
+      {
+        "name": "Ipswich",
+        "venues": [
+          {
+            "key": "Ipswich Regent Theatre, Ipswich",
+            "display": "Ipswich Regent Theatre"
+          }
+        ]
+      },
+      {
+        "name": "Leeds",
+        "venues": [
+          {
+            "key": "Elland Road (Leeds United), Leeds",
+            "display": "Elland Road (Leeds United)"
+          },
+          {
+            "key": "First Direct Arena, Leeds",
+            "display": "First Direct Arena"
+          },
+          {
+            "key": "Leeds Grand Theatre, Leeds",
+            "display": "Leeds Grand Theatre"
+          }
+        ]
+      },
+      {
+        "name": "Leicester",
+        "venues": [
+          {
+            "key": "De Montfort Hall, Leicester",
+            "display": "De Montfort Hall"
+          },
+          {
+            "key": "King Power Stadium (Leicester City FC), Leicester",
+            "display": "King Power Stadium (Leicester City FC)"
+          }
+        ]
+      },
+      {
+        "name": "Lincoln",
+        "venues": [
+          {
+            "key": "Lincoln Engine Shed, Lincoln",
+            "display": "Lincoln Engine Shed"
+          }
+        ]
+      },
+      {
+        "name": "Liverpool",
+        "venues": [
+          {
+            "key": "Anfield (Liverpool FC), Liverpool",
+            "display": "Anfield (Liverpool FC)"
+          },
+          {
+            "key": "Goodison Park (Everton FC), Liverpool",
+            "display": "Goodison Park (Everton FC)"
+          },
+          {
+            "key": "Liverpool Philharmonic Hall, Liverpool",
+            "display": "Liverpool Philharmonic Hall"
+          },
+          {
+            "key": "M&S Bank Arena, Liverpool",
+            "display": "M&S Bank Arena"
+          }
+        ]
+      },
+      {
+        "name": "London",
+        "venues": [
+          {
+            "key": "ABBA Arena, London",
+            "display": "ABBA Arena"
+          },
+          {
+            "key": "Alexandra Palace, London",
+            "display": "Alexandra Palace"
+          },
+          {
+            "key": "Allianz Stadium Twickenham, London",
+            "display": "Allianz Stadium Twickenham"
+          },
+          {
+            "key": "Barbican Centre, London",
+            "display": "Barbican Centre"
+          },
+          {
+            "key": "Copper Box Arena, London",
+            "display": "Copper Box Arena"
+          },
+          {
+            "key": "Craven Cottage (Fulham FC), London",
+            "display": "Craven Cottage (Fulham FC)"
+          },
+          {
+            "key": "Crystal Palace National Sports Centre, London",
+            "display": "Crystal Palace National Sports Centre"
+          },
+          {
+            "key": "Emirates Stadium (Arsenal), London",
+            "display": "Emirates Stadium (Arsenal)"
+          },
+          {
+            "key": "Eventim Apollo, London",
+            "display": "Eventim Apollo"
+          },
+          {
+            "key": "Fairfield Halls, Croydon, London",
+            "display": "Fairfield Halls, Croydon"
+          },
+          {
+            "key": "GTech Community Stadium (Brentford FC), London",
+            "display": "GTech Community Stadium (Brentford FC)"
+          },
+          {
+            "key": "London Palladium, London",
+            "display": "London Palladium"
+          },
+          {
+            "key": "London Stadium (West Ham), London",
+            "display": "London Stadium (West Ham)"
+          },
+          {
+            "key": "O2 Academy Brixton, London",
+            "display": "O2 Academy Brixton"
+          },
+          {
+            "key": "O2 Forum Kentish Town, London",
+            "display": "O2 Forum Kentish Town"
+          },
+          {
+            "key": "OVO Arena Wembley, London",
+            "display": "OVO Arena Wembley"
+          },
+          {
+            "key": "Royal Albert Hall, London",
+            "display": "Royal Albert Hall"
+          },
+          {
+            "key": "Selhurst Park (Crystal Palace FC), London",
+            "display": "Selhurst Park (Crystal Palace FC)"
+          },
+          {
+            "key": "Shoreditch Town Hall, London",
+            "display": "Shoreditch Town Hall"
+          },
+          {
+            "key": "Southbank Centre, London",
+            "display": "Southbank Centre"
+          },
+          {
+            "key": "Stamford Bridge (Chelsea FC), London",
+            "display": "Stamford Bridge (Chelsea FC)"
+          },
+          {
+            "key": "The O2 Arena, London",
+            "display": "The O2 Arena"
+          },
+          {
+            "key": "Tottenham Hotspur Stadium, London",
+            "display": "Tottenham Hotspur Stadium"
+          },
+          {
+            "key": "Wembley Stadium, London",
+            "display": "Wembley Stadium"
+          }
+        ]
+      },
+      {
+        "name": "Manchester",
+        "venues": [
+          {
+            "key": "AO Arena, Manchester",
+            "display": "AO Arena"
+          },
+          {
+            "key": "Bridgewater Hall, Manchester",
+            "display": "Bridgewater Hall"
+          },
+          {
+            "key": "Co-op Live, Manchester",
+            "display": "Co-op Live"
+          },
+          {
+            "key": "Etihad Stadium (Manchester City), Manchester",
+            "display": "Etihad Stadium (Manchester City)"
+          },
+          {
+            "key": "O2 Apollo Manchester, Manchester",
+            "display": "O2 Apollo Manchester"
+          },
+          {
+            "key": "O2 Victoria Warehouse, Manchester",
+            "display": "O2 Victoria Warehouse"
+          },
+          {
+            "key": "Old Trafford (Manchester United), Manchester",
+            "display": "Old Trafford (Manchester United)"
+          }
+        ]
+      },
+      {
+        "name": "Middlesbrough",
+        "venues": [
+          {
+            "key": "Riverside Stadium (Middlesbrough FC), Middlesbrough",
+            "display": "Riverside Stadium (Middlesbrough FC)"
+          }
+        ]
+      },
+      {
+        "name": "Milton Keynes",
+        "venues": [
+          {
+            "key": "Milton Keynes Theatre, Milton Keynes",
+            "display": "Milton Keynes Theatre"
+          }
+        ]
+      },
+      {
+        "name": "Newcastle",
+        "venues": [
+          {
+            "key": "O2 City Hall Newcastle, Newcastle",
+            "display": "O2 City Hall Newcastle"
+          },
+          {
+            "key": "St James' Park (Newcastle United), Newcastle",
+            "display": "St James' Park (Newcastle United)"
+          },
+          {
+            "key": "Utilita Arena Newcastle, Newcastle",
+            "display": "Utilita Arena Newcastle"
+          }
+        ]
+      },
+      {
+        "name": "Norwich",
+        "venues": [
+          {
+            "key": "Norwich Theatre Royal, Norwich",
+            "display": "Norwich Theatre Royal"
+          }
+        ]
+      },
+      {
+        "name": "Nottingham",
+        "venues": [
+          {
+            "key": "City Ground (Nottingham Forest), Nottingham",
+            "display": "City Ground (Nottingham Forest)"
+          },
+          {
+            "key": "Motorpoint Arena, Nottingham",
+            "display": "Motorpoint Arena"
+          },
+          {
+            "key": "Royal Concert Hall, Nottingham",
+            "display": "Royal Concert Hall"
+          }
+        ]
+      },
+      {
+        "name": "Oxford",
+        "venues": [
+          {
+            "key": "New Theatre Oxford, Oxford",
+            "display": "New Theatre Oxford"
+          }
+        ]
+      },
+      {
+        "name": "Peterborough",
+        "venues": [
+          {
+            "key": "New Theatre Peterborough, Peterborough",
+            "display": "New Theatre Peterborough"
+          }
+        ]
+      },
+      {
+        "name": "Plymouth",
+        "venues": [
+          {
+            "key": "Plymouth Pavilions, Plymouth",
+            "display": "Plymouth Pavilions"
+          }
+        ]
+      },
+      {
+        "name": "Preston",
+        "venues": [
+          {
+            "key": "Preston Guild Hall, Preston",
+            "display": "Preston Guild Hall"
+          }
+        ]
+      },
+      {
+        "name": "Reading",
+        "venues": [
+          {
+            "key": "Reading Hexagon, Reading",
+            "display": "Reading Hexagon"
+          }
+        ]
+      },
+      {
+        "name": "Sheffield",
+        "venues": [
+          {
+            "key": "Sheffield City Hall, Sheffield",
+            "display": "Sheffield City Hall"
+          },
+          {
+            "key": "Utilita Arena Sheffield, Sheffield",
+            "display": "Utilita Arena Sheffield"
+          }
+        ]
+      },
+      {
+        "name": "Southampton",
+        "venues": [
+          {
+            "key": "O2 Guildhall Southampton, Southampton",
+            "display": "O2 Guildhall Southampton"
+          },
+          {
+            "key": "St Mary's Stadium (Southampton FC), Southampton",
+            "display": "St Mary's Stadium (Southampton FC)"
+          }
+        ]
+      },
+      {
+        "name": "Stoke-on-Trent",
+        "venues": [
+          {
+            "key": "Bet365 Stadium (Stoke City FC), Stoke-on-Trent",
+            "display": "Bet365 Stadium (Stoke City FC)"
+          },
+          {
+            "key": "Victoria Hall, Stoke-on-Trent",
+            "display": "Victoria Hall"
+          }
+        ]
+      },
+      {
+        "name": "Sunderland",
+        "venues": [
+          {
+            "key": "Stadium of Light (Sunderland FC), Sunderland",
+            "display": "Stadium of Light (Sunderland FC)"
+          }
+        ]
+      },
+      {
+        "name": "Surrey",
+        "venues": [
+          {
+            "key": "Epsom Playhouse, Surrey",
+            "display": "Epsom Playhouse"
+          }
+        ]
+      },
+      {
+        "name": "Watford",
+        "venues": [
+          {
+            "key": "Watford Colosseum, Watford",
+            "display": "Watford Colosseum"
+          }
+        ]
+      },
+      {
+        "name": "Wolverhampton",
+        "venues": [
+          {
+            "key": "Molineux Stadium (Wolves FC), Wolverhampton",
+            "display": "Molineux Stadium (Wolves FC)"
+          },
+          {
+            "key": "Wolverhampton Civic Hall, Wolverhampton",
+            "display": "Wolverhampton Civic Hall"
+          }
+        ]
+      },
+      {
+        "name": "Woodstock",
+        "venues": [
+          {
+            "key": "Blenheim Palace, Woodstock",
+            "display": "Blenheim Palace"
+          }
+        ]
+      },
+      {
+        "name": "York",
+        "venues": [
+          {
+            "key": "York Barbican, York",
+            "display": "York Barbican"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Scotland",
+    "cities": [
+      {
+        "name": "Aberdeen",
+        "venues": [
+          {
+            "key": "P&J Live, Aberdeen",
+            "display": "P&J Live"
+          }
+        ]
+      },
+      {
+        "name": "Dundee",
+        "venues": [
+          {
+            "key": "Caird Hall, Dundee",
+            "display": "Caird Hall"
+          }
+        ]
+      },
+      {
+        "name": "Edinburgh",
+        "venues": [
+          {
+            "key": "Edinburgh Playhouse, Edinburgh",
+            "display": "Edinburgh Playhouse"
+          },
+          {
+            "key": "Scottish Gas Murrayfield, Edinburgh",
+            "display": "Scottish Gas Murrayfield"
+          },
+          {
+            "key": "Usher Hall, Edinburgh",
+            "display": "Usher Hall"
+          }
+        ]
+      },
+      {
+        "name": "Glasgow",
+        "venues": [
+          {
+            "key": "Celtic Park (Celtic FC), Glasgow",
+            "display": "Celtic Park (Celtic FC)"
+          },
+          {
+            "key": "Glasgow Royal Concert Hall, Glasgow",
+            "display": "Glasgow Royal Concert Hall"
+          },
+          {
+            "key": "Hampden Park, Glasgow",
+            "display": "Hampden Park"
+          },
+          {
+            "key": "Ibrox Stadium (Rangers FC), Glasgow",
+            "display": "Ibrox Stadium (Rangers FC)"
+          },
+          {
+            "key": "O2 Academy Glasgow, Glasgow",
+            "display": "O2 Academy Glasgow"
+          },
+          {
+            "key": "OVO Hydro, Glasgow",
+            "display": "OVO Hydro"
+          },
+          {
+            "key": "SEC Armadillo, Glasgow",
+            "display": "SEC Armadillo"
+          }
+        ]
+      },
+      {
+        "name": "Inverness",
+        "venues": [
+          {
+            "key": "Eden Court Theatre, Inverness",
+            "display": "Eden Court Theatre"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Wales",
+    "cities": [
+      {
+        "name": "Cardiff",
+        "venues": [
+          {
+            "key": "Cardiff City Stadium, Cardiff",
+            "display": "Cardiff City Stadium"
+          },
+          {
+            "key": "Principality Stadium, Cardiff",
+            "display": "Principality Stadium"
+          },
+          {
+            "key": "Utilita Arena Cardiff, Cardiff",
+            "display": "Utilita Arena Cardiff"
+          }
+        ]
+      },
+      {
+        "name": "Swansea",
+        "venues": [
+          {
+            "key": "Swansea Arena, Swansea",
+            "display": "Swansea Arena"
+          },
+          {
+            "key": "Swansea.com Stadium (Swansea City FC), Swansea",
+            "display": "Swansea.com Stadium (Swansea City FC)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Northern Ireland",
+    "cities": [
+      {
+        "name": "Belfast",
+        "venues": [
+          {
+            "key": "SSE Arena Belfast, Belfast",
+            "display": "SSE Arena Belfast"
+          },
+          {
+            "key": "Windsor Park, Belfast",
+            "display": "Windsor Park"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Ireland",
+    "cities": [
+      {
+        "name": "Dublin",
+        "venues": [
+          {
+            "key": "3Arena, Dublin",
+            "display": "3Arena"
+          }
+        ]
+      }
+    ]
+  }
+]

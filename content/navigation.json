@@ -31,6 +31,10 @@
       "href": "/events"
     },
     {
+      "label": "Venues",
+      "href": "/venues"
+    },
+    {
       "label": "About",
       "href": "/about"
     },
