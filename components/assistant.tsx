@@ -779,6 +779,58 @@ export default function Assistant() {
                   <SendHorizonal size={18} />
                 </button>
               </form>
+
+              {/* Early-release feedback path. Always-on but quiet — single
+                  link below the input. Opens the existing handoff form
+                  pre-filled with PIPA's last response so the team gets
+                  context without the user having to copy-paste. Only
+                  shown after the user has actually had a turn (more than
+                  the intro). */}
+              {messages.length > 1 && (
+                <p className="border-t border-pi-ink/5 bg-pi-canvas/40 px-3 pb-2 pt-1 text-center text-xs text-pi-ink/55">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const lastAsstMsg = (() => {
+                        for (let i = messages.length - 1; i >= 0; i--) {
+                          if (messages[i].role === "assistant" && messages[i].id !== "intro") {
+                            return extractTextFromMessage(messages[i])
+                              .replace(NEEDS_HUMAN_MARKER, "")
+                              .trim();
+                          }
+                        }
+                        return "";
+                      })();
+                      const lastUser = (() => {
+                        for (let i = messages.length - 1; i >= 0; i--) {
+                          if (messages[i].role === "user") {
+                            return extractTextFromMessage(messages[i]).trim();
+                          }
+                        }
+                        return "";
+                      })();
+                      const transcript = messages
+                        .filter((m) => m.id !== "intro")
+                        .map((m) => ({
+                          role: m.role === "user" ? ("user" as const) : ("assistant" as const),
+                          content: extractTextFromMessage(m).replace(NEEDS_HUMAN_MARKER, "").trim(),
+                        }))
+                        .filter((t) => t.content.length > 0);
+                      setHandoff({
+                        summary: {
+                          topic: "PIPA feedback (early release)",
+                          tried: `Last user message: ${lastUser.slice(0, 200)}`,
+                          question: `PIPA's response felt off: ${lastAsstMsg.slice(0, 300)}`,
+                        },
+                        transcript,
+                      });
+                    }}
+                    className="underline underline-offset-2 hover:text-pi-ink"
+                  >
+                    Something not right? Let us know
+                  </button>
+                </p>
+              )}
             </>
           )}
         </div>
