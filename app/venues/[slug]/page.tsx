@@ -79,7 +79,7 @@ export default async function VenueDetailPage({ params }: Params) {
         )}
         <div className="relative mx-auto max-w-5xl">
           <Link
-            href="/venues"
+            href="/venues/"
             className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-white/80 hover:text-white"
           >
             ← All venues
