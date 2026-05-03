@@ -2,7 +2,12 @@
 // handleRequestBSLForm, copyMessage, openEmail (lines 9650–9870).
 // If the app changes its template, re-port — don't drift.
 
-export const PI_EMAIL = "enquiries@performanceinterpreting.co.uk";
+// Website-originated CC alias for the Enquiries | PI Team shared mailbox.
+// Routes to the same inbox as enquiries@ but is filterable in Outlook
+// (`to:enquiries-web`) so Marie can distinguish website-sent access requests
+// from app-sent ones (the app continues to CC enquiries@ since it's already
+// submitted to the stores and immutable until the next release cycle).
+export const PI_EMAIL = "enquiries-web@performanceinterpreting.co.uk";
 
 export const ACCESS_NEEDS_LABELS: Record<string, string> = {
   wheelchair: "Wheelchair accessible seating",
