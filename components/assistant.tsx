@@ -222,9 +222,71 @@ function parseHumanMarker(text: string): { visible: string; summary: HumanSummar
   };
 }
 
+type Audience = "deaf" | "organiser" | "interpreter" | "skipped";
+
+const AUDIENCE_KEY = "pipaAudience";
+
+function loadAudience(): Audience | null {
+  if (typeof window === "undefined") return null;
+  const v = window.localStorage.getItem(AUDIENCE_KEY);
+  if (v === "deaf" || v === "organiser" || v === "interpreter" || v === "skipped") return v;
+  return null;
+}
+
+function audienceGreeting(a: Audience | null): string {
+  switch (a) {
+    case "deaf":
+      return "Welcome back! What can I help you with today? I'll show signed BSL or ISL videos when there's one for your question.";
+    case "organiser":
+      return "Welcome back. I can help with quotes, lead times, venue partnerships and how PI works with event organisers.";
+    case "interpreter":
+      return "Welcome back. I can help with PI's interpreter roster, Academy training, festival work and getting involved.";
+    default:
+      return "Hi! I'm **PIPA** — Performance Interpreting's Personal Assistant. I can help with Deaf access at live events, BSL & ISL interpreting, our app, and how we work with venues and organisers. What can I help you with?";
+  }
+}
+
+function audienceChips(a: Audience | null): string[] {
+  switch (a) {
+    case "deaf":
+      return [
+        "Find a BSL or ISL gig",
+        "Show me how to book in BSL",
+        "What are my access rights?",
+        "Speak to the team",
+      ];
+    case "organiser":
+      return [
+        "Get a quote for an event",
+        "What's the lead time?",
+        "How do you work with venues?",
+        "Speak to the team",
+      ];
+    case "interpreter":
+      return [
+        "How do I join PI's roster?",
+        "What's PI Academy?",
+        "Festival work with PI",
+        "Volunteer with PI",
+      ];
+    default:
+      return [
+        "Find a BSL or ISL gig",
+        "Request access for an event",
+        "How do I book accessible seating?",
+        "Speak to the team",
+      ];
+  }
+}
+
 export default function Assistant() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [audience, setAudienceState] = useState<Audience | null>(null);
+  // audienceRef tracks the latest value for the transport body fn (which
+  // is called per-request and needs the current audience without
+  // recreating the transport).
+  const audienceRef = useRef<Audience | null>(null);
   const [handoff, setHandoff] = useState<{
     summary: HumanSummary;
     transcript: { role: "user" | "assistant"; content: string }[];
@@ -240,10 +302,45 @@ export default function Assistant() {
   const inputRef = useRef<HTMLInputElement>(null);
   const liveRef = useRef<HTMLDivElement>(null);
 
+  // Hydrate audience from localStorage on mount.
+  useEffect(() => {
+    const stored = loadAudience();
+    if (stored) {
+      setAudienceState(stored);
+      audienceRef.current = stored;
+    }
+  }, []);
+
+  function setAudience(a: Audience) {
+    setAudienceState(a);
+    audienceRef.current = a;
+    try {
+      window.localStorage.setItem(AUDIENCE_KEY, a);
+    } catch {
+      // ignore quota / privacy-mode errors
+    }
+  }
+
+  function resetAudience() {
+    setAudienceState(null);
+    audienceRef.current = null;
+    try {
+      window.localStorage.removeItem(AUDIENCE_KEY);
+    } catch {
+      // ignore
+    }
+  }
+
   const transport = useMemo(
     // Trailing slash matches Next's trailingSlash config — without it
-    // every send eats a 308 redirect round-trip.
-    () => new DefaultChatTransport<UIMessage>({ api: "/api/chat/" }),
+    // every send eats a 308 redirect round-trip. The `body` fn runs per
+    // request so audience flows to the API even when it changes mid-
+    // session.
+    () =>
+      new DefaultChatTransport<UIMessage>({
+        api: "/api/chat/",
+        body: () => ({ audience: audienceRef.current }),
+      }),
     []
   );
 
@@ -256,12 +353,22 @@ export default function Assistant() {
         parts: [
           {
             type: "text",
-            text: "Hi! I'm **PIPA** — Performance Interpreting's Personal Assistant. I can help with Deaf access at live events, BSL & ISL interpreting, our app, and how we work with venues and organisers. What can I help you with?",
+            text: audienceGreeting(null),
           },
         ],
       } as UIMessage,
     ],
   });
+
+  // When audience changes (after the picker), refresh the intro greeting.
+  useEffect(() => {
+    if (!audience) return;
+    // useChat doesn't expose a setMessages helper here cleanly; we mutate
+    // the intro message's text in-place via the assistant SDK's internal
+    // reducer is not safe — instead, just leave the original intro and let
+    // the next assistant response be on-tone. The picker itself disappears
+    // once an audience is set; that's the meaningful UX cue.
+  }, [audience]);
 
   // Auto-scroll on new content. Honour prefers-reduced-motion.
   useEffect(() => {
@@ -566,24 +673,66 @@ export default function Assistant() {
                   </p>
                 )}
 
-                {/* Sample-prompt chips on first turn — only shown until the user sends their first message. */}
-                {messages.length === 1 && !isThinking && (
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {[
-                      "Find a BSL or ISL gig",
-                      "Request access for an event",
-                      "How do I book accessible seating?",
-                      "Speak to the team",
-                    ].map((label) => (
-                      <button
-                        key={label}
-                        type="button"
-                        onClick={() => sendMessage({ text: label })}
-                        className="rounded-full border border-pi-accent/25 bg-white px-3 py-1.5 text-sm text-pi-accent transition hover:bg-pi-accent hover:text-white motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-1"
-                      >
-                        {label}
-                      </button>
-                    ))}
+                {/* Audience picker — first turn, no audience set yet. Shown
+                    instead of the sample chips. Tapping a card stores the
+                    choice and reveals the audience-tailored chips. */}
+                {messages.length === 1 && !isThinking && audience === null && (
+                  <div className="rounded-2xl border border-pi-accent/20 bg-pi-accent/5 p-3">
+                    <p className="text-sm font-semibold text-pi-ink">
+                      To help you best — which one are you?
+                    </p>
+                    <div className="mt-3 grid gap-2">
+                      {(
+                        [
+                          { id: "deaf", label: "I'm Deaf or hard of hearing", hint: "I'll show signed BSL or ISL videos when there's one." },
+                          { id: "organiser", label: "I'm an event organiser", hint: "Quotes, lead times, working with venues." },
+                          { id: "interpreter", label: "I'm an interpreter", hint: "PI roster, Academy, festival work." },
+                        ] as { id: Audience; label: string; hint: string }[]
+                      ).map((a) => (
+                        <button
+                          key={a.id}
+                          type="button"
+                          onClick={() => setAudience(a.id)}
+                          className="rounded-xl border border-pi-ink/10 bg-white p-3 text-left transition hover:border-pi-accent/50 hover:bg-pi-accent/5 focus:outline-none focus:ring-2 focus:ring-pi-accent"
+                        >
+                          <p className="text-sm font-semibold text-pi-ink">{a.label}</p>
+                          <p className="mt-0.5 text-xs text-pi-ink/65">{a.hint}</p>
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setAudience("skipped")}
+                      className="mt-2 text-xs font-medium text-pi-ink/55 underline underline-offset-2 hover:text-pi-ink"
+                    >
+                      Skip — just exploring
+                    </button>
+                  </div>
+                )}
+
+                {/* Sample-prompt chips — first turn, audience picked.
+                    Audience-specific. Hidden after the user sends a message. */}
+                {messages.length === 1 && !isThinking && audience !== null && (
+                  <div>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {audienceChips(audience).map((label) => (
+                        <button
+                          key={label}
+                          type="button"
+                          onClick={() => sendMessage({ text: label })}
+                          className="rounded-full border border-pi-accent/25 bg-white px-3 py-1.5 text-sm text-pi-accent transition hover:bg-pi-accent hover:text-white motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-1"
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={resetAudience}
+                      className="mt-2 text-xs font-medium text-pi-ink/55 underline underline-offset-2 hover:text-pi-ink"
+                    >
+                      Switch role
+                    </button>
                   </div>
                 )}
               </div>

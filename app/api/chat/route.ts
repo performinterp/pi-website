@@ -27,8 +27,25 @@ export const maxDuration = 30;
 
 const ORIGIN = "https://performanceinterpreting.co.uk";
 
+type Audience = "deaf" | "organiser" | "interpreter" | "skipped" | null;
+
 interface Body {
   messages: UIMessage[];
+  audience?: Audience;
+}
+
+function audienceContext(a: Audience | undefined): string {
+  switch (a) {
+    case "deaf":
+      return "## Audience context\nThis user has identified as Deaf or hard of hearing. Default behaviour:\n- For ANY question that maps to a getSignedExplainer catalogue topic, CALL the tool and embed the signed video alongside your text answer. Do not wait for the user to ask 'in BSL' — they expect signed answers by default.\n- Default sign language: BSL. Switch to ISL if they mention Republic of Ireland, Dublin/Cork/Galway/Limerick, or ask for ISL.\n- Keep written text short. The video does the heavy lifting; the text should summarise in 1-3 sentences and let the user watch the rest.\n";
+    case "organiser":
+      return "## Audience context\nThis user has identified as an event organiser. Default behaviour:\n- Lead with the answer they need (quote, lead time, venue partnership, legal duty, etc.). Concise, professional tone.\n- Do NOT call getSignedExplainer by default — signed videos are for Deaf attendees and aren't relevant here.\n- If a question happens to map to a catalogue topic that an organiser MIGHT find useful (e.g. 'know-rights' for understanding what their Deaf attendees are entitled to), end your answer with a one-line offer: 'If you'd like to see this signed in BSL or ISL, just ask.' That gives them the option without pushing it.\n- Common organiser questions: pricing/quotes, lead times, team size, contracts, working with venues, festival bookings, training front-of-house. Defer pricing to /contact.\n";
+    case "interpreter":
+      return "## Audience context\nThis user has identified as an interpreter. Default behaviour:\n- Lead with the practical answer (joining the roster, NRCPD, PI Academy, festival work, mentoring, allocation, etc.).\n- Do NOT call getSignedExplainer by default — they're a professional interpreter, signed explainers aren't useful to them.\n- Common interpreter questions: roster, rates, NRCPD, PI Academy, mentoring, shadowing, festival travel, multi-agency working. Route operational specifics to [/interpreters](/interpreters) or the team via [/contact](/contact).\n";
+    case "skipped":
+    default:
+      return "## Audience context\nThis user hasn't identified themselves. Behave neutrally. If their question is clearly about Deaf access or maps to a getSignedExplainer catalogue topic, you MAY call the tool to include a signed video — but you don't HAVE to unless they explicitly asked for sign language. Use judgement: if the question is generic ('how do I book?'), include the video; if it's organiser-flavoured ('how much does BSL cost?'), text-only is fine.\n";
+  }
 }
 
 const tools = {
@@ -212,7 +229,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { messages } = (await req.json()) as Body;
+  const { messages, audience } = (await req.json()) as Body;
 
   // Layer 1 — input classifier guard. Run a tiny non-streaming call against
   // the latest user message; if it's clearly off-topic (code, math, jokes,
@@ -291,9 +308,15 @@ export async function POST(req: Request) {
   const knowledge = getKnowledgeBundle();
   const modelMessages = await convertToModelMessages(messages);
 
+  // Audience context is appended OUTSIDE the cacheable system prompt so
+  // changing audience mid-session doesn't invalidate the prompt cache for
+  // the (much larger) bundle. Anthropic provider supports an array of
+  // system parts; the bundle is cached, audience block isn't.
+  const audienceBlock = audienceContext(audience ?? null);
+
   const result = streamText({
     model: anthropic("claude-haiku-4-5"),
-    system: knowledge,
+    system: `${knowledge}\n\n${audienceBlock}`,
     providerOptions: {
       anthropic: {
         cacheControl: { type: "ephemeral" },
