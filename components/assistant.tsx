@@ -700,10 +700,10 @@ export default function Assistant() {
                     <div className="mt-3 grid gap-2">
                       {(
                         [
-                          { id: "deaf", label: "I'm Deaf or hard of hearing", hint: "I'll show signed BSL or ISL videos when there's one." },
-                          { id: "organiser", label: "I'm an event organiser", hint: "Compliance, full-service access, tailored quotes from the team." },
-                          { id: "interpreter", label: "I'm an interpreter", hint: "Join the team, explore the Academy and more." },
-                        ] as { id: Audience; label: string; hint: string }[]
+                          { id: "deaf", label: "I'm Deaf or hard of hearing" },
+                          { id: "organiser", label: "I'm an event organiser" },
+                          { id: "interpreter", label: "I'm an interpreter" },
+                        ] as { id: Audience; label: string }[]
                       ).map((a) => (
                         <button
                           key={a.id}
@@ -712,7 +712,6 @@ export default function Assistant() {
                           className="rounded-xl border border-pi-ink/10 bg-white p-3 text-left transition hover:border-pi-accent/50 hover:bg-pi-accent/5 focus:outline-none focus:ring-2 focus:ring-pi-accent"
                         >
                           <p className="text-sm font-semibold text-pi-ink">{a.label}</p>
-                          <p className="mt-0.5 text-xs text-pi-ink/65">{a.hint}</p>
                         </button>
                       ))}
                     </div>
