@@ -125,7 +125,58 @@ export default async function EventDetailPage({ params }: Params) {
       />
 
       <article className="bg-pi-canvas">
-        <div className="relative h-[40vh] min-h-[280px] w-full overflow-hidden bg-pi-navy md:h-[55vh]">
+        {/* Mobile hero — image banner (no text overlay) THEN dark
+            metadata block below. Posters often have their own dense
+            text/branding which fights with overlay text on small
+            screens. Desktop keeps the cinematic overlay (md+ has the
+            horizontal room). */}
+        <div className="md:hidden">
+          {event.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={event.imageUrl}
+              alt=""
+              className="h-56 w-full object-cover"
+            />
+          ) : null}
+          <div className="bg-pi-deep px-5 pt-6 pb-7 text-white">
+            <Link
+              href="/events/"
+              className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-white/80 hover:text-white"
+            >
+              ← All events
+            </Link>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className={`rounded-full ${statusBadgeClass} px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm`}>
+                {statusBadgeLabel}
+              </span>
+              {event.category && (
+                <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                  {event.category}
+                </span>
+              )}
+              {event.soldOut && (
+                <span className="rounded-full bg-pi-error px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                  Sold out
+                </span>
+              )}
+            </div>
+            <h1 className="mt-4 font-display text-3xl leading-tight text-white">
+              {event.name}
+            </h1>
+            <p className="mt-3 text-base text-white/90">
+              {formatLongDate(event.isoDate)}
+              {event.time ? ` · ${event.time}` : ""}
+            </p>
+            <p className="mt-1 text-base text-white/80">
+              {event.venue}
+              {event.city && !event.venue.includes(event.city) ? `, ${event.city}` : ""}
+            </p>
+          </div>
+        </div>
+
+        {/* Desktop hero — cinematic overlay treatment (more room to breathe). */}
+        <div className="relative hidden h-[55vh] min-h-[420px] w-full overflow-hidden bg-pi-navy md:block">
           {event.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -143,11 +194,11 @@ export default async function EventDetailPage({ params }: Params) {
                 "linear-gradient(to top, rgba(2,1,66,0.95) 0%, rgba(2,1,66,0.6) 40%, rgba(2,1,66,0.2) 75%, transparent 100%)",
             }}
           />
-          <div className="section-padding absolute inset-0 z-10 flex flex-col justify-end pb-8 md:pb-14">
+          <div className="section-padding absolute inset-0 z-10 flex flex-col justify-end pb-14">
             <div className="max-w-3xl">
               <p className="mb-3 inline-flex items-center gap-2">
                 <Link
-                  href="/events"
+                  href="/events/"
                   className="text-xs font-semibold uppercase tracking-wide text-white/80 hover:text-white"
                 >
                   ← All events
@@ -171,20 +222,20 @@ export default async function EventDetailPage({ params }: Params) {
                 )}
               </div>
               <h1
-                className="font-display text-3xl leading-tight text-white md:text-5xl"
+                className="font-display text-5xl leading-tight text-white"
                 style={{ textShadow: "0 1px 4px rgba(2,1,66,0.4)" }}
               >
                 {event.name}
               </h1>
               <p
-                className="mt-3 text-base text-white/90 md:text-lg"
+                className="mt-3 text-lg text-white/90"
                 style={{ textShadow: "0 1px 3px rgba(2,1,66,0.3)" }}
               >
                 {formatLongDate(event.isoDate)}
                 {event.time ? ` · ${event.time}` : ""}
               </p>
               <p
-                className="mt-1 text-base text-white/80 md:text-lg"
+                className="mt-1 text-lg text-white/80"
                 style={{ textShadow: "0 1px 3px rgba(2,1,66,0.3)" }}
               >
                 {event.venue}
