@@ -783,7 +783,6 @@ export default function Assistant() {
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask a question..."
                   className="flex-1 rounded-full border border-pi-ink/15 bg-white px-3 py-2 text-base text-pi-ink outline-none focus:border-pi-accent focus:ring-2 focus:ring-pi-accent"
-                  disabled={isThinking}
                 />
                 <button
                   type="submit"
