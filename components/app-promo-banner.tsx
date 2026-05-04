@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import AppStoreButtons from "@/components/app-store-buttons";
 
 const HIDE_ON = ["/deaf-community", "/app-guide"];
 
@@ -96,21 +97,24 @@ export default function AppPromoBanner() {
           {/* Content */}
           <div className="px-6 py-6 text-center sm:px-8 sm:py-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              The PI Events App - coming soon
+              The PI Events App - now available
             </p>
             <h2 className="mt-2 font-display text-2xl text-white sm:text-3xl">
               A free toolkit for Deaf audiences
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">
-              Find events, order at the bar, know your rights. Take a look at what&apos;s coming - free on iOS and Android once App Store review is complete.
+              Find events, order at the bar, know your rights. Free on iOS and Android - download now.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-6 flex justify-center">
+              <AppStoreButtons variant="dark" />
+            </div>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/app-guide"
                 onClick={dismiss}
                 className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all hover:brightness-110"
               >
-                Read more
+                See every feature
               </Link>
               <button
                 onClick={dismiss}

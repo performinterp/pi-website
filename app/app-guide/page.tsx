@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/page-hero";
 import AnimateIn from "@/components/animate-in";
 import ScrollVideo from "@/components/scroll-video";
+import AppStoreButtons from "@/components/app-store-buttons";
 import Icon from "@/components/icon";
 
 export const metadata: Metadata = {
@@ -76,7 +77,7 @@ export default function AppGuidePage() {
     <>
       <PageHero
         title="The PI Events App"
-        subtitle="A dedicated toolkit for Deaf audiences at live events. Coming soon to iOS and Android."
+        subtitle="A dedicated toolkit for Deaf audiences at live events. Available now on iOS and Android."
         backgroundImage="/images/deaf-app-user.png"
         imagePosition="65% 30%"
         mobileImagePosition="50% 30%"
@@ -176,21 +177,18 @@ export default function AppGuidePage() {
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
-              Coming soon
+              Available now
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
-              Available soon - free on iOS and Android
+              Free on iOS and Android
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pi-ink/80">
-              The app is in the final stages of App Store review. Once approved, it&apos;ll be free to download on iOS and Android.
+              The PI Events App is live in both stores. Free to download, with everything you&apos;ve seen here ready to use.
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>
             <div className="mt-8 flex justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-pi-ink/15 bg-white px-5 py-2.5 text-sm font-medium text-pi-ink/75 shadow-sm">
-                <span className="h-2 w-2 rounded-full bg-pi-warmth" aria-hidden="true" />
-                Awaiting Apple App Store approval
-              </span>
+              <AppStoreButtons variant="light" />
             </div>
           </AnimateIn>
         </div>

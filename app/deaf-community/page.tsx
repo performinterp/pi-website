@@ -100,8 +100,11 @@ export default function DeafCommunityPage() {
               Everything you need, in your pocket
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pi-ink/70">
-              Coming soon to iOS and Android.
+              Available now on iOS and Android.
             </p>
+            <div className="mt-6 flex justify-center">
+              <AppStoreButtons variant="light" />
+            </div>
           </div>
         </AnimateIn>
         <AnimateIn delay={150}>
@@ -366,7 +369,7 @@ export default function DeafCommunityPage() {
         </AnimateIn>
       </section>
 
-      {/* ─── Coming soon ───────────────────────────────── */}
+      {/* ─── Download the app ──────────────────────────── */}
       <section className="section-padding section-gap bg-pi-canvas-soft">
         <div className="mx-auto max-w-3xl text-center">
           <AnimateIn>
@@ -374,21 +377,22 @@ export default function DeafCommunityPage() {
               The PI Events App
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
-              Available soon - free on iOS and Android
+              Available now - free on iOS and Android
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pi-ink/80">
-              Events, tools, rights, feedback - all in one place. Awaiting Apple App Store approval.
+              Events, tools, rights, feedback - all in one place. Download free from the App Store or Google Play.
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-pi-warmth/40 bg-pi-warmth/10 px-5 py-2.5 text-sm font-semibold text-pi-ink">
-                <span className="h-2 w-2 rounded-full bg-pi-warmth" />
-                Awaiting App Store approval
-              </span>
+            <div className="mt-8 flex justify-center">
+              <AppStoreButtons variant="light" />
+            </div>
+          </AnimateIn>
+          <AnimateIn delay={180}>
+            <div className="mt-6 flex justify-center">
               <Link
                 href="/app-guide"
-                className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-pi-accent/25 transition-all hover:brightness-110"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
               >
                 See the full app guide
                 <Icon name="arrow-right" size={16} />
