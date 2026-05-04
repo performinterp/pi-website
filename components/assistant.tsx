@@ -396,6 +396,21 @@ export default function Assistant() {
     if (wasOpenRef.current) launcherRef.current?.focus();
     wasOpenRef.current = open;
   }, [open]);
+
+  // Re-focus the input after the assistant finishes responding so the user
+  // can keep typing without re-clicking. The input is disabled while the
+  // model streams, which causes the browser to drop focus — restore it on
+  // status === "ready".
+  const prevStatusRef = useRef(status);
+  useEffect(() => {
+    if (open && prevStatusRef.current !== "ready" && status === "ready") {
+      // Defer to next tick so the input is re-enabled before we focus it.
+      const id = window.setTimeout(() => inputRef.current?.focus(), 0);
+      prevStatusRef.current = status;
+      return () => window.clearTimeout(id);
+    }
+    prevStatusRef.current = status;
+  }, [status, open]);
   useEffect(() => {
     if (open) wasOpenRef.current = true;
   }, [open]);
