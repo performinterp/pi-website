@@ -83,21 +83,6 @@ export default function DeafCommunityPage() {
         backgroundImage="/images/deaf-community-info-point.jpg"
       />
 
-      {/* ─── Download strip (top-of-page CTA from social) ── */}
-      <section className="bg-pi-navy section-padding py-6 md:py-8">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
-              The PI Events App - free
-            </p>
-            <p className="mt-1 font-display text-xl text-white md:text-2xl">
-              Download now on iOS and Android
-            </p>
-          </div>
-          <AppStoreButtons variant="dark" />
-        </div>
-      </section>
-
       {/* ─── The PI Events App — carousel first ──────────── */}
       <section className="section-padding relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-20">
 
