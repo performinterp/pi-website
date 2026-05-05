@@ -164,7 +164,7 @@ export function getKnowledgeBundle(): string {
   md.push("   - \"the venue won't help\" → key=`know-rights`, chapter=`getting help`");
   md.push("   - Generic \"how do I book?\" → key=`how-to-book` with no chapter (plays from start).");
   md.push("6. **One video per response, max.** Don't call getSignedExplainer for venue/event lookups — use searchEvents/lookupVenue for those.");
-  md.push("7. **App-walkthrough videos = describe the app feature + link to it.** Several catalogued videos are tours of features that live INSIDE the PI Events App. When you trigger one, your supporting text MUST (a) describe what the feature does in plain English, (b) say it lives in the PI Events App, and (c) include a link to [/app-guide](/app-guide). The app is coming soon to iOS and Android — currently awaiting App Store approval. Don't tell users to go to the App Store; the /app-guide page explains everything and they can sign up to be notified at launch.");
+  md.push("7. **App-walkthrough videos = describe the app feature + link to it.** Several catalogued videos are tours of features that live INSIDE the PI Events App. When you trigger one, your supporting text MUST (a) describe what the feature does in plain English, (b) say it lives in the PI Events App, and (c) include a link to [/app-guide](/app-guide). The app is live and free to download on iPhone and any other phone (Samsung, Google, Sony, OnePlus, Huawei and more). To download, point users to [/get-app](/get-app) — that link auto-detects their phone and opens the right store.");
   md.push("");
   md.push("Feature-by-feature crib so your supporting text reads informed:");
   md.push("- `orientation` — full app tour. Chapters: **Welcome** (intro), **Events tab** (browse + filter interpreted events on your phone, see who's interpreting), **Tool Kit tab** (the in-app communication toolkit — see below), **BSL & ISL tab** (signed video library), **Notifications** (push alerts for new interpreted events near you, in your favourite cities or for artists you follow), **More tab** (settings, feedback, festival checklist, etc.), **Get in touch** (contact PI from inside the app).");
@@ -276,9 +276,9 @@ export function getKnowledgeBundle(): string {
   md.push("");
 
   md.push("## Important corrections — these override anything else in this bundle");
-  md.push("- **The PI Events App is NOT yet available in the App Store or Google Play.** It is awaiting Apple App Store approval. Do not tell users to search for it or download it. Say it is \"coming soon to iOS and Android\" and point them to [/app-guide](/app-guide) to see what it will do, or [/events](/events) to find interpreted events on the website right now.");
+  md.push("- **The PI Events App is LIVE on the App Store (iPhone) and the Play Store (every other phone — Samsung, Google, Sony, OnePlus, Huawei, Motorola, Xiaomi, etc.).** It is free.");
   md.push("- **Never mention `app.performanceinterpreting.co.uk`.** That was a legacy web PWA and is being retired. The replacement is [/events](/events) on this site.");
-  md.push("- If a user asks how to download the app or where to find it: \"It's coming soon — awaiting App Store approval. In the meantime, all interpreted events are on [/events](/events).\"");
+  md.push("- If a user asks how to download the app: send them to [/get-app](/get-app). That single link auto-detects whether they're on an iPhone or any other phone and opens the correct store. If a user is unsure what phone they have, reassure them — non-iPhone phones (Samsung, Google, Sony, etc.) all use the Play Store, which is already installed on their phone.");
   md.push("");
 
   md.push("## Useful URLs");
@@ -292,6 +292,7 @@ export function getKnowledgeBundle(): string {
   md.push("- /accessibility — site accessibility info");
   md.push("- /contact — contact form for quotes/enquiries");
   md.push("- /app-guide — full guide to the PI Events App (mobile)");
+  md.push("- /get-app — short link that auto-redirects iPhone users to the App Store and any other phone to the Play Store. Use this when a user asks how to download.");
   md.push("- https://academy.performanceinterpreting.co.uk — PI Academy (CPD, mentoring, training for interpreters)");
   md.push("- https://courses.performanceinterpreting.co.uk — book courses");
   md.push("- https://tally.so/r/wvQ0Kl — **volunteer with PI** (sign-up form). Welcomes Deaf volunteers fluent in BSL and hearing volunteers at BSL Level 6+. Perks: free entry to events/festivals, meet the community, hands-on live-access experience.");
