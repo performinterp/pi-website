@@ -94,7 +94,7 @@ export default function AppGuidePage() {
               Download now on iPhone or any other phone
             </p>
           </div>
-          <AppStoreButtons variant="dark" />
+          <AppStoreButtons variant="dark" hideSubtextOnMobile />
         </div>
       </section>
 

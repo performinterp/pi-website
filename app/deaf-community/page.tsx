@@ -103,7 +103,7 @@ export default function DeafCommunityPage() {
               Available now on iPhone and any other phone.
             </p>
             <div className="mt-6 flex justify-center">
-              <AppStoreButtons variant="light" />
+              <AppStoreButtons variant="light" hideSubtextOnMobile />
             </div>
           </div>
         </AnimateIn>
