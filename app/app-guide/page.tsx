@@ -77,7 +77,7 @@ export default function AppGuidePage() {
     <>
       <PageHero
         title="The PI Events App"
-        subtitle="A dedicated toolkit for Deaf audiences at live events. Available now on iPhone and any other phone."
+        subtitle="A dedicated toolkit for Deaf audiences at live events."
         backgroundImage="/images/deaf-app-user.png"
         imagePosition="65% 30%"
         mobileImagePosition="50% 30%"
