@@ -77,7 +77,7 @@ export default function AppGuidePage() {
     <>
       <PageHero
         title="The PI Events App"
-        subtitle="A dedicated toolkit for Deaf audiences at live events. Available now on iOS and Android."
+        subtitle="A dedicated toolkit for Deaf audiences at live events. Available now on iPhone and any other phone."
         backgroundImage="/images/deaf-app-user.png"
         imagePosition="65% 30%"
         mobileImagePosition="50% 30%"
@@ -91,7 +91,7 @@ export default function AppGuidePage() {
               The PI Events App - free
             </p>
             <p className="mt-1 font-display text-xl text-white md:text-2xl">
-              Download now on iOS and Android
+              Download now on iPhone or any other phone
             </p>
           </div>
           <AppStoreButtons variant="dark" />
@@ -195,7 +195,7 @@ export default function AppGuidePage() {
               Available now
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
-              Free on iOS and Android
+              Free on every phone
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pi-ink/80">
               The PI Events App is live in both stores. Free to download, with everything you&apos;ve seen here ready to use.

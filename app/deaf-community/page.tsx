@@ -100,7 +100,7 @@ export default function DeafCommunityPage() {
               Everything you need, in your pocket
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pi-ink/70">
-              Available now on iOS and Android.
+              Available now on iPhone and any other phone.
             </p>
             <div className="mt-6 flex justify-center">
               <AppStoreButtons variant="light" />
@@ -377,10 +377,10 @@ export default function DeafCommunityPage() {
               The PI Events App
             </p>
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
-              Available now - free on iOS and Android
+              Free on every phone
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pi-ink/80">
-              Events, tools, rights, feedback - all in one place. Download free from the App Store or Google Play.
+              Events, tools, rights, feedback - all in one place. Download free from the App Store (iPhone) or the Play Store (every other phone — Samsung, Google, Sony, OnePlus, Huawei and more, already installed on yours).
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>

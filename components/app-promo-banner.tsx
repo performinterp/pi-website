@@ -103,7 +103,7 @@ export default function AppPromoBanner() {
               A free toolkit for Deaf audiences
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">
-              Find events, order at the bar, know your rights. Free on iOS and Android - download now.
+              Find events, order at the bar, know your rights. Free on iPhone and any other phone - download now.
             </p>
             <div className="mt-6 flex justify-center">
               <AppStoreButtons variant="dark" />
