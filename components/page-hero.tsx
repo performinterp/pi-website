@@ -7,9 +7,11 @@ interface PageHeroProps {
   imagePosition?: string;
   mobileImagePosition?: string;
   tall?: boolean;
+  /** Hide the subtitle on small screens (subtitle still renders on md+). */
+  hideSubtitleOnMobile?: boolean;
 }
 
-export default function PageHero({ title, subtitle, backgroundImage, imagePosition, mobileImagePosition, tall }: PageHeroProps) {
+export default function PageHero({ title, subtitle, backgroundImage, imagePosition, mobileImagePosition, tall, hideSubtitleOnMobile }: PageHeroProps) {
   const desktopPos = imagePosition ?? "center";
   const mobilePos = mobileImagePosition ?? desktopPos;
   const reactId = useId();
@@ -64,7 +66,9 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
           </h1>
           {subtitle && (
             <p
-              className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl"
+              className={`mt-4 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl ${
+                hideSubtitleOnMobile ? "hidden md:block" : ""
+              }`}
               style={{ textShadow: "0 1px 3px rgba(2,1,66,0.25)" }}
             >
               {subtitle}
