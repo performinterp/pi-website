@@ -380,7 +380,7 @@ export default function DeafCommunityPage() {
               Free on every phone
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-pi-ink/80">
-              Events, tools, rights, feedback - all in one place. Download free from the App Store (iPhone) or the Play Store (every other phone — Samsung, Google, Sony, OnePlus, Huawei and more, already installed on yours).
+              Events, tools, rights, feedback - all in one place. Download free from the App Store (iPhone) or the Google Play Store (every other phone — Samsung, Sony, OnePlus, Huawei, Google Pixel and more, already installed on yours).
             </p>
           </AnimateIn>
           <AnimateIn delay={100}>

@@ -63,8 +63,8 @@ export default function GetAppPage() {
           <AppStoreButtons variant="light" />
         </div>
         <p className="mx-auto mt-8 max-w-xl text-sm leading-relaxed text-pi-ink/60">
-          The Play Store is already installed on Samsung, Google, Sony, OnePlus,
-          Huawei, Motorola and Xiaomi phones — no need to download it first.
+          The Google Play Store is already installed on Samsung, Sony, OnePlus,
+          Huawei, Motorola, Xiaomi and Google Pixel phones — no need to download it first.
         </p>
       </div>
     </main>
