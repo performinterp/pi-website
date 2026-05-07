@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Event } from "@/lib/types";
 import { eventSlug } from "@/lib/event-slug";
@@ -12,6 +12,46 @@ interface Props {
 }
 
 const PAGE_SIZE = 24;
+
+// Levenshtein distance (small, no dep). Used to spelling-tolerantly match
+// individual words. Cheap enough for our vocabulary sizes (~few hundred).
+function lev(a: string, b: string): number {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  const m: number[][] = [];
+  for (let i = 0; i <= b.length; i++) m[i] = [i];
+  for (let j = 0; j <= a.length; j++) m[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      m[i][j] = b[i - 1] === a[j - 1]
+        ? m[i - 1][j - 1]
+        : Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1);
+    }
+  }
+  return m[b.length][a.length];
+}
+
+// Fuzzy term match. Exact substring first; otherwise Levenshtein within a
+// per-length tolerance on any word in haystack OR a sliding window. Helps
+// when users misspell names — important for accessibility (BSL users may
+// have less English-spelling exposure).
+function fuzzyMatch(haystack: string, term: string): boolean {
+  if (!term) return true;
+  if (haystack.includes(term)) return true;
+  if (term.length <= 3) return false; // too short — exact-only
+  const tol = term.length <= 6 ? 1 : 2;
+  const words = haystack.split(/\s+/);
+  for (const w of words) {
+    if (Math.abs(w.length - term.length) <= tol && lev(w, term) <= tol) return true;
+    if (w.length >= term.length) {
+      for (let s = 0; s <= w.length - term.length + tol; s++) {
+        if (lev(w.substring(s, s + term.length), term) <= tol) return true;
+      }
+    }
+  }
+  return false;
+}
 
 const LANGUAGE_OPTIONS = [
   { value: "all", label: "Any language" },
@@ -46,13 +86,65 @@ export default function EventsFilter({ events, cities, categories }: Props) {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchWrapRef = useRef<HTMLDivElement | null>(null);
+
+  // Build a vocabulary of distinct event names + venues for the suggestion
+  // dropdown. We deliberately don't include every interpreter name — that
+  // would clutter results. Prefixed with type so the user sees at a glance
+  // what they're picking.
+  const vocabulary = useMemo(() => {
+    const seen = new Map<string, "event" | "venue">();
+    for (const ev of events) {
+      if (ev.name && !seen.has(ev.name.toLowerCase())) seen.set(ev.name.toLowerCase(), "event");
+      if (ev.venue && !seen.has(ev.venue.toLowerCase())) seen.set(ev.venue.toLowerCase(), "venue");
+    }
+    // Re-emit with original casing
+    const map = new Map<string, { label: string; type: "event" | "venue" }>();
+    for (const ev of events) {
+      if (ev.name) {
+        const k = ev.name.toLowerCase();
+        if (!map.has(k)) map.set(k, { label: ev.name, type: seen.get(k) === "venue" ? "venue" : "event" });
+      }
+      if (ev.venue) {
+        const k = ev.venue.toLowerCase();
+        if (!map.has(k)) map.set(k, { label: ev.venue, type: "venue" });
+      }
+    }
+    return Array.from(map.values());
+  }, [events]);
+
+  const suggestions = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (q.length < 2) return [];
+    const exact: typeof vocabulary = [];
+    const fuzzy: typeof vocabulary = [];
+    for (const item of vocabulary) {
+      const lower = item.label.toLowerCase();
+      if (lower.includes(q)) exact.push(item);
+      else if (fuzzyMatch(lower, q)) fuzzy.push(item);
+      if (exact.length >= 6) break;
+    }
+    return [...exact, ...fuzzy].slice(0, 6);
+  }, [search, vocabulary]);
+
+  // Click-away handler for the suggestion dropdown
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (searchWrapRef.current && !searchWrapRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
     return events.filter((ev) => {
       if (term) {
         const haystack = `${ev.name} ${ev.venue} ${ev.city} ${ev.interpreters}`.toLowerCase();
-        if (!haystack.includes(term)) return false;
+        if (!fuzzyMatch(haystack, term)) return false;
       }
       if (city !== "all" && ev.city !== city) return false;
       if (category !== "all" && ev.category !== category) return false;
@@ -104,21 +196,60 @@ export default function EventsFilter({ events, cities, categories }: Props) {
 
       <div className="mb-10 rounded-2xl border border-pi-ink/10 bg-white p-5 shadow-sm md:p-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3" ref={searchWrapRef}>
             <label htmlFor="ev-search" className={labelClass}>
               Search
             </label>
-            <input
-              id="ev-search"
-              type="search"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setVisible(PAGE_SIZE);
-              }}
-              placeholder="Artist, event, venue, interpreter..."
-              className={`${inputClass} mt-1.5`}
-            />
+            <div className="relative">
+              <input
+                id="ev-search"
+                type="search"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setVisible(PAGE_SIZE);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") setShowSuggestions(false);
+                }}
+                placeholder="Artist, event, venue, interpreter... (typos OK)"
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-expanded={showSuggestions && suggestions.length > 0}
+                aria-controls="ev-search-suggestions"
+                className={`${inputClass} mt-1.5`}
+              />
+              {showSuggestions && suggestions.length > 0 && (
+                <ul
+                  id="ev-search-suggestions"
+                  role="listbox"
+                  className="absolute left-0 right-0 top-full z-20 mt-1 max-h-64 overflow-y-auto rounded-lg border border-pi-ink/15 bg-white shadow-lg"
+                >
+                  {suggestions.map((s, i) => (
+                    <li key={`${s.type}-${i}-${s.label}`} role="option" aria-selected="false">
+                      <button
+                        type="button"
+                        onMouseDown={(e) => {
+                          // Use mousedown so the click registers before the input's blur fires
+                          e.preventDefault();
+                          setSearch(s.label);
+                          setShowSuggestions(false);
+                          setVisible(PAGE_SIZE);
+                        }}
+                        className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm text-pi-ink hover:bg-pi-warmth/10 focus:bg-pi-warmth/10 focus:outline-none"
+                      >
+                        <span className="truncate">{s.label}</span>
+                        <span className="shrink-0 rounded-full bg-pi-ink/5 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-pi-ink/60">
+                          {s.type}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           <div>
