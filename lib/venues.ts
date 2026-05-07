@@ -86,6 +86,34 @@ export function getVenueDetails(venue: string): VenueDetails | undefined {
   return longestMatch(VENUE_DETAILS, venue);
 }
 
+/**
+ * Resolve the best maps URL for an event, in priority order:
+ *  1. Event row's MAPS URL column (set by AutoPublish from VENUE_MAPS lookup,
+ *     or manually overridden per-row in PUBLISHED).
+ *  2. Hardcoded VENUE_DETAILS match — has full address bundle.
+ *  3. Auto-built Google Maps search URL from venue + city — guarantees every
+ *     event card gets a usable button even for unknown venues.
+ *
+ * Returns null only if event has neither a venue nor a row-level URL.
+ */
+export function resolveEventMapsUrl(
+  event: { venue?: string | null; city?: string | null; mapsUrl?: string | null },
+  venueDetails?: VenueDetails | undefined
+): string | null {
+  const rowUrl = (event.mapsUrl ?? "").trim();
+  if (rowUrl) return rowUrl;
+  if (venueDetails?.mapsUrl) return venueDetails.mapsUrl;
+
+  const venue = (event.venue ?? "").trim();
+  if (!venue) return null;
+  const city = (event.city ?? "").trim();
+  let query = venue;
+  if (city && !venue.toLowerCase().includes(city.toLowerCase())) {
+    query = `${venue}, ${city}`;
+  }
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
 export function getVenueContact(venue: string): VenueContact | undefined {
   return longestMatch(VENUE_CONTACTS, venue);
 }

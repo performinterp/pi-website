@@ -49,6 +49,7 @@ const COLUMNS = [
   "FORMAT",
   "SOLD_OUT",
   "ADDED_DATE",
+  "MAPS URL",
 ] as const;
 
 function parseCsv(text: string): string[][] {
@@ -110,9 +111,16 @@ function parseDdMmYy(input: string): string | null {
   return iso;
 }
 
-function rowToEvent(row: string[]): Event | null {
+function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null {
+  // 2026-05-07: header-driven column resolution. Previously we used
+  // COLUMNS.indexOf(name) which assumed the sheet's column order matched our
+  // local COLUMNS array — but the real sheet has STATUS/SOURCE/SOLD_OUT/
+  // ADDED_DATE in different positions, so status/source/description/format
+  // were silently reading the wrong cells. Now we resolve by actual header
+  // name and missing columns return "" instead of mis-aligned data.
   const cell = (col: (typeof COLUMNS)[number]) => {
-    const idx = COLUMNS.indexOf(col);
+    const idx = headerIdx.get(col);
+    if (idx === undefined) return "";
     return (row[idx] ?? "").trim();
   };
 
@@ -151,6 +159,7 @@ function rowToEvent(row: string[]): Event | null {
     category: cell("CATEGORY"),
     imageUrl: cell("IMAGE URL"),
     eventUrl: cell("EVENT URL"),
+    mapsUrl: cell("MAPS URL"),
     status: cell("STATUS"),
     source: cell("SOURCE"),
     description: cell("DESCRIPTION"),
@@ -176,14 +185,21 @@ export async function fetchEvents(): Promise<Event[]> {
   if (rows.length < 2) return [];
 
   const header = rows[0].map((c) => c.trim());
-  const expected = COLUMNS.join(",");
-  if (header.join(",") !== expected) {
-    console.warn("Events CSV header drift", { expected, actual: header.join(",") });
+  // Build a header→index map keyed by actual sheet header. Missing columns
+  // are simply absent from the map, and rowToEvent's cell() returns "" for
+  // them. Tolerates added/reordered/removed columns without breaking.
+  const headerIdx = new Map<string, number>();
+  for (let i = 0; i < header.length; i++) {
+    headerIdx.set(header[i], i);
+  }
+  const missing = COLUMNS.filter((c) => !headerIdx.has(c));
+  if (missing.length) {
+    console.warn("Events CSV missing columns (will read as empty)", { missing, actual: header });
   }
 
   const events: Event[] = [];
   for (let i = 1; i < rows.length; i++) {
-    const ev = rowToEvent(rows[i]);
+    const ev = rowToEvent(rows[i], headerIdx);
     if (ev) events.push(ev);
   }
 

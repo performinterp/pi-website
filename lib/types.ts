@@ -97,6 +97,7 @@ export interface Event {
   category: string;
   imageUrl: string;
   eventUrl: string;
+  mapsUrl: string;
   status: string;
   source: string;
   description: string;

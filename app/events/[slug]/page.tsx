@@ -9,6 +9,7 @@ import {
   getVenueDetails,
   getVenueFeatures,
   getAccessFeatureDef,
+  resolveEventMapsUrl,
 } from "@/lib/venues";
 export const revalidate = 1800;
 
@@ -82,6 +83,9 @@ export default async function EventDetailPage({ params }: Params) {
   const venueContact = getVenueContact(event.venue);
   const venueDetails = getVenueDetails(event.venue);
   const features = getVenueFeatures(event.venue, event.name);
+  // 3-tier resolution: row's MAPS URL → hardcoded VENUE_DETAILS → auto-built
+  // search URL. Always returns something usable when there's a venue string.
+  const mapsUrl = resolveEventMapsUrl(event, venueDetails);
 
   const eventSchema = {
     "@context": "https://schema.org",
@@ -431,7 +435,7 @@ export default async function EventDetailPage({ params }: Params) {
                 </div>
               )}
 
-              {(venueDetails?.mapsUrl ||
+              {(mapsUrl ||
                 venueDetails?.address ||
                 venueDetails?.postcode) && (
                 <section>
@@ -450,9 +454,9 @@ export default async function EventDetailPage({ params }: Params) {
                         {venueDetails?.postcode && <>{venueDetails.postcode}</>}
                       </address>
                     )}
-                    {venueDetails?.mapsUrl && (
+                    {mapsUrl && (
                       <a
-                        href={venueDetails.mapsUrl}
+                        href={mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-4 inline-flex items-center gap-2 text-base font-semibold text-pi-accent hover:text-pi-ink"
