@@ -20,6 +20,7 @@ export const CATEGORY_ICONS: Record<string, string> = {
   Dance: "💃",
   "Talks & Discussions": "🗣️",
   Cultural: "🏛️",
+  Pride: "🏳️‍🌈",
   Other: "🎟️",
 };
 
@@ -39,6 +40,7 @@ export const CATEGORY_ORDER = [
   "Dance",
   "Talks & Discussions",
   "Cultural",
+  "Pride",
   "Literature",
   "Other",
 ];

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Event } from "@/lib/types";
 import { eventSlug } from "@/lib/event-slug";
@@ -13,6 +14,26 @@ import {
 import { DATE_PRESETS, activePresetKey } from "./preset-dates";
 import { CATEGORY_ICONS, CATEGORY_ORDER, iconForCategory } from "./category-icons";
 import BslHelpVideo from "./bsl-help-video";
+import {
+  haversineKm,
+  venueCoordinates,
+  requestUserLocation,
+  getCachedCoords,
+} from "./geo-utils";
+
+// Map view is client-only (Leaflet hits window at import). Dynamic import
+// with ssr:false keeps SSR/SSG happy while still allowing the rest of this
+// component to render on the server.
+const EventsMap = dynamic(() => import("./events-map"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-[60vh] min-h-[400px] items-center justify-center rounded-2xl border border-pi-ink/10 bg-white text-sm text-pi-ink/60">
+      Loading map…
+    </div>
+  ),
+});
+
+const NEAR_ME_DEFAULT_RADIUS_KM = 80; // ~50 miles, matches standalone app default
 
 interface Props {
   events: Event[];
@@ -52,13 +73,49 @@ export default function EventsFilter({ events, cities, categories }: Props) {
   const [category, setCategory] = useState("all");
   const [language, setLanguage] = useState("all");
   const [interpreterStatus, setInterpreterStatus] = useState("all");
-  const [interpreterName, setInterpreterName] = useState("all");
-  const [interpreterPanelOpen, setInterpreterPanelOpen] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [viewMode, setViewMode] = useState<"list" | "map">("list");
+  const [userCoords, setUserCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [nearMeActive, setNearMeActive] = useState(false);
+  const [nearMeStatus, setNearMeStatus] = useState<"idle" | "loading" | "denied" | "unavailable" | "timeout">("idle");
   const searchWrapRef = useRef<HTMLDivElement | null>(null);
+
+  // Re-hydrate cached user coords on mount (set during a previous Near me
+  // tap in this session). Lets users keep "Near me" active across page
+  // navigations within the session without re-prompting. We can't use a
+  // lazy useState initialiser here because sessionStorage is unavailable
+  // during SSR — would cause a hydration mismatch.
+  useEffect(() => {
+    const cached = getCachedCoords();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (cached) setUserCoords(cached);
+  }, []);
+
+  async function activateNearMe() {
+    if (nearMeActive) {
+      setNearMeActive(false);
+      setVisible(PAGE_SIZE);
+      return;
+    }
+    if (userCoords) {
+      setNearMeActive(true);
+      setVisible(PAGE_SIZE);
+      return;
+    }
+    setNearMeStatus("loading");
+    const result = await requestUserLocation();
+    if (result.status === "ok" && result.coords) {
+      setUserCoords(result.coords);
+      setNearMeActive(true);
+      setNearMeStatus("idle");
+    } else if (result.status !== "ok") {
+      setNearMeStatus(result.status);
+    }
+    setVisible(PAGE_SIZE);
+  }
 
   // Build a vocabulary of distinct event names + venues + interpreters,
   // used for both the substring suggestion dropdown and the "did you mean?"
@@ -74,24 +131,6 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       ),
     [events]
   );
-
-  // Distinct interpreter list, sorted alpha. Used to populate the
-  // interpreter-name filter chips. Many BSL users follow specific
-  // interpreters they trust; surfacing them as a one-tap filter is more
-  // useful than asking users to type a name.
-  const interpreters = useMemo(() => {
-    const set = new Set<string>();
-    for (const ev of events) {
-      if (!ev.interpreters) continue;
-      for (const raw of ev.interpreters.split(/\s*(?:,|&|\sand\s)\s*/i)) {
-        const name = raw.trim();
-        if (name && name.length >= 2 && !/request/i.test(name)) {
-          set.add(name);
-        }
-      }
-    }
-    return Array.from(set).sort((a, b) => a.localeCompare(b));
-  }, [events]);
 
   // Live suggestions: only EXACT substring matches (fuzzy-only suggestions
   // were creating "must pick a suggestion" confusion). The filter still
@@ -131,13 +170,14 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       if (category !== "all" && ev.category !== category) return false;
       if (language !== "all" && ev.language !== language) return false;
       if (interpreterStatus !== "all" && ev.interpreterStatus !== interpreterStatus) return false;
-      if (interpreterName !== "all") {
-        if (!ev.interpreters) return false;
-        const lower = ev.interpreters.toLowerCase();
-        if (!lower.includes(interpreterName.toLowerCase())) return false;
-      }
       if (fromDate && ev.isoDate < fromDate) return false;
       if (toDate && ev.isoDate > toDate) return false;
+      if (nearMeActive && userCoords) {
+        const venuePos = venueCoordinates(ev.venue);
+        if (!venuePos) return false;
+        const km = haversineKm(userCoords, venuePos);
+        if (km > NEAR_ME_DEFAULT_RADIUS_KM) return false;
+      }
       return true;
     });
   }, [
@@ -147,9 +187,10 @@ export default function EventsFilter({ events, cities, categories }: Props) {
     category,
     language,
     interpreterStatus,
-    interpreterName,
     fromDate,
     toDate,
+    nearMeActive,
+    userCoords,
   ]);
 
   // "Did you mean?" — only when search is non-empty AND no events match.
@@ -208,9 +249,9 @@ export default function EventsFilter({ events, cities, categories }: Props) {
     setCategory("all");
     setLanguage("all");
     setInterpreterStatus("all");
-    setInterpreterName("all");
     setFromDate("");
     setToDate("");
+    setNearMeActive(false);
     setVisible(PAGE_SIZE);
   }
 
@@ -351,6 +392,46 @@ export default function EventsFilter({ events, cities, categories }: Props) {
           </div>
         </div>
 
+        {/* Where — near-me filter */}
+        <div className="mt-5">
+          <p className={labelClass}>Where</p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={activateNearMe}
+              aria-pressed={nearMeActive}
+              disabled={nearMeStatus === "loading"}
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-semibold transition disabled:opacity-60 ${
+                nearMeActive
+                  ? "border-pi-accent bg-pi-accent text-white"
+                  : "border-pi-ink/15 bg-white text-pi-ink hover:border-pi-accent/40"
+              }`}
+            >
+              <span aria-hidden="true">📍</span>
+              {nearMeStatus === "loading"
+                ? "Finding you…"
+                : nearMeActive
+                  ? "Near me (50 mi)"
+                  : "Near me"}
+            </button>
+            {nearMeStatus === "denied" && (
+              <span className="text-xs text-pi-ink/60">
+                Location denied — use the City filter instead.
+              </span>
+            )}
+            {nearMeStatus === "unavailable" && (
+              <span className="text-xs text-pi-ink/60">
+                Location not available — use the City filter instead.
+              </span>
+            )}
+            {nearMeStatus === "timeout" && (
+              <span className="text-xs text-pi-ink/60">
+                Couldn&apos;t get your location — try again or use City.
+              </span>
+            )}
+          </div>
+        </div>
+
         {/* Preset date buttons + From/To */}
         <div className="mt-5">
           <p className={labelClass}>When</p>
@@ -485,82 +566,59 @@ export default function EventsFilter({ events, cities, categories }: Props) {
           </div>
         </div>
 
-        {/* Interpreter name filter (collapsible — many users will skip it) */}
-        {interpreters.length > 0 && (
-          <div className="mt-5">
-            <button
-              type="button"
-              onClick={() => setInterpreterPanelOpen((v) => !v)}
-              aria-expanded={interpreterPanelOpen}
-              aria-controls="ev-interpreter-panel"
-              className="flex items-center gap-2 text-sm font-semibold text-pi-accent hover:text-pi-ink"
-            >
-              <span aria-hidden="true">{interpreterPanelOpen ? "▾" : "▸"}</span>
-              Filter by interpreter
-              {interpreterName !== "all" && (
-                <span className="rounded-full bg-pi-accent/10 px-2 py-0.5 text-xs">
-                  {interpreterName}
-                </span>
-              )}
-            </button>
-            {interpreterPanelOpen && (
-              <div id="ev-interpreter-panel" className="mt-3 flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setInterpreterName("all");
-                    setVisible(PAGE_SIZE);
-                  }}
-                  aria-pressed={interpreterName === "all"}
-                  className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
-                    interpreterName === "all"
-                      ? "border-pi-accent bg-pi-accent text-white"
-                      : "border-pi-ink/15 bg-white text-pi-ink hover:border-pi-accent/40"
-                  }`}
-                >
-                  Any
-                </button>
-                {interpreters.map((name) => {
-                  const active = interpreterName === name;
-                  return (
-                    <button
-                      key={name}
-                      type="button"
-                      onClick={() => {
-                        setInterpreterName(active ? "all" : name);
-                        setVisible(PAGE_SIZE);
-                      }}
-                      aria-pressed={active}
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
-                        active
-                          ? "border-pi-accent bg-pi-accent text-white"
-                          : "border-pi-ink/15 bg-white text-pi-ink hover:border-pi-accent/40"
-                      }`}
-                    >
-                      {name}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
-
-        <div className="mt-5 flex items-center justify-between gap-3">
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-pi-ink/70" aria-live="polite">
             {filtered.length} {filtered.length === 1 ? "match" : "matches"}
           </p>
-          <button
-            type="button"
-            onClick={reset}
-            className="text-sm font-medium text-pi-accent hover:text-pi-ink"
-          >
-            Reset filters
-          </button>
+          <div className="flex items-center gap-3">
+            <div
+              role="group"
+              aria-label="View mode"
+              className="inline-flex overflow-hidden rounded-full border border-pi-ink/15"
+            >
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                aria-pressed={viewMode === "list"}
+                className={`px-3 py-1.5 text-xs font-semibold transition ${
+                  viewMode === "list"
+                    ? "bg-pi-accent text-white"
+                    : "bg-white text-pi-ink hover:bg-pi-accent/10"
+                }`}
+              >
+                ☰ List
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("map")}
+                aria-pressed={viewMode === "map"}
+                className={`px-3 py-1.5 text-xs font-semibold transition ${
+                  viewMode === "map"
+                    ? "bg-pi-accent text-white"
+                    : "bg-white text-pi-ink hover:bg-pi-accent/10"
+                }`}
+              >
+                🗺️ Map
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-sm font-medium text-pi-accent hover:text-pi-ink"
+            >
+              Reset filters
+            </button>
+          </div>
         </div>
       </div>
 
-      {shown.length === 0 ? (
+      {viewMode === "map" ? (
+        <EventsMap
+          events={filtered}
+          userCoords={userCoords}
+          onClose={() => setViewMode("list")}
+        />
+      ) : shown.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-pi-ink/15 p-12 text-center">
           {search.trim() ? (
             <>
