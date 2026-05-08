@@ -20,6 +20,7 @@ import {
   requestUserLocation,
   getCachedCoords,
 } from "./geo-utils";
+import { useEasyRead } from "@/lib/easy-read";
 
 // Map view is client-only (Leaflet hits window at import). Dynamic import
 // with ssr:false keeps SSR/SSG happy while still allowing the rest of this
@@ -68,6 +69,7 @@ function formatDateLabel(isoDate: string): string {
 }
 
 export default function EventsFilter({ events, cities, categories }: Props) {
+  const { on: easyRead } = useEasyRead();
   const [search, setSearch] = useState("");
   const [city, setCity] = useState("all");
   const [category, setCategory] = useState("all");
@@ -282,22 +284,27 @@ export default function EventsFilter({ events, cities, categories }: Props) {
     <>
       <BslHelpVideo />
 
-      <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-pi-gold/30 bg-gradient-to-r from-pi-gold/10 via-pi-warmth/5 to-transparent p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
-        <div>
-          <p className="font-display text-lg leading-tight text-pi-ink md:text-xl">
-            Can&apos;t find your event?
-          </p>
-          <p className="mt-1 text-base text-pi-ink/65">
-            We&apos;ll ask the venue to book a BSL or ISL interpreter for you.
-          </p>
+      {/* "Can't find your event?" banner — hidden in Easy-Read mode (its
+          message is repeated in the empty state where it's most relevant,
+          and it adds visual noise here for low-fluency users). */}
+      {!easyRead && (
+        <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-pi-gold/30 bg-gradient-to-r from-pi-gold/10 via-pi-warmth/5 to-transparent p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+          <div>
+            <p className="font-display text-lg leading-tight text-pi-ink md:text-xl">
+              Can&apos;t find your event?
+            </p>
+            <p className="mt-1 text-base text-pi-ink/65">
+              We&apos;ll ask the venue to book a BSL or ISL interpreter for you.
+            </p>
+          </div>
+          <Link
+            href="/events/request"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+          >
+            Request an Interpreter →
+          </Link>
         </div>
-        <Link
-          href="/events/request"
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
-        >
-          Request an Interpreter →
-        </Link>
-      </div>
+      )}
 
       <div className="mb-6 rounded-2xl border border-pi-ink/10 bg-white p-5 shadow-sm md:p-6">
         {/* Search input + suggestions */}
@@ -319,7 +326,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
               onKeyDown={(e) => {
                 if (e.key === "Escape") setShowSuggestions(false);
               }}
-              placeholder="Type anything — name, venue, interpreter (typos OK)"
+              placeholder={easyRead ? "Type a name or place" : "Type anything — name, venue, interpreter (typos OK)"}
               autoComplete="off"
               aria-autocomplete="list"
               aria-expanded={showSuggestions && suggestions.length > 0}
@@ -467,38 +474,43 @@ export default function EventsFilter({ events, cities, categories }: Props) {
               </button>
             )}
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            <div>
-              <label htmlFor="ev-from" className="text-[11px] uppercase tracking-wide text-pi-ink/50">
-                From
-              </label>
-              <input
-                id="ev-from"
-                type="date"
-                value={fromDate}
-                onChange={(e) => {
-                  setFromDate(e.target.value);
-                  setVisible(PAGE_SIZE);
-                }}
-                className={`${inputClass} mt-1`}
-              />
+          {/* Typed From/To inputs are hidden in Easy-Read — preset buttons
+              cover the common cases without forcing users to know the
+              dd/mm/yyyy format conventions. */}
+          {!easyRead && (
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="ev-from" className="text-[11px] uppercase tracking-wide text-pi-ink/50">
+                  From
+                </label>
+                <input
+                  id="ev-from"
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => {
+                    setFromDate(e.target.value);
+                    setVisible(PAGE_SIZE);
+                  }}
+                  className={`${inputClass} mt-1`}
+                />
+              </div>
+              <div>
+                <label htmlFor="ev-to" className="text-[11px] uppercase tracking-wide text-pi-ink/50">
+                  To
+                </label>
+                <input
+                  id="ev-to"
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => {
+                    setToDate(e.target.value);
+                    setVisible(PAGE_SIZE);
+                  }}
+                  className={`${inputClass} mt-1`}
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="ev-to" className="text-[11px] uppercase tracking-wide text-pi-ink/50">
-                To
-              </label>
-              <input
-                id="ev-to"
-                type="date"
-                value={toDate}
-                onChange={(e) => {
-                  setToDate(e.target.value);
-                  setVisible(PAGE_SIZE);
-                }}
-                className={`${inputClass} mt-1`}
-              />
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Other selectable filters */}
@@ -665,15 +677,33 @@ export default function EventsFilter({ events, cities, categories }: Props) {
           ) : (
             <>
               <p className="font-display text-2xl text-pi-ink">No matching events</p>
-              <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
-                Try a different category or date. Or use the request button at
-                the top of the page.
-              </p>
+              {easyRead ? (
+                <>
+                  <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
+                    Try another category. Or pick a different date.
+                  </p>
+                  <Link
+                    href="/events/request"
+                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+                  >
+                    ✉️ Ask for an interpreter
+                  </Link>
+                </>
+              ) : (
+                <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
+                  Try a different category or date. Or use the request button at
+                  the top of the page.
+                </p>
+              )}
             </>
           )}
         </div>
       ) : (
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className={
+          easyRead
+            ? "grid gap-6"
+            : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        }>
           {shown.map((ev) => (
             <li key={eventSlug(ev)}>
               <EventCard event={ev} />

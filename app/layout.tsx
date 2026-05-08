@@ -6,6 +6,7 @@ import Nav from "@/components/nav";
 import CookieBanner from "@/components/cookie-banner";
 import AppPromoBanner from "@/components/app-promo-banner";
 import Assistant from "@/components/assistant";
+import { EasyReadProvider, EASY_READ_INIT_SCRIPT } from "@/lib/easy-read";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -43,6 +44,11 @@ export default function RootLayout({
       lang="en"
       className={`${dmSerifDisplay.variable} ${dmSans.variable}`}
     >
+      <head>
+        {/* Set Easy-Read data attribute before paint to prevent flash of
+            standard content for users whose preference is Easy-Read. */}
+        <script dangerouslySetInnerHTML={{ __html: EASY_READ_INIT_SCRIPT }} />
+      </head>
       <body className="font-body antialiased">
         <script
           type="application/ld+json"
@@ -242,21 +248,23 @@ export default function RootLayout({
             }),
           }}
         />
-        <a
-          href="#main-content"
-          className="fixed left-4 top-4 z-50 -translate-y-20 rounded-md bg-pi-accent px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-2 focus:ring-offset-pi-navy"
-        >
-          Skip to content
-        </a>
+        <EasyReadProvider>
+          <a
+            href="#main-content"
+            className="fixed left-4 top-4 z-50 -translate-y-20 rounded-md bg-pi-accent px-4 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-offset-2 focus:ring-offset-pi-navy"
+          >
+            Skip to content
+          </a>
 
-        <Nav />
+          <Nav />
 
-        <main id="main-content">{children}</main>
+          <main id="main-content">{children}</main>
 
-        <Footer />
-        <CookieBanner />
-        <AppPromoBanner />
-        <Assistant />
+          <Footer />
+          <CookieBanner />
+          <AppPromoBanner />
+          <Assistant />
+        </EasyReadProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import NavClient from "@/components/nav-client";
+import EasyReadToggle from "@/components/easy-read-toggle";
 import type { NavigationContent } from "@/lib/types";
 
 interface NavInnerProps {
@@ -45,8 +46,11 @@ export default function NavInner({ nav }: NavInnerProps) {
           />
         </Link>
 
-        {/* Desktop nav + Mobile hamburger */}
-        <NavClient nav={nav} scrolled={scrolled} />
+        {/* Easy-Read toggle + Desktop nav + Mobile hamburger */}
+        <div className="flex items-center gap-3">
+          <EasyReadToggle />
+          <NavClient nav={nav} scrolled={scrolled} />
+        </div>
       </div>
     </header>
   );
