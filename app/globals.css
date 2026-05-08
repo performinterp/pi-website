@@ -38,6 +38,14 @@
   100% { transform: translateX(-50%); }
 }
 
+/* Easy-Read mode visibility utilities. Both variants render server-side
+   so SEO sees the standard content (the dominant version). The data
+   attribute on <html> — set by the inline init script before paint — picks
+   which is visible. JS toggling re-paints instantly via the same selector. */
+.er-only { display: none; }
+[data-easy-read="on"] .er-only { display: revert; }
+[data-easy-read="on"] .er-hide { display: none !important; }
+
 @layer base {
   html, body {
     margin: 0;

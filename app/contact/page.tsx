@@ -25,47 +25,70 @@ export default function ContactPage() {
       {/* Enquiry types + form */}
       <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">
-          <AnimateIn>
-            {enquirySection?.label && (
-              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
-                {enquirySection.label}
-              </p>
-            )}
-            {enquirySection?.heading && (
-              <h2 className="mt-3 font-display text-2xl text-pi-ink md:text-3xl">
-                {enquirySection.heading}
-              </h2>
-            )}
-          </AnimateIn>
+          {/* Easy-Read intro — shown when Easy-Read mode is on */}
+          <div className="er-only">
+            <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
+              Send us a message
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-pi-ink/80">
+              Tell us what you need. We will help.
+            </p>
+            <p className="mt-3 text-lg leading-relaxed text-pi-ink/80">
+              You can email us at{" "}
+              <a
+                href="mailto:admin@performanceinterpreting.co.uk"
+                className="font-semibold text-pi-accent underline decoration-2 underline-offset-2"
+              >
+                admin@performanceinterpreting.co.uk
+              </a>{" "}
+              or fill in the form below.
+            </p>
+          </div>
 
-          {enquirySection && (
-            <AnimateIn delay={100}>
-              <div className="mt-6 space-y-4">
-                {enquirySection.body.map((p, i) => (
-                  <p key={i} className="text-base leading-relaxed text-pi-ink/80">
-                    {p}
-                  </p>
+          {/* Standard enquiry-types intro — hidden in Easy-Read */}
+          <div className="er-hide">
+            <AnimateIn>
+              {enquirySection?.label && (
+                <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
+                  {enquirySection.label}
+                </p>
+              )}
+              {enquirySection?.heading && (
+                <h2 className="mt-3 font-display text-2xl text-pi-ink md:text-3xl">
+                  {enquirySection.heading}
+                </h2>
+              )}
+            </AnimateIn>
+
+            {enquirySection && (
+              <AnimateIn delay={100}>
+                <div className="mt-6 space-y-4">
+                  {enquirySection.body.map((p, i) => (
+                    <p key={i} className="text-base leading-relaxed text-pi-ink/80">
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              </AnimateIn>
+            )}
+
+            {enquirySection?.items && (
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {enquirySection.items.map((item, i) => (
+                  <AnimateIn key={item.title} delay={i * 80}>
+                    <div className="rounded-xl border border-pi-ink/10 bg-white p-5 shadow-sm">
+                      <h3 className="text-base font-semibold text-pi-ink">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-pi-ink/70">
+                        {item.description}
+                      </p>
+                    </div>
+                  </AnimateIn>
                 ))}
               </div>
-            </AnimateIn>
-          )}
-
-          {enquirySection?.items && (
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {enquirySection.items.map((item, i) => (
-                <AnimateIn key={item.title} delay={i * 80}>
-                  <div className="rounded-xl border border-pi-ink/10 bg-white p-5 shadow-sm">
-                    <h3 className="text-base font-semibold text-pi-ink">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-pi-ink/70">
-                      {item.description}
-                    </p>
-                  </div>
-                </AnimateIn>
-              ))}
-            </div>
-          )}
+            )}
+          </div>
 
           <AnimateIn delay={200}>
             <div className="mt-12">

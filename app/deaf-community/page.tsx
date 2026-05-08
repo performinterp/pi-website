@@ -83,6 +83,70 @@ export default function DeafCommunityPage() {
         backgroundImage="/images/deaf-community-info-point.jpg"
       />
 
+      {/* ─── Easy-Read variant ─────────────────────────────
+          Three core actions for low-fluency users: get the app, find an
+          event, ask for an interpreter. Hidden by default. */}
+      <section className="er-only section-padding section-gap">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="font-display text-3xl text-pi-ink md:text-4xl">
+            Welcome
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-pi-ink/80">
+            We help Deaf people enjoy live events.
+          </p>
+          <p className="mt-3 text-lg leading-relaxed text-pi-ink/80">
+            Three ways to use this site:
+          </p>
+
+          <div className="mt-8 space-y-4">
+            <div className="rounded-2xl border border-pi-ink/10 bg-white p-5">
+              <h3 className="font-display text-xl text-pi-ink">
+                <span aria-hidden="true">📱</span> 1. Get the app
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-pi-ink/80">
+                Free. See all our events on your phone.
+              </p>
+              <div className="mt-4">
+                <AppStoreButtons variant="light" hideSubtextOnMobile />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-pi-ink/10 bg-white p-5">
+              <h3 className="font-display text-xl text-pi-ink">
+                <span aria-hidden="true">👁</span> 2. Find an event
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-pi-ink/80">
+                See concerts, sport, festivals, theatre and comedy.
+              </p>
+              <Link
+                href="/events"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-pi-accent px-6 py-2.5 text-base font-bold text-white transition hover:brightness-110"
+              >
+                See events →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-pi-ink/10 bg-white p-5">
+              <h3 className="font-display text-xl text-pi-ink">
+                <span aria-hidden="true">✉️</span> 3. Ask for an interpreter
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-pi-ink/80">
+                Want an event in BSL or ISL? We will ask the venue for you.
+              </p>
+              <Link
+                href="/events/request"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-2.5 text-base font-bold text-white transition hover:brightness-110"
+              >
+                Ask now →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Standard variant — hidden in Easy-Read ─────── */}
+      <div className="er-hide contents">
+
       {/* ─── The PI Events App — carousel first ──────────── */}
       <section className="section-padding relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-20">
 
@@ -401,6 +465,8 @@ export default function DeafCommunityPage() {
           </AnimateIn>
         </div>
       </section>
+
+      </div>
     </>
   );
 }
