@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
 import AnimateIn from "@/components/animate-in";
-import ScrollVideo from "@/components/scroll-video";
 import AppStoreButtons from "@/components/app-store-buttons";
 import Icon from "@/components/icon";
 
@@ -17,58 +17,70 @@ type Step = {
   kicker: string;
   heading: string;
   body: string;
-  video: string;
+  image: string;
+  imageAlt: string;
 };
 
+// Step copy applies Marie's review notes from her CityLit slide audit
+// (2026-05-08) \u2014 landing here on the website rather than re-rendering the
+// slides with text baked in, so future copy edits stay in code (and so
+// screen readers can read them).
 const steps: Step[] = [
   {
     n: "01",
-    kicker: "Browse events",
+    kicker: "Find events with BSL & ISL",
     heading: "Every confirmed interpreted event, in one place",
-    body: "Concerts, sports, festivals, comedy, theatre, family, literature. If interpreting is confirmed, it\u2019s listed. No guesswork for attendees, instant visibility for organisers.",
-    video: "/videos/app-guide/browse.mp4",
+    body: "Before this, finding an accessible event meant trawling venue websites, not being able to call box offices, trying to book any ticket and hoping for the best. The app only shows events where BSL or ISL is confirmed or available on request, and push notifications alert you the moment a new event is added \u2014 so you find out early. Not after it sells out.",
+    image: "/images/app-guide/01-browse-events.png",
+    imageAlt: "PI Events app: Browse Events screen showing categories (Concert, Sports, Festival, Comedy, Family, Literature, Theatre, Dance, Other) with event counts.",
   },
   {
     n: "02",
     kicker: "Smart search",
-    heading: "Find any event - even with a vague search",
-    body: "Type-ahead with fuzzy matching across events, venues and categories. Check any event to see whether interpreting is booked and confirmed.",
-    video: "/videos/app-guide/search.mp4",
+    heading: "Find any event \u2014 even with a vague search",
+    body: "Type-ahead with fuzzy matching across events, venues, interpreters and categories. Search for what you're thinking of, even if you're not sure of the spelling, and the app surfaces what's interpreted.",
+    image: "/images/app-guide/02-search.png",
+    imageAlt: "PI Events app: Search screen showing fuzzy match results for an event with confirmed interpreters.",
   },
   {
     n: "03",
-    kicker: "Request access",
+    kicker: "Request an interpreter \u2014 guided",
     heading: "No interpreter listed? Request one directly",
-    body: "The app helps you build and send an access request for any event. Your voice, your rights. For organisers, every request is direct evidence of demand.",
-    video: "/videos/app-guide/request.mp4",
+    body: "For many Deaf people, requesting an interpreter is something they've never done. Who do you contact? What do you say? Will they refuse access? The app removes all of that. Choose the event, describe your needs and it generates a request ready to send. No drafting, no uncertainty, no phone calls.",
+    image: "/images/app-guide/03-request.png",
+    imageAlt: "PI Events app: Request an interpreter screen showing a generated message ready to send to the venue.",
   },
   {
     n: "04",
     kicker: "Push notifications",
     heading: "New interpreted events, straight to your lock screen",
     body: "Follow artists, venues and cities. Get a push alert the moment interpreting is confirmed or last-minute tickets are released.",
-    video: "/videos/app-guide/notifications.mp4",
+    image: "/images/app-guide/04-notifications.png",
+    imageAlt: "PI Events app: Events list showing newly added interpreted events.",
   },
   {
     n: "05",
-    kicker: "BSL video guides",
-    heading: "How to book, your rights, FAQs - all in BSL",
-    body: "Seven videos recorded with Deaf consultants. Covers booking, rights, app orientation, requesting access and quick tips. Everyone arrives informed.",
-    video: "/videos/app-guide/videos.mp4",
+    kicker: "BSL & ISL video guides",
+    heading: "How to book, your rights, FAQs \u2014 in BSL and ISL",
+    body: "A full library of BSL and ISL video guides covering how to book, how to request an interpreter, what to do if a venue says no, and more. Recorded with Deaf consultants \u2014 everyone arrives informed.",
+    image: "/images/app-guide/05-bsl-videos.png",
+    imageAlt: "PI Events app: BSL & ISL Videos screen listing topic videos including App Guide, How to Book, Request Interpreter, Browse & Search, At the Event, Booking Guidance and Know Your Rights.",
   },
   {
     n: "06",
-    kicker: "Order at the bar",
-    heading: "Build your order on screen and show it",
-    body: "Pick items, set quantities, hand your phone over. No shouting, no repeating yourself. Works offline - useful at festivals with patchy signal.",
-    video: "/videos/app-guide/order.mp4",
+    kicker: "At-event tools",
+    heading: "Communication cards, food orders and emergency info \u2014 no Wi-Fi needed",
+    body: "Pre-made communication cards work the moment you walk through the doors \u2014 no Wi-Fi required. Build a food and drink order on screen and show it at the bar. Emergency information is one tap away. Designed for noisy, crowded, signal-poor venues.",
+    image: "/images/app-guide/06-order.png",
+    imageAlt: "PI Events app: At-event order builder showing items selected and ready to show to bar staff.",
   },
   {
     n: "07",
     kicker: "Know your rights",
-    heading: "Plain-English guide to the law behind access",
-    body: "The Equality Act 2010 in England, Scotland and Wales. The DDA 1995 in Northern Ireland. The Equal Status Acts in Ireland. No legal jargon - just what you need to know.",
-    video: "/videos/app-guide/rights.mp4",
+    heading: "Plain English guide to your rights",
+    body: "Many Deaf people don't ask for access because they don't know they're entitled to it, or they've been turned down before and assume it'll happen again. The app explains your rights plainly \u2014 without legal jargon. The Equality Act 2010 (England, Scotland, Wales). The Disability Discrimination Act 1995 (Northern Ireland). The Irish Sign Language Act 2017 (Ireland).",
+    image: "/images/app-guide/07-rights.png",
+    imageAlt: "PI Events app: Know Your Rights screen with plain-English explanation of disability access law in the UK and Ireland.",
   },
 ];
 
@@ -153,20 +165,34 @@ export default function AppGuidePage() {
                   </AnimateIn>
                 </div>
                 <AnimateIn delay={120} className="order-1 md:order-2">
-                  <div className="relative mx-auto aspect-[1700/1004] w-full max-w-5xl overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15 md:mt-10">
-                    <ScrollVideo src={step.video} />
+                  <div className="relative mx-auto w-full max-w-[300px] md:mt-10">
+                    <Image
+                      src={step.image}
+                      alt={step.imageAlt}
+                      width={1206}
+                      height={2622}
+                      sizes="(min-width: 768px) 300px, 80vw"
+                      className="h-auto w-full rounded-[2rem]"
+                    />
                   </div>
                 </AnimateIn>
               </div>
             ) : (
               <div
-                className={`mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[5fr_2fr] md:gap-12 ${
+                className={`mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-[1fr_2fr] md:gap-12 ${
                   layout === "right" ? "md:[direction:rtl]" : ""
                 }`}
               >
                 <AnimateIn>
-                  <div className="relative aspect-[1700/1004] w-full overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15 md:[direction:ltr]">
-                    <ScrollVideo src={step.video} />
+                  <div className="relative mx-auto w-full max-w-[280px] md:[direction:ltr]">
+                    <Image
+                      src={step.image}
+                      alt={step.imageAlt}
+                      width={1206}
+                      height={2622}
+                      sizes="(min-width: 768px) 280px, 80vw"
+                      className="h-auto w-full rounded-[2rem]"
+                    />
                   </div>
                 </AnimateIn>
                 <AnimateIn delay={120}>
