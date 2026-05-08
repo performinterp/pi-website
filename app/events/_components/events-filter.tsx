@@ -114,18 +114,23 @@ export default function EventsFilter({ events, cities, categories }: Props) {
     return Array.from(map.values());
   }, [events]);
 
+  // Suggestions are an OPTIONAL aid — only exact substring matches appear in
+  // the dropdown. Fuzzy-only matches were creating "must pick a suggestion"
+  // confusion (e.g. typing "southampton" surfaced unrelated venues that
+  // happened to be close in Levenshtein distance). The filter below still
+  // uses fuzzyMatch, so typos and free-text searches keep working — the
+  // dropdown is just for "is this venue I'm thinking of in the feed?"
+  // discovery, not a required selection.
   const suggestions = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (q.length < 2) return [];
     const exact: typeof vocabulary = [];
-    const fuzzy: typeof vocabulary = [];
     for (const item of vocabulary) {
       const lower = item.label.toLowerCase();
       if (lower.includes(q)) exact.push(item);
-      else if (fuzzyMatch(lower, q)) fuzzy.push(item);
       if (exact.length >= 6) break;
     }
-    return [...exact, ...fuzzy].slice(0, 6);
+    return exact;
   }, [search, vocabulary]);
 
   // Click-away handler for the suggestion dropdown
@@ -392,11 +397,31 @@ export default function EventsFilter({ events, cities, categories }: Props) {
 
       {shown.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-pi-ink/15 p-12 text-center">
-          <p className="font-display text-2xl text-pi-ink">No matching events</p>
-          <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
-            Try widening your filters, or request access for an event you&apos;re
-            going to using the button above.
-          </p>
+          {search.trim() ? (
+            <>
+              <p className="font-display text-2xl text-pi-ink">
+                No events match &ldquo;{search.trim()}&rdquo; yet
+              </p>
+              <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
+                We can request BSL or ISL interpretation on your behalf — tell
+                us what you want to see and we&apos;ll contact the venue.
+              </p>
+              <Link
+                href={`/events/request?event=${encodeURIComponent(search.trim())}`}
+                className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+              >
+                Request &ldquo;{search.trim()}&rdquo; →
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className="font-display text-2xl text-pi-ink">No matching events</p>
+              <p className="mx-auto mt-3 max-w-md text-base text-pi-ink/70">
+                Try widening your filters, or request access for an event
+                you&apos;re going to using the button above.
+              </p>
+            </>
+          )}
         </div>
       ) : (
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
