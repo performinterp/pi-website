@@ -2,7 +2,7 @@
 type: stop
 project: /Users/james/Projects/Performance-Interpreting/pi-website
 project_name: Performance-Interpreting / pi-website
-timestamp: 2026-05-03T11:02:51.408151
+timestamp: 2026-05-05T14:16:34.364505
 trigger: stop-hook
 ---
 
