@@ -107,7 +107,7 @@ export default function OrganisersPage() {
                 From enquiry to curtain up
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-pi-ink/80">
-                We&rsquo;ve refined the process over hundreds of events. Low-friction for your team, nothing missed on the day.
+                We&rsquo;ve refined the process over hundreds of events. We remove the barriers for your team, nothing missed on the day.
               </p>
 
               <div className="mt-8 space-y-6">
@@ -157,10 +157,10 @@ export default function OrganisersPage() {
                 Only with PI
               </p>
               <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
-                A dedicated app for your Deaf audience
+                Your BSL &amp; ISL audiences now have their own dedicated app
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-pi-ink/80">
-                No other interpreting service offers this. The PI Events App gives your Deaf attendees a free toolkit - event listings with interpreter names, speech-to-text, communication cards for bars and staff, festival checklists and direct feedback after the event.
+                Your Deaf audiences want to attend. This app helps them discover what&rsquo;s on and accessible, demonstrates how to ask for access, and gives them confidence and know-how. The PI Events App removes the barriers for the customers. Free to download, no sign-up required, nothing for your team to manage.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-pi-ink/80">
                 For organisers, it means better engagement, measurable access impact and evidence you can use in your reporting. Your event appears in the app automatically when you book with PI.
