@@ -1,0 +1,367 @@
+{
+  "3Arena, Dublin": {
+    "lat": 53.3476,
+    "lng": -6.2289,
+    "match": "3Arena, North Wall Quay, Dublin 1, Ireland"
+  },
+  "ABBA Arena, Pudding Mill Lane, London": {
+    "lat": 51.5328909,
+    "lng": -0.0135065,
+    "match": "ABBA Arena, Pudding Mill Lane, Mill Meads, Stratford, London Borough of Newham, Greater London, England, E15 2RU, United Kingdom"
+  },
+  "BP Pulse Live, Birmingham": {
+    "lat": 52.4484171,
+    "lng": -1.7204631,
+    "match": "bp pulse LIVE, Perimeter Road, Bickenhill and Marston Green, Bickenhill, Birmingham, West Midlands, England, B40 1NT, United Kingdom"
+  },
+  "BP Pulse Live, NEC": {
+    "lat": 52.4529,
+    "lng": -1.717,
+    "match": "BP Pulse Live (ex Utilita Arena), NEC Birmingham, UK"
+  },
+  "Blackburn": {
+    "lat": 53.749326,
+    "lng": -2.4840566,
+    "match": "Blackburn, Blackburn with Darwen, Lancashire, England, BB1 7DP, United Kingdom"
+  },
+  "Blackpool": {
+    "lat": 53.8179442,
+    "lng": -3.0509812,
+    "match": "Blackpool, Lancashire, England, FY1 1DL, United Kingdom"
+  },
+  "Bournemouth Pavilion": {
+    "lat": 50.7202,
+    "lng": -1.877,
+    "match": "Bournemouth Pavilion Theatre, Westover Road, Bournemouth, UK"
+  },
+  "Bradford": {
+    "lat": 53.7944229,
+    "lng": -1.7519186,
+    "match": "Bradford, West Yorkshire, England, BD1 1PH, United Kingdom"
+  },
+  "Brighton": {
+    "lat": 50.8214626,
+    "lng": -0.1400561,
+    "match": "Brighton, Brighton and Hove, England, BN1 1HH, United Kingdom"
+  },
+  "Brighton Centre": {
+    "lat": 50.820761,
+    "lng": -0.1461601,
+    "match": "Brighton Centre, King's Road, Brunswick, Brighton, Brighton and Hove, England, BN1 2GR, United Kingdom"
+  },
+  "Carlisle": {
+    "lat": 54.8944471,
+    "lng": -2.9357343,
+    "match": "Carlisle, Cumberland, England, United Kingdom"
+  },
+  "Chester": {
+    "lat": 53.1908873,
+    "lng": -2.8908955,
+    "match": "Chester, Cheshire West and Chester, England, CH1 2ET, United Kingdom"
+  },
+  "Clore Ballroom, The Southbank Centre": {
+    "lat": 51.5066,
+    "lng": -0.1161,
+    "match": "Clore Ballroom @ Southbank Centre, London, UK"
+  },
+  "Coventry": {
+    "lat": 52.4081812,
+    "lng": -1.510477,
+    "match": "Coventry, West Midlands, England, United Kingdom"
+  },
+  "Crewe": {
+    "lat": 53.0996153,
+    "lng": -2.4414627,
+    "match": "Crewe, Cheshire East, England, United Kingdom"
+  },
+  "Crystal Palace Park, London": {
+    "lat": 51.4213878,
+    "lng": -0.0700429,
+    "match": "Crystal Palace Park, Crystal Palace, London Borough of Bromley, Greater London, England, SE20 8DT, United Kingdom"
+  },
+  "Dean Street - London": {
+    "lat": 51.5139045,
+    "lng": -0.1326445,
+    "match": "Dean Street, Soho, City of Westminster, Greater London, England, W1D 3RZ, United Kingdom"
+  },
+  "Derby": {
+    "lat": 52.9142235,
+    "lng": -1.4719885,
+    "match": "Derby, East Midlands, England, United Kingdom"
+  },
+  "Doncaster": {
+    "lat": 53.5227681,
+    "lng": -1.1335312,
+    "match": "Doncaster, South Yorkshire, England, United Kingdom"
+  },
+  "Edinburgh Castle, Edinburgh": {
+    "lat": 55.9486867,
+    "lng": -3.2004175,
+    "match": "Edinburgh Castle, Castlehill, Old Town, City of Edinburgh, Alba / Scotland, EH1 2NG, United Kingdom"
+  },
+  "Emirates Stadium": {
+    "lat": 51.5550404,
+    "lng": -0.1083997,
+    "match": "Emirates Stadium, 75, Drayton Park, Finsbury Park, London Borough of Islington, Greater London, England, N5 1BU, United Kingdom"
+  },
+  "Eventim Apollo, Hammersmith, London": {
+    "lat": 51.4907466,
+    "lng": -0.2244517,
+    "match": "Eventim Apollo, 45, Queen Caroline Street, Hammersmith, London Borough of Hammersmith and Fulham, Greater London, England, W6 9QH, United Kingdom"
+  },
+  "Eventim Apollo, London": {
+    "lat": 51.4907466,
+    "lng": -0.2244517,
+    "match": "Eventim Apollo, 45, Queen Caroline Street, Hammersmith, London Borough of Hammersmith and Fulham, Greater London, England, W6 9QH, United Kingdom"
+  },
+  "Finsbury Park, London": {
+    "lat": 51.5648345,
+    "lng": -0.1064144,
+    "match": "Finsbury Park, Spiral 4 Southbound, Finsbury Park, London Borough of Islington, Greater London, England, N4 2DH, United Kingdom"
+  },
+  "First Direct Arena, Leeds": {
+    "lat": 53.8034152,
+    "lng": -1.5421481,
+    "match": "First Direct Bank Arena, Merrion Way, Leylands, Arena Quarter, Lovell Park, Leeds, West Yorkshire, England, LS2 8BY, United Kingdom"
+  },
+  "GWR Park, Swindon": {
+    "lat": 51.5598719,
+    "lng": -1.7944115,
+    "match": "GWR Park, Kingshill, South Swindon, Swindon, England, United Kingdom"
+  },
+  "Golden Square - London": {
+    "lat": 51.511655,
+    "lng": -0.137183,
+    "match": "Golden Square, Soho, City of Westminster, Greater London, England, United Kingdom"
+  },
+  "Huddersfield": {
+    "lat": 53.6466645,
+    "lng": -1.7822482,
+    "match": "Huddersfield, Kirklees, West Yorkshire, England, HD1 2AN, United Kingdom"
+  },
+  "Hull": {
+    "lat": 53.7623863,
+    "lng": -0.3301214,
+    "match": "Kingston upon Hull, Hull and East Yorkshire, England, United Kingdom"
+  },
+  "Hyde Park, London": {
+    "lat": 51.5074889,
+    "lng": -0.1622074,
+    "match": "Hyde Park, Knightsbridge, City of Westminster, Greater London, England, United Kingdom"
+  },
+  "Keighley": {
+    "lat": 53.8684021,
+    "lng": -1.9020456,
+    "match": "Keighley, Long Lee, Bradford, West Yorkshire, England, United Kingdom"
+  },
+  "Knebworth Park, Hertfordshire": {
+    "lat": 51.8748256,
+    "lng": -0.2175249,
+    "match": "Knebworth Country Park, Knebworth, Old Knebworth, North Hertfordshire, Hertfordshire, England, United Kingdom"
+  },
+  "Leeds": {
+    "lat": 53.7974185,
+    "lng": -1.5437941,
+    "match": "Leeds, West Yorkshire, England, LS1 6AL, United Kingdom"
+  },
+  "Leicester": {
+    "lat": 52.6362,
+    "lng": -1.1331969,
+    "match": "Leicester, City of Leicester, England, LE1 5YA, United Kingdom"
+  },
+  "Leicester Square - London": {
+    "lat": 51.5100192,
+    "lng": -0.1298114,
+    "match": "Leicester Square, St. James's, East Marylebone, Covent Garden, City of Westminster, Greater London, England, WC2H 7DE, United Kingdom"
+  },
+  "Liverpool": {
+    "lat": 53.3933411,
+    "lng": -2.9166389,
+    "match": "Liverpool, Liverpool City Region, England, United Kingdom"
+  },
+  "London Stadium": {
+    "lat": 51.5386207,
+    "lng": -0.0166238,
+    "match": "London Stadium, Gate 2 Road, Mill Meads, Stratford, London Borough of Newham, Greater London, England, E20 2ST, United Kingdom"
+  },
+  "Middlesbrough": {
+    "lat": 54.5760419,
+    "lng": -1.2344047,
+    "match": "Middlesbrough, Tees Valley, England, United Kingdom"
+  },
+  "Newcastle": {
+    "lat": 54.9738474,
+    "lng": -1.6131572,
+    "match": "Newcastle upon Tyne, Tyne and Wear, North East, England, United Kingdom"
+  },
+  "Nottingham": {
+    "lat": 52.9534193,
+    "lng": -1.1496461,
+    "match": "City of Nottingham, Nottinghamshire, East Midlands, England, United Kingdom"
+  },
+  "O2 Academy, Brixton": {
+    "lat": 51.4657019,
+    "lng": -0.1148726,
+    "match": "O2 Academy Brixton, 211, Stockwell Road, Stockwell Park, Brixton, London Borough of Lambeth, Greater London, England, SW9 9SL, United Kingdom"
+  },
+  "O2 London": {
+    "lat": 51.5029316,
+    "lng": 0.0031839,
+    "match": "The O2 Arena, Up at The O2, Greenwich Peninsula, Royal Borough of Greenwich, Greater London, England, SE10 0DX, United Kingdom"
+  },
+  "O2 Victoria Manchester": {
+    "lat": 53.4708,
+    "lng": -2.2766,
+    "match": "O2 Victoria Warehouse, Trafford Wharf Rd, Manchester, UK"
+  },
+  "Oldham": {
+    "lat": 53.5415797,
+    "lng": -2.1147831,
+    "match": "Oldham, Greater Manchester, England, United Kingdom"
+  },
+  "Portsmouth": {
+    "lat": 50.800031,
+    "lng": -1.0906023,
+    "match": "Portsmouth, England, United Kingdom"
+  },
+  "Preston": {
+    "lat": 53.7593363,
+    "lng": -2.6992717,
+    "match": "Preston, Lancashire, England, PR1 2AR, United Kingdom"
+  },
+  "Reading": {
+    "lat": 51.4564242,
+    "lng": -0.9700664,
+    "match": "Reading, England, United Kingdom"
+  },
+  "Roundhay Park Leeds": {
+    "lat": 53.8393512,
+    "lng": -1.4978422,
+    "match": "Roundhay Park, Roundhay, Leeds, West Yorkshire, England, United Kingdom"
+  },
+  "Roundhouse, London": {
+    "lat": 51.5432505,
+    "lng": -0.1519761,
+    "match": "Roundhouse, Chalk Farm Road, Steele's Village, Primrose Hill, Chalk Farm, London Borough of Camden, Greater London, England, NW1 8EH, United Kingdom"
+  },
+  "Royal Albert Hall, London": {
+    "lat": 51.501007,
+    "lng": -0.1774058,
+    "match": "Royal Albert Hall, 4, Kensington Gore, Knightsbridge, City of Westminster, Greater London, England, SW7 2AP, United Kingdom"
+  },
+  "Sheffield": {
+    "lat": 53.3806626,
+    "lng": -1.4702278,
+    "match": "Sheffield, South Yorkshire, England, United Kingdom"
+  },
+  "Shrewsbury": {
+    "lat": 52.707755,
+    "lng": -2.7540658,
+    "match": "Shrewsbury, Shropshire, England, United Kingdom"
+  },
+  "Signature Brew Haggerston, Railway Arches, London E8 4EA": {
+    "lat": 51.5388,
+    "lng": -0.0762,
+    "match": "Signature Brew Haggerston, London E8 4EA (postcode centroid)"
+  },
+  "Soho Square - London": {
+    "lat": 51.514971,
+    "lng": -0.1326033,
+    "match": "Soho Square, Soho, City of Westminster, Greater London, England, W1D 3QX, United Kingdom"
+  },
+  "Stafford": {
+    "lat": 52.8063157,
+    "lng": -2.1163818,
+    "match": "Stafford, Staffordshire, England, United Kingdom"
+  },
+  "Stamford Bridge": {
+    "lat": 51.4816869,
+    "lng": -0.1910336,
+    "match": "Stamford Bridge, Britannia Gate, Walham Green, Fulham, London Borough of Hammersmith and Fulham, Greater London, England, SW6 1HD, United Kingdom"
+  },
+  "Stockport": {
+    "lat": 53.407901,
+    "lng": -2.160243,
+    "match": "Stockport, Greater Manchester, England, United Kingdom"
+  },
+  "Stoke On Trent": {
+    "lat": 53.0079887,
+    "lng": -2.1810781,
+    "match": "Stoke-on-Trent, Station Road, Shelton, Stoke, Stoke-on-Trent, England, ST4 2AA, United Kingdom"
+  },
+  "Tamworth": {
+    "lat": 52.6338053,
+    "lng": -1.6946383,
+    "match": "Tamworth, Staffordshire, England, United Kingdom"
+  },
+  "The O2 Arena, London": {
+    "lat": 51.5029316,
+    "lng": 0.0031839,
+    "match": "The O2 Arena, Up at The O2, Greenwich Peninsula, Royal Borough of Greenwich, Greater London, England, SE10 0DX, United Kingdom"
+  },
+  "The O2, London": {
+    "lat": 51.5029367,
+    "lng": 0.0032029,
+    "match": "The O2, Penrose Way, Greenwich Peninsula, Royal Borough of Greenwich, Greater London, England, SE10 0DX, United Kingdom"
+  },
+  "The Southbank Centre": {
+    "lat": 51.5066,
+    "lng": -0.1161,
+    "match": "Southbank Centre, Belvedere Road, London, UK"
+  },
+  "Trafalgar Square - London": {
+    "lat": 51.5084502,
+    "lng": -0.1284499,
+    "match": "Trafalgar Square, Westminster, Covent Garden, City of Westminster, Greater London, England, WC2, United Kingdom"
+  },
+  "Utilita Arena, Birmingham": {
+    "lat": 52.4790873,
+    "lng": -1.9148529,
+    "match": "Sommar Brewery and Taproom, King Edwards Road, Jewellery Quarter, Birmingham, West Midlands, England, B1 2AA, United Kingdom"
+  },
+  "Victoria Gardens - London": {
+    "lat": 51.5093844,
+    "lng": -0.1999275,
+    "match": "Victoria Gardens, Notting Hill, Royal Borough of Kensington and Chelsea, Greater London, England, W11 3PE, United Kingdom"
+  },
+  "Warrington": {
+    "lat": 53.4018582,
+    "lng": -2.5680224,
+    "match": "Warrington, England, United Kingdom"
+  },
+  "Wembley Stadium": {
+    "lat": 51.5560695,
+    "lng": -0.2796034,
+    "match": "Wembley Stadium, South Way, London Borough of Brent, Greater London, England, HA9 0QB, United Kingdom"
+  },
+  "Wemsbley Stadium": {
+    "lat": 51.556,
+    "lng": -0.2796,
+    "match": "Wembley Stadium (typo patched), London, UK"
+  },
+  "Wetherby": {
+    "lat": 53.9259798,
+    "lng": -1.3776342,
+    "match": "Wetherby, Leeds, West Yorkshire, England, United Kingdom"
+  },
+  "Wigan": {
+    "lat": 53.5457188,
+    "lng": -2.6264624,
+    "match": "Wigan, Greater Manchester, England, United Kingdom"
+  },
+  "Wolverhampton": {
+    "lat": 52.5847651,
+    "lng": -2.127567,
+    "match": "Wolverhampton, West Midlands, England, United Kingdom"
+  },
+  "Wrexham": {
+    "lat": 53.0465084,
+    "lng": -2.9937869,
+    "match": "Wrexham, Cymru / Wales, LL11 1AP, United Kingdom"
+  },
+  "indigo at The O2, London": {
+    "lat": 51.5024638,
+    "lng": 0.0048935,
+    "match": "Indigo at The O2, Penrose Way, Greenwich Peninsula, Royal Borough of Greenwich, Greater London, England, SE10 0EW, United Kingdom"
+  }
+}
