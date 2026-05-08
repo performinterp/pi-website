@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
 import AnimateIn from "@/components/animate-in";
+import ScrollVideo from "@/components/scroll-video";
 import AppStoreButtons from "@/components/app-store-buttons";
 import Icon from "@/components/icon";
 
@@ -16,71 +16,96 @@ type Step = {
   n: string;
   kicker: string;
   heading: string;
-  body: string;
-  image: string;
-  imageAlt: string;
+  bullets: string[];
+  video: string;
 };
 
 // Step copy applies Marie's review notes from her CityLit slide audit
-// (2026-05-08) \u2014 landing here on the website rather than re-rendering the
-// slides with text baked in, so future copy edits stay in code (and so
-// screen readers can read them).
+// (2026-05-08), kept as short bullets \u2014 the original slide format \u2014
+// because the audience is BSL-first and reads visuals/motion before text.
+// Long paragraphs lose this audience; bullets stay scannable.
 const steps: Step[] = [
   {
     n: "01",
     kicker: "Find events with BSL & ISL",
-    heading: "Every confirmed interpreted event, in one place",
-    body: "Before this, finding an accessible event meant trawling venue websites, not being able to call box offices, trying to book any ticket and hoping for the best. The app only shows events where BSL or ISL is confirmed or available on request, and push notifications alert you the moment a new event is added \u2014 so you find out early. Not after it sells out.",
-    image: "/images/app-guide/01-browse-events.png",
-    imageAlt: "PI Events app: Browse Events screen showing categories (Concert, Sports, Festival, Comedy, Family, Literature, Theatre, Dance, Other) with event counts.",
+    heading: "Every confirmed event, in one place",
+    bullets: [
+      "Only events with BSL or ISL confirmed or on request",
+      "No more trawling venue websites",
+      "Push alerts the moment a new event is added",
+      "Find out early \u2014 not after it sells out",
+    ],
+    video: "/videos/app-guide/browse.mp4",
   },
   {
     n: "02",
     kicker: "Smart search",
     heading: "Find any event \u2014 even with a vague search",
-    body: "Type-ahead with fuzzy matching across events, venues, interpreters and categories. Search for what you're thinking of, even if you're not sure of the spelling, and the app surfaces what's interpreted.",
-    image: "/images/app-guide/02-search.png",
-    imageAlt: "PI Events app: Search screen showing fuzzy match results for an event with confirmed interpreters.",
+    bullets: [
+      "Type-ahead with fuzzy matching",
+      "Searches event names, venues, interpreters, cities",
+      "Typos are fine",
+    ],
+    video: "/videos/app-guide/search.mp4",
   },
   {
     n: "03",
     kicker: "Request an interpreter \u2014 guided",
-    heading: "No interpreter listed? Request one directly",
-    body: "For many Deaf people, requesting an interpreter is something they've never done. Who do you contact? What do you say? Will they refuse access? The app removes all of that. Choose the event, describe your needs and it generates a request ready to send. No drafting, no uncertainty, no phone calls.",
-    image: "/images/app-guide/03-request.png",
-    imageAlt: "PI Events app: Request an interpreter screen showing a generated message ready to send to the venue.",
+    heading: "No interpreter listed? Request one",
+    bullets: [
+      "Choose the event",
+      "Describe your needs",
+      "The app writes the message for you",
+      "No drafting, no phone calls, no uncertainty",
+    ],
+    video: "/videos/app-guide/request.mp4",
   },
   {
     n: "04",
     kicker: "Push notifications",
-    heading: "New interpreted events, straight to your lock screen",
-    body: "Follow artists, venues and cities. Get a push alert the moment interpreting is confirmed or last-minute tickets are released.",
-    image: "/images/app-guide/04-notifications.png",
-    imageAlt: "PI Events app: Events list showing newly added interpreted events.",
+    heading: "New events, straight to your lock screen",
+    bullets: [
+      "Follow artists, venues and cities",
+      "Alerts the moment interpreting is confirmed",
+      "Last-minute ticket releases too",
+    ],
+    video: "/videos/app-guide/notifications.mp4",
   },
   {
     n: "05",
     kicker: "BSL & ISL video guides",
-    heading: "How to book, your rights, FAQs \u2014 in BSL and ISL",
-    body: "A full library of BSL and ISL video guides covering how to book, how to request an interpreter, what to do if a venue says no, and more. Recorded with Deaf consultants \u2014 everyone arrives informed.",
-    image: "/images/app-guide/05-bsl-videos.png",
-    imageAlt: "PI Events app: BSL & ISL Videos screen listing topic videos including App Guide, How to Book, Request Interpreter, Browse & Search, At the Event, Booking Guidance and Know Your Rights.",
+    heading: "All in BSL and ISL",
+    bullets: [
+      "How to book",
+      "How to request an interpreter",
+      "What to do if a venue says no",
+      "Recorded with Deaf consultants",
+    ],
+    video: "/videos/app-guide/videos.mp4",
   },
   {
     n: "06",
     kicker: "At-event tools",
-    heading: "Communication cards, food orders and emergency info \u2014 no Wi-Fi needed",
-    body: "Pre-made communication cards work the moment you walk through the doors \u2014 no Wi-Fi required. Build a food and drink order on screen and show it at the bar. Emergency information is one tap away. Designed for noisy, crowded, signal-poor venues.",
-    image: "/images/app-guide/06-order.png",
-    imageAlt: "PI Events app: At-event order builder showing items selected and ready to show to bar staff.",
+    heading: "Communication cards, food orders, emergency info",
+    bullets: [
+      "Show staff cards \u2014 \u201cI am Deaf\u201d, \u201cplease face me\u201d",
+      "Build a food order on screen",
+      "Emergency info one tap away",
+      "Works without Wi-Fi",
+    ],
+    video: "/videos/app-guide/order.mp4",
   },
   {
     n: "07",
     kicker: "Know your rights",
-    heading: "Plain English guide to your rights",
-    body: "Many Deaf people don't ask for access because they don't know they're entitled to it, or they've been turned down before and assume it'll happen again. The app explains your rights plainly \u2014 without legal jargon. The Equality Act 2010 (England, Scotland, Wales). The Disability Discrimination Act 1995 (Northern Ireland). The Irish Sign Language Act 2017 (Ireland).",
-    image: "/images/app-guide/07-rights.png",
-    imageAlt: "PI Events app: Know Your Rights screen with plain-English explanation of disability access law in the UK and Ireland.",
+    heading: "Plain English. No legal jargon.",
+    bullets: [
+      "Equality Act 2010 (England, Scotland, Wales)",
+      "Disability Discrimination Act 1995 (Northern Ireland)",
+      "Irish Sign Language Act 2017 (Ireland)",
+      "What to do if a venue says no",
+    ],
+    video: "/videos/app-guide/rights.mp4",
   },
 ];
 
@@ -159,40 +184,31 @@ export default function AppGuidePage() {
                     <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-4xl">
                       {step.heading}
                     </h2>
-                    <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-pi-ink/80">
-                      {step.body}
-                    </p>
+                    <ul className="mx-auto mt-5 max-w-2xl space-y-3 text-left text-lg leading-relaxed text-pi-ink/85 md:text-xl">
+                      {step.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-3">
+                          <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-pi-accent" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </AnimateIn>
                 </div>
                 <AnimateIn delay={120} className="order-1 md:order-2">
-                  <div className="relative mx-auto w-full max-w-[300px] md:mt-10">
-                    <Image
-                      src={step.image}
-                      alt={step.imageAlt}
-                      width={1206}
-                      height={2622}
-                      sizes="(min-width: 768px) 300px, 80vw"
-                      className="h-auto w-full rounded-[2rem]"
-                    />
+                  <div className="relative mx-auto aspect-[1700/1004] w-full max-w-5xl overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15 md:mt-10">
+                    <ScrollVideo src={step.video} />
                   </div>
                 </AnimateIn>
               </div>
             ) : (
               <div
-                className={`mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-[1fr_2fr] md:gap-12 ${
+                className={`mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[5fr_2fr] md:gap-12 ${
                   layout === "right" ? "md:[direction:rtl]" : ""
                 }`}
               >
                 <AnimateIn>
-                  <div className="relative mx-auto w-full max-w-[280px] md:[direction:ltr]">
-                    <Image
-                      src={step.image}
-                      alt={step.imageAlt}
-                      width={1206}
-                      height={2622}
-                      sizes="(min-width: 768px) 280px, 80vw"
-                      className="h-auto w-full rounded-[2rem]"
-                    />
+                  <div className="relative aspect-[1700/1004] w-full overflow-hidden rounded-2xl border border-pi-ink/10 bg-black shadow-2xl shadow-pi-ink/15 md:[direction:ltr]">
+                    <ScrollVideo src={step.video} />
                   </div>
                 </AnimateIn>
                 <AnimateIn delay={120}>
@@ -203,9 +219,14 @@ export default function AppGuidePage() {
                     <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
                       {step.heading}
                     </h2>
-                    <p className="mt-4 text-base leading-relaxed text-pi-ink/80 md:text-lg">
-                      {step.body}
-                    </p>
+                    <ul className="mt-4 space-y-3 text-base leading-relaxed text-pi-ink/85 md:text-lg">
+                      {step.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-3">
+                          <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-pi-accent" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </AnimateIn>
               </div>
