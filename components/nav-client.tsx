@@ -61,11 +61,7 @@ export default function NavClient({ nav, scrolled = false }: NavClientProps) {
         aria-label="Open menu"
         aria-expanded={isOpen}
         aria-controls="mobile-nav-panel"
-        className={`relative z-10 flex md:hidden h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-pi-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${
-          scrolled
-            ? "text-pi-ink/75 hover:text-pi-ink hover:bg-pi-ink/5"
-            : "text-white/85 hover:text-white hover:bg-white/10"
-        }`}
+        className="relative z-10 flex md:hidden h-10 w-10 items-center justify-center rounded-full bg-white text-pi-ink shadow-md ring-1 ring-pi-ink/10 transition-colors duration-200 hover:bg-white/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-pi-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
       >
         <Menu size={22} aria-hidden="true" />
       </button>
