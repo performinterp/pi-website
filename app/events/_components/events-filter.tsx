@@ -84,6 +84,21 @@ export default function EventsFilter({ events, cities, categories }: Props) {
   const [nearMeActive, setNearMeActive] = useState(false);
   const [nearMeStatus, setNearMeStatus] = useState<"idle" | "loading" | "denied" | "unavailable" | "timeout">("idle");
   const searchWrapRef = useRef<HTMLDivElement | null>(null);
+  const resultsRef = useRef<HTMLDivElement | null>(null);
+
+  function scrollToSearch() {
+    // Delay slightly so mobile keyboard / focus-driven native scroll
+    // doesn't override us.
+    setTimeout(() => {
+      searchWrapRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  }
+
+  function scrollToResults() {
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  }
 
   // Re-hydrate cached user coords on mount (set during a previous Near me
   // tap in this session). Lets users keep "Near me" active across page
@@ -308,7 +323,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
 
       <div className="mb-6 rounded-2xl border border-pi-ink/10 bg-white p-5 shadow-sm md:p-6">
         {/* Search input + suggestions */}
-        <div ref={searchWrapRef}>
+        <div ref={searchWrapRef} className="scroll-mt-24">
           <label htmlFor="ev-search" className={labelClass}>
             Search
           </label>
@@ -322,9 +337,18 @@ export default function EventsFilter({ events, cities, categories }: Props) {
                 setVisible(PAGE_SIZE);
                 setShowSuggestions(true);
               }}
-              onFocus={() => setShowSuggestions(true)}
+              onFocus={() => {
+                setShowSuggestions(true);
+                scrollToSearch();
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Escape") setShowSuggestions(false);
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  setShowSuggestions(false);
+                  (e.currentTarget as HTMLInputElement).blur();
+                  scrollToResults();
+                }
               }}
               placeholder={easyRead ? "Type a name or place" : "Type anything — name, venue, interpreter (typos OK)"}
               autoComplete="off"
@@ -348,6 +372,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
                         setSearch(s.label);
                         setShowSuggestions(false);
                         setVisible(PAGE_SIZE);
+                        scrollToResults();
                       }}
                       className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm text-pi-ink hover:bg-pi-warmth/10 focus:bg-pi-warmth/10 focus:outline-none"
                     >
@@ -624,6 +649,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
         </div>
       </div>
 
+      <div ref={resultsRef} className="scroll-mt-24">
       {viewMode === "map" ? (
         <EventsMap
           events={filtered}
@@ -723,6 +749,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
           </button>
         </div>
       )}
+      </div>
     </>
   );
 }
