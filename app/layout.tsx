@@ -66,7 +66,7 @@ export default function RootLayout({
                 "The UK and Ireland's leading Deaf access consultancy and BSL & ISL interpreting service for live events including festivals, sport, arenas and entertainment. Award-winning, NRCPD-registered interpreters. 500+ events per year, thousands delivered in total.",
               foundingDate: "2017",
               telephone: "+44 20 3488 2308",
-              email: "admin@performanceinterpreting.co.uk",
+              email: "enquiries@performanceinterpreting.co.uk",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Onega House, 112 Main Road",
@@ -95,7 +95,7 @@ export default function RootLayout({
               priceRange: "££-£££",
               contactPoint: {
                 "@type": "ContactPoint",
-                email: "admin@performanceinterpreting.co.uk",
+                email: "enquiries@performanceinterpreting.co.uk",
                 telephone: "+44 20 3488 2308",
                 contactType: "customer service",
                 availableLanguage: ["English", "British Sign Language", "Irish Sign Language"],

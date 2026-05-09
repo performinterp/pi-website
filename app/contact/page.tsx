@@ -36,10 +36,10 @@ export default function ContactPage() {
             <p className="mt-3 text-lg leading-relaxed text-pi-ink/80">
               You can email us at{" "}
               <a
-                href="mailto:admin@performanceinterpreting.co.uk"
+                href="mailto:enquiries@performanceinterpreting.co.uk"
                 className="font-semibold text-pi-accent underline decoration-2 underline-offset-2"
               >
-                admin@performanceinterpreting.co.uk
+                enquiries@performanceinterpreting.co.uk
               </a>{" "}
               or fill in the form below.
             </p>

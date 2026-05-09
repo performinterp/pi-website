@@ -167,7 +167,7 @@ export default function ContactForm() {
       {status === "error" && (
         <p className="text-sm text-pi-error">
           Something went wrong. Please try again or email us directly at
-          admin@performanceinterpreting.co.uk.
+          enquiries@performanceinterpreting.co.uk.
         </p>
       )}
 
