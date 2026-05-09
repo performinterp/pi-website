@@ -69,10 +69,10 @@ export default function Home() {
               Email us. We will help you book an interpreter.
             </p>
             <a
-              href="mailto:admin@performanceinterpreting.co.uk"
+              href="mailto:enquiries@performanceinterpreting.co.uk"
               className="mt-4 inline-block text-lg font-semibold text-pi-accent underline decoration-2 underline-offset-2 hover:text-pi-ink"
             >
-              admin@performanceinterpreting.co.uk
+              enquiries@performanceinterpreting.co.uk
             </a>
             <div className="mt-5">
               <Link
