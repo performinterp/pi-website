@@ -20,75 +20,76 @@ type Step = {
   video: string;
 };
 
-// Step copy applies Marie's review notes from her CityLit slide audit
-// (2026-05-08), kept as short bullets \u2014 the original slide format \u2014
-// because the audience is BSL-first and reads visuals/motion before text.
-// Long paragraphs lose this audience; bullets stay scannable.
+// /app-guide is for the Deaf community directly \u2014 BSL-first audience.
+// Bullets stay short, plain, and avoid English-sophisticated words like
+// "trawl" or "friction" (which fit the organiser/B2B audience on
+// /organisers, where Marie's review-language landed). Easy-Read
+// principles guide the wording here.
 const steps: Step[] = [
   {
     n: "01",
-    kicker: "Find events with BSL & ISL",
-    heading: "Every confirmed event, in one place",
+    kicker: "Find events",
+    heading: "All BSL & ISL events in one place",
     bullets: [
-      "Only events with BSL or ISL confirmed or on request",
-      "No more trawling venue websites",
-      "Push alerts the moment a new event is added",
-      "Find out early \u2014 not after it sells out",
+      "See every event with BSL or ISL",
+      "Filter by city, date, or type",
+      "Get told when new events are added",
+      "See tickets before they sell out",
     ],
     video: "/videos/app-guide/browse.mp4",
   },
   {
     n: "02",
     kicker: "Smart search",
-    heading: "Find any event \u2014 even with a vague search",
+    heading: "Type anything \u2014 find any event",
     bullets: [
-      "Type-ahead with fuzzy matching",
-      "Searches event names, venues, interpreters, cities",
-      "Typos are fine",
+      "Type a name, place, or city",
+      "Typos are OK",
+      "Find the event in seconds",
     ],
     video: "/videos/app-guide/search.mp4",
   },
   {
     n: "03",
-    kicker: "Request an interpreter \u2014 guided",
-    heading: "No interpreter listed? Request one",
+    kicker: "Request an interpreter",
+    heading: "No interpreter? Ask for one",
     bullets: [
-      "Choose the event",
-      "Describe your needs",
-      "The app writes the message for you",
-      "No drafting, no phone calls, no uncertainty",
+      "Pick the event",
+      "Tell us what you need",
+      "The app writes the message",
+      "Send it with one tap",
     ],
     video: "/videos/app-guide/request.mp4",
   },
   {
     n: "04",
     kicker: "Push notifications",
-    heading: "New events, straight to your lock screen",
+    heading: "Get told about new events",
     bullets: [
-      "Follow artists, venues and cities",
-      "Alerts the moment interpreting is confirmed",
-      "Last-minute ticket releases too",
+      "Pick artists, venues, or cities you like",
+      "Get an alert when a new event is added",
+      "See last-minute tickets too",
     ],
     video: "/videos/app-guide/notifications.mp4",
   },
   {
     n: "05",
-    kicker: "BSL & ISL video guides",
-    heading: "All in BSL and ISL",
+    kicker: "BSL & ISL videos",
+    heading: "All guides in BSL and ISL",
     bullets: [
-      "How to book",
-      "How to request an interpreter",
+      "How to book a ticket",
+      "How to ask for BSL access",
       "What to do if a venue says no",
-      "Recorded with Deaf consultants",
+      "Made with Deaf consultants",
     ],
     video: "/videos/app-guide/videos.mp4",
   },
   {
     n: "06",
     kicker: "At-event tools",
-    heading: "Communication cards, food orders, emergency info",
+    heading: "Help on the day",
     bullets: [
-      "Show staff cards \u2014 \u201cI am Deaf\u201d, \u201cplease face me\u201d",
+      "Show staff: \u201cI am Deaf\u201d",
       "Build a food order on screen",
       "Emergency info one tap away",
       "Works without Wi-Fi",
@@ -98,12 +99,12 @@ const steps: Step[] = [
   {
     n: "07",
     kicker: "Know your rights",
-    heading: "Plain English. No legal jargon.",
+    heading: "Plain English. No legal words.",
     bullets: [
-      "Equality Act 2010 (England, Scotland, Wales)",
-      "Disability Discrimination Act 1995 (Northern Ireland)",
-      "Irish Sign Language Act 2017 (Ireland)",
-      "What to do if a venue says no",
+      "UK: Equality Act 2010",
+      "Northern Ireland: Disability Discrimination Act 1995",
+      "Ireland: Irish Sign Language Act 2017",
+      "What to say if a venue refuses",
     ],
     video: "/videos/app-guide/rights.mp4",
   },
