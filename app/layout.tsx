@@ -7,6 +7,7 @@ import CookieBanner from "@/components/cookie-banner";
 import AppPromoBanner from "@/components/app-promo-banner";
 import Assistant from "@/components/assistant";
 import { EasyReadProvider, EASY_READ_INIT_SCRIPT } from "@/lib/easy-read";
+import { Analytics } from "@vercel/analytics/next";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -265,6 +266,7 @@ export default function RootLayout({
           <AppPromoBanner />
           <Assistant />
         </EasyReadProvider>
+        <Analytics />
       </body>
     </html>
   );
