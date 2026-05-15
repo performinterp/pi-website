@@ -1,8 +1,10 @@
 import Link from "next/link";
+import NotFoundTracker from "@/components/not-found-tracker";
 
 export default function NotFound() {
   return (
     <section className="flex min-h-[70vh] flex-col items-center justify-center section-padding text-center">
+      <NotFoundTracker />
       <p className="text-xs font-semibold uppercase tracking-widest text-pi-accent">
         404
       </p>
