@@ -367,7 +367,7 @@ export default function DeafCommunityPage() {
       </section>
 
       {/* ─── Feedback — Tally embed + video recorder ────── */}
-      <section className="section-padding section-gap">
+      <section id="feedback" className="scroll-mt-24 section-padding section-gap">
         <AnimateIn>
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
