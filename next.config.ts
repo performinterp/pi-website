@@ -19,6 +19,13 @@ const nextConfig: NextConfig = {
         destination: "/app-guide",
         permanent: true,
       },
+      {
+        source: "/photo-consent",
+        destination:
+          "https://docs.google.com/forms/d/e/1FAIpQLSeUKd3cA2qrMl3mbri1ASi0l4CAKci7THRdG6lVxdGShoGC7g/viewform",
+        permanent: false,
+        basePath: false,
+      },
     ];
   },
 };

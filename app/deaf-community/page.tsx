@@ -420,7 +420,7 @@ export default function DeafCommunityPage() {
                 </p>
               </div>
               <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeUKd3cA2qrMl3mbri1ASi0l4CAKci7THRdG6lVxdGShoGC7g/viewform"
+                href="/photo-consent"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shrink-0 inline-flex items-center gap-2 rounded-full border border-pi-ink/15 bg-pi-canvas-soft px-5 py-2.5 text-sm font-semibold text-pi-ink transition-all hover:border-pi-accent/40 hover:bg-pi-accent/10"
