@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import QrCollapsibleSection from "@/components/qr-collapsible-section";
 
 export const metadata: Metadata = {
   title: "QR Bank — Staff | Performance Interpreting",
@@ -119,26 +120,16 @@ function Tile({ tile }: { tile: Tile }) {
 export default function QRBankPage() {
   return (
     <>
-      {/* Slim staff-utility header (not the marketing PageHero) */}
+      {/* Slim staff-utility header (no PI logo — site nav already shows it) */}
       <section className="bg-pi-navy px-5 py-6 text-white md:px-8">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-3">
-          <Image
-            src="/icons/pi-logo-wide.svg"
-            alt="Performance Interpreting"
-            width={220}
-            height={44}
-            className="h-10 w-auto md:h-11"
-            priority
-          />
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[2.5px] text-white/60">
-              QR Bank · Staff
-            </span>
-            <h1 className="font-display text-lg leading-tight md:text-xl">
-              Show, scan, share
-            </h1>
-          </div>
-          <p className="mt-2 w-full border-t border-white/10 pt-3 text-[13px] leading-snug text-white/70">
+        <div className="mx-auto max-w-5xl">
+          <span className="text-[10px] font-bold uppercase tracking-[2.5px] text-white/60">
+            QR Bank · Staff
+          </span>
+          <h1 className="font-display text-xl leading-tight md:text-2xl">
+            Show, scan, share
+          </h1>
+          <p className="mt-3 border-t border-white/10 pt-3 text-[13px] leading-snug text-white/70">
             Tap a tile to open the link, or show the QR to a guest at the venue.
           </p>
         </div>
@@ -146,40 +137,28 @@ export default function QRBankPage() {
 
       <main className="mx-auto max-w-5xl px-5 pb-20 pt-7 md:px-8">
         {sections.map((section) => (
-          <section key={section.title} className="mb-9">
-            <h2 className="mb-4 inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[2px] text-pi-gold-dark">
-              <span className="block h-[2px] w-5 bg-pi-gold-dark" />
-              {section.title}
-            </h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3">
-              {section.tiles.map((tile) => (
-                <Tile key={tile.slug} tile={tile} />
-              ))}
-            </div>
-          </section>
+          <QrCollapsibleSection key={section.title} title={section.title}>
+            {section.tiles.map((tile) => (
+              <Tile key={tile.slug} tile={tile} />
+            ))}
+          </QrCollapsibleSection>
         ))}
 
-        <section className="mb-9">
-          <h2 className="mb-4 inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[2px] text-pi-gold-dark">
-            <span className="block h-[2px] w-5 bg-pi-gold-dark" />
-            Festival WhatsApp groups
-          </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3">
-            {[1, 2, 3].map((n) => (
-              <div
-                key={n}
-                className="flex min-h-[280px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-pi-ink/10 p-7 text-center text-[12.5px] text-pi-ink/55"
-              >
-                <strong className="mb-1.5 text-[14px] font-semibold text-pi-ink/70">
-                  Add per festival
-                </strong>
-                WhatsApp invite QRs go here.
-              </div>
-            ))}
-          </div>
-        </section>
+        <QrCollapsibleSection title="Festival WhatsApp groups">
+          {[1, 2, 3].map((n) => (
+            <div
+              key={n}
+              className="flex min-h-[280px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-pi-ink/10 p-7 text-center text-[12.5px] text-pi-ink/55"
+            >
+              <strong className="mb-1.5 text-[14px] font-semibold text-pi-ink/70">
+                Add per festival
+              </strong>
+              WhatsApp invite QRs go here.
+            </div>
+          ))}
+        </QrCollapsibleSection>
 
-        <p className="border-t border-pi-ink/10 pt-5 text-center text-[11px] text-pi-ink/40">
+        <p className="mt-6 border-t border-pi-ink/10 pt-5 text-center text-[11px] text-pi-ink/40">
           Bookmark this page on your phone — it stays up to date.
         </p>
       </main>
