@@ -74,6 +74,18 @@ const sections: Section[] = [
       },
     ],
   },
+  {
+    title: "Festival WhatsApp groups",
+    tiles: [
+      {
+        slug: "festival-silverstone-2026",
+        label: "Silverstone 2026",
+        caption: "Line-ups, announcements and updates",
+        url: "https://chat.whatsapp.com/FKclXYz1n9u8QoZNlqUJYE?mode=gi_t",
+        displayUrl: "chat.whatsapp.com/…",
+      },
+    ],
+  },
 ];
 
 export default function QRBankPage() {
@@ -109,26 +121,6 @@ export default function QRBankPage() {
             </div>
           </section>
         ))}
-
-        <section className="mb-9">
-          <h2 className="mb-4 inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[2px] text-pi-gold-dark">
-            <span className="block h-[2px] w-5 bg-pi-gold-dark" />
-            Festival WhatsApp groups
-          </h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 print:grid-cols-3">
-            {[1, 2, 3].map((n) => (
-              <div
-                key={n}
-                className="flex min-h-[120px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-pi-ink/10 p-5 text-center text-[12.5px] text-pi-ink/55 sm:min-h-[280px] sm:p-7"
-              >
-                <strong className="mb-1.5 text-[14px] font-semibold text-pi-ink/70">
-                  Add per festival
-                </strong>
-                WhatsApp invite QRs go here.
-              </div>
-            ))}
-          </div>
-        </section>
 
         <p className="mt-6 border-t border-pi-ink/10 pt-5 text-center text-[11px] text-pi-ink/40">
           Bookmark this page on your phone — it stays up to date.
