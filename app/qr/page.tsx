@@ -120,8 +120,9 @@ function Tile({ tile }: { tile: Tile }) {
 export default function QRBankPage() {
   return (
     <>
-      {/* Slim staff-utility header (no PI logo — site nav already shows it) */}
-      <section className="bg-pi-navy px-5 py-6 text-white md:px-8">
+      {/* Slim staff-utility header (no PI logo — site nav already shows it).
+          pt-24 / md:pt-32 clears the fixed site nav. */}
+      <section className="bg-pi-navy px-5 pb-6 pt-24 text-white md:px-8 md:pb-8 md:pt-32">
         <div className="mx-auto max-w-5xl">
           <span className="text-[10px] font-bold uppercase tracking-[2.5px] text-white/60">
             QR Bank · Staff
