@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import QrTile, { type QrTileData } from "@/components/qr-tile";
+import QrSectionAccordion from "@/components/qr-section-accordion";
 
 export const metadata: Metadata = {
   title: "QR Bank — Staff | Performance Interpreting",
@@ -74,17 +75,17 @@ const sections: Section[] = [
       },
     ],
   },
+];
+
+// Festival WhatsApp groups are rendered separately as a collapsible section,
+// since there may be ~20 of these and we don't want them dominating the page.
+const festivalTiles: QrTileData[] = [
   {
-    title: "Festival WhatsApp groups",
-    tiles: [
-      {
-        slug: "festival-silverstone-2026",
-        label: "Silverstone 2026",
-        caption: "Line-ups, announcements and updates",
-        url: "https://chat.whatsapp.com/FKclXYz1n9u8QoZNlqUJYE?mode=gi_t",
-        displayUrl: "chat.whatsapp.com/…",
-      },
-    ],
+    slug: "festival-silverstone-2026",
+    label: "Silverstone 2026",
+    caption: "Line-ups, announcements and updates",
+    url: "https://chat.whatsapp.com/FKclXYz1n9u8QoZNlqUJYE?mode=gi_t",
+    displayUrl: "chat.whatsapp.com/…",
   },
 ];
 
@@ -121,6 +122,15 @@ export default function QRBankPage() {
             </div>
           </section>
         ))}
+
+        <QrSectionAccordion
+          title="Festival WhatsApp groups"
+          count={festivalTiles.length}
+        >
+          {festivalTiles.map((tile) => (
+            <QrTile key={tile.slug} tile={tile} />
+          ))}
+        </QrSectionAccordion>
 
         <p className="mt-6 border-t border-pi-ink/10 pt-5 text-center text-[11px] text-pi-ink/40">
           Bookmark this page on your phone — it stays up to date.
