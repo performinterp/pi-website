@@ -292,7 +292,7 @@ export default function DeafCommunityPage() {
       </section>
 
       {/* ─── Volunteering ─────────────────────────────────── */}
-      <section className="section-padding section-gap bg-pi-canvas-soft">
+      <section id="volunteer" className="scroll-mt-24 section-padding section-gap bg-pi-canvas-soft">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <AnimateIn>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
