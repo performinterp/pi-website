@@ -239,7 +239,7 @@ export default function InterpretersPage() {
                 href="https://tally.so/r/wvQ0Kl"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent transition-colors hover:text-pi-ink"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-pi-accent px-6 py-3 text-base font-bold text-white shadow-md shadow-pi-accent/25 transition-all hover:brightness-110 hover:shadow-lg hover:shadow-pi-accent/35 hover:scale-[1.02]"
               >
                 Register your interest
                 <Icon name="arrow-right" size={16} />
