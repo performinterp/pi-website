@@ -147,7 +147,7 @@ export default function Footer() {
             <p className="text-xs text-white/65">
               &copy; {new Date().getFullYear()} Performance Interpreting Ltd
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4 md:justify-end">
               <Link
                 href="/privacy"
                 className="text-xs text-white/65 transition-colors duration-300 hover:text-white"
@@ -160,6 +160,14 @@ export default function Footer() {
               >
                 Accessibility
               </Link>
+              <a
+                href="https://tailored-tools.com"
+                target="_blank"
+                rel="external noopener"
+                className="text-xs text-white/40 transition-colors duration-300 hover:text-white/80"
+              >
+                Designed by Tailored Tools
+              </a>
             </div>
           </div>
         </div>

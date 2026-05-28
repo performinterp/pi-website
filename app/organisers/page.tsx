@@ -15,9 +15,61 @@ export const metadata: Metadata = {
     "Performance Interpreting provides BSL and ISL interpreting for festivals, sport, arenas and live entertainment across the UK and Ireland. Expert logistics, NRCPD-registered interpreters, end-to-end coordination.",
 };
 
+const ORGANISER_FAQS: Array<{ question: string; answer: string }> = [
+  {
+    question: "Do we legally need BSL access at our event?",
+    answer:
+      "In most cases, yes. Under the Equality Act 2010 (England, Scotland and Wales), service providers must make reasonable adjustments for Deaf customers — and BSL interpreting at live events is now an established reasonable adjustment, in part because of the landmark Little Mix case PI testified in. In Northern Ireland the equivalent is the Disability Discrimination Act 1995; in Ireland, the Irish Sign Language Act 2017 applies. We can advise on your specific obligations.",
+  },
+  {
+    question: "How far in advance should we book?",
+    answer:
+      "As soon as you know your event dates. For major festivals and tours, four to eight weeks ahead is typical; for one-off shows, two to four weeks is workable. We'll always tell you honestly if a request is too tight, and we'll often find a way to make it work.",
+  },
+  {
+    question: "How many interpreters does our event need?",
+    answer:
+      "It depends on event duration, content complexity, audience size and the kind of access experience you want to deliver. A single show might need two interpreters rotating; a multi-day festival needs a designed team. As part of our consultancy we'll spec the right team for your event — not the other way around.",
+  },
+  {
+    question: "What's the difference between BSL and ISL?",
+    answer:
+      "British Sign Language (BSL) is the language of the UK Deaf community. Irish Sign Language (ISL) is a distinct language used by the Deaf community in Ireland. They are not mutually intelligible. For events in Ireland or Northern Ireland we can advise on the appropriate language provision.",
+  },
+  {
+    question: "What's included in a Full Access Package?",
+    answer:
+      "Beyond BSL or ISL interpreting, a Full Access Package can include live captions, induction loop systems, sight-line and lighting design for interpreter placement, on-site coordination on the day, and post-event reporting. Everything is tailored to your venue, audience and event type.",
+  },
+  {
+    question: "Do you handle events outside the UK and Ireland?",
+    answer:
+      "Our core coverage is the UK and Ireland. We will consider international events on a case-by-case basis where it makes sense — get in touch with your specific requirements.",
+  },
+  {
+    question: "How much does interpreter access cost?",
+    answer:
+      "Pricing depends on event scale, duration, the number of interpreters needed, and whether you need a full access package or just interpreting. We'll provide a tailored quote — contact us with your event details and we'll come back with specifics.",
+  },
+];
+
 export default function OrganisersPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: ORGANISER_FAQS.map((f) => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          }),
+        }}
+      />
       <PageHero
         title="For Event Organisers"
         subtitle="Deaf access consultancy and sign language interpreting that fits your event - not the other way around."
@@ -313,6 +365,35 @@ export default function OrganisersPage() {
             </>
           );
         })()}
+      </section>
+
+      {/* FAQs — visible accordion mirrored by FAQPage schema above */}
+      <section className="section-padding pb-12 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <AnimateIn>
+            <h2 className="font-display text-2xl font-bold text-center mb-2 text-pi-ink md:text-3xl">
+              Organisers FAQs
+            </h2>
+            <p className="text-sm text-pi-ink/55 text-center mb-8">
+              Common questions from event organisers, festivals, venues and broadcasters.
+            </p>
+          </AnimateIn>
+          <div className="space-y-3">
+            {ORGANISER_FAQS.map((faq, i) => (
+              <AnimateIn key={i}>
+                <details className="group rounded-2xl border border-pi-ink/15 bg-white overflow-hidden">
+                  <summary className="px-6 py-5 cursor-pointer font-medium text-pi-ink/80 hover:text-pi-ink flex items-center justify-between transition-colors">
+                    {faq.question}
+                    <svg className="w-5 h-5 text-pi-ink/40 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div className="px-6 pb-5 text-sm text-pi-ink/65 leading-relaxed">{faq.answer}</div>
+                </details>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
       </section>
 
       <ContactCta />

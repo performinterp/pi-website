@@ -17,6 +17,44 @@ export const metadata: Metadata = {
     "Find BSL and ISL interpreted events across the UK and Ireland with the PI Events App. Communication cards, festival checklists, speech-to-text, and more.",
 };
 
+const DEAF_COMMUNITY_FAQS: Array<{ question: string; answer: string }> = [
+  {
+    question: "How do I find a BSL or ISL interpreted event?",
+    answer:
+      "The PI Events App lists every BSL and ISL interpreted event Performance Interpreting is involved with — festivals, sport, arenas, theatre, comedy, broadcast. You'll see the date, venue, performers, and the names of the interpreters working that show. Download is free.",
+  },
+  {
+    question: "Is the PI Events App free?",
+    answer:
+      "Yes — completely free on iOS and Android. No ads, no in-app purchases. We built it as part of our commitment to the Deaf community, not as a revenue product.",
+  },
+  {
+    question: "Can I request an interpreter at an event that isn't listed?",
+    answer:
+      "Yes. If you've spotted an event you'd like access at, you can request interpretation through the app or directly via our website. We'll talk to the organiser and try to make it happen — whether that's a one-off request or pushing for proactive access on future shows.",
+  },
+  {
+    question: "Are PI interpreters NRCPD-registered?",
+    answer:
+      "Yes — every interpreter PI works with is NRCPD-registered (or, in Ireland, equivalently qualified). NRCPD is the national regulator for BSL interpreting in the UK. You can verify any of our interpreters on the NRCPD public register.",
+  },
+  {
+    question: "Do you cover ISL events in Ireland?",
+    answer:
+      "Yes. We provide Irish Sign Language interpreting across Ireland and Northern Ireland for events using ISL, and BSL interpreting where that's the appropriate language. ISL and BSL are distinct languages — we'll always provide the right one for the audience.",
+  },
+  {
+    question: "What is 'proactive access' and which events have it?",
+    answer:
+      "Proactive access means BSL interpreting is provided as standard at every event — without anyone needing to request it. Wembley Stadium is the leading example, where PI provides BSL interpreting at every event as default. We're working to extend this model across more venues.",
+  },
+  {
+    question: "What if I have feedback about an interpreted event I attended?",
+    answer:
+      "We welcome it — good or bad. The PI Events App has a built-in feedback tool for any event you attend, and it goes directly to the team. We use this to improve provision at future events.",
+  },
+];
+
 const reviews = [
   {
     quote:
@@ -468,6 +506,50 @@ export default function DeafCommunityPage() {
           </AnimateIn>
         </div>
       </section>
+
+      {/* FAQs — visible accordion mirrored by FAQPage schema */}
+      <section className="section-padding pb-16">
+        <div className="max-w-3xl mx-auto">
+          <AnimateIn>
+            <h2 className="font-display text-2xl font-bold text-center mb-2 text-pi-ink md:text-3xl">
+              Common questions
+            </h2>
+            <p className="text-sm text-pi-ink/55 text-center mb-8">
+              From the Deaf community on access, the PI Events App, and how to request interpretation.
+            </p>
+          </AnimateIn>
+          <div className="space-y-3">
+            {DEAF_COMMUNITY_FAQS.map((faq, i) => (
+              <AnimateIn key={i}>
+                <details className="group rounded-2xl border border-pi-ink/15 bg-white overflow-hidden">
+                  <summary className="px-6 py-5 cursor-pointer font-medium text-pi-ink/80 hover:text-pi-ink flex items-center justify-between transition-colors">
+                    {faq.question}
+                    <svg className="w-5 h-5 text-pi-ink/40 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div className="px-6 pb-5 text-sm text-pi-ink/65 leading-relaxed">{faq.answer}</div>
+                </details>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: DEAF_COMMUNITY_FAQS.map((f) => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          }),
+        }}
+      />
 
       </div>
     </>

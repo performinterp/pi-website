@@ -189,24 +189,80 @@ export default function RootLayout({
                     ],
                   },
                   {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      "@id": "https://performanceinterpreting.co.uk/#access-consultancy",
-                      name: "Deaf Access Consultancy",
-                      description: "End-to-end Deaf access planning for live events - legal compliance advisory, access audits, interpreter team design, production coordination and on-site management.",
-                      serviceType: "Accessibility Consulting",
-                      provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
-                      areaServed: [
-                        { "@type": "Country", name: "United Kingdom" },
-                        { "@type": "Country", name: "Ireland" },
-                      ],
-                    },
-                    priceSpecification: {
-                      "@type": "PriceSpecification",
-                      priceCurrency: "GBP",
-                      description: "Consultancy packages tailored to event scale and requirements. Contact for a quote.",
-                    },
+                    "@type": "OfferCatalog",
+                    name: "Deaf Access Consultancy",
+                    description:
+                      "End-to-end Deaf access planning for live events. Most agencies supply interpreters; we design the entire access experience.",
+                    itemListElement: [
+                      {
+                        "@type": "Offer",
+                        itemOffered: {
+                          "@type": "Service",
+                          "@id": "https://performanceinterpreting.co.uk/#legal-compliance-advisory",
+                          name: "Legal & Compliance Advisory",
+                          description:
+                            "Advice on your obligations under the Equality Act 2010 (England, Scotland, Wales), the Disability Discrimination Act 1995 (Northern Ireland) and the Irish Sign Language Act 2017. PI helped establish the legal precedent that BSL access at live events is a requirement, not a courtesy.",
+                          serviceType: "Accessibility Compliance Advisory",
+                          provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+                          areaServed: [
+                            { "@type": "Country", name: "United Kingdom" },
+                            { "@type": "Country", name: "Ireland" },
+                          ],
+                          url: "https://performanceinterpreting.co.uk/organisers/",
+                        },
+                      },
+                      {
+                        "@type": "Offer",
+                        itemOffered: {
+                          "@type": "Service",
+                          "@id": "https://performanceinterpreting.co.uk/#access-audits",
+                          name: "Access Audits",
+                          description:
+                            "Independent assessment of your current Deaf access provision with practical recommendations to develop an equitable access service for Deaf and Deafblind customers.",
+                          serviceType: "Accessibility Audit",
+                          provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+                          areaServed: [
+                            { "@type": "Country", name: "United Kingdom" },
+                            { "@type": "Country", name: "Ireland" },
+                          ],
+                          url: "https://performanceinterpreting.co.uk/organisers/",
+                        },
+                      },
+                      {
+                        "@type": "Offer",
+                        itemOffered: {
+                          "@type": "Service",
+                          "@id": "https://performanceinterpreting.co.uk/#interpreter-team-design",
+                          name: "Interpreter Team Design",
+                          description:
+                            "The right number of interpreters, the right specialisms, the right rotation schedule. We design teams around your event — not the other way around.",
+                          serviceType: "Interpreter Team Coordination",
+                          provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+                          areaServed: [
+                            { "@type": "Country", name: "United Kingdom" },
+                            { "@type": "Country", name: "Ireland" },
+                          ],
+                          url: "https://performanceinterpreting.co.uk/organisers/",
+                        },
+                      },
+                      {
+                        "@type": "Offer",
+                        itemOffered: {
+                          "@type": "Service",
+                          "@id": "https://performanceinterpreting.co.uk/#production-coordination",
+                          name: "Production Coordination",
+                          description:
+                            "Sight-line placement, lighting requirements, stage positioning, comms with your production crew. We handle the technical integration so interpreting actually works on the day.",
+                          serviceType: "Event Production Accessibility",
+                          provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+                          areaServed: [
+                            { "@type": "Country", name: "United Kingdom" },
+                            { "@type": "Country", name: "Ireland" },
+                          ],
+                          url: "https://performanceinterpreting.co.uk/organisers/",
+                        },
+                      },
+                    ],
                   },
                   {
                     "@type": "Offer",
