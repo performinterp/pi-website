@@ -65,7 +65,7 @@ export default function RootLayout({
               image: "https://performanceinterpreting.co.uk/images/concert.jpg",
               description:
                 "The UK and Ireland's largest performance interpreting provider, working across music, sport, theatre, festivals, broadcast, political and corporate domains. Award-winning, NRCPD-registered. 500+ events per year, thousands delivered in total. Inaugural Signature Hall of Fame inductee.",
-              slogan: "The UK and Ireland's largest performance interpreting provider",
+              slogan: "The UK and Ireland's largest and most award-winning performance interpreting provider",
               foundingDate: "2017",
               telephone: "+44 20 3488 2308",
               email: "enquiries@performanceinterpreting.co.uk",
@@ -111,7 +111,7 @@ export default function RootLayout({
                 reviewCount: "33",
               },
               award: [
-                "The UK and Ireland's largest performance interpreting provider, working across music, sport, theatre, festivals, broadcast and political domains",
+                "The UK and Ireland's largest and most award-winning performance interpreting provider, working across music, sport, theatre, festivals, broadcast and political domains",
                 "Inaugural Signature Hall of Fame inductee (2022) — highest recognition in the BSL interpreting industry",
                 "Established legal precedent for BSL access at live events through testimony in the 2019 Little Mix case under the Equality Act 2010",
                 "Appointed Deaf Access provider for the 2023 King's Coronation and subsequent Royal events and state ceremonies — managing BSL interpreting, hearing loops and live captions across every site and screen",
