@@ -112,7 +112,7 @@ export default function RootLayout({
               award: [
                 "Inaugural Signature Hall of Fame inductee (2022) — highest recognition in the BSL interpreting industry",
                 "Established legal precedent for BSL access at live events through testimony in the 2019 Little Mix case under the Equality Act 2010",
-                "Appointed BSL provider for the 2023 King's Coronation and subsequent Royal events and state ceremonies",
+                "Appointed Deaf Access provider for the 2023 King's Coronation and subsequent Royal events and state ceremonies — managing BSL interpreting, hearing loops and live captions across every site and screen",
                 "Proactive BSL access standard at Wembley Stadium — every concert by default since September 2021",
                 "Launched the PI Events App in 2026 — first free Deaf-community events app from a UK interpreting service",
               ],
