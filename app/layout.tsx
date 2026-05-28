@@ -26,11 +26,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://performanceinterpreting.co.uk"),
   title: "Performance Interpreting - BSL & ISL for Live Events",
   description:
-    "The UK and Ireland's largest performance interpreting provider. Award-winning BSL & ISL access across festivals, sport, arenas, theatre, broadcast and beyond.",
+    "The UK and Ireland's largest, award-winning performance interpreting provider. BSL & ISL access across festivals, sport, arenas, broadcast and beyond.",
   openGraph: {
     title: "Performance Interpreting - BSL & ISL for Live Events",
     description:
-      "The UK and Ireland's largest performance interpreting provider. Award-winning BSL & ISL access across festivals, sport, arenas, theatre, broadcast and beyond.",
+      "The UK and Ireland's largest, award-winning performance interpreting provider. BSL & ISL access across festivals, sport, arenas, broadcast and beyond.",
     images: ["/og-image.jpg"],
   },
 };
@@ -64,7 +64,7 @@ export default function RootLayout({
               logo: "https://performanceinterpreting.co.uk/logos/hands-icon.png",
               image: "https://performanceinterpreting.co.uk/images/concert.jpg",
               description:
-                "The UK and Ireland's largest performance interpreting provider, working across music, sport, theatre, festivals, broadcast, political and corporate domains. Award-winning, NRCPD-registered. 500+ events per year, thousands delivered in total. Inaugural Signature Hall of Fame inductee.",
+                "The UK and Ireland's largest, award-winning performance interpreting provider, working across music, sport, festivals, broadcast, political and corporate domains. NRCPD-registered. 500+ events per year, thousands delivered in total. Inaugural Signature Hall of Fame inductee.",
               slogan: "The UK and Ireland's largest, award-winning performance interpreting provider",
               foundingDate: "2017",
               telephone: "+44 20 3488 2308",
@@ -111,7 +111,7 @@ export default function RootLayout({
                 reviewCount: "33",
               },
               award: [
-                "The UK and Ireland's largest, award-winning performance interpreting provider, working across music, sport, theatre, festivals, broadcast and political domains",
+                "The UK and Ireland's largest, award-winning performance interpreting provider, working across music, sport, festivals, broadcast and political domains",
                 "Inaugural Signature Hall of Fame inductee (2022) — highest recognition in the BSL interpreting industry",
                 "Established legal precedent for BSL access at live events through testimony in the 2019 Little Mix case under the Equality Act 2010",
                 "Appointed Deaf Access provider for the 2023 King's Coronation and subsequent Royal events and state ceremonies — managing BSL interpreting, hearing loops and live captions across every site and screen",
@@ -163,7 +163,7 @@ export default function RootLayout({
                           "@type": "Service",
                           "@id": "https://performanceinterpreting.co.uk/#bsl-interpreting",
                           name: "BSL Interpreting for Live Events",
-                          description: "British Sign Language interpreting for concerts, festivals, sport, theatre, comedy, awards and corporate events across the UK.",
+                          description: "British Sign Language interpreting for concerts, festivals, sport, comedy, awards, broadcast and corporate events across the UK.",
                           serviceType: "Sign Language Interpreting",
                           provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
                           areaServed: { "@type": "Country", name: "United Kingdom" },
