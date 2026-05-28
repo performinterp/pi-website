@@ -16,6 +16,8 @@ export interface Stat {
 export interface Milestone {
   icon: string;
   title: string;
+  /** Year or era label, e.g. "2019", "Since 2021", "2023+". Optional. */
+  year?: string;
   description: string;
   accentColor: "gold" | "accent";
 }

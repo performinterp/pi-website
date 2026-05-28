@@ -356,7 +356,14 @@ export default function Home() {
           {milestones.map((milestone, i) => (
             <AnimateIn key={milestone.title} delay={i * 120}>
               <div className="h-full rounded-xl border border-pi-gold/15 bg-pi-gold/[0.03] p-6 md:p-7">
-                <Icon name={milestone.icon} size={28} className="text-pi-gold" />
+                <div className="flex items-start justify-between gap-3">
+                  <Icon name={milestone.icon} size={28} className="text-pi-gold" />
+                  {milestone.year && (
+                    <span className="text-xs font-semibold tracking-wider text-pi-gold/80 whitespace-nowrap">
+                      {milestone.year}
+                    </span>
+                  )}
+                </div>
                 <h3 className="mt-4 font-display text-lg text-white">{milestone.title}</h3>
                 {milestone.description.split("\n\n").map((para, idx) => (
                   <p
@@ -377,7 +384,7 @@ export default function Home() {
             <MobileExpander
               key={milestone.title}
               icon={milestone.icon}
-              title={milestone.title}
+              title={milestone.year ? `${milestone.title} · ${milestone.year}` : milestone.title}
               variant="dark"
             >
               {milestone.description.split("\n\n").map((para, idx) => (

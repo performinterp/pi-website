@@ -1,32 +1,37 @@
 [
   {
-    "icon": "award",
-    "title": "Signature Hall of Fame",
-    "description": "Performance Interpreting was inducted into Signature's Hall of Fame - the highest recognition in the BSL interpreting industry - for outstanding contribution to interpreting services and Deaf access.",
-    "accentColor": "gold"
-  },
-  {
     "icon": "scale",
     "title": "Landmark Legal Precedent",
+    "year": "2019",
     "description": "Our testimony in the landmark Little Mix BSL case helped establish that BSL access at live events is a legal requirement under the Equality Act 2010 - not optional. That ruling changed the industry.",
     "accentColor": "accent"
   },
   {
-    "icon": "crown",
-    "title": "Trusted for National Moments",
-    "description": "Selected to manage and deliver full Deaf access for Royal events and state ceremonies - including BSL interpreting, live captions and induction loop systems across multiple venues.",
+    "icon": "zap",
+    "title": "Proactive Access at Wembley",
+    "year": "Since 2021",
+    "description": "In September 2021, Wembley Stadium committed to BSL interpreting at every concert as standard - with PI as the appointed provider. Proactive access at the national stadium. By default, not by exception.",
+    "accentColor": "accent"
+  },
+  {
+    "icon": "award",
+    "title": "Signature Hall of Fame",
+    "year": "2022",
+    "description": "Performance Interpreting was part of the inaugural Signature Hall of Fame intake in November 2022 - the highest recognition in the BSL interpreting industry - for outstanding contribution to interpreting services and Deaf access.",
     "accentColor": "gold"
   },
   {
-    "icon": "zap",
-    "title": "Proactive Access at Wembley",
-    "description": "Working with Wembley Stadium to provide BSL interpreting at every event as standard - without waiting for a customer request. Proactive access at the national stadium. By default, not by exception.",
-    "accentColor": "accent"
+    "icon": "crown",
+    "title": "Trusted for National Moments",
+    "year": "2023+",
+    "description": "Selected to manage and deliver full Deaf access for the 2023 King's Coronation and subsequent Royal events and state ceremonies - including BSL interpreting, live captions and induction loop systems across multiple venues.",
+    "accentColor": "gold"
   },
   {
     "icon": "smartphone",
     "title": "The PI Events App",
-    "description": "A free app for Deaf attendees - find interpreted events, see interpreter names, use on-site support tools, and share feedback.\n\nNo other interpreting service offers this.",
+    "year": "2026",
+    "description": "Launched in 2026 - a free app for Deaf attendees to find interpreted events, see interpreter names, use on-site support tools, and share feedback.\n\nNo other interpreting service offers this.",
     "accentColor": "gold"
   }
 ]

@@ -110,11 +110,11 @@ export default function RootLayout({
                 reviewCount: "33",
               },
               award: [
-                "Signature Hall of Fame inductee — highest recognition in the BSL interpreting industry",
-                "Established legal precedent for BSL access at live events (Little Mix case, Equality Act 2010)",
-                "Selected to deliver full Deaf access for Royal events and state ceremonies",
-                "Proactive BSL access standard at Wembley Stadium — every event by default",
-                "PI Events App — first free Deaf-community events app from a UK interpreting service",
+                "Inaugural Signature Hall of Fame inductee (2022) — highest recognition in the BSL interpreting industry",
+                "Established legal precedent for BSL access at live events through testimony in the 2019 Little Mix case under the Equality Act 2010",
+                "Appointed BSL provider for the 2023 King's Coronation and subsequent Royal events and state ceremonies",
+                "Proactive BSL access standard at Wembley Stadium — every concert by default since September 2021",
+                "Launched the PI Events App in 2026 — first free Deaf-community events app from a UK interpreting service",
               ],
               hasCredential: [
                 {
