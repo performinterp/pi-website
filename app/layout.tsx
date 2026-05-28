@@ -110,8 +110,11 @@ export default function RootLayout({
                 reviewCount: "33",
               },
               award: [
-                "Signature Hall of Fame",
-                "Landmark Little Mix BSL Legal Precedent",
+                "Signature Hall of Fame inductee — highest recognition in the BSL interpreting industry",
+                "Established legal precedent for BSL access at live events (Little Mix case, Equality Act 2010)",
+                "Selected to deliver full Deaf access for Royal events and state ceremonies",
+                "Proactive BSL access standard at Wembley Stadium — every event by default",
+                "PI Events App — first free Deaf-community events app from a UK interpreting service",
               ],
               hasCredential: [
                 {
