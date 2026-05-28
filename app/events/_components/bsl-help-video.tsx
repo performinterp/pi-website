@@ -77,12 +77,16 @@ export default function BslHelpVideo() {
             key={src}
             src={src}
             controls
+            playsInline
             preload="metadata"
+            crossOrigin="anonymous"
             className="aspect-video w-full rounded-lg bg-black"
             aria-label={`How to find your event, in ${language}`}
-          >
-            <track kind="captions" />
-          </video>
+          />
+          {/* Note: previously had <track kind="captions" /> with no src,
+              which is invalid HTML and caused Safari to silently fail to
+              start playback on some iOS versions. Captions live inside the
+              video file itself; no external track needed. */}
           <p className="mt-3 text-xs text-pi-ink/60">
             Captions may be available in the video player. If the video does
             not load, your network may be blocking media.performanceinterpreting.co.uk.
