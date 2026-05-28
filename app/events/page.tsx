@@ -22,8 +22,40 @@ export default async function EventsPage() {
   const cities = uniqueValues(upcoming, "city");
   const categories = uniqueValues(upcoming, "category");
 
+  const SITE = "https://performanceinterpreting.co.uk";
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Upcoming BSL & ISL interpreted events",
+            description: "Confirmed BSL and ISL interpreted events across the UK and Ireland.",
+            numberOfItems: upcoming.length,
+            itemListElement: upcoming.slice(0, 50).map((ev, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: ev.name,
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Events", item: `${SITE}/events/` },
+            ],
+          }),
+        }}
+      />
       <PageHero
         title="Find interpreted events"
         subtitle="Confirmed BSL and ISL interpreted events across the UK and Ireland. Filter by date, city, category or language."

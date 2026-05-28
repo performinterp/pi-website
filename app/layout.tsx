@@ -51,6 +51,32 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: EASY_READ_INIT_SCRIPT }} />
       </head>
       <body className="font-body antialiased">
+        {/* WebSite schema with SearchAction — enables Google sitelinks
+            search box for branded queries */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": "https://performanceinterpreting.co.uk/#website",
+              url: "https://performanceinterpreting.co.uk",
+              name: "Performance Interpreting",
+              description:
+                "The UK and Ireland's largest, award-winning performance interpreting provider.",
+              publisher: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+              inLanguage: ["en-GB", "British Sign Language", "Irish Sign Language"],
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: "https://performanceinterpreting.co.uk/events/?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

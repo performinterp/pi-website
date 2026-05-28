@@ -11,8 +11,36 @@ export const metadata: Metadata = {
 };
 
 export default function AccessibilityPage() {
+  const SITE = "https://performanceinterpreting.co.uk";
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${SITE}/accessibility/`,
+            url: `${SITE}/accessibility/`,
+            name: page.title,
+            description: page.metaDescription,
+            about: { "@id": `${SITE}/#organization` },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Accessibility", item: `${SITE}/accessibility/` },
+            ],
+          }),
+        }}
+      />
       <PageHero title={page.title} subtitle={page.subtitle} />
       {page.sections.map((section, i) => (
         <ContentSection

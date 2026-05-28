@@ -13,9 +13,36 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const enquirySection = page.sections[0];
+  const SITE = "https://performanceinterpreting.co.uk";
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            url: `${SITE}/contact/`,
+            name: page.title,
+            description: page.metaDescription,
+            mainEntity: { "@id": `${SITE}/#organization` },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Contact", item: `${SITE}/contact/` },
+            ],
+          }),
+        }}
+      />
       <PageHero
         title={page.title}
         subtitle={page.subtitle}

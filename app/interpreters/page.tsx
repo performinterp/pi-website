@@ -13,9 +13,78 @@ export const metadata: Metadata = {
     "Join Performance Interpreting as a BSL or ISL event interpreter. Work at festivals, arenas and Premier League clubs. Explore training and development at the PI Academy.",
 };
 
+const SITE = "https://performanceinterpreting.co.uk";
+
+const INTERPRETER_FAQS: Array<{ question: string; answer: string }> = [
+  {
+    question: "Do I need to be NRCPD-registered to work with PI?",
+    answer:
+      "Yes — current NRCPD registration is required for every interpreter PI works with. This is the standard the NHS, courts and government require, and it's non-negotiable for live event work too. If you're not yet registered, the PI Academy can help with the development pathway.",
+  },
+  {
+    question: "Do I need prior live events experience?",
+    answer:
+      "Prior live events experience is highly valued but not always essential. We've brought interpreters across from community, conference and educational settings — what matters more is your adaptability under pressure, your team-working, and your willingness to learn the specific demands of festivals, arenas and broadcast.",
+  },
+  {
+    question: "How do I apply to work with PI?",
+    answer:
+      "Get in touch via our contact form. Tell us about your NRCPD registration, the types of events you've worked at (or would like to), your specialist vocabulary areas, and your availability. We're always building our pool ahead of festival summer and the autumn arena circuit — the earlier the better.",
+  },
+  {
+    question: "What's the difference between PI Academy and joining PI as an interpreter?",
+    answer:
+      "PI Academy is our training arm — NRCPD-approved CPD courses, mentoring and the Song Club for any interpreter wanting to develop performance interpreting skills, whether or not they'll ever work for PI. Joining PI as an interpreter means being part of the team we book onto live events — festivals, arenas, broadcast and beyond. Many of our interpreters started with the Academy first.",
+  },
+  {
+    question: "What domains does PI specialise in?",
+    answer:
+      "Music (concerts, festivals, tours, broadcast), sport (Premier League clubs, stadium events, broadcast), comedy, political events, awards ceremonies, broadcast and corporate. We're the appointed Deaf Access provider for Wembley Stadium and have delivered access at every major UK festival circuit. We refer dedicated theatre work to specialist partners on a case-by-case basis.",
+  },
+  {
+    question: "Is volunteering with PI a route into interpreting work?",
+    answer:
+      "Volunteering gives you a real feel for live-access environments before you commit. It's open to Deaf volunteers fluent in BSL and hearing volunteers at Level 6 or above. Selected volunteers may be invited to shadow interpreters where appropriate. It's not a guaranteed pathway into paid work, but it's a great way to test whether live events is for you.",
+  },
+  {
+    question: "Does PI provide kit and uniform?",
+    answer:
+      "Yes — every interpreter receives a complimentary PI t-shirt for work. Our extended kit portal offers hoodies, jackets, hats and more for interpreters who want to add to their collection, delivered direct to your door.",
+  },
+];
+
 export default function InterpretersPage() {
   return (
     <>
+      {/* FAQ schema for recruitment-funnel agent queries:
+          'how do I join PI as an interpreter', 'do I need NRCPD?', etc. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: INTERPRETER_FAQS.map((f) => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "For Interpreters", item: `${SITE}/interpreters/` },
+            ],
+          }),
+        }}
+      />
       <PageHero
         title="For Interpreters"
         subtitle="Join the team shaping Deaf access at the UK and Ireland's biggest live events."
@@ -297,6 +366,35 @@ export default function InterpretersPage() {
               </Link>
             </div>
           </AnimateIn>
+        </div>
+      </section>
+
+      {/* FAQs — accordion paired with FAQPage schema above */}
+      <section className="section-padding pb-12">
+        <div className="max-w-3xl mx-auto">
+          <AnimateIn>
+            <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark text-center">
+              Common questions
+            </p>
+            <h2 className="mt-3 font-display text-2xl text-center text-pi-ink md:text-3xl mb-8">
+              For interpreters — FAQs
+            </h2>
+          </AnimateIn>
+          <div className="space-y-3">
+            {INTERPRETER_FAQS.map((faq, i) => (
+              <AnimateIn key={i}>
+                <details className="group rounded-2xl border border-pi-ink/15 bg-white overflow-hidden">
+                  <summary className="px-6 py-5 cursor-pointer font-medium text-pi-ink/80 hover:text-pi-ink flex items-center justify-between transition-colors">
+                    {faq.question}
+                    <svg className="w-5 h-5 text-pi-ink/40 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div className="px-6 pb-5 text-sm text-pi-ink/65 leading-relaxed">{faq.answer}</div>
+                </details>
+              </AnimateIn>
+            ))}
+          </div>
         </div>
       </section>
 

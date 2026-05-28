@@ -20,6 +20,7 @@ const FLAG: Record<string, string> = {
 
 export default function VenuesIndexPage() {
   const total = totalVenues();
+  const SITE = "https://performanceinterpreting.co.uk";
 
   // Build a flat list for the search component with city + country attached.
   const searchVenues = VENUE_TREE.flatMap((c) =>
@@ -35,6 +36,36 @@ export default function VenuesIndexPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Venues with BSL & ISL access contacts",
+            description: `Access contacts and BSL relay info for ${total} UK and Ireland venues.`,
+            numberOfItems: searchVenues.length,
+            itemListElement: searchVenues.slice(0, 100).map((v, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: { "@type": "Place", name: v.display, address: { "@type": "PostalAddress", addressLocality: v.city, addressCountry: v.country } },
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Venues", item: `${SITE}/venues/` },
+            ],
+          }),
+        }}
+      />
       <PageHero
         title="Venues"
         subtitle={`Access contacts for ${total} UK and Ireland venues. Search by name, or browse by country and city.`}
