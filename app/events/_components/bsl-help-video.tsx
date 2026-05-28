@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// BSL "how to search" intro video. Sourced from the same media bucket the
-// standalone app uses (media.performanceinterpreting.co.uk/bsl-search.mp4).
-// Collapsed by default — expanded on tap. Signals that this site is *for*
-// Deaf users, not just *accessible to* them, while not consuming page real
-// estate from users who don't want it.
+// BSL & ISL "how to search" intro videos. Hosted on Cloudflare R2 at
+// media.performanceinterpreting.co.uk (progressive download, HTTP range
+// requests supported for instant scrub). Player mirrors the PI Academy
+// pattern: no native browser controls (Safari's huge play/pause overlay
+// blocks the signer's hands), custom minimal scrubber, autoplay-loop on
+// open. Click anywhere on the video to pause/resume.
 
 const BSL_VIDEO_URL = "https://media.performanceinterpreting.co.uk/bsl-search.mp4";
 const ISL_VIDEO_URL = "https://media.performanceinterpreting.co.uk/isl-search.mp4";
@@ -14,7 +15,42 @@ const ISL_VIDEO_URL = "https://media.performanceinterpreting.co.uk/isl-search.mp
 export default function BslHelpVideo() {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<"BSL" | "ISL">("BSL");
+  const [time, setTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const src = language === "BSL" ? BSL_VIDEO_URL : ISL_VIDEO_URL;
+  const progress = duration > 0 ? (time / duration) * 100 : 0;
+
+  // Restart playback when drawer opens or language changes.
+  useEffect(() => {
+    if (!open) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = 0;
+    setPaused(false);
+    void v.play().catch(() => {
+      /* Browser blocked autoplay — user can tap to start. */
+    });
+  }, [open, src]);
+
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      void v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  };
+
+  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
+    const v = videoRef.current;
+    if (!v || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    v.currentTime = frac * duration;
+  };
 
   return (
     <div className="mb-6 overflow-hidden rounded-2xl border border-pi-accent/30 bg-pi-accent/5">
@@ -73,23 +109,60 @@ export default function BslHelpVideo() {
               ISL
             </button>
           </div>
-          <video
-            key={src}
-            src={src}
-            controls
-            playsInline
-            preload="metadata"
-            crossOrigin="anonymous"
-            className="aspect-video w-full rounded-lg bg-black"
-            aria-label={`How to find your event, in ${language}`}
-          />
-          {/* Note: previously had <track kind="captions" /> with no src,
-              which is invalid HTML and caused Safari to silently fail to
-              start playback on some iOS versions. Captions live inside the
-              video file itself; no external track needed. */}
+          <div className="relative w-full overflow-hidden rounded-lg bg-black">
+            <video
+              ref={videoRef}
+              key={src}
+              src={src}
+              autoPlay
+              muted
+              playsInline
+              loop
+              preload="metadata"
+              controls={false}
+              onClick={togglePlay}
+              onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
+              onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+              onPlay={() => setPaused(false)}
+              onPause={() => setPaused(true)}
+              aria-label={`How to find your event, in ${language}`}
+              className="block w-full aspect-video object-contain cursor-pointer"
+            />
+            {/* Centred play overlay — only shown when paused, fades out
+                immediately on resume so it doesn't block the signer. */}
+            {paused && (
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label="Play video"
+                className="pointer-events-none absolute inset-0 flex items-center justify-center"
+              >
+                <span className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm">
+                  <svg className="h-6 w-6 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </button>
+            )}
+            {/* Minimal scrubber — thin bar at the bottom, click to seek */}
+            <div
+              role="slider"
+              aria-label="Seek"
+              aria-valuemin={0}
+              aria-valuemax={Math.round(duration)}
+              aria-valuenow={Math.round(time)}
+              onClick={seek}
+              className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/15 cursor-pointer hover:h-2 transition-all"
+            >
+              <div
+                className="h-full bg-pi-accent/85 transition-[width] duration-100"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
           <p className="mt-3 text-xs text-pi-ink/60">
-            Captions may be available in the video player. If the video does
-            not load, your network may be blocking media.performanceinterpreting.co.uk.
+            Tap the video to play or pause. If the video does not load, your
+            network may be blocking media.performanceinterpreting.co.uk.
           </p>
         </div>
       )}
