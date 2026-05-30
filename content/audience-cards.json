@@ -19,5 +19,13 @@
     "description": "Join a team that's shaping the future of Deaf access in live events. Whether you're starting out or seasoned - explore training, development and work opportunities.",
     "href": "/interpreters",
     "ctaLabel": "How it works"
+  },
+  {
+    "icon": "book-open",
+    "title": "CPD & Training",
+    "description": "Professional development for interpreters, translators and Deaf performers. Courses, mentoring and the Song Club community live at PI Academy.",
+    "href": "https://academy.performanceinterpreting.co.uk",
+    "ctaLabel": "Visit PI Academy",
+    "external": true
   }
 ]

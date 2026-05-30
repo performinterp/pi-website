@@ -173,8 +173,8 @@ export default function Home() {
           </h2>
         </AnimateIn>
 
-        {/* Desktop: 3-column cards */}
-        <div className="mt-12 hidden gap-6 md:grid md:grid-cols-3">
+        {/* Desktop: 2x2 on md, 4-up on lg */}
+        <div className="mt-12 hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
           {audienceCards.map((card, i) => {
             const isExternal = card.external;
             const Tag = isExternal ? "a" : Link;

@@ -23,6 +23,7 @@ import {
   Coffee,
   Smartphone,
   Shirt,
+  BookOpen,
   type LucideIcon,
 } from "lucide-react";
 
@@ -52,6 +53,7 @@ const icons: Record<string, LucideIcon> = {
   coffee: Coffee,
   smartphone: Smartphone,
   shirt: Shirt,
+  "book-open": BookOpen,
 };
 
 interface IconProps {
