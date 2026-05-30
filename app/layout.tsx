@@ -1,13 +1,25 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
+import dynamic from "next/dynamic";
 import Footer from "@/components/footer";
 import Nav from "@/components/nav";
 import CookieBanner from "@/components/cookie-banner";
-import AppPromoBanner from "@/components/app-promo-banner";
-import Assistant from "@/components/assistant";
 import { EasyReadProvider, EASY_READ_INIT_SCRIPT } from "@/lib/easy-read";
 import { Analytics } from "@vercel/analytics/next";
+
+// Assistant pulls in @ai-sdk/react + the chat transport — heavy JS that
+// isn't needed for first paint. Lazy-load it client-side so the homepage
+// LCP isn't blocked by it.
+const Assistant = dynamic(() => import("@/components/assistant"), {
+  ssr: false,
+});
+
+// AppPromoBanner has a video element and an AppStoreButtons child — not
+// needed for first paint either, defer to client.
+const AppPromoBanner = dynamic(() => import("@/components/app-promo-banner"), {
+  ssr: false,
+});
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
