@@ -24,17 +24,6 @@ export const metadata: Metadata = {
 export default function TestimonialsPage() {
   const testimonials = getTestimonials();
 
-  // Aggregate rating across the testimonials we display on this page.
-  // Untreated quotes (no explicit rating) are treated as 5/5 for the
-  // average — they're all unambiguously positive — but only quotes with
-  // explicit ratings are counted in the rating count to be conservative.
-  const rated = testimonials.filter((t) => t.rating);
-  const ratingCount = rated.length;
-  const ratingValue =
-    ratingCount > 0
-      ? (rated.reduce((sum, t) => sum + (t.rating ?? 0), 0) / ratingCount).toFixed(1)
-      : "5.0";
-
   return (
     <>
       <script
@@ -50,29 +39,10 @@ export default function TestimonialsPage() {
           }),
         }}
       />
-      {/* AggregateRating attached to the Organization — the rich-result
-          eligible structured-data signal that can earn visible star
-          ratings in branded Google SERPs. Sourced from on-site testimonials
-          with explicit ratings. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": `${SITE}/#organization`,
-            name: "Performance Interpreting Ltd",
-            url: SITE,
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue,
-              reviewCount: String(ratingCount),
-              bestRating: "5",
-              worstRating: "1",
-            },
-          }),
-        }}
-      />
+      {/* Note: site-wide AggregateRating (5.0 / 33 reviews) is declared once
+          on the Organization in app/layout.tsx so Google sees a single
+          source of truth. Per-review schema below is the supporting
+          evidence backing that aggregate. */}
       {/* Review schema array — each testimonial as a Review of the organisation.
           Lets agents extract them individually rather than treating the page as
           one blob of text. */}
