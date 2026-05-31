@@ -79,7 +79,9 @@
           "title": "Legal compliance confidence",
           "description": "Following our testimony in the Little Mix BSL case, we understand the legal landscape inside out. We can advise on your access obligations as well as deliver them."
         }
-      ]
+      ],
+      "ctaLabel": "See our press coverage",
+      "ctaHref": "/press/"
     }
   ]
 }
