@@ -21,6 +21,7 @@ import {
   type VideoKey,
   type SignLanguage,
 } from "@/lib/sign-videos";
+import { ChatBodySchema } from "@/lib/api-schemas";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -28,11 +29,6 @@ export const maxDuration = 30;
 const ORIGIN = "https://performanceinterpreting.co.uk";
 
 type Audience = "deaf" | "organiser" | "interpreter" | "skipped" | null;
-
-interface Body {
-  messages: UIMessage[];
-  audience?: Audience;
-}
 
 function audienceContext(a: Audience | undefined): string {
   switch (a) {
@@ -229,7 +225,25 @@ export async function POST(req: Request) {
     );
   }
 
-  const { messages, audience } = (await req.json()) as Body;
+  // Defence-in-depth body cap — chat messages can be long but 1MB is enough
+  // for the longest legitimate conversation. Anything bigger is abuse.
+  const contentLength = Number(req.headers.get("content-length") ?? "0");
+  if (contentLength > 1_000_000) {
+    return new Response(JSON.stringify({ error: "Body too large" }), {
+      status: 413,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const parsed = ChatBodySchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return new Response(JSON.stringify({ error: "Invalid input" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  const { audience } = parsed.data;
+  const messages = parsed.data.messages as UIMessage[];
 
   // Layer 1 — input classifier guard. Run a tiny non-streaming call against
   // the latest user message; if it's clearly off-topic (code, math, jokes,

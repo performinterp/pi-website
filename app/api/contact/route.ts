@@ -1,10 +1,13 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { ContactSchema } from "@/lib/api-schemas";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, email, message, enquiry_type, urgent } = body;
+    const contentLength = Number(request.headers.get("content-length") ?? "0");
+    if (contentLength > 100_000) {
+      return NextResponse.json({ error: "Body too large" }, { status: 413 });
+    }
 
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json(
@@ -13,11 +16,15 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!name || !email || !message || !enquiry_type) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+    const parsed = ContactSchema.safeParse(await request.json());
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    }
+    const { name, email, message, enquiry_type, urgent, website } = parsed.data;
+
+    // Honeypot — silently 200 so bots don't tune around it
+    if (website && website.length > 0) {
+      return NextResponse.json({ success: true });
     }
 
     const urgentLabel = urgent ? " [URGENT]" : "";

@@ -1,23 +1,13 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-
-interface TranscriptTurn {
-  role: "user" | "assistant";
-  content: string;
-}
-
-interface Body {
-  name?: string;
-  email?: string;
-  message?: string;
-  summary?: { topic?: string; tried?: string; question?: string };
-  transcript?: TranscriptTurn[];
-}
+import { ChatHandoffSchema } from "@/lib/api-schemas";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as Body;
-    const { name, email, message, summary, transcript } = body;
+    const contentLength = Number(request.headers.get("content-length") ?? "0");
+    if (contentLength > 100_000) {
+      return NextResponse.json({ error: "Body too large" }, { status: 413 });
+    }
 
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json(
@@ -26,11 +16,14 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+    const parsed = ChatHandoffSchema.safeParse(await request.json());
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    }
+    const { name, email, message, summary, transcript, website } = parsed.data;
+
+    if (website && website.length > 0) {
+      return NextResponse.json({ success: true });
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
