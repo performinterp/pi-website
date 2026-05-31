@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { VideoFeedbackSchema, escapeHtml } from "@/lib/api-schemas";
+import { isAllowedOrigin } from "@/lib/origin-check";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const contentLength = Number(request.headers.get("content-length") ?? "0");
     if (contentLength > 10_000) {
       return NextResponse.json({ error: "Body too large" }, { status: 413 });

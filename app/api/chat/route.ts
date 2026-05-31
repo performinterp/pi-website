@@ -22,6 +22,7 @@ import {
   type SignLanguage,
 } from "@/lib/sign-videos";
 import { ChatBodySchema } from "@/lib/api-schemas";
+import { isAllowedOrigin } from "@/lib/origin-check";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -218,6 +219,13 @@ const tools = {
 };
 
 export async function POST(req: Request) {
+  if (!isAllowedOrigin(req)) {
+    return new Response(JSON.stringify({ error: "Forbidden" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   if (!process.env.ANTHROPIC_API_KEY) {
     return new Response(
       JSON.stringify({ error: "Assistant is not configured." }),
