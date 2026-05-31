@@ -39,6 +39,8 @@ export default function ContactForm() {
         form.elements.namedItem("enquiry_type") as HTMLSelectElement
       ).value,
       urgent: (form.elements.namedItem("urgent") as HTMLInputElement).checked,
+      website: (form.elements.namedItem("website") as HTMLInputElement | null)
+        ?.value ?? "",
     };
 
     try {
@@ -57,6 +59,24 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot — hidden from humans, visible to naive bots. Server
+          silently 200s if filled. See lib/api-schemas.ts. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        defaultValue=""
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: 0,
+          height: 0,
+          opacity: 0,
+        }}
+      />
+
       <div>
         <label
           htmlFor="enquiry-type"
