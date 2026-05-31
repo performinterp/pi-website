@@ -23,6 +23,13 @@ import {
 } from "@/lib/sign-videos";
 import { ChatBodySchema } from "@/lib/api-schemas";
 import { isAllowedOrigin } from "@/lib/origin-check";
+import {
+  chatRateLimitPerMinute,
+  chatRateLimitPerDay,
+  checkRateLimits,
+  getClientIp,
+  rateLimitResponse,
+} from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -225,6 +232,12 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
     });
   }
+
+  const rateDecision = await checkRateLimits(getClientIp(req), [
+    chatRateLimitPerMinute,
+    chatRateLimitPerDay,
+  ]);
+  if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return new Response(

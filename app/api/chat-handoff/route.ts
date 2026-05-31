@@ -2,12 +2,25 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { ChatHandoffSchema } from "@/lib/api-schemas";
 import { isAllowedOrigin } from "@/lib/origin-check";
+import {
+  formRateLimitPerMinute,
+  formRateLimitPerDay,
+  checkRateLimits,
+  getClientIp,
+  rateLimitResponse,
+} from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
     if (!isAllowedOrigin(request)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
+
+    const rateDecision = await checkRateLimits(getClientIp(request), [
+      formRateLimitPerMinute,
+      formRateLimitPerDay,
+    ]);
+    if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
     const contentLength = Number(request.headers.get("content-length") ?? "0");
     if (contentLength > 100_000) {
