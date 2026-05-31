@@ -46,6 +46,8 @@ function publisherFromUrl(url: string): string {
     if (host.includes("limpingchicken")) return "The Limping Chicken";
     if (host.includes("disabilityrights")) return "Disability Rights UK";
     if (host.includes("completemusicupdate")) return "Complete Music Update";
+    if (host.includes("rollingstone")) return "Rolling Stone";
+    if (host.includes("thestadiumbusiness")) return "The Stadium Business";
     return host;
   } catch {
     return "Press";
