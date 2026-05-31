@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 import type { NavigationContent } from "@/lib/types";
 
 interface MobileNavProps {
@@ -127,6 +127,23 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         >
           {nav.mainNav.map((item, i) => {
             const isActive = pathname === item.href;
+            const hasChildren = !!item.children?.length;
+
+            if (hasChildren) {
+              const childActive =
+                item.children?.some((c) => pathname === c.href) ?? false;
+              return (
+                <ExpandableNavGroup
+                  key={item.label}
+                  item={item}
+                  initiallyOpen={childActive}
+                  pathname={pathname}
+                  onClose={onClose}
+                  firstLinkRef={i === 0 ? firstLinkRef : undefined}
+                />
+              );
+            }
+
             return (
               <Link
                 key={item.href}
@@ -165,5 +182,77 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         </div>
       </div>
     </>
+  );
+}
+
+interface ExpandableNavGroupProps {
+  item: {
+    label: string;
+    href: string;
+    children?: { label: string; href: string }[];
+  };
+  initiallyOpen: boolean;
+  pathname: string;
+  onClose: () => void;
+  firstLinkRef?: React.RefObject<HTMLAnchorElement | null>;
+}
+
+function ExpandableNavGroup({
+  item,
+  initiallyOpen,
+  pathname,
+  onClose,
+  firstLinkRef,
+}: ExpandableNavGroupProps) {
+  const [open, setOpen] = useState(initiallyOpen);
+  const children = item.children ?? [];
+
+  return (
+    <div className="rounded-lg">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls={`mobile-submenu-${item.label}`}
+        className="flex w-full items-center justify-between rounded-lg px-4 py-4 text-lg font-medium tracking-wide text-white/80 hover:text-white hover:bg-white/5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-inset"
+      >
+        <span>{item.label}</span>
+        <ChevronDown
+          size={18}
+          aria-hidden="true"
+          className={`text-white/60 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <div
+        id={`mobile-submenu-${item.label}`}
+        className={`grid transition-all duration-200 ease-out ${
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="ml-3 mt-1 mb-2 flex flex-col gap-1 border-l-2 border-white/10 pl-3">
+            {children.map((child, ci) => {
+              const childActive = pathname === child.href;
+              return (
+                <Link
+                  key={child.href}
+                  href={child.href}
+                  ref={ci === 0 ? firstLinkRef : undefined}
+                  onClick={onClose}
+                  aria-current={childActive ? "page" : undefined}
+                  className={`rounded-md px-4 py-3 text-base font-medium tracking-wide transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pi-accent focus:ring-inset ${
+                    childActive
+                      ? "text-white bg-pi-accent/10 border-l-2 border-pi-accent -ml-[2px]"
+                      : "text-white/70 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {child.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

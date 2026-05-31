@@ -58,6 +58,11 @@ export interface NavItem {
   label: string;
   href: string;
   external?: boolean;
+  /** Optional submenu items. When present, the parent link's `href` is
+   *  used as the group's landing destination (clicking the label still
+   *  navigates), and the children render as a dropdown on desktop /
+   *  expandable group on mobile. */
+  children?: NavItem[];
 }
 
 export interface NavigationContent {

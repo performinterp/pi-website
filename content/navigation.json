@@ -5,10 +5,6 @@
       "href": "/events"
     },
     {
-      "label": "Venues",
-      "href": "/venues"
-    },
-    {
       "label": "Deaf Community",
       "href": "/deaf-community"
     },
@@ -21,12 +17,26 @@
       "href": "/interpreters"
     },
     {
-      "label": "Press",
-      "href": "/press"
-    },
-    {
       "label": "About",
       "href": "/about"
+    },
+    {
+      "label": "More",
+      "href": "/about",
+      "children": [
+        {
+          "label": "Venues",
+          "href": "/venues"
+        },
+        {
+          "label": "Press",
+          "href": "/press"
+        },
+        {
+          "label": "Testimonials",
+          "href": "/testimonials"
+        }
+      ]
     }
   ],
   "ctaButton": {
