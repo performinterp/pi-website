@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       "BBC, Arsenal, Wembley Stadium and more — coverage of PI's work in BSL access at live events.",
     url: `${SITE}/press/`,
     type: "website",
-    images: ["/og-image.jpg"],
+    // images handled by the root app/opengraph-image.tsx convention.
   },
 };
 
@@ -43,6 +43,9 @@ function publisherFromUrl(url: string): string {
     if (host.includes("nme")) return "NME";
     if (host.includes("itv")) return "ITV";
     if (host.includes("sky")) return "Sky";
+    if (host.includes("limpingchicken")) return "The Limping Chicken";
+    if (host.includes("disabilityrights")) return "Disability Rights UK";
+    if (host.includes("completemusicupdate")) return "Complete Music Update";
     return host;
   } catch {
     return "Press";

@@ -5,6 +5,10 @@
       "href": "/events"
     },
     {
+      "label": "Venues",
+      "href": "/venues"
+    },
+    {
       "label": "Deaf Community",
       "href": "/deaf-community"
     },
@@ -15,6 +19,10 @@
     {
       "label": "Interpreters",
       "href": "/interpreters"
+    },
+    {
+      "label": "Press",
+      "href": "/press"
     },
     {
       "label": "About",
