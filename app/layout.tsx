@@ -43,7 +43,19 @@ export const metadata: Metadata = {
     title: "Performance Interpreting - BSL & ISL for Live Events",
     description:
       "The UK and Ireland's largest, award-winning performance interpreting provider. BSL & ISL access across festivals, sport, arenas, broadcast and beyond.",
-    images: ["/og-image.jpg"],
+    siteName: "Performance Interpreting",
+    locale: "en_GB",
+    type: "website",
+    // images intentionally omitted — Next picks up app/opengraph-image.tsx
+    // automatically via the file-system convention, generating a branded
+    // 1200x630 PNG at request time.
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Performance Interpreting - BSL & ISL for Live Events",
+    description:
+      "The UK and Ireland's largest, award-winning performance interpreting provider. BSL & ISL access across festivals, sport, arenas, broadcast and beyond.",
+    // images also handled by app/opengraph-image.tsx via Next conventions.
   },
 };
 
