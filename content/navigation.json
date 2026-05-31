@@ -17,13 +17,13 @@
       "href": "/interpreters"
     },
     {
-      "label": "About",
-      "href": "/about"
-    },
-    {
       "label": "More",
       "href": "/about",
       "children": [
+        {
+          "label": "About",
+          "href": "/about"
+        },
         {
           "label": "Venues",
           "href": "/venues"
