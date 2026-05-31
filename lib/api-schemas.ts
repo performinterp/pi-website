@@ -8,7 +8,9 @@ const NoHeaderInjection = z
 const Email = NoHeaderInjection.pipe(z.email().max(254));
 
 // Honeypot field — humans leave it empty; bots fill every input.
-const Honeypot = z.string().max(0).optional();
+// Accept any string so the route can silently 200 on non-empty values
+// rather than 400'ing (which would let bots detect+tune around the trap).
+const Honeypot = z.string().max(1000).optional();
 
 export const ContactSchema = z.object({
   name: NoHeaderInjection.pipe(z.string().trim().min(1).max(100)),
