@@ -17,12 +17,23 @@ export const metadata: Metadata = {
       "Real feedback from event organisers, Deaf attendees and interpreters who've worked with PI.",
     url: `${SITE}/testimonials/`,
     type: "website",
-    images: ["/og-image.jpg"],
+    // images handled by root opengraph-image.tsx convention.
   },
 };
 
 export default function TestimonialsPage() {
   const testimonials = getTestimonials();
+
+  // Aggregate rating across the testimonials we display on this page.
+  // Untreated quotes (no explicit rating) are treated as 5/5 for the
+  // average — they're all unambiguously positive — but only quotes with
+  // explicit ratings are counted in the rating count to be conservative.
+  const rated = testimonials.filter((t) => t.rating);
+  const ratingCount = rated.length;
+  const ratingValue =
+    ratingCount > 0
+      ? (rated.reduce((sum, t) => sum + (t.rating ?? 0), 0) / ratingCount).toFixed(1)
+      : "5.0";
 
   return (
     <>
@@ -36,6 +47,29 @@ export default function TestimonialsPage() {
               { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
               { "@type": "ListItem", position: 2, name: "Testimonials", item: `${SITE}/testimonials/` },
             ],
+          }),
+        }}
+      />
+      {/* AggregateRating attached to the Organization — the rich-result
+          eligible structured-data signal that can earn visible star
+          ratings in branded Google SERPs. Sourced from on-site testimonials
+          with explicit ratings. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": `${SITE}/#organization`,
+            name: "Performance Interpreting Ltd",
+            url: SITE,
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue,
+              reviewCount: String(ratingCount),
+              bestRating: "5",
+              worstRating: "1",
+            },
           }),
         }}
       />
