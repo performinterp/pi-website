@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const enquiryTypes = [
   { value: "organiser", label: "Event organiser - book interpreters" },
@@ -96,45 +96,187 @@ const INTERPRETER_GOALS = [
   { value: "other", label: "Other" },
 ];
 
-// Field-style classes shared across every input/select so they look like
-// part of the same form. Single source of truth — change once, propagate.
 const inputClass =
   "mt-2 w-full rounded-lg border border-pi-ink/15 bg-white px-4 py-3 text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent";
 const labelClass = "block text-sm font-medium text-pi-ink/80";
+
+// URL params that the form will accept as pre-fills via PIPA's deep-link
+// flow. EXPLICITLY EXCLUDES `urgent`, `message`, `consent`, `name`, and
+// `email` so an attacker can't craft a URL that pre-fills hostile
+// content and the urgent flag, then sends the link to a victim who
+// submits with only their name/email visible-edited. The fields below
+// all correspond to structured questions PIPA already gathers during
+// conversation; the user always controls name/email/message themselves.
+const URL_PREFILLABLE_FIELDS: ReadonlySet<string> = new Set([
+  // Organiser
+  "event_name", "event_type", "venue", "city", "event_dates",
+  "audience_size", "event_format", "language_needed",
+  "other_access_needs", "lead_time",
+  // Deaf community
+  "event_for_access", "event_date", "language_preference",
+  "specific_access_need", "contacted_venue",
+  // Interpreter
+  "nrcpd_status", "languages", "years_experience",
+  "specialisms", "region", "looking_for",
+]);
+
+const MULTI_VALUE_FIELDS: ReadonlySet<string> = new Set([
+  "languages", "specialisms", "looking_for",
+]);
+
+type Prefill = Record<string, string | string[]>;
+
+// Parse URL params into a prefill object SYNCHRONOUSLY (before first paint)
+// so `defaultValue` props see the correct value at mount time. Returns {}
+// during SSR. Only fields on URL_PREFILLABLE_FIELDS are accepted; everything
+// else is ignored. Multi-value fields accept comma-separated lists.
+function parseUrlPrefill(): Prefill {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const out: Prefill = {};
+  for (const [key, raw] of params.entries()) {
+    if (key === "enquiry_type") continue; // handled separately for the type state
+    if (!URL_PREFILLABLE_FIELDS.has(key)) continue;
+    if (MULTI_VALUE_FIELDS.has(key)) {
+      out[key] = raw.split(",").map((s) => s.trim()).filter(Boolean);
+    } else {
+      out[key] = raw;
+    }
+  }
+  return out;
+}
+
+function readEnquiryTypeFromUrl(): string {
+  if (typeof window === "undefined") return "";
+  const t = new URLSearchParams(window.location.search).get("enquiry_type");
+  if (t && enquiryTypes.some((et) => et.value === t)) return t;
+  return "";
+}
+
+function prefillStr(prefill: Prefill, key: string): string {
+  return typeof prefill[key] === "string" ? (prefill[key] as string) : "";
+}
+
+function prefillHas(prefill: Prefill, key: string, value: string): boolean {
+  return Array.isArray(prefill[key]) && (prefill[key] as string[]).includes(value);
+}
+
+// ------------------------------------------------------------------
+// Module-level field components — defined OUTSIDE ContactForm so React
+// preserves their identity across re-renders. Defining them inside the
+// parent meant every render created a brand-new component type and
+// React unmounted+remounted the underlying <input>, wiping any value
+// the user had typed since the last render.
+// ------------------------------------------------------------------
+
+function TextField({
+  name,
+  label,
+  prefill,
+  placeholder,
+}: {
+  name: string;
+  label: string;
+  prefill: Prefill;
+  placeholder?: string;
+}) {
+  return (
+    <div>
+      <label htmlFor={name} className={labelClass}>
+        {label}
+      </label>
+      <input
+        type="text"
+        id={name}
+        name={name}
+        defaultValue={prefillStr(prefill, name)}
+        placeholder={placeholder}
+        className={inputClass}
+      />
+    </div>
+  );
+}
+
+function SelectField({
+  name,
+  label,
+  prefill,
+  options,
+}: {
+  name: string;
+  label: string;
+  prefill: Prefill;
+  options: { value: string; label: string }[];
+}) {
+  return (
+    <div>
+      <label htmlFor={name} className={labelClass}>
+        {label}
+      </label>
+      <select
+        id={name}
+        name={name}
+        defaultValue={prefillStr(prefill, name)}
+        className={inputClass}
+      >
+        <option value="">Select...</option>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function CheckboxGroupField({
+  name,
+  label,
+  prefill,
+  options,
+}: {
+  name: string;
+  label: string;
+  prefill: Prefill;
+  options: { value: string; label: string }[];
+}) {
+  return (
+    <div>
+      <p className={labelClass}>{label}</p>
+      <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {options.map((o) => (
+          <label
+            key={o.value}
+            className="flex items-center gap-2 rounded-lg border border-pi-ink/15 bg-white px-3 py-2 text-sm text-pi-ink/80 transition hover:border-pi-accent/40"
+          >
+            <input
+              type="checkbox"
+              name={name}
+              value={o.value}
+              defaultChecked={prefillHas(prefill, name, o.value)}
+              className="h-4 w-4 rounded border-pi-ink/20 bg-white text-pi-accent focus:ring-pi-accent"
+            />
+            {o.label}
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
-  const [enquiryType, setEnquiryType] = useState<string>("");
-  // Single source of pre-filled values from PIPA deep-link or partner URL.
-  // Keys match the schema field names so we can just spread `prefill[k]` into
-  // defaultValue / checked props.
-  const [prefill, setPrefill] = useState<Record<string, string | string[]>>({});
-
-  // Hydrate from URL params on mount. PIPA's organiser quote prompt offers
-  // a link like /contact?enquiry_type=organiser&event_name=X&venue=Y. We
-  // accept any known field; unknown params are ignored. Multi-value fields
-  // (languages, specialisms, looking_for) accept comma-separated lists.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    const next: Record<string, string | string[]> = {};
-    const t = params.get("enquiry_type");
-    if (t && enquiryTypes.some((et) => et.value === t)) {
-      setEnquiryType(t);
-    }
-    const multi = new Set(["languages", "specialisms", "looking_for"]);
-    for (const [key, raw] of params.entries()) {
-      if (key === "enquiry_type") continue;
-      if (multi.has(key)) {
-        next[key] = raw.split(",").map((s) => s.trim()).filter(Boolean);
-      } else {
-        next[key] = raw;
-      }
-    }
-    setPrefill(next);
-  }, []);
+  // Synchronous init so defaultValue / defaultChecked are correct at FIRST
+  // mount — fixing the prior bug where prefill landed via useEffect after
+  // paint and defaultValue (which only applies on mount) silently dropped
+  // the deep-linked values.
+  const [enquiryType, setEnquiryType] = useState<string>(readEnquiryTypeFromUrl);
+  const [prefill] = useState<Prefill>(parseUrlPrefill);
 
   if (status === "sent") {
     return (
@@ -153,12 +295,6 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-
-    // Collect all named fields from the form. Multi-value checkbox groups
-    // (languages, specialisms, looking_for) come out as repeated entries,
-    // so we use getAll for those. Empty strings are dropped before send so
-    // the server doesn't have to filter — schema fields are .optional() on
-    // the type-specific side.
     const get = (k: string) => (formData.get(k) ?? "").toString();
     const getAll = (k: string) =>
       formData.getAll(k).map((v) => v.toString()).filter(Boolean);
@@ -169,13 +305,9 @@ export default function ContactForm() {
       message: get("message"),
       enquiry_type: get("enquiry_type"),
       urgent: (form.elements.namedItem("urgent") as HTMLInputElement)?.checked,
-      // Honeypot — form field is `nickname`; server schema keys on `website`.
       website: get("nickname"),
     };
 
-    // Per-type structured fields. Skip the ones for types not currently
-    // selected to avoid sending leftover values from a half-finished switch
-    // between enquiry types.
     if (baseData.enquiry_type === "organiser") {
       Object.assign(baseData, {
         event_name: get("event_name") || undefined,
@@ -224,104 +356,9 @@ export default function ContactForm() {
     }
   }
 
-  // -------- Render helpers --------
-  const prefilledStr = (k: string): string =>
-    typeof prefill[k] === "string" ? (prefill[k] as string) : "";
-  const isPrefilledIn = (k: string, v: string): boolean =>
-    Array.isArray(prefill[k]) && (prefill[k] as string[]).includes(v);
-
-  function TextField({
-    name,
-    label,
-    placeholder,
-  }: {
-    name: string;
-    label: string;
-    placeholder?: string;
-  }) {
-    return (
-      <div>
-        <label htmlFor={name} className={labelClass}>
-          {label}
-        </label>
-        <input
-          type="text"
-          id={name}
-          name={name}
-          defaultValue={prefilledStr(name)}
-          placeholder={placeholder}
-          className={inputClass}
-        />
-      </div>
-    );
-  }
-
-  function SelectField({
-    name,
-    label,
-    options,
-  }: {
-    name: string;
-    label: string;
-    options: { value: string; label: string }[];
-  }) {
-    return (
-      <div>
-        <label htmlFor={name} className={labelClass}>
-          {label}
-        </label>
-        <select
-          id={name}
-          name={name}
-          defaultValue={prefilledStr(name)}
-          className={inputClass}
-        >
-          <option value="">Select...</option>
-          {options.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  }
-
-  function CheckboxGroupField({
-    name,
-    label,
-    options,
-  }: {
-    name: string;
-    label: string;
-    options: { value: string; label: string }[];
-  }) {
-    return (
-      <div>
-        <p className={labelClass}>{label}</p>
-        <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {options.map((o) => (
-            <label
-              key={o.value}
-              className="flex items-center gap-2 rounded-lg border border-pi-ink/15 bg-white px-3 py-2 text-sm text-pi-ink/80 transition hover:border-pi-accent/40"
-            >
-              <input
-                type="checkbox"
-                name={name}
-                value={o.value}
-                defaultChecked={isPrefilledIn(name, o.value)}
-                className="h-4 w-4 rounded border-pi-ink/20 bg-white text-pi-accent focus:ring-pi-accent"
-              />
-              {o.label}
-            </label>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // -------- Per-type field sections --------
-
+  // Per-type section JSX. These are inline expressions (not components),
+  // so they don't suffer the inner-component remount bug — they just
+  // render their tree directly with the module-level helpers.
   const OrganiserSection = (
     <section className="space-y-5 rounded-2xl border border-pi-ink/10 bg-pi-cream/40 p-5 md:p-6">
       <header>
@@ -332,39 +369,15 @@ export default function ContactForm() {
         </p>
       </header>
       <div className="grid gap-5 md:grid-cols-2">
-        <TextField
-          name="event_name"
-          label="Event name"
-          placeholder="e.g. Glastonbury 2026, The Lion King UK tour"
-        />
-        <SelectField
-          name="event_type"
-          label="Event type"
-          options={ORGANISER_EVENT_TYPES}
-        />
-        <TextField name="venue" label="Venue" placeholder="e.g. The O2" />
-        <TextField name="city" label="City" placeholder="e.g. London" />
-        <TextField
-          name="event_dates"
-          label="Date(s)"
-          placeholder="e.g. 13 Jun 2026 or 13–15 Jun 2026"
-        />
-        <SelectField
-          name="audience_size"
-          label="Expected audience size"
-          options={AUDIENCE_SIZES}
-        />
-        <SelectField
-          name="event_format"
-          label="Format"
-          options={EVENT_FORMATS}
-        />
-        <SelectField
-          name="language_needed"
-          label="Language needed"
-          options={LANGUAGES_NEEDED}
-        />
-        <SelectField name="lead_time" label="Lead time" options={LEAD_TIMES} />
+        <TextField name="event_name" label="Event name" prefill={prefill} placeholder="e.g. Glastonbury 2026, The Lion King UK tour" />
+        <SelectField name="event_type" label="Event type" prefill={prefill} options={ORGANISER_EVENT_TYPES} />
+        <TextField name="venue" label="Venue" prefill={prefill} placeholder="e.g. The O2" />
+        <TextField name="city" label="City" prefill={prefill} placeholder="e.g. London" />
+        <TextField name="event_dates" label="Date(s)" prefill={prefill} placeholder="e.g. 13 Jun 2026 or 13–15 Jun 2026" />
+        <SelectField name="audience_size" label="Expected audience size" prefill={prefill} options={AUDIENCE_SIZES} />
+        <SelectField name="event_format" label="Format" prefill={prefill} options={EVENT_FORMATS} />
+        <SelectField name="language_needed" label="Language needed" prefill={prefill} options={LANGUAGES_NEEDED} />
+        <SelectField name="lead_time" label="Lead time" prefill={prefill} options={LEAD_TIMES} />
       </div>
       <div>
         <label htmlFor="other_access_needs" className={labelClass}>
@@ -374,7 +387,7 @@ export default function ContactForm() {
           id="other_access_needs"
           name="other_access_needs"
           rows={2}
-          defaultValue={prefilledStr("other_access_needs")}
+          defaultValue={prefillStr(prefill, "other_access_needs")}
           className={inputClass}
           placeholder="e.g. live captions, induction loop, wheelchair access info..."
         />
@@ -392,26 +405,10 @@ export default function ContactForm() {
         </p>
       </header>
       <div className="grid gap-5 md:grid-cols-2">
-        <TextField
-          name="event_for_access"
-          label="Event you want access to"
-          placeholder="e.g. Wembley Beyoncé, 14 Jun"
-        />
-        <TextField
-          name="event_date"
-          label="Date of event"
-          placeholder="e.g. 14 Jun 2026"
-        />
-        <SelectField
-          name="language_preference"
-          label="Language preference"
-          options={DEAF_LANGUAGE_PREFERENCES}
-        />
-        <SelectField
-          name="contacted_venue"
-          label="Have you contacted the venue yet?"
-          options={CONTACTED_VENUE_OPTIONS}
-        />
+        <TextField name="event_for_access" label="Event you want access to" prefill={prefill} placeholder="e.g. Wembley Beyoncé, 14 Jun" />
+        <TextField name="event_date" label="Date of event" prefill={prefill} placeholder="e.g. 14 Jun 2026" />
+        <SelectField name="language_preference" label="Language preference" prefill={prefill} options={DEAF_LANGUAGE_PREFERENCES} />
+        <SelectField name="contacted_venue" label="Have you contacted the venue yet?" prefill={prefill} options={CONTACTED_VENUE_OPTIONS} />
       </div>
       <div>
         <label htmlFor="specific_access_need" className={labelClass}>
@@ -421,7 +418,7 @@ export default function ContactForm() {
           id="specific_access_need"
           name="specific_access_need"
           rows={2}
-          defaultValue={prefilledStr("specific_access_need")}
+          defaultValue={prefillStr(prefill, "specific_access_need")}
           className={inputClass}
           placeholder="e.g. BSL interpreter only, plus wheelchair seating"
         />
@@ -441,33 +438,13 @@ export default function ContactForm() {
         </p>
       </header>
       <div className="grid gap-5 md:grid-cols-2">
-        <SelectField
-          name="nrcpd_status"
-          label="NRCPD status"
-          options={NRCPD_STATUSES}
-        />
-        <SelectField
-          name="years_experience"
-          label="Years interpreting"
-          options={YEARS_EXPERIENCE}
-        />
-        <TextField name="region" label="Region you mainly work in" />
+        <SelectField name="nrcpd_status" label="NRCPD status" prefill={prefill} options={NRCPD_STATUSES} />
+        <SelectField name="years_experience" label="Years interpreting" prefill={prefill} options={YEARS_EXPERIENCE} />
+        <TextField name="region" label="Region you mainly work in" prefill={prefill} />
       </div>
-      <CheckboxGroupField
-        name="languages"
-        label="Language(s)"
-        options={INTERPRETER_LANGUAGES}
-      />
-      <CheckboxGroupField
-        name="specialisms"
-        label="Specialisms (tick all that apply)"
-        options={SPECIALISMS}
-      />
-      <CheckboxGroupField
-        name="looking_for"
-        label="What you're looking for"
-        options={INTERPRETER_GOALS}
-      />
+      <CheckboxGroupField name="languages" label="Language(s)" prefill={prefill} options={INTERPRETER_LANGUAGES} />
+      <CheckboxGroupField name="specialisms" label="Specialisms (tick all that apply)" prefill={prefill} options={SPECIALISMS} />
+      <CheckboxGroupField name="looking_for" label="What you're looking for" prefill={prefill} options={INTERPRETER_GOALS} />
     </section>
   );
 
@@ -517,7 +494,6 @@ export default function ContactForm() {
             id="name"
             name="name"
             required
-            defaultValue={prefilledStr("name")}
             className={inputClass}
             placeholder="Your name"
           />
@@ -531,7 +507,6 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
-            defaultValue={prefilledStr("email")}
             className={inputClass}
             placeholder="your@email.com"
           />
@@ -551,7 +526,6 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
-          defaultValue={prefilledStr("message")}
           className={inputClass}
           placeholder={
             enquiryType === "organiser"
@@ -566,7 +540,6 @@ export default function ContactForm() {
           type="checkbox"
           id="urgent"
           name="urgent"
-          defaultChecked={prefilledStr("urgent") === "true"}
           className="h-4 w-4 rounded border-pi-ink/20 bg-white text-pi-accent focus:ring-pi-accent"
         />
         <label htmlFor="urgent" className="text-sm text-pi-ink/65">

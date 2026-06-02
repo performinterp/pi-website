@@ -322,13 +322,19 @@ function renderField(key: string, value: unknown): string | null {
 // empty array when the type isn't one of the structured ones (e.g. "other")
 // or when no relevant fields were submitted, so the caller can decide
 // whether to render a section header.
+//
+// Note: enquiryType is a `z.string()` from the schema (any 1-50 chars), so
+// we MUST guard against prototype keys — `CONTACT_FIELD_GROUPS["constructor"]`
+// would otherwise return Object's constructor (truthy function), pass the
+// `!fields` check, then throw TypeError in `for...of` (functions aren't
+// iterable). Object.hasOwn() rejects prototype chain lookups cleanly.
 export function renderStructuredFields(
   data: Record<string, unknown>,
   enquiryType: string
 ): string[] {
+  if (!Object.hasOwn(CONTACT_FIELD_GROUPS, enquiryType)) return [];
   const fields =
     CONTACT_FIELD_GROUPS[enquiryType as keyof typeof CONTACT_FIELD_GROUPS];
-  if (!fields) return [];
   const lines: string[] = [];
   for (const key of fields) {
     const rendered = renderField(key, data[key]);
