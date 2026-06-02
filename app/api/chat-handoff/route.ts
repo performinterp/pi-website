@@ -1,6 +1,10 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { ChatHandoffSchema } from "@/lib/api-schemas";
+import {
+  ChatHandoffSchema,
+  renderStructuredFields,
+  SECTION_HEADERS,
+} from "@/lib/api-schemas";
 import { isAllowedOrigin } from "@/lib/origin-check";
 import {
   formRateLimitPerMinute,
@@ -44,7 +48,9 @@ export async function POST(request: Request) {
     if (!parsed.success) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
-    const { name, email, message, summary, transcript, website } = parsed.data;
+    const {
+      name, email, message, enquiry_type, summary, transcript, website,
+    } = parsed.data;
 
     if (website && website.length > 0) {
       return NextResponse.json({ success: true });
@@ -67,6 +73,15 @@ export async function POST(request: Request) {
       })
       .join("\n\n");
 
+    // When PIPA captured structured fields during the conversation (e.g.
+    // event_name, venue, date for an organiser quote), render them as a
+    // labelled section so staff see the same brief layout as a /contact
+    // submission — channel-agnostic email shape.
+    const structuredLines = enquiry_type
+      ? renderStructuredFields(parsed.data, enquiry_type)
+      : [];
+    const sectionHeader = enquiry_type ? SECTION_HEADERS[enquiry_type] : null;
+
     const lines: string[] = [];
     lines.push(`Name: ${name}`);
     lines.push(`Email: ${email}`);
@@ -74,6 +89,11 @@ export async function POST(request: Request) {
     if (summary?.topic) lines.push(`Topic: ${summary.topic}`);
     if (summary?.tried) lines.push(`What they tried: ${summary.tried}`);
     if (summary?.question) lines.push(`Their question: ${summary.question}`);
+
+    if (structuredLines.length > 0 && sectionHeader) {
+      lines.push("", sectionHeader, ...structuredLines);
+    }
+
     lines.push("");
     lines.push("Message from user (edited):");
     lines.push(message);

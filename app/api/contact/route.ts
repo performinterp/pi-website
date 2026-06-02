@@ -1,6 +1,10 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { ContactSchema } from "@/lib/api-schemas";
+import {
+  ContactSchema,
+  renderStructuredFields,
+  SECTION_HEADERS,
+} from "@/lib/api-schemas";
 import { isAllowedOrigin } from "@/lib/origin-check";
 import {
   formRateLimitPerMinute,
@@ -64,6 +68,26 @@ export async function POST(request: Request) {
       other: "Other",
     };
 
+    // Render the structured per-type fields the form / PIPA collected.
+    // For organiser → EVENT DETAILS; deaf → ACCESS NEEDS; interpreter →
+    // INTERPRETER PROFILE. When the user picked "other" or didn't fill
+    // any structured field, we skip the section header entirely.
+    const structuredLines = renderStructuredFields(parsed.data, enquiry_type);
+    const sectionHeader = SECTION_HEADERS[enquiry_type];
+
+    const lines: string[] = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Enquiry type: ${enquiryLabels[enquiry_type] || enquiry_type}`,
+    ];
+    if (urgent) lines.push("⚠️ URGENT - event within 2 weeks");
+
+    if (structuredLines.length > 0 && sectionHeader) {
+      lines.push("", sectionHeader, ...structuredLines);
+    }
+
+    lines.push("", "MESSAGE", message);
+
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
@@ -71,17 +95,7 @@ export async function POST(request: Request) {
       to: ["enquiries@performanceinterpreting.co.uk"],
       replyTo: email,
       subject: `${urgentLabel}New enquiry from ${name} (${enquiryLabels[enquiry_type] || enquiry_type})`,
-      text: [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Enquiry type: ${enquiryLabels[enquiry_type] || enquiry_type}`,
-        urgent ? `⚠️ URGENT - event within 2 weeks` : "",
-        "",
-        "Message:",
-        message,
-      ]
-        .filter(Boolean)
-        .join("\n"),
+      text: lines.join("\n"),
     });
 
     return NextResponse.json({ success: true });
