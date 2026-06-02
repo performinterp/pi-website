@@ -34,11 +34,15 @@ export const formRateLimitPerMinute = makeLimiter(5, "60 s", "rl:form:min");
 export const formRateLimitPerDay = makeLimiter(20, "1 d", "rl:form:day");
 
 export function getClientIp(req: Request): string {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    req.headers.get("x-real-ip") ??
-    "unknown"
-  );
+  // `??` only catches null/undefined, so an XFF header of " " trims to ""
+  // and would still be returned, sharing one Upstash bucket across every
+  // attacker who can craft that header. Filter empty strings too — and
+  // fall through to "unknown" only when no real header value exists.
+  const xff = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  if (xff) return xff;
+  const realIp = req.headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+  return "unknown";
 }
 
 type Limiter = ReturnType<typeof makeLimiter>;
