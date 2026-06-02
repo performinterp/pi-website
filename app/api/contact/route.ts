@@ -67,6 +67,17 @@ export async function POST(request: Request) {
       interpreter: "Interpreter",
       other: "Other",
     };
+    // Same prototype-key safety as renderStructuredFields:
+    // `enquiryLabels["constructor"]` would otherwise return Object's
+    // constructor function and the template-string interpolation would
+    // call toString on it, producing inbox subjects like
+    //   "New enquiry from x (function Object() { [native code] })"
+    // which look alarming and aren't useful for triage. Fall back to
+    // "Other" for any unrecognised enquiry_type — the raw value still
+    // lands in the email body so the audit trail is preserved.
+    const enquiryLabel = Object.hasOwn(enquiryLabels, enquiry_type)
+      ? enquiryLabels[enquiry_type]
+      : "Other";
 
     // Render the structured per-type fields the form / PIPA collected.
     // For organiser → EVENT DETAILS; deaf → ACCESS NEEDS; interpreter →
@@ -78,7 +89,7 @@ export async function POST(request: Request) {
     const lines: string[] = [
       `Name: ${name}`,
       `Email: ${email}`,
-      `Enquiry type: ${enquiryLabels[enquiry_type] || enquiry_type}`,
+      `Enquiry type: ${enquiryLabel} (raw: ${enquiry_type})`,
     ];
     if (urgent) lines.push("⚠️ URGENT - event within 2 weeks");
 
@@ -105,7 +116,7 @@ export async function POST(request: Request) {
       from: "PI Website <website@performanceinterpreting.co.uk>",
       to: ["enquiries@performanceinterpreting.co.uk"],
       replyTo: email,
-      subject: `${urgentLabel}New enquiry from ${name} (${enquiryLabels[enquiry_type] || enquiry_type})`,
+      subject: `${urgentLabel}New enquiry from ${name} (${enquiryLabel})`,
       text: lines.join("\n"),
     });
 
