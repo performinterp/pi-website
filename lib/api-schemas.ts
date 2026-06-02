@@ -73,10 +73,17 @@ export const ChatHandoffSchema = z.object({
 });
 
 // pi-feedback-uploads stores videos in Vercel Blob; returned URL host is
-// <tenant>.public.blob.vercel-storage.com. Keep the upload service host too
-// as a future-proof allowance.
+// <tenant>.public.blob.vercel-storage.com. The .public.blob.vercel-storage.com
+// domain is multi-tenant (any Vercel customer can publish there), so the
+// host-suffix check alone lets an attacker upload phishing content to their
+// own tenant and submit that URL — bypassing the A-H4 fix. Lock down to the
+// upload service's KNOWN path pattern: `/feedback/<ISO-timestamp>-<8 hex>.<ext>`
+// (see pi-feedback-uploads/api/upload.js line 142, plus Vercel Blob's optional
+// random-suffix appended after the extension).
 const ALLOWED_UPLOAD_HOSTS = ["pi-feedback-uploads.vercel.app"];
 const ALLOWED_UPLOAD_SUFFIXES = [".public.blob.vercel-storage.com"];
+const UPLOAD_PATH_PATTERN =
+  /^\/feedback\/\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z-[a-f0-9]{8}\.(mp4|mov|webm)(-[A-Za-z0-9]+)?$/;
 
 export const VideoFeedbackSchema = z.object({
   url: z
@@ -86,8 +93,17 @@ export const VideoFeedbackSchema = z.object({
         try {
           const u = new URL(url);
           if (u.protocol !== "https:") return false;
-          if (ALLOWED_UPLOAD_HOSTS.includes(u.hostname)) return true;
-          return ALLOWED_UPLOAD_SUFFIXES.some((s) => u.hostname.endsWith(s));
+          // Host gate.
+          const hostOk =
+            ALLOWED_UPLOAD_HOSTS.includes(u.hostname) ||
+            ALLOWED_UPLOAD_SUFFIXES.some((s) => u.hostname.endsWith(s));
+          if (!hostOk) return false;
+          // Path gate — restricts the multi-tenant Vercel Blob domain to
+          // URLs that match the upload service's exact filename template.
+          // An attacker would have to (a) own a Vercel tenant AND (b) be
+          // able to upload at this exact path pattern, narrowing the
+          // phishing-via-trusted-domain vector substantially.
+          return UPLOAD_PATH_PATTERN.test(u.pathname);
         } catch {
           return false;
         }
