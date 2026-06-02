@@ -267,7 +267,11 @@ export async function POST(req: Request) {
     });
   }
   const { audience } = parsed.data;
-  const messages = parsed.data.messages as UIMessage[];
+  // The Zod schema (lib/api-schemas.ts) gives us a minimum shape — role +
+  // parts[{type}] — that the classifier code below safely reads. The AI
+  // SDK's UIMessage is structurally broader (typed `parts` variants), so a
+  // direct cast doesn't overlap; widen via `unknown` first.
+  const messages = parsed.data.messages as unknown as UIMessage[];
 
   // Layer 1 — input classifier guard. Run a tiny non-streaming call against
   // the latest user message; if it's clearly off-topic (code, math, jokes,

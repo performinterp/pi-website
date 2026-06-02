@@ -84,8 +84,23 @@ export const VideoFeedbackSchema = z.object({
     ),
 });
 
+// UIMessage shape from `ai` package: { role: 'user'|'assistant'|'system',
+// parts: Array<{type: string, ...}> }. We validate just enough that the
+// route's downstream `messages.find(m => m.role === ...)` and
+// `lastUser.parts.filter(...)` can't crash on malformed input (null
+// element, missing parts, etc.). `parts` items are kept as z.unknown()
+// because the AI SDK has many part shapes (text, file, tool-call, …) —
+// convertToModelMessages handles the rest.
+const UIMessagePart = z.object({ type: z.string() }).passthrough();
+const UIMessageLike = z
+  .object({
+    role: z.enum(["user", "assistant", "system"]),
+    parts: z.array(UIMessagePart).max(200),
+  })
+  .passthrough();
+
 export const ChatBodySchema = z.object({
-  messages: z.array(z.unknown()).min(1).max(50),
+  messages: z.array(UIMessageLike).min(1).max(50),
   audience: z
     .enum(["deaf", "organiser", "interpreter", "skipped"])
     .nullable()
