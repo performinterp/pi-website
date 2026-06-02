@@ -1,4 +1,11 @@
-const PROD_ORIGIN = "https://performanceinterpreting.co.uk";
+// Both production hostnames. Vercel auto-redirects www → apex (307), but
+// a direct curl/non-browser integration that doesn't follow redirects, or
+// a same-origin browser fetch from the www-served HTML before the redirect
+// settles, would carry the www Origin. Allowlist both.
+const PROD_ORIGINS = [
+  "https://performanceinterpreting.co.uk",
+  "https://www.performanceinterpreting.co.uk",
+];
 
 // Vercel injects the current deploy's own URL into VERCEL_URL (always set on
 // any Vercel build) and VERCEL_BRANCH_URL (preview/prod branch alias). Allow
@@ -11,7 +18,7 @@ const VERCEL_BRANCH_URL = process.env.VERCEL_BRANCH_URL ? `https://${process.env
 const IS_NON_PROD = process.env.VERCEL_ENV !== "production";
 
 const ALLOWED_ORIGINS = new Set<string>([
-  PROD_ORIGIN,
+  ...PROD_ORIGINS,
   ...(IS_NON_PROD && VERCEL_URL ? [VERCEL_URL] : []),
   ...(IS_NON_PROD && VERCEL_BRANCH_URL ? [VERCEL_BRANCH_URL] : []),
   ...(IS_NON_PROD ? ["http://localhost:3000", "http://127.0.0.1:3000"] : []),
