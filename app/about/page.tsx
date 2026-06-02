@@ -28,8 +28,23 @@ export default function AboutPage() {
             url: `${SITE}/about/`,
             name: page.title,
             description: page.metaDescription,
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": `${SITE}/#website` },
             mainEntity: { "@id": `${SITE}/#organization` },
             primaryImageOfPage: `${SITE}${page.heroImage}`,
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["h1", "h2"],
+            },
+            mentions: [
+              { "@type": "Organization", name: "Little Mix", sameAs: "https://en.wikipedia.org/wiki/Little_Mix" },
+              { "@type": "Legislation", name: "Equality Act 2010", sameAs: "https://www.legislation.gov.uk/ukpga/2010/15" },
+              { "@type": "Place", name: "Wembley Stadium", sameAs: "https://en.wikipedia.org/wiki/Wembley_Stadium" },
+              { "@type": "Organization", name: "NRCPD", url: "https://www.nrcpd.org.uk/" },
+              { "@type": "Language", name: "British Sign Language", sameAs: "https://en.wikipedia.org/wiki/British_Sign_Language" },
+            ],
           }),
         }}
       />

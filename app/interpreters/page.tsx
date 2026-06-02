@@ -56,6 +56,94 @@ const INTERPRETER_FAQS: Array<{ question: string; answer: string }> = [
 export default function InterpretersPage() {
   return (
     <>
+      {/* ─── Service schema - interpreter careers route ──────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": `${SITE}/interpreters/#interpreter-careers`,
+            name: "Join Performance Interpreting as an Event Interpreter",
+            alternateName: [
+              "BSL Interpreter Careers",
+              "Festival Interpreter Jobs UK",
+              "Live Event Sign Language Interpreter Jobs",
+              "Join PI as a BSL Interpreter",
+              "Performance Interpreter Recruitment",
+            ],
+            serviceType: "Recruitment route for NRCPD-registered BSL and ISL interpreters into live event work",
+            category: "Interpreter recruitment and development",
+            provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+            areaServed: [
+              { "@type": "Country", name: "United Kingdom" },
+              { "@type": "Country", name: "Ireland" },
+            ],
+            audience: {
+              "@type": "Audience",
+              audienceType:
+                "NRCPD-registered BSL interpreters, ISL interpreters, RSLI/CSW pathway interpreters, Deaf interpreters, BSL volunteers Level 6+",
+            },
+            availableLanguage: [
+              { "@type": "Language", name: "British Sign Language", alternateName: "BSL" },
+              { "@type": "Language", name: "Irish Sign Language", alternateName: "ISL" },
+              { "@type": "Language", name: "English" },
+            ],
+            description:
+              "Performance Interpreting is recruiting NRCPD-registered interpreters for live event work - festivals, Premier League stadiums, broadcast, comedy and theatre. Includes the PI Academy training pathway and volunteer route in.",
+            url: `${SITE}/interpreters/`,
+            image: `${SITE}/images/interpreters-team.jpg`,
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Routes into Performance Interpreting",
+              itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Joining the PI interpreter pool (NRCPD-registered)" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "PI Academy CPD courses and mentoring" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Volunteer pathway into live event access" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Extended PI kit and uniform supply" } },
+              ],
+            },
+            mentions: [
+              { "@type": "Organization", name: "NRCPD", url: "https://www.nrcpd.org.uk/" },
+              { "@type": "Organization", name: "NUBSLI", url: "https://nubsli.com/" },
+              { "@type": "Language", name: "British Sign Language", sameAs: "https://en.wikipedia.org/wiki/British_Sign_Language" },
+              { "@type": "Language", name: "Irish Sign Language", sameAs: "https://en.wikipedia.org/wiki/Irish_Sign_Language" },
+              { "@type": "Legislation", name: "Equality Act 2010", sameAs: "https://www.legislation.gov.uk/ukpga/2010/15" },
+            ],
+            mainEntityOfPage: { "@id": `${SITE}/interpreters/#webpage` },
+          }),
+        }}
+      />
+
+      {/* ─── WebPage + Speakable ─────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${SITE}/interpreters/#webpage`,
+            url: `${SITE}/interpreters/`,
+            name: "For Interpreters - Performance Interpreting",
+            description:
+              "Join Performance Interpreting as a BSL or ISL event interpreter. Work at festivals, arenas and Premier League clubs. Explore training and development at the PI Academy.",
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              url: `${SITE}/images/interpreters-team.jpg`,
+            },
+            about: { "@id": `${SITE}/interpreters/#interpreter-careers` },
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["#service-intro", "#faq-heading"],
+            },
+          }),
+        }}
+      />
+
       {/* FAQ schema for recruitment-funnel agent queries:
           'how do I join PI as an interpreter', 'do I need NRCPD?', etc. */}
       <script
@@ -110,11 +198,11 @@ export default function InterpretersPage() {
               <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 Working with PI
               </p>
-              <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
+              <h2 id="service-intro" className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
                 Live events interpreting is its own specialism
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-pi-ink/80">
-                Interpreting at a festival or a Premier League match is a different discipline from a boardroom or a medical setting. The vocabulary, the pace, the physical environment, the team dynamics - all of it demands skills you won&rsquo;t pick up in a standard RSLI/CSW pathway.
+                Interpreting at a festival or a Premier League match is a different discipline from a boardroom or a medical setting. The vocabulary, the pace, the physical environment, the team dynamics - all of it demands skills you won&rsquo;t pick up in a standard RSLI/CSW pathway. See where we work on our <Link href="/festivals" className="font-semibold text-pi-accent underline decoration-2 underline-offset-2 hover:text-pi-ink">festival access page</Link>.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-pi-ink/80">
                 Performance Interpreting has built a team of interpreters who thrive in this environment. If you&rsquo;re curious about live events work - or already doing it and want to work with a team that takes it seriously - we&rsquo;d like to hear from you.
@@ -376,7 +464,7 @@ export default function InterpretersPage() {
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark text-center">
               Common questions
             </p>
-            <h2 className="mt-3 font-display text-2xl text-center text-pi-ink md:text-3xl mb-8">
+            <h2 id="faq-heading" className="mt-3 font-display text-2xl text-center text-pi-ink md:text-3xl mb-8">
               For interpreters — FAQs
             </h2>
           </AnimateIn>

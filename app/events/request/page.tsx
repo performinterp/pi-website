@@ -17,6 +17,56 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
   const params = await searchParams;
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "@id": "https://performanceinterpreting.co.uk/events/request/#contactpage",
+            url: "https://performanceinterpreting.co.uk/events/request/",
+            name: "Request an Interpreter - Performance Interpreting",
+            description:
+              "We'll write the email to the venue for you. Edit it freely, copy it, or open it in your mail app. Performance Interpreting is CC'd for continued support.",
+            inLanguage: "en-GB",
+            about: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+            mainEntity: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://performanceinterpreting.co.uk/" },
+              { "@type": "ListItem", position: 2, name: "Events", item: "https://performanceinterpreting.co.uk/events/" },
+              { "@type": "ListItem", position: 3, name: "Request an Interpreter", item: "https://performanceinterpreting.co.uk/events/request/" },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://performanceinterpreting.co.uk/events/request/#webpage",
+            url: "https://performanceinterpreting.co.uk/events/request/",
+            name: "Request an Interpreter - Performance Interpreting",
+            description:
+              "We'll write the email to the venue for you. Edit it freely, copy it, or open it in your mail app.",
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
+          }),
+        }}
+      />
+
       <PageHero
         title="Request an Interpreter"
         subtitle="Contacting a venue can feel daunting. We've made it as easy as possible by writing the email for you - edit it freely, then copy it or open it in your mail app."

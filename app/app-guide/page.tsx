@@ -113,6 +113,108 @@ const steps: Step[] = [
 export default function AppGuidePage() {
   return (
     <>
+      {/* ─── MobileApplication schema - PI Events App ──────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MobileApplication",
+            "@id": "https://performanceinterpreting.co.uk/#pi-events-app",
+            name: "PI Events App",
+            alternateName: ["Performance Interpreting Events App", "PI Events", "BSL Events App"],
+            operatingSystem: "iOS, ANDROID",
+            applicationCategory: "LifestyleApplication",
+            applicationSubCategory: "Accessibility",
+            description:
+              "Free Deaf access app from Performance Interpreting. Find every BSL and ISL interpreted event in the UK and Ireland, request interpreters for events that don't yet have access, use on-site communication cards and live speech-to-text, manage photo and video consent, and give post-event feedback.",
+            url: "https://performanceinterpreting.co.uk/app-guide/",
+            downloadUrl: [
+              "https://apps.apple.com/gb/app/pi-events/id6760933712",
+              "https://play.google.com/store/apps/details?id=uk.co.performanceinterpreting.app",
+            ],
+            installUrl: "https://performanceinterpreting.co.uk/get-app/",
+            inLanguage: ["en-GB", "bfi", "isg"],
+            isAccessibleForFree: true,
+            publisher: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+            creator: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "GBP",
+              availability: "https://schema.org/InStock",
+            },
+            featureList: [
+              "Browse BSL and ISL interpreted event listings",
+              "Smart search across artists, venues and cities",
+              "Request a BSL/ISL interpreter for any event",
+              "Push notifications for new interpreted events",
+              "On-site communication cards",
+              "Live speech-to-text",
+              "BSL and ISL how-to videos",
+              "Photo and video consent management",
+              "Post-event written and sign language video feedback",
+            ],
+            screenshot: [
+              "https://performanceinterpreting.co.uk/images/app/app-events-list.png",
+              "https://performanceinterpreting.co.uk/images/app/app-event-detail.png",
+              "https://performanceinterpreting.co.uk/images/app/app-comm-cards.png",
+            ],
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "5.0",
+              reviewCount: "33",
+              bestRating: "5",
+              worstRating: "1",
+            },
+          }),
+        }}
+      />
+
+      {/* ─── BreadcrumbList ─────────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://performanceinterpreting.co.uk/" },
+              { "@type": "ListItem", position: 2, name: "App Guide", item: "https://performanceinterpreting.co.uk/app-guide/" },
+            ],
+          }),
+        }}
+      />
+
+      {/* ─── WebPage + Speakable ────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://performanceinterpreting.co.uk/app-guide/#webpage",
+            url: "https://performanceinterpreting.co.uk/app-guide/",
+            name: "The PI Events App - Full Guide",
+            description:
+              "See the PI Events App in action. A feature-by-feature walkthrough - find interpreted events, request access, order at the bar, know your rights and more.",
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              url: "https://performanceinterpreting.co.uk/images/deaf-app-user.png",
+            },
+            about: { "@id": "https://performanceinterpreting.co.uk/#pi-events-app" },
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["h1", "h2"],
+            },
+          }),
+        }}
+      />
+
       <PageHero
         title="The PI Events App"
         subtitle="A dedicated toolkit for Deaf audiences at live events."

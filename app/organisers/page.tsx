@@ -56,6 +56,103 @@ const ORGANISER_FAQS: Array<{ question: string; answer: string }> = [
 export default function OrganisersPage() {
   return (
     <>
+      {/* ─── Service schema - Deaf Access Consultancy for organisers ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": "https://performanceinterpreting.co.uk/organisers/#organisers-service",
+            name: "Deaf Access Consultancy and BSL/ISL Interpretation for Event Organisers",
+            alternateName: [
+              "Event Access Consultancy",
+              "BSL for Event Organisers",
+              "Hire BSL Interpreters UK",
+              "Hire ISL Interpreters Ireland",
+              "Deaf Access Consultancy UK",
+              "Sign Language Interpreter Hire for Events",
+              "Event Accessibility Consultancy",
+            ],
+            serviceType: "Deaf Access Consultancy and Sign Language Interpretation",
+            category: "Accessibility consultancy for event organisers, venues, festivals and broadcasters",
+            provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+            areaServed: [
+              { "@type": "Country", name: "United Kingdom" },
+              { "@type": "Country", name: "Ireland" },
+              { "@type": "AdministrativeArea", name: "England" },
+              { "@type": "AdministrativeArea", name: "Scotland" },
+              { "@type": "AdministrativeArea", name: "Wales" },
+              { "@type": "AdministrativeArea", name: "Northern Ireland" },
+            ],
+            audience: {
+              "@type": "Audience",
+              audienceType:
+                "Event organisers, festival production teams, venue operators, arena and stadium operators, broadcasters, theatres, tour promoters",
+            },
+            availableLanguage: [
+              { "@type": "Language", name: "British Sign Language", alternateName: "BSL" },
+              { "@type": "Language", name: "Irish Sign Language", alternateName: "ISL" },
+              { "@type": "Language", name: "English" },
+            ],
+            description:
+              "End-to-end Deaf access consultancy for event organisers: BSL and ISL interpretation, access plans grounded in the Equality Act 2010, NRCPD-registered interpreter teams, on-site coordination and post-event reporting. Trusted by Wembley, The O2, Live Nation and the Premier League.",
+            url: "https://performanceinterpreting.co.uk/organisers/",
+            image: "https://performanceinterpreting.co.uk/images/organisers-silverstone.jpg",
+            award: [
+              "Established the UK legal precedent for BSL access at live music events (Little Mix case)",
+              "Signature Hall of Fame inductee (2022)",
+              "Appointed Deaf Access provider for the 2023 King's Coronation",
+            ],
+            offers: {
+              "@type": "Offer",
+              url: "https://performanceinterpreting.co.uk/contact/",
+              availability: "https://schema.org/InStock",
+              priceCurrency: "GBP",
+              priceSpecification: {
+                "@type": "PriceSpecification",
+                priceCurrency: "GBP",
+                description: "Designed access pricing - tailored per event.",
+              },
+            },
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Deaf access consultancy offerings",
+              itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Equality Act 2010 access advisory for event organisers" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "BSL and ISL interpretation team for live events" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Full Access Package (BSL/ISL + captions + induction loops)" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Sight-line and lighting design for interpreter placement" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "On-site coordination by a PI access lead" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Post-event reporting for funders and stakeholders" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "PI Events App integration for Deaf audiences" } },
+              ],
+            },
+            mentions: [
+              { "@type": "Legislation", name: "Equality Act 2010", sameAs: "https://www.legislation.gov.uk/ukpga/2010/15" },
+              { "@type": "Legislation", name: "Disability Discrimination Act 1995", sameAs: "https://www.legislation.gov.uk/ukpga/1995/50" },
+              { "@type": "Legislation", name: "Irish Sign Language Act 2017", sameAs: "https://www.irishstatutebook.ie/eli/2017/act/40/enacted/en/html" },
+              { "@type": "Language", name: "British Sign Language", sameAs: "https://en.wikipedia.org/wiki/British_Sign_Language" },
+              { "@type": "Language", name: "Irish Sign Language", sameAs: "https://en.wikipedia.org/wiki/Irish_Sign_Language" },
+              { "@type": "Organization", name: "NRCPD", url: "https://www.nrcpd.org.uk/" },
+              { "@type": "Place", name: "Wembley Stadium", sameAs: "https://en.wikipedia.org/wiki/Wembley_Stadium" },
+              { "@type": "Place", name: "The O2 Arena", sameAs: "https://en.wikipedia.org/wiki/The_O2_Arena" },
+              { "@type": "Organization", name: "Live Nation", sameAs: "https://en.wikipedia.org/wiki/Live_Nation_Entertainment" },
+              { "@type": "SportsOrganization", name: "Premier League", sameAs: "https://en.wikipedia.org/wiki/Premier_League" },
+            ],
+            mainEntityOfPage: { "@id": "https://performanceinterpreting.co.uk/organisers/#webpage" },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "5.0",
+              reviewCount: "33",
+              bestRating: "5",
+              worstRating: "1",
+            },
+          }),
+        }}
+      />
+
+      {/* ─── FAQPage schema ─────────────────────────────────────────── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -70,6 +167,51 @@ export default function OrganisersPage() {
           }),
         }}
       />
+
+      {/* ─── BreadcrumbList ─────────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://performanceinterpreting.co.uk/" },
+              { "@type": "ListItem", position: 2, name: "Organisers", item: "https://performanceinterpreting.co.uk/organisers/" },
+            ],
+          }),
+        }}
+      />
+
+      {/* ─── WebPage + Speakable ────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://performanceinterpreting.co.uk/organisers/#webpage",
+            url: "https://performanceinterpreting.co.uk/organisers/",
+            name: "For Event Organisers - Performance Interpreting",
+            description:
+              "Deaf access consultancy and BSL/ISL interpretation for event organisers, festivals, sport, arenas and broadcasters across the UK and Ireland.",
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              url: "https://performanceinterpreting.co.uk/images/organisers-silverstone.jpg",
+            },
+            about: { "@id": "https://performanceinterpreting.co.uk/organisers/#organisers-service" },
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["#service-intro", "#faq-heading"],
+            },
+          }),
+        }}
+      />
+
       <PageHero
         title="For Event Organisers"
         subtitle="Deaf access consultancy and sign language interpreting that fits your event - not the other way around."
@@ -95,11 +237,11 @@ export default function OrganisersPage() {
               <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
                 What we offer
               </p>
-              <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
+              <h2 id="service-intro" className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
                 Deaf access consultancy and full-service interpreting
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-pi-ink/80">
-                We don&rsquo;t just supply interpreters - we consult, plan and deliver. From advising on your legal obligations under the Equality Act 2010, through to designing your access plan and managing the interpreter team on the day.
+                We don&rsquo;t just supply interpreters - we consult, plan and deliver. From advising on your legal obligations under the Equality Act 2010, through to designing your access plan and managing the interpreter team on the day. Running a festival? Our dedicated <Link href="/festivals" className="font-semibold text-pi-accent underline decoration-2 underline-offset-2 hover:text-pi-ink">festival sign language access</Link> page covers the multi-stage playbook in detail.
               </p>
 
               <div className="mt-8 space-y-5">
@@ -371,7 +513,7 @@ export default function OrganisersPage() {
       <section className="section-padding pb-12 bg-white">
         <div className="max-w-3xl mx-auto">
           <AnimateIn>
-            <h2 className="font-display text-2xl font-bold text-center mb-2 text-pi-ink md:text-3xl">
+            <h2 id="faq-heading" className="font-display text-2xl font-bold text-center mb-2 text-pi-ink md:text-3xl">
               Organisers FAQs
             </h2>
             <p className="text-sm text-pi-ink/55 text-center mb-8">

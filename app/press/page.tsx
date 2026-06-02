@@ -116,9 +116,30 @@ export default function PressPage() {
       <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">
           <AnimateIn>
-            <p className="mb-10 text-lg leading-relaxed text-pi-ink/75">
+            <p className="mb-6 text-lg leading-relaxed text-pi-ink/75">
               Our work has been covered by national media and recognised by some of the biggest names in sport and entertainment. A small selection below.
             </p>
+          </AnimateIn>
+
+          <AnimateIn>
+            <a
+              href="/press/pi-events-app/"
+              className="group mb-10 block rounded-2xl border-2 border-pi-accent/30 bg-pi-cream/40 p-6 transition-all hover:border-pi-accent/60 hover:shadow-md hover:shadow-pi-navy/5"
+            >
+              <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark mb-2">
+                Press kit
+              </p>
+              <h2 className="font-display text-lg font-bold text-pi-ink leading-snug group-hover:text-pi-accent transition-colors">
+                PI Events App — full press kit
+              </h2>
+              <p className="mt-2 text-sm text-pi-ink/65 leading-relaxed">
+                Logos, screenshots, demo GIFs, ready-to-use quotes, founder bio. Free for journalists, no sign-up.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-pi-accent group-hover:gap-3 transition-all">
+                Open press kit
+                <span aria-hidden>→</span>
+              </span>
+            </a>
           </AnimateIn>
 
           <div className="space-y-4">

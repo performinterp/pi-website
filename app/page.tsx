@@ -312,11 +312,15 @@ export default function Home() {
         </AnimateIn>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {sectors.map((sector) => (
-            <AnimateIn
-              key={sector.name}
-              className={sector.size === "large" ? "md:col-span-2" : ""}
-            >
+          {sectors.map((sector) => {
+            // Only Festivals currently has a dedicated landing page. Wrap that
+            // tile in a Link so the homepage funnels into the heaviest SEO
+            // surface. Other sectors render the same card without a link.
+            const href =
+              sector.name === "Festivals" ? "/festivals" :
+              sector.name === "Sport" ? "/sports" :
+              null;
+            const card = (
               <div className="group relative overflow-hidden rounded-2xl">
                 <div className="relative aspect-[4/3] md:aspect-[21/9] overflow-hidden">
                   <Image
@@ -327,13 +331,33 @@ export default function Home() {
                   />
                   {/* Subtle bottom-only gradient — image breathes, just enough to anchor the title */}
                   <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-pi-navy/85 via-pi-navy/40 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-7 flex items-end justify-between gap-3">
                     <h3 className="font-display text-2xl text-white md:text-3xl">{sector.name}</h3>
+                    {href && (
+                      <span className="hidden md:inline-flex items-center gap-1 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white transition group-hover:bg-pi-accent group-hover:text-white">
+                        Explore
+                        <Icon name="arrow-right" size={12} />
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
-            </AnimateIn>
-          ))}
+            );
+            return (
+              <AnimateIn
+                key={sector.name}
+                className={sector.size === "large" ? "md:col-span-2" : ""}
+              >
+                {href ? (
+                  <Link href={href} aria-label={`${sector.name} — sign language access at UK festivals`}>
+                    {card}
+                  </Link>
+                ) : (
+                  card
+                )}
+              </AnimateIn>
+            );
+          })}
         </div>
       </section>
 

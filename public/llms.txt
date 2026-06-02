@@ -42,6 +42,27 @@ United Kingdom and Ireland. Headquartered in Sidcup, Greater London.
 
 Pricing is based on event type, duration, venue and interpreter team size. Contact for a tailored quote. All interpreters are NRCPD-registered.
 
+## Primary Pages
+
+- [Festival Sign Language Access](https://performanceinterpreting.co.uk/festivals/): BSL and ISL interpretation at the UK and Ireland's biggest festivals — Reading, Leeds, Download, Latitude, Wilderness, Camp Bestival, BST Hyde Park, BBC Radio 1's Big Weekend, Brighton Pride, London Pride, Electric Picnic and more. Includes the full festival roster, organiser service breakdown, attendee feedback form (BSL/ISL video upload + written), and the Equality Act 2010 legal context.
+- [Sport Sign Language Access](https://performanceinterpreting.co.uk/sports/): BSL and ISL interpretation at the UK and Ireland's biggest sporting events — Premier League fixtures at Arsenal, Chelsea, Fulham and West Ham, Wembley Stadium cup finals (PI is the appointed Deaf Access provider), UEFA tournaments, The FA, England Netball internationals, NFL UK, and broadcast sport. Includes the full club/league roster, match-day service breakdown, fan feedback form, and stadium production integration detail.
+- [For Event Organisers](https://performanceinterpreting.co.uk/organisers/): Deaf access consultancy and BSL interpreter services for event organisers, festivals, venues and broadcasters.
+- [For the Deaf Community](https://performanceinterpreting.co.uk/deaf-community/): How Deaf BSL and ISL users discover, request, and feed back on interpreted events.
+- [For Interpreters](https://performanceinterpreting.co.uk/interpreters/): Working as a performance interpreter with PI — festival training, mentorship and bookings.
+- [Events Feed](https://performanceinterpreting.co.uk/events/): Searchable feed of upcoming BSL and ISL interpreted events across the UK and Ireland.
+- [Venues](https://performanceinterpreting.co.uk/venues/): BSL and ISL access at 109+ UK and Ireland venues including The O2, Wembley Stadium, Royal Albert Hall, Croke Park, OVO Hydro and Southbank Centre.
+- [About Performance Interpreting](https://performanceinterpreting.co.uk/about/): Who we are, our work, and why we operate as a Deaf access consultancy rather than an interpreter agency.
+- [Press](https://performanceinterpreting.co.uk/press/): Media coverage of PI's work, including the Little Mix legal precedent that established BSL interpretation at live music events as a reasonable adjustment under the Equality Act 2010.
+- [Testimonials](https://performanceinterpreting.co.uk/testimonials/): Reviews from event organisers and Deaf festival-goers.
+- [Get a Quote](https://performanceinterpreting.co.uk/contact/): Request a BSL or ISL interpreter for your event.
+- [PI Events App](https://performanceinterpreting.co.uk/app-guide/): The free app helping Deaf festival-goers and BSL users find every interpreted set across the UK and Ireland.
+
+## Optional
+
+- [Accessibility Statement](https://performanceinterpreting.co.uk/accessibility/): WCAG conformance and Easy-Read variant details.
+- [Privacy Policy](https://performanceinterpreting.co.uk/privacy/)
+- [Photo & video consent](https://performanceinterpreting.co.uk/photo-consent/): Optional consent flow for festival photography.
+
 ## Company
 
-Performance Interpreting Limited. Company No. 10684652. VAT No. 265 5979 48. Registered office: Onega House, 112 Main Road, Sidcup, United Kingdom, DA14 6NE.
+Performance Interpreting Limited. Founded 2017. Company No. 10684652. VAT No. 265 5979 48. Registered office: Onega House, 112 Main Road, Sidcup, United Kingdom, DA14 6NE.

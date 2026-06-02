@@ -115,6 +115,129 @@ const eventTypes = [
 export default function DeafCommunityPage() {
   return (
     <>
+      {/* ─── Service schema - PI Events App + Deaf access services ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": "https://performanceinterpreting.co.uk/deaf-community/#deaf-community-service",
+            name: "PI Events App and Deaf Access Services",
+            alternateName: [
+              "BSL Events App",
+              "Find BSL Interpreted Events UK",
+              "Deaf Festival Access App",
+              "Interpreted Events Finder",
+              "PI Events App for the Deaf Community",
+            ],
+            serviceType: "Free Deaf access app and interpreted-event discovery service",
+            category: "Accessibility services for Deaf, deafened and hard-of-hearing audiences",
+            provider: { "@id": "https://performanceinterpreting.co.uk/#organization" },
+            areaServed: [
+              { "@type": "Country", name: "United Kingdom" },
+              { "@type": "Country", name: "Ireland" },
+              { "@type": "AdministrativeArea", name: "England" },
+              { "@type": "AdministrativeArea", name: "Scotland" },
+              { "@type": "AdministrativeArea", name: "Wales" },
+              { "@type": "AdministrativeArea", name: "Northern Ireland" },
+            ],
+            audience: {
+              "@type": "Audience",
+              audienceType:
+                "Deaf BSL users, ISL users, deafened and hard-of-hearing audiences, families and friends of Deaf people",
+            },
+            availableLanguage: [
+              { "@type": "Language", name: "British Sign Language", alternateName: "BSL" },
+              { "@type": "Language", name: "Irish Sign Language", alternateName: "ISL" },
+              { "@type": "Language", name: "English" },
+            ],
+            description:
+              "Find every BSL and ISL interpreted event in one place via the free PI Events App. Communication cards, festival checklists, speech-to-text, photo and video consent, and direct feedback for Deaf and BSL-using audiences across the UK and Ireland.",
+            url: "https://performanceinterpreting.co.uk/deaf-community/",
+            image: "https://performanceinterpreting.co.uk/images/deaf-community-info-point.jpg",
+            offers: {
+              "@type": "Offer",
+              url: "https://performanceinterpreting.co.uk/get-app/",
+              availability: "https://schema.org/InStock",
+              price: "0",
+              priceCurrency: "GBP",
+              priceSpecification: {
+                "@type": "PriceSpecification",
+                price: "0",
+                priceCurrency: "GBP",
+                description: "Free for Deaf community users - no sign-up required.",
+              },
+            },
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Deaf community services and PI Events App features",
+              itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "BSL and ISL interpreted event listings" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Request a BSL/ISL interpreter for an event" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "On-site communication cards" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Live speech-to-text" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Volunteer at PI events as a Deaf or hearing BSL volunteer" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Post-event feedback (written or sign language video)" } },
+              ],
+            },
+            mentions: [
+              { "@type": "Language", name: "British Sign Language", sameAs: "https://en.wikipedia.org/wiki/British_Sign_Language" },
+              { "@type": "Language", name: "Irish Sign Language", sameAs: "https://en.wikipedia.org/wiki/Irish_Sign_Language" },
+              { "@type": "Legislation", name: "Equality Act 2010", sameAs: "https://www.legislation.gov.uk/ukpga/2010/15" },
+              { "@type": "Legislation", name: "Irish Sign Language Act 2017", sameAs: "https://www.irishstatutebook.ie/eli/2017/act/40/enacted/en/html" },
+              { "@type": "Organization", name: "NRCPD", url: "https://www.nrcpd.org.uk/" },
+              { "@type": "Place", name: "Wembley Stadium", sameAs: "https://en.wikipedia.org/wiki/Wembley_Stadium" },
+            ],
+            mainEntityOfPage: { "@id": "https://performanceinterpreting.co.uk/deaf-community/#webpage" },
+          }),
+        }}
+      />
+
+      {/* ─── BreadcrumbList ─────────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://performanceinterpreting.co.uk/" },
+              { "@type": "ListItem", position: 2, name: "Deaf Community", item: "https://performanceinterpreting.co.uk/deaf-community/" },
+            ],
+          }),
+        }}
+      />
+
+      {/* ─── WebPage + Speakable ────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://performanceinterpreting.co.uk/deaf-community/#webpage",
+            url: "https://performanceinterpreting.co.uk/deaf-community/",
+            name: "For the Deaf Community - Performance Interpreting",
+            description:
+              "Find BSL and ISL interpreted events across the UK and Ireland with the PI Events App. Communication cards, festival checklists, speech-to-text and more.",
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
+            primaryImageOfPage: {
+              "@type": "ImageObject",
+              url: "https://performanceinterpreting.co.uk/images/deaf-community-info-point.jpg",
+            },
+            about: { "@id": "https://performanceinterpreting.co.uk/deaf-community/#deaf-community-service" },
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["#feedback-heading", "#faq-heading"],
+            },
+          }),
+        }}
+      />
+
       <PageHero
         title="For the Deaf Community"
         subtitle="Find interpreted events. Get support at the venue. Never miss out."
@@ -270,6 +393,9 @@ export default function DeafCommunityPage() {
             <h2 className="mt-3 font-display text-3xl text-pi-ink md:text-4xl">
               What interpreted events look like
             </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-pi-ink/65">
+              Heading to a music festival? Our <Link href="/festivals" className="font-semibold text-pi-accent underline decoration-2 underline-offset-2 hover:text-pi-ink">festival access page</Link> covers every UK and Ireland festival we work, with the BSL/ISL set listings live in the app.
+            </p>
           </div>
         </AnimateIn>
 
@@ -414,7 +540,7 @@ export default function DeafCommunityPage() {
             <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">
               After the event
             </p>
-            <h2 className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
+            <h2 id="feedback-heading" className="mt-3 font-display text-2xl leading-snug text-pi-ink md:text-3xl">
               Your feedback shapes future events
             </h2>
             <p className="mt-4 text-base leading-relaxed text-pi-ink/70">
@@ -425,8 +551,15 @@ export default function DeafCommunityPage() {
         </AnimateIn>
 
         <div className="mx-auto mt-10 grid max-w-5xl items-stretch gap-8 md:grid-cols-2 md:gap-10">
-          {/* Tally embed */}
+          {/* Video feedback */}
           <AnimateIn>
+            <div className="flex h-full flex-col">
+              <VideoFeedback />
+            </div>
+          </AnimateIn>
+
+          {/* Tally embed */}
+          <AnimateIn delay={150}>
             <div className="h-full overflow-hidden rounded-2xl border border-pi-ink/10 bg-white shadow-sm">
               <iframe
                 src="https://tally.so/embed/Y5Dd20?alignLeft=1&hideTitle=1&transparentBackground=1"
@@ -437,13 +570,6 @@ export default function DeafCommunityPage() {
                 className="border-0"
                 loading="lazy"
               />
-            </div>
-          </AnimateIn>
-
-          {/* Video feedback */}
-          <AnimateIn delay={150}>
-            <div className="flex h-full flex-col">
-              <VideoFeedback />
             </div>
           </AnimateIn>
         </div>
@@ -511,7 +637,7 @@ export default function DeafCommunityPage() {
       <section className="section-padding pb-16">
         <div className="max-w-3xl mx-auto">
           <AnimateIn>
-            <h2 className="font-display text-2xl font-bold text-center mb-2 text-pi-ink md:text-3xl">
+            <h2 id="faq-heading" className="font-display text-2xl font-bold text-center mb-2 text-pi-ink md:text-3xl">
               Common questions
             </h2>
             <p className="text-sm text-pi-ink/55 text-center mb-8">

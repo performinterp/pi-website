@@ -25,6 +25,14 @@
           "href": "/about"
         },
         {
+          "label": "Festivals",
+          "href": "/festivals"
+        },
+        {
+          "label": "Sports",
+          "href": "/sports"
+        },
+        {
           "label": "Venues",
           "href": "/venues"
         },
@@ -47,6 +55,14 @@
     {
       "label": "Events",
       "href": "/events"
+    },
+    {
+      "label": "Festivals",
+      "href": "/festivals"
+    },
+    {
+      "label": "Sports",
+      "href": "/sports"
     },
     {
       "label": "Venues",

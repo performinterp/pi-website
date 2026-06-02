@@ -11,6 +11,29 @@ import {
 import { getAllVenues, getVenueBySlug } from "@/lib/venue-tree";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug } from "@/lib/event-slug";
+import venueCoordinates from "@/lib/venue-coordinates.json";
+
+const VENUE_COORDS = venueCoordinates as Record<string, { lat: number; lng: number; match?: string }>;
+
+function findVenueCoords(keyOrDisplay: string, city: string): { lat: number; lng: number } | undefined {
+  const candidates = [
+    keyOrDisplay,
+    `${keyOrDisplay}, ${city}`,
+    keyOrDisplay.split(",")[0]?.trim(),
+    `${keyOrDisplay.split(",")[0]?.trim()}, ${city}`,
+  ].filter(Boolean) as string[];
+  for (const candidate of candidates) {
+    if (VENUE_COORDS[candidate]) return { lat: VENUE_COORDS[candidate].lat, lng: VENUE_COORDS[candidate].lng };
+  }
+  // Fuzzy: lowercased substring match
+  const n = keyOrDisplay.toLowerCase();
+  for (const [k, v] of Object.entries(VENUE_COORDS)) {
+    if (k.toLowerCase().includes(n) || n.includes(k.toLowerCase())) {
+      return { lat: v.lat, lng: v.lng };
+    }
+  }
+  return undefined;
+}
 
 export const revalidate = 1800;
 
@@ -56,8 +79,82 @@ export default async function VenueDetailPage({ params }: Params) {
     })
     .slice(0, 6);
 
+  const coords = findVenueCoords(venue.key, venue.city) ?? findVenueCoords(venue.display, venue.city);
+  const venueUrl = `https://performanceinterpreting.co.uk/venues/${slug}/`;
+  const placeSchema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    "@id": `${venueUrl}#place`,
+    name: venue.display,
+    url: venueUrl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: details?.address || undefined,
+      addressLocality: details?.city || venue.city,
+      postalCode: details?.postcode || undefined,
+      addressCountry: venue.country === "Ireland" ? "IE" : "GB",
+      addressRegion: venue.country,
+    },
+  };
+  if (coords) {
+    placeSchema.geo = {
+      "@type": "GeoCoordinates",
+      latitude: coords.lat,
+      longitude: coords.lng,
+    };
+  }
+  if (contact?.url) {
+    placeSchema.sameAs = [contact.url];
+  }
+  if (venue.imageUrl) {
+    placeSchema.image = venue.imageUrl;
+  }
+  if (details?.mapsUrl) {
+    placeSchema.hasMap = details.mapsUrl;
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(placeSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://performanceinterpreting.co.uk/" },
+              { "@type": "ListItem", position: 2, name: "Venues", item: "https://performanceinterpreting.co.uk/venues/" },
+              { "@type": "ListItem", position: 3, name: venue.display, item: venueUrl },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${venueUrl}#webpage`,
+            url: venueUrl,
+            name: `${venue.display} — BSL & ISL access | Performance Interpreting`,
+            description: `Access contact, BSL relay and accessibility info for ${venue.display}, ${venue.city}. How to request a sign language interpreter for events at this venue.`,
+            inLanguage: "en-GB",
+            datePublished: "2026-06-02",
+            dateModified: "2026-06-02",
+            isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
+            primaryImageOfPage: venue.imageUrl
+              ? { "@type": "ImageObject", url: venue.imageUrl }
+              : undefined,
+            about: { "@id": `${venueUrl}#place` },
+          }),
+        }}
+      />
+
       <section className="relative bg-pi-deep px-5 pb-10 pt-28 text-white md:pb-14 md:pt-32">
         {venue.imageUrl && (
           <>
