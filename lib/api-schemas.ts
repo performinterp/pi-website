@@ -6,16 +6,23 @@ const NoHeaderInjection = z
   .refine((s) => !/[\r\n\x00]/.test(s), { message: "Invalid characters" });
 
 // Stricter for display-name fields used in email subject/From: also reject
-// angle-bracket lookalikes (ASCII + Unicode variants) and quotes to prevent
-// visually-misleading subject lines (e.g. `Resend Billing <support@...>`
-// injected via the name field). NFKC normalize first so fullwidth `＜＞`
-// decomposes to ASCII `<>` and gets caught. Math angle `⟨⟩`, CJK `〈〉`,
-// and guillemets `‹›«»` are distinct codepoints (not NFKC-equivalent to
-// ASCII) so blocked explicitly.
+// angle-bracket lookalikes (ASCII + Unicode variants), quotes, and the
+// RFC 2047 encoded-word start sequence `=?` to prevent visually-misleading
+// subject lines (e.g. `Resend Billing <support@...>` injected via the name
+// field, or the encoded-word equivalent `=?UTF-8?B?<base64 of same>?=`
+// which decodes at display time in admin's mail client). NFKC normalize
+// first so fullwidth `＜＞` decomposes to ASCII `<>` and gets caught. Math
+// angle `⟨⟩`, CJK `〈〉`, and guillemets `‹›«»` are distinct codepoints
+// (not NFKC-equivalent to ASCII) so blocked explicitly. `=?` is a literal
+// substring check because `=` and `?` in isolation are fine — only their
+// digraph initiates an encoded-word.
 const SafeDisplayName = z
   .string()
   .transform((s) => s.normalize("NFKC"))
-  .refine((s) => !/[\r\n\x00<>"⟨⟩〈〉〈〉‹›«»]/.test(s), { message: "Invalid characters" });
+  .refine(
+    (s) => !/[\r\n\x00<>"⟨⟩〈〉〈〉‹›«»]/.test(s) && !s.includes("=?"),
+    { message: "Invalid characters" }
+  );
 
 // Pipe order: length cap runs BEFORE the refinement so a multi-MB hostile
 // payload doesn't get regex-scanned in full before length is enforced.

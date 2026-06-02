@@ -30,6 +30,14 @@ function makeLimiter(limit: number, window: `${number} ${"s" | "m" | "h" | "d"}`
 export const chatRateLimitPerMinute = makeLimiter(10, "60 s", "rl:chat:min");
 export const chatRateLimitPerDay = makeLimiter(100, "1 d", "rl:chat:day");
 
+// Soft daily budget — kicks in BEFORE the hard 100/day cap. When tripped
+// the route streams back a friendly "use the contact form" nudge instead
+// of returning a 429. Same UX pattern as the on-topic classifier refusal:
+// no harsh failure, just a redirect to the human team. Catches bored
+// browsers / curious researchers caining the assistant without making
+// them feel rate-limited.
+export const chatSoftLimitPerDay = makeLimiter(25, "1 d", "rl:chat:soft");
+
 export const formRateLimitPerMinute = makeLimiter(5, "60 s", "rl:form:min");
 export const formRateLimitPerDay = makeLimiter(20, "1 d", "rl:form:day");
 
