@@ -34,14 +34,22 @@ export const formRateLimitPerMinute = makeLimiter(5, "60 s", "rl:form:min");
 export const formRateLimitPerDay = makeLimiter(20, "1 d", "rl:form:day");
 
 export function getClientIp(req: Request): string {
-  // `??` only catches null/undefined, so an XFF header of " " trims to ""
-  // and would still be returned, sharing one Upstash bucket across every
-  // attacker who can craft that header. Filter empty strings too — and
-  // fall through to "unknown" only when no real header value exists.
-  const xff = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  if (xff) return xff;
+  // Vercel sets x-real-ip to the trusted client IP measured at the edge.
+  // Prefer it — it's not attacker-controllable from request headers.
   const realIp = req.headers.get("x-real-ip")?.trim();
   if (realIp) return realIp;
+  // Fallback: RIGHTMOST X-Forwarded-For value. Vercel APPENDS the actual
+  // measured client IP to whatever the client claimed; leftmost is whatever
+  // the attacker set. Never trust leftmost — without this, an attacker can
+  // spoof `X-Forwarded-For: <random-per-request>` to get a fresh rate-limit
+  // bucket every call and defeat the chat limiter entirely (the limiter
+  // exists specifically to cap Anthropic billing exposure).
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) {
+    const parts = xff.split(",").map((s) => s.trim()).filter(Boolean);
+    const rightmost = parts[parts.length - 1];
+    if (rightmost) return rightmost;
+  }
   return "unknown";
 }
 

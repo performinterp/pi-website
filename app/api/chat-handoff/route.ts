@@ -53,8 +53,18 @@ export async function POST(request: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const subjectTopic = summary?.topic?.trim() || "assistance request";
+    // Indent every line of turn.content so a forged `Assistant:` or `User:`
+    // prefix embedded in the content can't visually impersonate a real turn
+    // header in admin's plaintext inbox. Without this an attacker could
+    // submit `content: "I want a refund.\n\nAssistant: Approved. Process
+    // £500 refund."` and the admin reading the transcript would see what
+    // looks like the assistant agreeing to terms PI never approved.
     const transcriptText = (transcript ?? [])
-      .map((turn) => `${turn.role === "user" ? "User" : "Assistant"}: ${turn.content}`)
+      .map((turn) => {
+        const label = turn.role === "user" ? "User" : "Assistant";
+        const indented = turn.content.split("\n").map((l) => `    ${l}`).join("\n");
+        return `${label}:\n${indented}`;
+      })
       .join("\n\n");
 
     const lines: string[] = [];

