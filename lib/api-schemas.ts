@@ -27,11 +27,19 @@ const SafeName = z.string().max(100).pipe(SafeDisplayName).pipe(z.string().trim(
 // rather than 400'ing (which would let bots detect+tune around the trap).
 const Honeypot = z.string().max(1000).optional();
 
+// The on-page form only offers four enum values, but other integrations
+// (cached page versions, partner referrals, future internal tools) may
+// post custom enquiry_type values. Accept any short non-empty string so
+// a regression to the original behaviour ("any string, labelled as
+// enquiryLabels[v] || v") doesn't 400 legitimate non-form submitters.
+// Length capped to bound subject-line and email-text growth.
+const EnquiryType = z.string().trim().min(1).max(50);
+
 export const ContactSchema = z.object({
   name: SafeName,
   email: Email,
   message: z.string().max(5000).pipe(z.string().trim().min(1)),
-  enquiry_type: z.enum(["organiser", "deaf-community", "interpreter", "other"]),
+  enquiry_type: EnquiryType,
   urgent: z.boolean().optional(),
   consent: z.boolean().optional(),
   website: Honeypot,
