@@ -233,18 +233,21 @@ export async function POST(req: Request) {
     });
   }
 
-  const rateDecision = await checkRateLimits(getClientIp(req), [
-    chatRateLimitPerMinute,
-    chatRateLimitPerDay,
-  ]);
-  if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
-
+  // Fail-fast on misconfig BEFORE touching rate-limit state. Otherwise a
+  // missing ANTHROPIC_API_KEY in production burns the user's per-minute
+  // and per-day chat quotas on every retry of an error they can't fix.
   if (!process.env.ANTHROPIC_API_KEY) {
     return new Response(
       JSON.stringify({ error: "Assistant is not configured." }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
+
+  const rateDecision = await checkRateLimits(getClientIp(req), [
+    chatRateLimitPerMinute,
+    chatRateLimitPerDay,
+  ]);
+  if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
   // Defence-in-depth body cap — chat messages can be long but 1MB is enough
   // for the longest legitimate conversation. Anything bigger is abuse.

@@ -16,6 +16,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    // Fail-fast on misconfig BEFORE touching rate-limit state. If
+    // RESEND_API_KEY is missing in production, retries would otherwise
+    // burn the user's per-minute and per-day form quotas (shared prefix
+    // with /api/contact and /api/chat-handoff) for an error that has
+    // nothing to do with them.
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY not configured");
+      // Generic error string so config state isn't a public oracle.
+      return NextResponse.json(
+        { error: "Failed to send message" },
+        { status: 500 }
+      );
+    }
+
     const rateDecision = await checkRateLimits(getClientIp(request), [
       formRateLimitPerMinute,
       formRateLimitPerDay,
@@ -29,15 +43,6 @@ export async function POST(request: Request) {
     const contentLength = clHeader !== null ? Number(clHeader) : NaN;
     if (!Number.isFinite(contentLength) || contentLength > 100_000) {
       return NextResponse.json({ error: "Body too large" }, { status: 413 });
-    }
-
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY not configured");
-      // Generic error string so config state isn't a public oracle.
-      return NextResponse.json(
-        { error: "Failed to send message" },
-        { status: 500 }
-      );
     }
 
     const parsed = ContactSchema.safeParse(await request.json());

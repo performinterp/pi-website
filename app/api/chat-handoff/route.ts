@@ -16,6 +16,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    // Fail-fast on misconfig BEFORE touching rate-limit state. Otherwise a
+    // missing RESEND_API_KEY in production burns the user's per-minute and
+    // per-day form quotas (shared prefix across /api/contact and
+    // /api/chat-handoff) on every retry of an error they can't fix.
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY not configured");
+      return NextResponse.json(
+        { error: "Failed to send transcript" },
+        { status: 500 }
+      );
+    }
+
     const rateDecision = await checkRateLimits(getClientIp(request), [
       formRateLimitPerMinute,
       formRateLimitPerDay,
@@ -26,14 +38,6 @@ export async function POST(request: Request) {
     const contentLength = clHeader !== null ? Number(clHeader) : NaN;
     if (!Number.isFinite(contentLength) || contentLength > 100_000) {
       return NextResponse.json({ error: "Body too large" }, { status: 413 });
-    }
-
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY not configured");
-      return NextResponse.json(
-        { error: "Failed to send transcript" },
-        { status: 500 }
-      );
     }
 
     const parsed = ChatHandoffSchema.safeParse(await request.json());
