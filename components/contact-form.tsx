@@ -39,7 +39,10 @@ export default function ContactForm() {
         form.elements.namedItem("enquiry_type") as HTMLSelectElement
       ).value,
       urgent: (form.elements.namedItem("urgent") as HTMLInputElement).checked,
-      website: (form.elements.namedItem("website") as HTMLInputElement | null)
+      // Honeypot — form field is `nickname` (less autofill-targeted than
+      // `website`); server schema still keys on `website` so cached pages
+      // submitting the old field name continue to work.
+      website: (form.elements.namedItem("nickname") as HTMLInputElement | null)
         ?.value ?? "",
     };
 
@@ -59,22 +62,19 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Honeypot — hidden from humans, visible to naive bots. Server
-          silently 200s if filled. See lib/api-schemas.ts. */}
+      {/* Honeypot — display:none so password managers and Chrome autofill
+          skip it (off-screen positioning was filled by autofill engines,
+          causing silent contact-form loss for real users). `nickname` is a
+          less autofill-targeted field name than `website` or `url`.
+          Server silently 200s on non-empty value. See lib/api-schemas.ts. */}
       <input
         type="text"
-        name="website"
+        name="nickname"
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
         defaultValue=""
-        style={{
-          position: "absolute",
-          left: "-9999px",
-          width: 0,
-          height: 0,
-          opacity: 0,
-        }}
+        style={{ display: "none" }}
       />
 
       <div>

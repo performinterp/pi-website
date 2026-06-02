@@ -248,8 +248,11 @@ export async function POST(req: Request) {
 
   // Defence-in-depth body cap — chat messages can be long but 1MB is enough
   // for the longest legitimate conversation. Anything bigger is abuse.
-  const contentLength = Number(req.headers.get("content-length") ?? "0");
-  if (contentLength > 1_000_000) {
+  // Reject missing/non-numeric Content-Length too (chunked encoding or
+  // malformed headers would bypass naive `Number(...) > limit`).
+  const clHeader = req.headers.get("content-length");
+  const contentLength = clHeader !== null ? Number(clHeader) : NaN;
+  if (!Number.isFinite(contentLength) || contentLength > 1_000_000) {
     return new Response(JSON.stringify({ error: "Body too large" }), {
       status: 413,
       headers: { "Content-Type": "application/json" },

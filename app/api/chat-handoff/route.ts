@@ -22,14 +22,16 @@ export async function POST(request: Request) {
     ]);
     if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
-    const contentLength = Number(request.headers.get("content-length") ?? "0");
-    if (contentLength > 100_000) {
+    const clHeader = request.headers.get("content-length");
+    const contentLength = clHeader !== null ? Number(clHeader) : NaN;
+    if (!Number.isFinite(contentLength) || contentLength > 100_000) {
       return NextResponse.json({ error: "Body too large" }, { status: 413 });
     }
 
     if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY not configured");
       return NextResponse.json(
-        { error: "Email service not configured" },
+        { error: "Failed to send transcript" },
         { status: 500 }
       );
     }

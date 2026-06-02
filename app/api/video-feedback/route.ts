@@ -11,8 +11,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const contentLength = Number(request.headers.get("content-length") ?? "0");
-    if (contentLength > 10_000) {
+    const clHeader = request.headers.get("content-length");
+    const contentLength = clHeader !== null ? Number(clHeader) : NaN;
+    if (!Number.isFinite(contentLength) || contentLength > 10_000) {
       return NextResponse.json({ error: "Body too large" }, { status: 413 });
     }
 

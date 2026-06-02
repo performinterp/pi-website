@@ -29,10 +29,19 @@ function isAllowed(originUrl: string): boolean {
 
 export function isAllowedOrigin(req: Request): boolean {
   const origin = req.headers.get("origin");
-  // Same-origin browser requests sometimes omit Origin. Fall back to
-  // Referer for those. Server-to-server requests have neither — reject.
-  if (origin) return isAllowed(origin);
+  if (origin) {
+    const allowed = isAllowed(origin);
+    if (!allowed) console.warn(`[origin-check] rejected origin: ${origin}`);
+    return allowed;
+  }
+  // Same-origin browser requests sometimes omit Origin (older browsers,
+  // privacy extensions). Fall back to Referer for those.
   const referer = req.headers.get("referer");
-  if (referer) return isAllowed(referer);
+  if (referer) {
+    const allowed = isAllowed(referer);
+    if (!allowed) console.warn(`[origin-check] rejected referer: ${referer}`);
+    return allowed;
+  }
+  console.warn("[origin-check] rejected: no Origin or Referer header");
   return false;
 }

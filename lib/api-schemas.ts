@@ -5,7 +5,17 @@ const NoHeaderInjection = z
   .string()
   .refine((s) => !/[\r\n\x00]/.test(s), { message: "Invalid characters" });
 
-const Email = NoHeaderInjection.pipe(z.email().max(254));
+// Stricter for display-name fields used in email subject/From: also reject
+// angle brackets and quotes to prevent visually-misleading subject lines
+// (e.g. `Resend Billing <support@resend.com>` injected via the name field).
+const SafeDisplayName = z
+  .string()
+  .refine((s) => !/[\r\n\x00<>"]/.test(s), { message: "Invalid characters" });
+
+// Pipe order: length cap runs BEFORE the refinement so a multi-MB hostile
+// payload doesn't get regex-scanned in full before length is enforced.
+const Email = z.string().max(254).pipe(NoHeaderInjection).pipe(z.email());
+const SafeName = z.string().max(100).pipe(SafeDisplayName).pipe(z.string().trim().min(1));
 
 // Honeypot field — humans leave it empty; bots fill every input.
 // Accept any string so the route can silently 200 on non-empty values
@@ -13,9 +23,9 @@ const Email = NoHeaderInjection.pipe(z.email().max(254));
 const Honeypot = z.string().max(1000).optional();
 
 export const ContactSchema = z.object({
-  name: NoHeaderInjection.pipe(z.string().trim().min(1).max(100)),
+  name: SafeName,
   email: Email,
-  message: z.string().trim().min(1).max(5000),
+  message: z.string().max(5000).pipe(z.string().trim().min(1)),
   enquiry_type: z.enum(["organiser", "deaf-community", "interpreter", "other"]),
   urgent: z.boolean().optional(),
   consent: z.boolean().optional(),
@@ -23,9 +33,9 @@ export const ContactSchema = z.object({
 });
 
 export const ChatHandoffSchema = z.object({
-  name: NoHeaderInjection.pipe(z.string().trim().min(1).max(100)),
+  name: SafeName,
   email: Email,
-  message: z.string().trim().min(1).max(5000),
+  message: z.string().max(5000).pipe(z.string().trim().min(1)),
   summary: z
     .object({
       topic: z.string().max(200).optional(),
