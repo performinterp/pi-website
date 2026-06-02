@@ -52,7 +52,11 @@ export const ChatHandoffSchema = z.object({
     .array(
       z.object({
         role: z.enum(["user", "assistant"]),
-        content: z.string().max(10000),
+        // 30000 chars (~7500 words) is generous for one chat turn — a long
+        // signed-explainer reply with embedded catalogue listing and 3-para
+        // context can plausibly approach 10000. Bumped from 10000 to avoid
+        // 400-rejecting legitimate handoffs and silently dropping them.
+        content: z.string().max(30000),
       })
     )
     .max(100)
