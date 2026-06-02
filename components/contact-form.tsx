@@ -305,6 +305,11 @@ export default function ContactForm() {
       message: get("message"),
       enquiry_type: get("enquiry_type"),
       urgent: (form.elements.namedItem("urgent") as HTMLInputElement)?.checked,
+      // Explicit positive consent — required by schema; the route stores
+      // the value in the audit-trail line of the email body. HTML `required`
+      // attribute on the checkbox already prevents browser submission
+      // without it; this propagates the same signal to the server.
+      consent: (form.elements.namedItem("consent") as HTMLInputElement)?.checked,
       website: get("nickname"),
     };
 

@@ -126,7 +126,12 @@ export const ContactSchema = z.object({
   message: z.string().max(5000).pipe(z.string().trim().min(1)),
   enquiry_type: EnquiryType,
   urgent: z.boolean().optional(),
-  consent: z.boolean().optional(),
+  // Required positive consent — UK GDPR / DPA 2018 lawful basis for
+  // storing the enquiry. z.literal(true) rejects anything that isn't
+  // exactly `true`, including `false`, missing, undefined, or any
+  // truthy non-boolean. Non-browser clients (curl, scrapers, scripts)
+  // can no longer submit without explicit positive consent.
+  consent: z.literal(true),
   website: Honeypot,
 }).extend(OrganiserFields.shape)
   .extend(DeafCommunityFields.shape)

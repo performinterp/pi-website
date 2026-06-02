@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     if (!parsed.success) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
-    const { name, email, message, enquiry_type, urgent, website } = parsed.data;
+    const { name, email, message, enquiry_type, urgent, consent, website } = parsed.data;
 
     // Honeypot — silently 200 so bots don't tune around it
     if (website && website.length > 0) {
@@ -87,6 +87,17 @@ export async function POST(request: Request) {
     }
 
     lines.push("", "MESSAGE", message);
+
+    // Audit trail for UK-GDPR / DPA 2018 lawful basis. Recorded in the
+    // email body so the team has documented positive consent alongside
+    // the data they're storing — schema enforces consent === true.
+    lines.push(
+      "",
+      "—",
+      `Consent: ✅ Given — user confirmed at ${new Date().toISOString()} (PI Privacy Policy: /privacy)${
+        consent ? "" : " [WARNING: schema bypass — review]"
+      }`
+    );
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
