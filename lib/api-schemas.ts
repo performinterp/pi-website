@@ -6,11 +6,16 @@ const NoHeaderInjection = z
   .refine((s) => !/[\r\n\x00]/.test(s), { message: "Invalid characters" });
 
 // Stricter for display-name fields used in email subject/From: also reject
-// angle brackets and quotes to prevent visually-misleading subject lines
-// (e.g. `Resend Billing <support@resend.com>` injected via the name field).
+// angle-bracket lookalikes (ASCII + Unicode variants) and quotes to prevent
+// visually-misleading subject lines (e.g. `Resend Billing <support@...>`
+// injected via the name field). NFKC normalize first so fullwidth `＜＞`
+// decomposes to ASCII `<>` and gets caught. Math angle `⟨⟩`, CJK `〈〉`,
+// and guillemets `‹›«»` are distinct codepoints (not NFKC-equivalent to
+// ASCII) so blocked explicitly.
 const SafeDisplayName = z
   .string()
-  .refine((s) => !/[\r\n\x00<>"]/.test(s), { message: "Invalid characters" });
+  .transform((s) => s.normalize("NFKC"))
+  .refine((s) => !/[\r\n\x00<>"⟨⟩〈〉〈〉‹›«»]/.test(s), { message: "Invalid characters" });
 
 // Pipe order: length cap runs BEFORE the refinement so a multi-MB hostile
 // payload doesn't get regex-scanned in full before length is enforced.

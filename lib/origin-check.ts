@@ -1,15 +1,19 @@
 const PROD_ORIGIN = "https://performanceinterpreting.co.uk";
 
-// Vercel preview deployments live on *.vercel.app subdomains — allow them
-// in non-production so preview branches keep working end-to-end.
-// Use VERCEL_ENV (not NODE_ENV): Vercel sets NODE_ENV=production on BOTH
-// preview and production builds, so NODE_ENV can't distinguish them.
+// Vercel injects the current deploy's own URL into VERCEL_URL (always set on
+// any Vercel build) and VERCEL_BRANCH_URL (preview/prod branch alias). Allow
+// only those exact origins on non-production — NOT a wildcard `.vercel.app`
+// suffix, because any attacker can register a free *.vercel.app project
+// and would otherwise pass the check.
 // VERCEL_ENV is "production" | "preview" | "development" | undefined (local).
-const VERCEL_PREVIEW_SUFFIX = ".vercel.app";
+const VERCEL_URL = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null;
+const VERCEL_BRANCH_URL = process.env.VERCEL_BRANCH_URL ? `https://${process.env.VERCEL_BRANCH_URL}` : null;
 const IS_NON_PROD = process.env.VERCEL_ENV !== "production";
 
 const ALLOWED_ORIGINS = new Set<string>([
   PROD_ORIGIN,
+  ...(IS_NON_PROD && VERCEL_URL ? [VERCEL_URL] : []),
+  ...(IS_NON_PROD && VERCEL_BRANCH_URL ? [VERCEL_BRANCH_URL] : []),
   ...(IS_NON_PROD ? ["http://localhost:3000", "http://127.0.0.1:3000"] : []),
 ]);
 
@@ -17,11 +21,7 @@ function isAllowed(originUrl: string): boolean {
   try {
     const u = new URL(originUrl);
     const o = `${u.protocol}//${u.host}`;
-    if (ALLOWED_ORIGINS.has(o)) return true;
-    if (IS_NON_PROD && u.hostname.endsWith(VERCEL_PREVIEW_SUFFIX)) {
-      return true;
-    }
-    return false;
+    return ALLOWED_ORIGINS.has(o);
   } catch {
     return false;
   }
