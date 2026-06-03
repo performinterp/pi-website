@@ -4,23 +4,30 @@ import type { NextConfig } from "next";
 // prevent FOUC and ~25 JSON-LD <script type="application/ld+json"> blocks
 // inject schema.org metadata. 'unsafe-inline' for script-src is the pragmatic
 // baseline until we migrate every inline script to nonces.
-const ContentSecurityPolicy = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://media.performanceinterpreting.co.uk",
-  "media-src 'self' blob: https://media.performanceinterpreting.co.uk",
-  "font-src 'self' data:",
-  "connect-src 'self' https://pi-feedback-uploads.vercel.app https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-  "frame-src https://tally.so",
-  "frame-ancestors 'none'",
-  "form-action 'self'",
-  "base-uri 'self'",
-  "upgrade-insecure-requests",
-].join("; ");
+const STRICT_IMG_SRC =
+  "img-src 'self' data: blob: https://media.performanceinterpreting.co.uk";
+// /events/ renders venue-scraped images from arbitrary HTTPS hosts (the page
+// has no user input — it's curated from the PI Workflow sheet — so loosening
+// here doesn't open an exfiltration path that strict 'self' was guarding).
+const EVENTS_IMG_SRC = "img-src 'self' data: blob: https:";
 
-const securityHeaders = [
-  { key: "Content-Security-Policy", value: ContentSecurityPolicy },
+const buildCSP = (imgSrc: string) =>
+  [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
+    "style-src 'self' 'unsafe-inline'",
+    imgSrc,
+    "media-src 'self' blob: https://media.performanceinterpreting.co.uk",
+    "font-src 'self' data:",
+    "connect-src 'self' https://pi-feedback-uploads.vercel.app https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+    "frame-src https://tally.so",
+    "frame-ancestors 'none'",
+    "form-action 'self'",
+    "base-uri 'self'",
+    "upgrade-insecure-requests",
+  ].join("; ");
+
+const sharedSecurityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -31,6 +38,16 @@ const securityHeaders = [
   },
 ];
 
+const strictHeaders = [
+  { key: "Content-Security-Policy", value: buildCSP(STRICT_IMG_SRC) },
+  ...sharedSecurityHeaders,
+];
+
+const eventsHeaders = [
+  { key: "Content-Security-Policy", value: buildCSP(EVENTS_IMG_SRC) },
+  ...sharedSecurityHeaders,
+];
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
@@ -39,7 +56,10 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000,
   },
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/events/:path*", headers: eventsHeaders },
+      { source: "/:path((?!events(?:/|$)).*)", headers: strictHeaders },
+    ];
   },
   async redirects() {
     return [
