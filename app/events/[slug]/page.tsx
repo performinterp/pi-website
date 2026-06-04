@@ -87,46 +87,71 @@ export default async function EventDetailPage({ params }: Params) {
   // search URL. Always returns something usable when there's a venue string.
   const mapsUrl = resolveEventMapsUrl(event, venueDetails);
 
-  const eventSchema = {
+  // Guard: only emit Event JSON-LD when the critical fields exist. Events
+  // with missing venue or date were causing 10 "critical" GSC errors —
+  // dropping the schema entirely is safer than emitting incomplete entries.
+  const hasValidStartDate = !!event.isoDate && /^\d{4}-\d{2}-\d{2}$/.test(event.isoDate);
+  const hasValidLocation = !!event.venue && event.venue.trim().length > 0;
+  const emitEventSchema = hasValidStartDate && hasValidLocation;
+
+  const eventSchema = emitEventSchema ? {
     "@context": "https://schema.org",
     "@type": "Event",
     name: event.name,
     startDate: event.isoDate,
+    // Single-day default — Google treats a missing endDate as a warning. For
+    // events without an explicit end, set it to startDate so they're still
+    // rich-result-eligible.
+    endDate: event.isoDate,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
       "@type": "Place",
       name: event.venue,
-      address:
-        venueDetails?.address || event.city
-          ? {
-              "@type": "PostalAddress",
-              streetAddress: venueDetails?.address,
-              addressLocality: venueDetails?.city ?? event.city,
-              postalCode: venueDetails?.postcode,
-              addressCountry: "GB",
-            }
-          : undefined,
+      address: {
+        "@type": "PostalAddress",
+        ...(venueDetails?.address ? { streetAddress: venueDetails.address } : {}),
+        addressLocality: venueDetails?.city ?? event.city ?? "United Kingdom",
+        ...(venueDetails?.postcode ? { postalCode: venueDetails.postcode } : {}),
+        addressCountry: "GB",
+      },
     },
     description:
       event.description ||
       `${event.name} at ${event.venue}${event.city ? `, ${event.city}` : ""} with ${langLabel} interpretation provided by Performance Interpreting.`,
-    image: event.imageUrl || undefined,
+    image:
+      event.imageUrl || "https://performanceinterpreting.co.uk/og-image.jpg",
     url: event.eventUrl || undefined,
     organizer: {
       "@type": "Organization",
+      "@id": "https://performanceinterpreting.co.uk/#organization",
       name: "Performance Interpreting",
       url: "https://performanceinterpreting.co.uk",
     },
+    // Offers helps Google generate richer event cards. If we don't have a
+    // ticketing URL, point at the venue/event page; price is unknown but
+    // Schema.org accepts Offer with just url + availability.
+    ...(event.eventUrl
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: event.eventUrl,
+            availability: "https://schema.org/InStock",
+            ...(event.isoDate ? { validFrom: event.isoDate } : {}),
+          },
+        }
+      : {}),
     inLanguage: event.language === "ISL" ? "Irish Sign Language" : "British Sign Language",
-  };
+  } : null;
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
-      />
+      {eventSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+        />
+      )}
 
       <article className="bg-pi-canvas">
         {/* Mobile hero — image banner (no text overlay) THEN dark

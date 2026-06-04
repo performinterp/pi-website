@@ -132,17 +132,55 @@ export default async function CityEventsPage({
             name: `BSL & ISL interpreted events in ${display}`,
             description: `Upcoming Deaf-accessible live events in ${display}.`,
             numberOfItems: cityEvents.length,
-            itemListElement: cityEvents.slice(0, 50).map((ev, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Event",
-                name: ev.name,
-                startDate: ev.isoDate,
-                location: { "@type": "Place", name: ev.venue, address: { "@type": "PostalAddress", addressLocality: ev.city, addressCountry: "GB" } },
-                ...(ev.eventUrl ? { url: ev.eventUrl } : {}),
-              },
-            })),
+            itemListElement: cityEvents
+              .slice(0, 50)
+              // Same guard as the detail page — skip Event entries that
+              // would be rejected by Google for missing critical fields.
+              .filter((ev) => !!ev.isoDate && /^\d{4}-\d{2}-\d{2}$/.test(ev.isoDate) && !!ev.venue && ev.venue.trim().length > 0)
+              .map((ev, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                item: {
+                  "@type": "Event",
+                  name: ev.name,
+                  startDate: ev.isoDate,
+                  // Single-day default — fixes the GSC "missing endDate" warning.
+                  endDate: ev.isoDate,
+                  eventStatus: "https://schema.org/EventScheduled",
+                  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                  location: {
+                    "@type": "Place",
+                    name: ev.venue,
+                    address: {
+                      "@type": "PostalAddress",
+                      addressLocality: ev.city || "United Kingdom",
+                      addressCountry: "GB",
+                    },
+                  },
+                  description:
+                    ev.description ||
+                    `${ev.name} at ${ev.venue}${ev.city ? `, ${ev.city}` : ""} with ${ev.language === "ISL" ? "Irish Sign Language" : "British Sign Language"} interpretation provided by Performance Interpreting.`,
+                  image: ev.imageUrl || `${SITE}/og-image.jpg`,
+                  organizer: {
+                    "@type": "Organization",
+                    "@id": `${SITE}/#organization`,
+                    name: "Performance Interpreting",
+                    url: SITE,
+                  },
+                  inLanguage: ev.language === "ISL" ? "Irish Sign Language" : "British Sign Language",
+                  ...(ev.eventUrl
+                    ? {
+                        url: ev.eventUrl,
+                        offers: {
+                          "@type": "Offer",
+                          url: ev.eventUrl,
+                          availability: "https://schema.org/InStock",
+                          validFrom: ev.isoDate,
+                        },
+                      }
+                    : {}),
+                },
+              })),
           }),
         }}
       />
