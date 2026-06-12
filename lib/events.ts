@@ -1,4 +1,9 @@
 import type { Event, InterpreterStatus } from "./types";
+import {
+  isFirstPartyImage,
+  resolveCategoryFallback,
+  resolveLibraryImage,
+} from "./artist-library";
 
 function classifyInterpreterStatus(
   interpreters: string,
@@ -111,6 +116,31 @@ function parseDdMmYy(input: string): string | null {
   return iso;
 }
 
+// Parse a CATEGORY cell into trimmed, non-empty values. Single-value cells
+// produce a one-element array; "Concert,Festival" produces two elements.
+// Mirrors the native app's parseCategories() in pi-events-standalone-app.
+function parseCategories(raw: string): string[] {
+  if (!raw) return [];
+  return raw
+    .split(",")
+    .map((c) => c.trim())
+    .filter((c) => c.length > 0);
+}
+
+// Resolution chain (see lib/artist-library.ts for rationale):
+//   1. First-party sheet URL — per-event curation always wins
+//   2. Artist library — recurring headliners
+//   3. Category default — covers the long tail with category imagery
+//   4. Original sheet URL — last resort; may be third-party and blockable
+function resolveImageUrl(eventName: string, category: string, sheetUrl: string): string {
+  if (sheetUrl && isFirstPartyImage(sheetUrl)) return sheetUrl;
+  const library = resolveLibraryImage(eventName);
+  if (library) return library;
+  const fallback = resolveCategoryFallback(category);
+  if (fallback) return fallback;
+  return sheetUrl;
+}
+
 function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null {
   // 2026-05-07: header-driven column resolution. Previously we used
   // COLUMNS.indexOf(name) which assumed the sheet's column order matched our
@@ -156,8 +186,15 @@ function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null
     interpreters,
     interpretation: cell("INTERPRETATION"),
     language,
-    category: cell("CATEGORY"),
-    imageUrl: cell("IMAGE URL"),
+    category: parseCategories(cell("CATEGORY"))[0] ?? "",
+    categories: parseCategories(cell("CATEGORY")),
+    // Image fallback uses the primary category so "Concert,Festival" picks
+    // the concert default rather than slugify-merging into a nonsense key.
+    imageUrl: resolveImageUrl(
+      name,
+      parseCategories(cell("CATEGORY"))[0] ?? "",
+      cell("IMAGE URL"),
+    ),
     eventUrl: cell("EVENT URL"),
     mapsUrl: cell("MAPS URL"),
     status: cell("STATUS"),

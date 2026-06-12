@@ -184,7 +184,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
         if (!fuzzyMatch(haystack, term)) return false;
       }
       if (city !== "all" && ev.city !== city) return false;
-      if (category !== "all" && ev.category !== category) return false;
+      if (category !== "all" && !ev.categories.includes(category)) return false;
       if (language !== "all" && ev.language !== language) return false;
       if (interpreterStatus !== "all" && ev.interpreterStatus !== interpreterStatus) return false;
       if (fromDate && ev.isoDate < fromDate) return false;
@@ -220,12 +220,16 @@ export default function EventsFilter({ events, cities, categories }: Props) {
   }, [search, filtered.length, vocabulary]);
 
   // Category grid — counts per category from current `events`. Includes
-  // "All" pseudo-category as the leftmost card.
+  // "All" pseudo-category as the leftmost card. Multi-category events
+  // contribute to each of their categories' counts (so a "Concert,Festival"
+  // event increments both the Concert and Festival tallies).
   const categoryCards = useMemo(() => {
     const counts = new Map<string, number>();
     for (const ev of events) {
-      const c = ev.category || "Other";
-      counts.set(c, (counts.get(c) || 0) + 1);
+      const cats = ev.categories.length > 0 ? ev.categories : ["Other"];
+      for (const c of cats) {
+        counts.set(c, (counts.get(c) || 0) + 1);
+      }
     }
     const ordered = [...CATEGORY_ORDER].filter((c) => counts.has(c));
     const extras = Array.from(counts.keys())

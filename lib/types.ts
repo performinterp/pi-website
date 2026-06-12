@@ -101,7 +101,15 @@ export interface Event {
   interpreters: string;
   interpretation: string;
   language: "BSL" | "ISL" | "BSL_AND_ISL" | "OTHER";
+  // Primary category — first value when CATEGORY is comma-separated.
+  // Kept as a single string for backwards compatibility with card placeholders,
+  // event detail pages, and city pages that just want one label to display.
   category: string;
+  // Full set of categories from the sheet (single-value CATEGORY parses to a
+  // one-element array; "Concert,Festival" parses to ["Concert", "Festival"]).
+  // Filters and counts read this. An event with multiple categories
+  // contributes to each category's count.
+  categories: string[];
   imageUrl: string;
   eventUrl: string;
   mapsUrl: string;
