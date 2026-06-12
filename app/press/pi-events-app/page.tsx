@@ -154,6 +154,12 @@ export default function PiEventsAppPressKitPage() {
               <p className="text-lg leading-relaxed text-pi-ink/80">
                 The PI Events App is a free iOS and Android app that helps Deaf and hard of hearing audiences find every confirmed PI-delivered BSL and ISL interpreted live event in the UK and Ireland, request access at events that do not yet have it, and use a set of communication tools on the day - from a food and drink order builder to live speech-to-text. Every event in the app is staffed by NRCPD-registered interpreters - many of them PI Academy graduates - so audiences know the quality bar before they book. It is built by Performance Interpreting, the company that already delivers BSL at over 600 live events a year for clients including Arsenal, Wembley Stadium, Live Nation and the BBC. The app is BSL & ISL first by design: every screen has a signed video, and the onboarding flow lets users choose their preferred language before any English appears.
               </p>
+              <p className="mt-4 text-sm font-semibold text-pi-ink/80">
+                Get the app:{" "}
+                <a href="https://apps.apple.com/gb/app/pi-events/id6760933712" target="_blank" rel="external noopener" className="text-pi-accent underline underline-offset-4 hover:no-underline">App Store</a>{" "}·{" "}
+                <a href="https://play.google.com/store/apps/details?id=uk.co.performanceinterpreting.app" target="_blank" rel="external noopener" className="text-pi-accent underline underline-offset-4 hover:no-underline">Google Play</a>{" "}·{" "}
+                smart link for print: <span className="font-normal">performanceinterpreting.co.uk/get-app</span>
+              </p>
             </div>
           </AnimateIn>
 
@@ -259,6 +265,19 @@ export default function PiEventsAppPressKitPage() {
           {/* Founder */}
           <AnimateIn>
             <h2 className="font-display text-2xl font-bold text-pi-ink mt-14 mb-4">Founder bio - Marie Pascall</h2>
+            <div className="mb-6 max-w-md">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/press-kit/photos/marie-pascall-signing.jpg"
+                alt="Marie Pascall signing BSL at a Performance Interpreting festival access point"
+                loading="lazy"
+                className="w-full h-auto rounded-2xl ring-1 ring-pi-ink/10"
+              />
+              <p className="mt-2 text-xs text-pi-ink/55">
+                Marie Pascall at a PI festival access point. Press-cleared.{" "}
+                <a href="/press-kit/photos/marie-pascall-signing.jpg" download className="text-pi-accent hover:underline">↓ Download</a>
+              </p>
+            </div>
             <div className="space-y-4 text-pi-ink/75 leading-relaxed">
               <p>
                 Marie Pascall is the founder of Performance Interpreting, born with unilateral deafness. PI was inducted into Signature&apos;s Hall of Fame - the highest recognition in the BSL interpreting industry - and gave key evidence in the landmark Little Mix BSL case, which established BSL access at live events as a legal requirement under the Equality Act 2010.

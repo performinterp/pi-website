@@ -14,6 +14,9 @@ AT A GLANCE
 - Audience:      Deaf and hard of hearing audiences, UK and Ireland
 - Cost:          Free for end users
 - Platforms:     iOS and Android (native)
+- App Store:     https://apps.apple.com/gb/app/pi-events/id6760933712
+- Google Play:   https://play.google.com/store/apps/details?id=uk.co.performanceinterpreting.app
+- Smart link:    performanceinterpreting.co.uk/get-app (detects device)
 - Coverage:      Every PI-delivered BSL/ISL event nationwide.
                  Each one staffed by NRCPD-registered interpreters,
                  many of them PI Academy graduates.
@@ -164,6 +167,7 @@ ASSET PACK CONTENTS
 - /mp4/          Demo videos: raw screen captures plus captioned
                  feature cards (*-card.mp4), silent autoplay-loop
 - /gifs/         Captioned feature cards as GIFs, embed anywhere
+- /photos/       Marie Pascall signing at a PI festival access point
 - This fact sheet
 
 PRESS CONTACT
