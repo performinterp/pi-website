@@ -120,6 +120,26 @@ const InterpreterFields = z.object({
   looking_for:          z.array(InterpreterGoal).max(5).optional(),
 });
 
+// --- Press / media fields (journalist enquiries) ---
+const PublicationType = z.enum([
+  "national_press", "trade_press", "broadcast", "podcast",
+  "online", "blog", "social", "student", "other",
+]);
+const PressDeadline = z.enum([
+  "same_day", "this_week", "this_month", "no_deadline", "ongoing",
+]);
+const PressInterviewNeed = z.enum([
+  "yes_marie", "yes_team", "no_just_assets", "comment_only",
+]);
+
+const PressFields = z.object({
+  publication_name:     ShortText.optional(),
+  publication_type:     PublicationType.optional(),
+  article_angle:        LongText.optional(),
+  press_deadline:       PressDeadline.optional(),
+  press_interview_need: PressInterviewNeed.optional(),
+});
+
 export const ContactSchema = z.object({
   name: SafeName,
   email: Email,
@@ -135,13 +155,15 @@ export const ContactSchema = z.object({
   website: Honeypot,
 }).extend(OrganiserFields.shape)
   .extend(DeafCommunityFields.shape)
-  .extend(InterpreterFields.shape);
+  .extend(InterpreterFields.shape)
+  .extend(PressFields.shape);
 
 // Re-exported so the route can use them when formatting the email body.
 export const CONTACT_FIELD_GROUPS = {
   organiser: OrganiserFields.keyof().options,
   "deaf-community": DeafCommunityFields.keyof().options,
   interpreter: InterpreterFields.keyof().options,
+  press: PressFields.keyof().options,
 } as const;
 
 // Human-readable labels for the structured-field email rendering and the
@@ -171,6 +193,12 @@ export const FIELD_LABELS: Record<string, string> = {
   specialisms: "Specialisms",
   region: "Region",
   looking_for: "Looking for",
+  // Press
+  publication_name: "Publication",
+  publication_type: "Publication type",
+  article_angle: "Story angle",
+  press_deadline: "Deadline",
+  press_interview_need: "Interview / assets needed",
 };
 
 // Human-readable mapping of enum values back to natural text for emails.
@@ -202,6 +230,26 @@ export const VALUE_LABELS: Record<string, string> = {
   // Interpreter goals
   ad_hoc: "Ad-hoc gigs", regular_roster: "Regular roster",
   mentoring: "Mentoring", shadowing: "Shadowing",
+  // Publication type
+  national_press: "National press",
+  trade_press: "Trade / industry press",
+  broadcast: "Broadcast (TV / radio)",
+  podcast: "Podcast",
+  online: "Online publication",
+  blog: "Blog",
+  social: "Social media",
+  student: "Student publication",
+  // Press deadline
+  same_day: "Same day (urgent)",
+  this_week: "This week",
+  this_month: "This month",
+  no_deadline: "No firm deadline",
+  ongoing: "Ongoing / feature",
+  // Press interview need
+  yes_marie: "Yes - interview with Marie Pascall",
+  yes_team: "Yes - any PI team member",
+  no_just_assets: "No - just press assets",
+  comment_only: "Statement / comment only",
 };
 
 export const ChatHandoffSchema = z.object({
@@ -240,7 +288,8 @@ export const ChatHandoffSchema = z.object({
   website: Honeypot,
 }).extend(OrganiserFields.shape)
   .extend(DeafCommunityFields.shape)
-  .extend(InterpreterFields.shape);
+  .extend(InterpreterFields.shape)
+  .extend(PressFields.shape);
 
 // pi-feedback-uploads stores videos in Vercel Blob; returned URL host is
 // <tenant>.public.blob.vercel-storage.com. The .public.blob.vercel-storage.com
@@ -355,6 +404,7 @@ export const SECTION_HEADERS: Record<string, string> = {
   organiser: "EVENT DETAILS",
   "deaf-community": "ACCESS NEEDS",
   interpreter: "INTERPRETER PROFILE",
+  press: "PRESS ENQUIRY",
 };
 
 export function escapeHtml(s: string): string {

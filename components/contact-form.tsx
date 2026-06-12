@@ -6,6 +6,7 @@ const enquiryTypes = [
   { value: "organiser", label: "Event organiser - book interpreters" },
   { value: "deaf-community", label: "Deaf community - request access" },
   { value: "interpreter", label: "Interpreter - join the team" },
+  { value: "press", label: "Press / media - journalist enquiry" },
   { value: "other", label: "Other enquiry" },
 ];
 
@@ -96,6 +97,31 @@ const INTERPRETER_GOALS = [
   { value: "other", label: "Other" },
 ];
 
+const PUBLICATION_TYPES = [
+  { value: "national_press", label: "National press" },
+  { value: "trade_press", label: "Trade / industry press" },
+  { value: "broadcast", label: "Broadcast (TV / radio)" },
+  { value: "podcast", label: "Podcast" },
+  { value: "online", label: "Online publication" },
+  { value: "blog", label: "Blog" },
+  { value: "social", label: "Social media" },
+  { value: "student", label: "Student publication" },
+  { value: "other", label: "Other" },
+];
+const PRESS_DEADLINES = [
+  { value: "same_day", label: "Same day (urgent)" },
+  { value: "this_week", label: "This week" },
+  { value: "this_month", label: "This month" },
+  { value: "no_deadline", label: "No firm deadline" },
+  { value: "ongoing", label: "Ongoing / feature" },
+];
+const PRESS_INTERVIEW_NEEDS = [
+  { value: "yes_marie", label: "Yes - interview with Marie Pascall" },
+  { value: "yes_team", label: "Yes - any PI team member" },
+  { value: "no_just_assets", label: "No - just need press assets" },
+  { value: "comment_only", label: "Statement / written comment only" },
+];
+
 const inputClass =
   "mt-2 w-full rounded-lg border border-pi-ink/15 bg-white px-4 py-3 text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent";
 const labelClass = "block text-sm font-medium text-pi-ink/80";
@@ -118,6 +144,9 @@ const URL_PREFILLABLE_FIELDS: ReadonlySet<string> = new Set([
   // Interpreter
   "nrcpd_status", "languages", "years_experience",
   "specialisms", "region", "looking_for",
+  // Press
+  "publication_name", "publication_type", "article_angle",
+  "press_deadline", "press_interview_need",
 ]);
 
 const MULTI_VALUE_FIELDS: ReadonlySet<string> = new Set([
@@ -346,6 +375,14 @@ export default function ContactForm() {
         region: get("region") || undefined,
         looking_for: looking_for.length ? looking_for : undefined,
       });
+    } else if (baseData.enquiry_type === "press") {
+      Object.assign(baseData, {
+        publication_name: get("publication_name") || undefined,
+        publication_type: get("publication_type") || undefined,
+        article_angle: get("article_angle") || undefined,
+        press_deadline: get("press_deadline") || undefined,
+        press_interview_need: get("press_interview_need") || undefined,
+      });
     }
 
     try {
@@ -453,6 +490,41 @@ export default function ContactForm() {
     </section>
   );
 
+  const PressSection = (
+    <section className="space-y-5 rounded-2xl border border-pi-ink/10 bg-pi-cream/40 p-5 md:p-6">
+      <header>
+        <h3 className="font-display text-lg text-pi-ink">Press details</h3>
+        <p className="mt-1 text-sm text-pi-ink/65">
+          Helps us route you to the right spokesperson and send any extra
+          assets you need. We aim to respond same-day to deadline-led
+          requests. The full press kit for the PI Events App lives at{" "}
+          <a href="/press/pi-events-app" className="text-pi-accent underline underline-offset-4 hover:no-underline">
+            performanceinterpreting.co.uk/press/pi-events-app
+          </a>.
+        </p>
+      </header>
+      <div className="grid gap-5 md:grid-cols-2">
+        <TextField name="publication_name" label="Publication / outlet" prefill={prefill} placeholder="e.g. The Limping Chicken" />
+        <SelectField name="publication_type" label="Publication type" prefill={prefill} options={PUBLICATION_TYPES} />
+        <SelectField name="press_deadline" label="Deadline" prefill={prefill} options={PRESS_DEADLINES} />
+        <SelectField name="press_interview_need" label="Interview / assets needed" prefill={prefill} options={PRESS_INTERVIEW_NEEDS} />
+      </div>
+      <div>
+        <label htmlFor="article_angle" className={labelClass}>
+          Story angle (optional)
+        </label>
+        <textarea
+          id="article_angle"
+          name="article_angle"
+          rows={2}
+          defaultValue={prefillStr(prefill, "article_angle")}
+          className={inputClass}
+          placeholder="e.g. profile of Marie Pascall, feature on BSL access at festivals, app launch coverage..."
+        />
+      </div>
+    </section>
+  );
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Honeypot — display:none so password managers and Chrome autofill
@@ -521,6 +593,7 @@ export default function ContactForm() {
       {enquiryType === "organiser" && OrganiserSection}
       {enquiryType === "deaf-community" && DeafCommunitySection}
       {enquiryType === "interpreter" && InterpreterSection}
+      {enquiryType === "press" && PressSection}
 
       <div>
         <label htmlFor="message" className={labelClass}>
@@ -535,6 +608,8 @@ export default function ContactForm() {
           placeholder={
             enquiryType === "organiser"
               ? "Anything else we should know? (Optional — the fields above already give us a great starting point.)"
+              : enquiryType === "press"
+              ? "Anything else we should know — publication URL, quote requirements, image specs, etc."
               : "Tell us about your enquiry..."
           }
         />
