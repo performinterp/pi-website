@@ -140,7 +140,7 @@ export default function PiEventsAppPressKitPage() {
       <PageHero
         title="PI Events App - Press Kit"
         subtitle="Everything journalists need to cover the app. Logos, screenshots, demo videos, ready-to-use quotes and direct contact."
-        backgroundImage="/images/concert.jpg"
+        backgroundImage="/images/deaf-app-user.png"
       />
 
       <section className="section-padding section-gap">
