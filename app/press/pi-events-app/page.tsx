@@ -42,7 +42,7 @@ const demos: Demo[] = [
   {
     feature: "Request an interpreter",
     caption:
-      "If an event has no interpreter booked, users submit a request directly through the app. PI then liaises with the organiser. Every confirmed event is staffed by an NRCPD-registered interpreter from PI's vetted network.",
+      "If an event has no interpreter booked, users submit a request directly through the app and PI liaises with the organiser to get access in place.",
     cardMp4: "/press-kit/mp4/pi-events-request-card.mp4",
   },
   {
@@ -60,7 +60,7 @@ const demos: Demo[] = [
   {
     feature: "BSL & ISL videos on every screen",
     caption:
-      "The app is BSL & ISL first by design. Every major section has a signed video walkthrough in BSL or ISL - not subtitles, the actual primary content. Marie Pascall signs the guidance herself.",
+      "Every major section has a signed video walkthrough in BSL or ISL - not subtitles, the actual primary content. Marie Pascall signs the guidance herself.",
     cardMp4: "/press-kit/mp4/pi-events-videos-card.mp4",
   },
   {
@@ -75,8 +75,8 @@ const facts: { k: string; v: string }[] = [
   { k: "Product", v: "PI Events App" },
   { k: "Audience", v: "Deaf and hard of hearing audiences in the UK and Ireland" },
   { k: "Cost", v: "Free for end users on iOS and Android" },
-  { k: "Coverage", v: "Every PI-delivered BSL and ISL event nationwide - each one staffed by NRCPD-registered interpreters, many of them PI Academy graduates" },
-  { k: "Built by", v: "Performance Interpreting - the company already delivering BSL at 600+ live events a year" },
+  { k: "Coverage", v: "Every PI-delivered BSL and ISL event in the UK and Ireland, with interpreter names shown on each listing" },
+  { k: "Built by", v: "Performance Interpreting, with development partner Tailored Tools" },
   { k: "Languages", v: "British Sign Language (BSL) and Irish Sign Language (ISL)" },
   { k: "Notable feature", v: "BSL & ISL first onboarding plus an in-app Communication Tool Kit for moments when an interpreter is not present" },
   { k: "Founder", v: "Marie Pascall, born with unilateral deafness, NRCPD-registered" },
@@ -181,10 +181,10 @@ export default function PiEventsAppPressKitPage() {
             <h2 className="font-display text-2xl font-bold text-pi-ink mt-14 mb-4">Why the app exists</h2>
             <div className="space-y-4 text-pi-ink/75 leading-relaxed">
               <p>
-                Performance Interpreting was founded by Marie Pascall, who was born with unilateral deafness. For over a decade PI has been the company organisers call when they want BSL access done properly - across the Live Nation and Festival Republic portfolios, at Royal events and state ceremonies, and through the partnership with Wembley Stadium that made BSL interpreting the default at every concert at the national stadium.
+                For over a decade Performance Interpreting has been the company organisers call when they want BSL access done properly - across the Live Nation and Festival Republic portfolios, at Royal events and state ceremonies, and through the partnership with Wembley Stadium that made BSL interpreting the default at every concert at the national stadium.
               </p>
               <p>
-                Through all of that, one problem kept surfacing on the audience side: Deaf attendees could not find out which events had access in the first place. Information sat scattered across organiser sites, ticketing platforms and accessibility teams. The PI Events App pulls every confirmed interpreted event into one place, lets users request access where it is missing, and gives them practical tools to use on the day.
+                Through all of that, one problem kept surfacing on the audience side: finding out which events were interpreted was often harder than attending them. Listings lived in different places, in different formats, and rarely mentioned access at all. The PI Events App pulls every confirmed interpreted event into one place, lets users request access where it is missing, and gives them practical tools to use on the day.
               </p>
               <p>
                 It is free, it is BSL & ISL first, and it was peer-recommended at DeafExpo 2026 before any paid marketing went out - which is the test that mattered most.
@@ -201,10 +201,10 @@ export default function PiEventsAppPressKitPage() {
               <h2 className="font-display text-2xl font-bold text-pi-ink mb-3">Every event in the app is quality-assured</h2>
               <div className="space-y-3 text-pi-ink/75 leading-relaxed">
                 <p>
-                  The app only shows events that PI itself is delivering. That means every interpreter in the listing is NRCPD-registered, has been briefed by PI for the specific show, and meets the same professional bar PI applies at Wembley, Arsenal and the BBC.
+                  The app only shows events that PI itself is delivering. That means every interpreter in the listing is NRCPD-registered, has been briefed by PI for the specific show, and meets the same professional bar PI brings to its stadium and broadcast work.
                 </p>
                 <p>
-                  Many of those interpreters trained or are training through PI Academy, the in-house training arm. The result is a continuous quality loop - new interpreters come up through PI Academy, get experience on PI-delivered events, and the audience sees the standard in the app.
+                  Many of those interpreters trained or are training through PI Academy. The result is a continuous quality loop - new interpreters come up through PI Academy, get experience on PI-delivered events, and the audience sees the standard in the app.
                 </p>
                 <p>
                   For events PI does not deliver, the Request an Interpreter feature is how audiences ask for access - and how venues hear from their Deaf audience directly.
