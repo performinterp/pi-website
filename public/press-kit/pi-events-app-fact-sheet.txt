@@ -4,63 +4,73 @@ Performance Interpreting | performanceinterpreting.co.uk
 
 ONE-LINE PITCH
 A free iOS and Android app that helps Deaf and hard of hearing
-audiences find every confirmed BSL/ISL interpreted live event in
-the UK and Ireland, request access where it does not exist, and
-use practical communication tools on the day.
+audiences find every PI-delivered BSL/ISL interpreted live event
+in the UK and Ireland — each one staffed by NRCPD-registered
+interpreters — request access at events that do not yet have it,
+and use practical communication tools on the day.
 
 AT A GLANCE
 - Product:       PI Events App
 - Audience:      Deaf and hard of hearing audiences, UK and Ireland
 - Cost:          Free for end users
 - Platforms:     iOS and Android (native)
-- Coverage:      Confirmed BSL and ISL interpreted events nationwide
+- Coverage:      Every PI-delivered BSL/ISL event nationwide.
+                 Each one staffed by NRCPD-registered interpreters,
+                 many of them PI Academy graduates.
 - Languages:     British Sign Language (BSL), Irish Sign Language (ISL)
 - Built by:      Performance Interpreting
 - Founder:       Marie Pascall (born with unilateral deafness)
 - NRCPD:         Every PI interpreter is NRCPD-registered
+- Training arm:  PI Academy (in-house interpreter training)
+
+WHAT MAKES IT DIFFERENT FROM A GENERIC LISTINGS APP
+Every event in the app is one PI is delivering. That means every
+interpreter in the listing is NRCPD-registered, has been briefed
+by PI for the specific show, and meets the same professional bar
+PI applies at Wembley, Arsenal and the BBC. Many of those
+interpreters trained or are training through PI Academy — creating
+a continuous quality loop. For events PI does not deliver, the
+Request an Interpreter feature is how audiences ask for access.
 
 KEY FEATURES
 1. Browse interpreted events
-   Every confirmed BSL/ISL event nationwide, in one place. Filter
-   by date, location, type and language.
+   Every confirmed PI-delivered BSL/ISL event nationwide. Filter by
+   date, location, type and language.
 
 2. Smart search
    Type-ahead fuzzy search across events, venues and categories.
 
 3. Request an interpreter
    If an event has no interpreter booked, users submit a request
-   directly through the app. PI then liaises with the organiser.
+   directly through the app. PI liaises with the organiser, and any
+   confirmed event is staffed by an NRCPD-registered interpreter.
 
 4. Know your rights
    Plain-English guide to the Equality Act 2010, the DDA 1995 and
    the Irish Equal Status Acts. No legal jargon.
 
 5. BSL and ISL videos on every screen
-   The app is BSL-first by design — onboarding lets users pick
+   The app is BSL & ISL first by design — onboarding lets users pick
    their preferred language before any English appears, and every
    screen carries a signed video walkthrough.
 
-6. Communication cards
-   Pre-made cards with common phrases to show to staff: "I am
-   Deaf", "Can you repeat that?", "Where is the BSL interpreter?"
+6. Communication Tool Kit (in-app)
+   For the moments when there isn't an interpreter. Pre-made cards
+   to show staff:
+   - I am Deaf
+   - Emergency
+   - Order (food and drink builder)
+   - Speech to Text (live speech recognition)
+   Tap a card to display full screen. Cards are customisable.
 
-7. Order food and drink
-   Build an order with quantities and show it as text to bar staff.
+7. Festival checklists and venue guides
+   First-time festival planner with accessibility tips,
+   communication planning and direct links to official venue
+   accessibility pages.
 
-8. Live speech-to-text
-   Real-time on-screen transcription of nearby speech.
-
-9. Feel the Music
-   Converts live sound into haptic vibration on the user's device.
-
-10. Festival checklists and venue guides
-    First-time festival planner with accessibility tips,
-    communication planning and direct links to official venue
-    accessibility pages.
-
-11. Feedback in BSL, ISL or text
-    Users can submit written feedback or upload a video response
-    in their preferred sign language after an event.
+8. Feedback in BSL, ISL or text
+   Users can submit written feedback or upload a video response
+   in their preferred sign language after an event.
 
 WHY THE APP EXISTS
 Performance Interpreting has delivered BSL/ISL access at over 600
@@ -72,9 +82,9 @@ Through all of that, one problem kept surfacing on the audience
 side: Deaf attendees could not find out which events had access in
 the first place. Information sat scattered across organiser sites,
 ticketing platforms and accessibility teams. The PI Events App
-pulls every confirmed interpreted event into one place, lets users
-request access where it is missing, and gives them practical tools
-to use on the day.
+pulls every PI-delivered event into one place, lets users request
+access at events that do not yet have it, and gives them practical
+tools to use on the day.
 
 The app was peer-recommended at DeafExpo 2026 before any paid
 marketing went out.
@@ -89,32 +99,52 @@ COMPANY BACKGROUND
   default at every concert at the national stadium.
 - Trusted to manage full Deaf access at Royal events and state
   ceremonies.
+- Operates PI Academy, the in-house training arm bringing the
+  next generation of BSL interpreters into the field.
 
 READY-TO-USE QUOTES
 
+WHY THE APP EXISTS
 "Performance Interpreting already delivers BSL at the biggest
 events in the country. The app solves a different problem — Deaf
 audiences could not find out which events had access in the first
-place. We built it because the gap was there and no one else was
-going to."
-— Marie Pascall, Founder
+place, and the access they could find was scattered across
+organiser sites, ticketing platforms and accessibility teams that
+did not talk to each other. We built it because the gap was there
+and no one else was going to."
+— Marie Pascall, Founder, Performance Interpreting
 
-"It is BSL-first, not BSL-bolt-on. Every screen has a signed
-video. The app speaks to its audience in their first language —
-the same standard we hold organisers to."
-— Marie Pascall, Founder
+ON THE BUILD
+"The brief was to empower the user at every stage of the event
+they are enjoying.
 
-"We did not market this app. It travelled by word of mouth at
-DeafExpo and through interpreters and audiences who picked it up
-at gigs. The community decided whether it was useful, and the
-answer was yes."
-— James Edwards, Performance Interpreting
+Before — you give the app the event details, AI drafts the access
+request email for you, the venue's address is autofilled, and you
+send it with the tap of a few buttons. No more wondering what to
+write or who to send it to.
 
-"Following the landmark Little Mix case, BSL access at live events
-is a legal right under the Equality Act 2010. The Request an
-Interpreter feature exists so any audience member can use that
-right in three taps."
-— Performance Interpreting
+At the event — communication cards and live speech-to-text so a
+Deaf attendee can engage with bar staff or security without
+having to use their voice.
+
+After — feedback in sign language or by form, the choice always
+there.
+
+Designed to work offline at venues where the wifi gives up, BSL &
+ISL first by default, and built to disappear once you have got
+what you need. Every engineering decision came from those
+constraints."
+— James Edwards, Tailored Tools
+
+ON CONSULTING THE DEAF COMMUNITY
+"Every card in the Tool Kit started with a real story — what went
+wrong at a gig, what got missed at the bar, what was unclear during
+a safety announcement. We spent the development process pulling
+those stories out of the Deaf community so the app's accessibility
+decisions are built on lived experience, not assumed from the
+outside. The next person does not have to go through what we have
+already been through."
+— Daryl Jackson, Deaf Consultant
 
 BOILERPLATE — ABOUT PERFORMANCE INTERPRETING
 Performance Interpreting is the UK and Ireland's leading provider
@@ -123,16 +153,17 @@ inducted into Signature's Hall of Fame, PI delivers over 600
 events a year across festivals, arenas, stadiums and Royal
 occasions, for clients including Arsenal, The O2, Wembley Stadium,
 Royal Albert Hall, Live Nation, Festival Republic, BBC, UEFA and
-the NFL. Every PI interpreter is NRCPD-registered. The PI Events
-App is a free consumer app launched as the next step in the same
-mission: equal access for Deaf audiences at every live event.
+the NFL. Every PI interpreter is NRCPD-registered, with many
+trained through PI Academy, the in-house training arm. The PI
+Events App is a free consumer app and the front end of that
+pipeline — equal access for Deaf audiences at every live event.
 
 ASSET PACK CONTENTS
 - /logos/        PI brand logos (landscape, square, white)
 - /screenshots/  High-resolution app screenshots (PNG)
-- /gifs/         7 demo GIFs (browse, search, request, rights,
-                 BSL videos, order, notifications)
-- /mp4/          MP4 companions for each GIF (higher quality)
+- /mp4/          Demo videos: raw screen captures plus captioned
+                 feature cards (*-card.mp4), silent autoplay-loop
+- /gifs/         Captioned feature cards as GIFs, embed anywhere
 - This fact sheet
 
 PRESS CONTACT
