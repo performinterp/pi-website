@@ -249,7 +249,10 @@ export default async function VenueDetailPage({ params }: Params) {
       <article className="bg-pi-canvas">
         <div className="section-padding section-gap">
           <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.3fr_1fr]">
-            <div className="space-y-8">
+            {/* min-w-0 lets this grid column shrink below its content's intrinsic
+                width so the events carousel's overflow-x-auto scrolls internally
+                instead of stretching the grid and pushing the aside off-screen. */}
+            <div className="min-w-0 space-y-8">
               <section>
                 <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
                   Contact the venue's access team
