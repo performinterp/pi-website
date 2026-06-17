@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Mail, Link2, MapPin } from "lucide-react";
+import { Mail, Link2, MapPin, ClipboardList } from "lucide-react";
 import {
   getVenueContact,
   getVenueDetails,
@@ -12,6 +12,9 @@ import { getAllVenues, getVenueBySlug } from "@/lib/venue-tree";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug } from "@/lib/event-slug";
 import venueCoordinates from "@/lib/venue-coordinates.json";
+import VenueEventsAccordion, {
+  type ArtistGroup,
+} from "../_components/venue-events-accordion";
 
 const VENUE_COORDS = venueCoordinates as Record<string, { lat: number; lng: number; match?: string }>;
 
@@ -76,8 +79,56 @@ export default async function VenueDetailPage({ params }: Params) {
         v === venue.display.toLowerCase() ||
         v.includes(venue.display.toLowerCase())
       );
-    })
-    .slice(0, 6);
+    });
+
+  // Group upcoming events by act so a venue with many dates of a few headliners
+  // (e.g. 10 Harry Styles nights) shows every artist instead of one act filling
+  // the list. Strip trailing "Concert" / "& Supporting Act" / "(…)" noise so
+  // "Harry Styles Concert" and "Luke Combs & Supporting Act" collapse cleanly.
+  const deriveArtist = (name: string): string => {
+    const stripped = name
+      .replace(/\s*&\s*supporting act\s*$/i, "")
+      .replace(/\s*\([^)]*\)\s*$/, "")
+      .replace(/\s+concert\s*$/i, "")
+      .trim();
+    return stripped || name.trim();
+  };
+
+  const artistMap = new Map<string, { artist: string; events: typeof upcomingHere }>();
+  for (const e of upcomingHere) {
+    const artist = deriveArtist(e.name);
+    const key = artist.toLowerCase();
+    const existing = artistMap.get(key);
+    if (existing) existing.events.push(e);
+    else artistMap.set(key, { artist, events: [e] });
+  }
+
+  // upcomingHere is already date-ascending (fetchEvents sorts globally and the
+  // filters preserve order), so each group's events[0] is its earliest date —
+  // sort the groups by that to keep the soonest act first.
+  const artistGroups: ArtistGroup[] = Array.from(artistMap.values())
+    .sort((a, b) => a.events[0].isoDate.localeCompare(b.events[0].isoDate))
+    .map((g) => {
+      const allBooked = g.events.every((e) => e.interpreterStatus === "booked");
+      const noneBooked = g.events.every((e) => e.interpreterStatus !== "booked");
+      return {
+        artist: g.artist,
+        imageUrl: g.events[0].rawImageUrl || g.events[0].imageUrl,
+        status: allBooked ? "booked" : noneBooked ? "on-request" : "mixed",
+        dates: g.events.map((e) => ({
+          slug: eventSlug(e),
+          dateLabel: new Date(`${e.isoDate}T00:00:00Z`).toLocaleDateString("en-GB", {
+            timeZone: "UTC",
+            weekday: "short",
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+          booked: e.interpreterStatus === "booked",
+          soldOut: e.soldOut,
+        })),
+      };
+    });
 
   const coords = findVenueCoords(venue.key, venue.city) ?? findVenueCoords(venue.display, venue.city);
   const venueUrl = `https://performanceinterpreting.co.uk/venues/${slug}/`;
@@ -208,8 +259,33 @@ export default async function VenueDetailPage({ params }: Params) {
                   for seats with a clear sightline to the interpreter.
                 </p>
 
-                {(contact?.email || contact?.vrs || contact?.phone) ? (
+                {(contact?.email || contact?.vrs || contact?.phone || contact?.form) ? (
                   <ul className="mt-5 space-y-3">
+                    {contact?.form && (
+                      <li>
+                        <a
+                          href={contact.form}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between gap-3 rounded-xl border border-pi-warmth/40 bg-pi-warmth/5 p-4 transition hover:border-pi-warmth-strong hover:bg-pi-warmth/10"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-pi-warmth-strong/15 text-pi-warmth-strong">
+                              <ClipboardList className="h-5 w-5" aria-hidden="true" />
+                            </span>
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold uppercase tracking-wider text-pi-warmth-strong">
+                                Current BSL access route
+                              </p>
+                              <p className="mt-0.5 text-base font-semibold text-pi-ink">
+                                Request BSL via the venue&apos;s contact form
+                              </p>
+                            </div>
+                          </div>
+                          <span className="text-pi-accent">→</span>
+                        </a>
+                      </li>
+                    )}
                     {contact?.vrs && (
                       <li>
                         <a
@@ -365,37 +441,15 @@ export default async function VenueDetailPage({ params }: Params) {
                 </section>
               )}
 
-              {upcomingHere.length > 0 && (
+              {artistGroups.length > 0 && (
                 <section>
                   <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
-                    Upcoming interpreted events at {venue.display}
+                    What&apos;s on at {venue.display}
                   </h2>
-                  <ul className="mt-5 space-y-3">
-                    {upcomingHere.map((e) => (
-                      <li key={eventSlug(e)}>
-                        <Link
-                          href={`/events/${eventSlug(e)}`}
-                          className="flex items-center justify-between gap-3 rounded-xl border border-pi-ink/10 bg-white p-4 transition hover:border-pi-accent/40"
-                        >
-                          <div className="min-w-0">
-                            <p className="text-base font-semibold text-pi-ink">{e.name}</p>
-                            <p className="mt-0.5 text-sm text-pi-ink/70">
-                              {new Date(`${e.isoDate}T00:00:00Z`).toLocaleDateString("en-GB", {
-                                timeZone: "UTC",
-                                weekday: "short",
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
-                              {" · "}
-                              {e.interpreterStatus === "booked" ? "Interpreter booked" : "On request"}
-                            </p>
-                          </div>
-                          <span aria-hidden="true" className="text-pi-accent">→</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="mt-2 text-base text-pi-ink/65">
+                    Interpreted shows coming up — tap an act to see all its dates.
+                  </p>
+                  <VenueEventsAccordion groups={artistGroups} />
                 </section>
               )}
             </div>
