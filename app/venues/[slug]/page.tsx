@@ -443,18 +443,6 @@ export default async function VenueDetailPage({ params }: Params) {
                   </ul>
                 </section>
               )}
-
-              {artistGroups.length > 0 && (
-                <section>
-                  <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
-                    What&apos;s on at {venue.display}
-                  </h2>
-                  <p className="mt-2 text-base text-pi-ink/65">
-                    Interpreted shows coming up — swipe the acts and tap one to see all its dates.
-                  </p>
-                  <VenueEventsCarousel groups={artistGroups} />
-                </section>
-              )}
             </div>
 
             <aside className="space-y-6">
@@ -499,6 +487,20 @@ export default async function VenueDetailPage({ params }: Params) {
               </div>
             </aside>
           </div>
+
+          {artistGroups.length > 0 && (
+            <div className="mx-auto max-w-5xl">
+              <section>
+                <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
+                  What&apos;s on at {venue.display}
+                </h2>
+                <p className="mt-2 text-base text-pi-ink/65">
+                  Interpreted shows coming up — swipe the acts and tap one to see all its dates.
+                </p>
+                <VenueEventsCarousel groups={artistGroups} />
+              </section>
+            </div>
+          )}
         </div>
       </article>
     </>
