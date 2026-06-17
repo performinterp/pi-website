@@ -213,14 +213,14 @@ export default async function VenueDetailPage({ params }: Params) {
             <img
               src={venue.imageUrl}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-50"
+              className="absolute inset-0 h-full w-full object-cover opacity-90"
               loading="eager"
             />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to top, rgba(6,15,46,0.92) 0%, rgba(6,15,46,0.55) 55%, rgba(6,15,46,0.2) 100%)",
+                  "linear-gradient(to top, rgba(6,15,46,0.78) 0%, rgba(6,15,46,0.3) 50%, rgba(6,15,46,0.04) 100%)",
               }}
             />
           </>
