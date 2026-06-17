@@ -15,6 +15,7 @@ import venueCoordinates from "@/lib/venue-coordinates.json";
 import VenueEventsCarousel, {
   type ArtistGroup,
 } from "../_components/venue-events-carousel";
+import { getActInfoUrl } from "@/lib/venue-act-links";
 
 const VENUE_COORDS = venueCoordinates as Record<string, { lat: number; lng: number; match?: string }>;
 
@@ -114,6 +115,7 @@ export default async function VenueDetailPage({ params }: Params) {
       return {
         artist: g.artist,
         imageUrl: g.events[0].imageUrl,
+        moreInfoUrl: getActInfoUrl(venue.key, g.artist),
         status: allBooked ? "booked" : noneBooked ? "on-request" : "mixed",
         dates: g.events.map((e) => ({
           slug: eventSlug(e),

@@ -15,6 +15,9 @@ export interface ArtistGroup {
   /** First-party image (resolved via the artist library → /artists/*). The
    *  gradient + initial fallback covers any artist not yet in the library. */
   imageUrl: string;
+  /** Optional venue help-centre article for this act (access/BSL + ticket
+   *  info). Surfaced as a "more info" link in the act's detail panel. */
+  moreInfoUrl?: string;
   status: "booked" | "on-request" | "mixed";
   dates: ArtistDate[];
 }
@@ -115,6 +118,17 @@ export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] 
               {active.dates.length} {active.dates.length === 1 ? "date" : "dates"}
             </span>
           </div>
+          {active.moreInfoUrl && (
+            <a
+              href={active.moreInfoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-3 mb-1 mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-pi-accent hover:text-pi-ink"
+            >
+              Access &amp; ticket info at the venue
+              <span aria-hidden="true">→</span>
+            </a>
+          )}
           <ul className="divide-y divide-pi-ink/8">
             {active.dates.map((d) => (
               <li key={d.slug}>
