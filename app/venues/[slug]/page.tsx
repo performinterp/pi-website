@@ -112,10 +112,18 @@ export default async function VenueDetailPage({ params }: Params) {
     .map((g) => {
       const allBooked = g.events.every((e) => e.interpreterStatus === "booked");
       const noneBooked = g.events.every((e) => e.interpreterStatus !== "booked");
+      // Prefer the act's own venue help article (access/BSL + ticket info). Once
+      // a run finishes its article 404s — and a newly-added act may not be
+      // mapped yet — so fall back to the venue's general access contact form.
+      const actUrl = getActInfoUrl(venue.key, g.artist);
+      const moreInfoUrl = actUrl ?? contact?.form ?? contact?.url ?? undefined;
       return {
         artist: g.artist,
         imageUrl: g.events[0].imageUrl,
-        moreInfoUrl: getActInfoUrl(venue.key, g.artist),
+        moreInfoUrl,
+        moreInfoLabel: actUrl
+          ? "Access & ticket info at the venue"
+          : "Contact the venue about access",
         status: allBooked ? "booked" : noneBooked ? "on-request" : "mixed",
         dates: g.events.map((e) => ({
           slug: eventSlug(e),
