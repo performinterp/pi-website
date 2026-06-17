@@ -12,9 +12,9 @@ import { getAllVenues, getVenueBySlug } from "@/lib/venue-tree";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug } from "@/lib/event-slug";
 import venueCoordinates from "@/lib/venue-coordinates.json";
-import VenueEventsAccordion, {
+import VenueEventsCarousel, {
   type ArtistGroup,
-} from "../_components/venue-events-accordion";
+} from "../_components/venue-events-carousel";
 
 const VENUE_COORDS = venueCoordinates as Record<string, { lat: number; lng: number; match?: string }>;
 
@@ -113,7 +113,7 @@ export default async function VenueDetailPage({ params }: Params) {
       const noneBooked = g.events.every((e) => e.interpreterStatus !== "booked");
       return {
         artist: g.artist,
-        imageUrl: g.events[0].rawImageUrl || g.events[0].imageUrl,
+        imageUrl: g.events[0].imageUrl,
         status: allBooked ? "booked" : noneBooked ? "on-request" : "mixed",
         dates: g.events.map((e) => ({
           slug: eventSlug(e),
@@ -447,9 +447,9 @@ export default async function VenueDetailPage({ params }: Params) {
                     What&apos;s on at {venue.display}
                   </h2>
                   <p className="mt-2 text-base text-pi-ink/65">
-                    Interpreted shows coming up — tap an act to see all its dates.
+                    Interpreted shows coming up — swipe the acts and tap one to see all its dates.
                   </p>
-                  <VenueEventsAccordion groups={artistGroups} />
+                  <VenueEventsCarousel groups={artistGroups} />
                 </section>
               )}
             </div>

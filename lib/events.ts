@@ -195,7 +195,6 @@ function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null
       parseCategories(cell("CATEGORY"))[0] ?? "",
       cell("IMAGE URL"),
     ),
-    rawImageUrl: cell("IMAGE URL"),
     eventUrl: cell("EVENT URL"),
     mapsUrl: cell("MAPS URL"),
     status: cell("STATUS"),

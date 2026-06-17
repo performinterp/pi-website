@@ -314,7 +314,8 @@
           },
           {
             "key": "Wembley Stadium, London",
-            "display": "Wembley Stadium"
+            "display": "Wembley Stadium",
+            "imageUrl": "/venue-heroes/wembley-stadium.jpg"
           }
         ]
       },

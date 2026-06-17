@@ -55,8 +55,17 @@ const CATEGORY_DEFAULTS: Readonly<Record<string, string>> = {
 // Seed candidate list (38 recurring acts ranked by appearance count) lives at
 // docs/artist-library-seed-candidates.md.
 const ARTIST_LIBRARY: Readonly<Record<string, string>> = {
-  // Add entries here as images land on the CDN, e.g.:
-  // "harry-styles": `${CDN_BASE}harry-styles.jpg`,
+  // Seeded 2026-06-17 with recurring Wembley Stadium headliners. These are
+  // hosted first-party in /public/artists (same origin → never blocked by
+  // content blockers), sourced from Wikimedia Commons (CC-licensed). Keys are
+  // canonical slugs; prefix-matched so "Harry Styles Concert" → "harry-styles"
+  // and "The Weeknd & Supporting Act" → "the-weeknd".
+  "harry-styles": "/artists/harry-styles.jpg",
+  "bruno-mars": "/artists/bruno-mars.jpg",
+  "the-weeknd": "/artists/the-weeknd.jpg",
+  "bon-jovi": "/artists/bon-jovi.jpg",
+  "my-chemical-romance": "/artists/my-chemical-romance.jpg",
+  "luke-combs": "/artists/luke-combs.jpg",
 };
 
 // Sorted longest-first so progressive prefix match picks the most specific key

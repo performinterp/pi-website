@@ -111,12 +111,6 @@ export interface Event {
   // contributes to each category's count.
   categories: string[];
   imageUrl: string;
-  // Original IMAGE URL straight from the sheet, before the first-party
-  // resolution chain in lib/events.ts swaps third-party promo shots for the
-  // generic category default. Used where a real per-artist photo matters more
-  // than guaranteed-unblockable delivery (e.g. the venue page's artist
-  // accordion), with a graceful gradient fallback when a browser blocks it.
-  rawImageUrl: string;
   eventUrl: string;
   mapsUrl: string;
   status: string;
