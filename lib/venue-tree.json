@@ -252,6 +252,11 @@
             "display": "Crystal Palace National Sports Centre"
           },
           {
+            "key": "Crystal Palace Park, London",
+            "display": "Crystal Palace Park",
+            "imageUrl": "/venue-heroes/crystal-palace-park-london.jpg"
+          },
+          {
             "key": "Emirates Stadium (Arsenal), London",
             "display": "Emirates Stadium (Arsenal)",
             "imageUrl": "/venue-heroes/emirates-stadium-arsenal-london.jpg"
@@ -268,6 +273,16 @@
           {
             "key": "GTech Community Stadium (Brentford FC), London",
             "display": "GTech Community Stadium (Brentford FC)"
+          },
+          {
+            "key": "Hyde Park, London",
+            "display": "Hyde Park",
+            "imageUrl": "/venue-heroes/hyde-park-london.jpg"
+          },
+          {
+            "key": "indigo at The O2, London",
+            "display": "indigo at The O2",
+            "imageUrl": "/venue-heroes/indigo-at-the-o2-london.jpg"
           },
           {
             "key": "London Palladium, London",
@@ -294,6 +309,11 @@
             "key": "Royal Albert Hall, London",
             "display": "Royal Albert Hall",
             "imageUrl": "/venue-heroes/royal-albert-hall-london.jpg"
+          },
+          {
+            "key": "Royal Festival Hall, London",
+            "display": "Royal Festival Hall",
+            "imageUrl": "/venue-heroes/royal-festival-hall-london.jpg"
           },
           {
             "key": "Selhurst Park (Crystal Palace FC), London",
@@ -713,6 +733,26 @@
           {
             "key": "3Arena, Dublin",
             "display": "3Arena"
+          },
+          {
+            "key": "Aviva Stadium, Dublin",
+            "display": "Aviva Stadium",
+            "imageUrl": "/venue-heroes/aviva-stadium-dublin.jpg"
+          },
+          {
+            "key": "Croke Park, Dublin",
+            "display": "Croke Park",
+            "imageUrl": "/venue-heroes/croke-park-dublin.jpg"
+          },
+          {
+            "key": "Malahide Castle, Dublin",
+            "display": "Malahide Castle",
+            "imageUrl": "/venue-heroes/malahide-castle-dublin.jpg"
+          },
+          {
+            "key": "Marlay Park, Dublin",
+            "display": "Marlay Park",
+            "imageUrl": "/venue-heroes/marlay-park-dublin.jpg"
           }
         ]
       }

@@ -272,7 +272,7 @@ export default async function VenueDetailPage({ params }: Params) {
                   for seats with a clear sightline to the interpreter.
                 </p>
 
-                {(contact?.email || contact?.vrs || contact?.phone || contact?.form) ? (
+                {(contact?.email || contact?.vrs || contact?.phone || contact?.form || contact?.url) ? (
                   <ul className="mt-5 space-y-3">
                     {contact?.form && (
                       <li>
