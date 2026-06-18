@@ -417,42 +417,6 @@ export default async function VenueDetailPage({ params }: Params) {
                 )}
               </section>
 
-              {featureKeys.length > 0 && (
-                <section>
-                  <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
-                    Accessible facilities
-                  </h2>
-                  <p className="mt-2 text-base text-pi-ink/70">
-                    Reported by the venue. Always confirm with their access team for your
-                    specific needs.
-                  </p>
-                  <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {featureKeys.map((key) => {
-                      const def = getAccessFeatureDef(key);
-                      if (!def) return null;
-                      return (
-                        <li
-                          key={key}
-                          className="flex items-start gap-3 rounded-xl border border-pi-ink/10 bg-white p-3.5"
-                        >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={`/access-icons/${def.icon.replace(/^icons\//, "")}`}
-                            alt=""
-                            width={28}
-                            height={28}
-                            className="shrink-0"
-                          />
-                          <div className="min-w-0">
-                            <p className="text-base font-semibold text-pi-ink">{def.label}</p>
-                            <p className="text-sm leading-snug text-pi-ink/70">{def.desc}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </section>
-              )}
             </div>
 
             <aside className="space-y-6">
@@ -497,6 +461,45 @@ export default async function VenueDetailPage({ params }: Params) {
               </div>
             </aside>
           </div>
+
+          {featureKeys.length > 0 && (
+            <div className="mx-auto max-w-5xl">
+              <section>
+                <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
+                  Accessible facilities
+                </h2>
+                <p className="mt-2 text-base text-pi-ink/70">
+                  Reported by the venue. Always confirm with their access team for your
+                  specific needs.
+                </p>
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {featureKeys.map((key) => {
+                    const def = getAccessFeatureDef(key);
+                    if (!def) return null;
+                    return (
+                      <li
+                        key={key}
+                        className="flex items-start gap-3 rounded-xl border border-pi-ink/10 bg-white p-3.5"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`/access-icons/${def.icon.replace(/^icons\//, "")}`}
+                          alt=""
+                          width={28}
+                          height={28}
+                          className="shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <p className="text-base font-semibold text-pi-ink">{def.label}</p>
+                          <p className="text-sm leading-snug text-pi-ink/70">{def.desc}</p>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            </div>
+          )}
 
           {artistGroups.length > 0 && (
             <div className="mx-auto max-w-5xl">
