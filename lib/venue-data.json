@@ -2097,22 +2097,26 @@
     "the o2 arena": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "url": "https://www.theo2.co.uk/accessibility/bsl-interpreter-services"
     },
     "the o2 arena, london": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "url": "https://www.theo2.co.uk/accessibility/bsl-interpreter-services"
     },
     "indigo at the o2": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "url": "https://www.theo2.co.uk/accessibility/indigo-at-the-o2-2"
     },
     "indigo at the o2, london": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "url": "https://www.theo2.co.uk/accessibility/indigo-at-the-o2-2"
     },
     "wembley stadium": {
       "form": "https://help.wembleystadium.com/support/tickets/new",
@@ -2205,10 +2209,12 @@
       "email": "access@utilitarena.co.uk"
     },
     "first direct arena": {
-      "email": "accessibility@firstdirectbankarena.com"
+      "email": "accessibility@firstdirectbankarena.com",
+      "url": "https://www.firstdirectbankarena.com/accessibility"
     },
     "first direct arena leeds": {
-      "email": "accessibility@firstdirectbankarena.com"
+      "email": "accessibility@firstdirectbankarena.com",
+      "url": "https://www.firstdirectbankarena.com/accessibility"
     },
     "ao arena": {
       "email": "accessibility@ao-arena.com"
@@ -2220,10 +2226,12 @@
       "email": "boxoffice@sheffieldarena.co.uk"
     },
     "m&s bank arena": {
-      "email": "accessibility@accliverpool.com"
+      "email": "accessibility@accliverpool.com",
+      "url": "https://www.mandsbankarena.com/accessibility/accessible-tickets/"
     },
     "m&s bank arena liverpool": {
-      "email": "accessibility@accliverpool.com"
+      "email": "accessibility@accliverpool.com",
+      "url": "https://www.mandsbankarena.com/accessibility/accessible-tickets/"
     },
     "ovo hydro": {
       "email": "accessibility@ovo-hydro.com"
@@ -2245,14 +2253,16 @@
       "vrs": "https://arsenalfc.signvideo.net/",
       "vrsLabel": "SignVideo",
       "note": "BSL interpretation provided at all Arsenal home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.arsenal.com/disabilityaccess"
     },
     "emirates stadium, london": {
       "email": "",
       "vrs": "https://arsenalfc.signvideo.net/",
       "vrsLabel": "SignVideo",
       "note": "BSL interpretation provided at all Arsenal home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.arsenal.com/disabilityaccess"
     },
     "arsenal": {
       "email": "",
@@ -2365,35 +2375,43 @@
       "email": "access@ovoarena.co.uk"
     },
     "eventim apollo": {
-      "email": "info@eventimapollo.com"
+      "email": "info@eventimapollo.com",
+      "url": "https://www.eventimapollo.com/venue-info/access-requirements/"
     },
     "eventim apollo, london": {
-      "email": "info@eventimapollo.com"
+      "email": "info@eventimapollo.com",
+      "url": "https://www.eventimapollo.com/venue-info/access-requirements/"
     },
     "eventim apollo, hammersmith": {
-      "email": "info@eventimapollo.com"
+      "email": "info@eventimapollo.com",
+      "url": "https://www.eventimapollo.com/venue-info/access-requirements/"
     },
     "eventim apollo, hammersmith, london": {
-      "email": "info@eventimapollo.com"
+      "email": "info@eventimapollo.com",
+      "url": "https://www.eventimapollo.com/venue-info/access-requirements/"
     },
     "hammersmith apollo": {
       "email": "info@eventimapollo.com"
     },
     "royal albert hall": {
-      "email": "access@royalalberthall.com"
+      "email": "access@royalalberthall.com",
+      "url": "https://www.royalalberthall.com/visit/accessibility-at-the-hall/access-booking-form/"
     },
     "royal albert hall, london": {
-      "email": "access@royalalberthall.com"
+      "email": "access@royalalberthall.com",
+      "url": "https://www.royalalberthall.com/visit/accessibility-at-the-hall/access-booking-form/"
     },
     "london stadium": {
       "email": "accessibility@westhamunited.co.uk",
       "note": "BSL interpretation provided at all West Ham home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.london-stadium.com/accessibility.html"
     },
     "london stadium, london": {
       "email": "accessibility@westhamunited.co.uk",
       "note": "BSL interpretation provided at all West Ham home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.london-stadium.com/accessibility.html"
     },
     "west ham stadium": {
       "email": "accessibility@westhamunited.co.uk",
@@ -2643,7 +2661,8 @@
       "vrs": "https://arsenalfc.signvideo.net/",
       "vrsLabel": "SignVideo",
       "note": "BSL interpretation provided at all Arsenal home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.arsenal.com/disabilityaccess"
     },
     "london staduim": {
       "email": "accessibility@westhamunited.co.uk",
@@ -2741,12 +2760,14 @@
     "tottenham hotspur stadium": {
       "email": "access@tottenhamhotspur.com",
       "note": "BSL interpretation provided at all Spurs home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.tottenhamhotspurstadium.com/plan-your-visit/accessibility"
     },
     "tottenham hotspur stadium, london": {
       "email": "access@tottenhamhotspur.com",
       "note": "BSL interpretation provided at all Spurs home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.tottenhamhotspurstadium.com/plan-your-visit/accessibility"
     },
     "spurs stadium": {
       "email": "access@tottenhamhotspur.com",
@@ -2863,22 +2884,26 @@
     "anfield": {
       "email": "disability@liverpoolfc.com",
       "note": "BSL interpretation provided at all Liverpool home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.liverpoolfc.com/info/contact-email-form"
     },
     "anfield stadium": {
       "email": "disability@liverpoolfc.com",
       "note": "BSL interpretation provided at all Liverpool home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.liverpoolfc.com/info/contact-email-form"
     },
     "anfield, liverpool": {
       "email": "disability@liverpoolfc.com",
       "note": "BSL interpretation provided at all Liverpool home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.liverpoolfc.com/info/contact-email-form"
     },
     "liverpool fc": {
       "email": "disability@liverpoolfc.com",
       "note": "BSL interpretation provided at all Liverpool home matches",
-      "bslGuaranteed": true
+      "bslGuaranteed": true,
+      "url": "https://www.liverpoolfc.com/info/contact-email-form"
     },
     "liverpool philharmonic hall": {
       "email": "access@liverpoolphil.com"
@@ -2896,10 +2921,12 @@
       "email": "accessibility@evertonfc.com"
     },
     "first direct bank arena": {
-      "email": "accessibility@firstdirectbankarena.com"
+      "email": "accessibility@firstdirectbankarena.com",
+      "url": "https://www.firstdirectbankarena.com/accessibility"
     },
     "first direct bank arena, leeds": {
-      "email": "accessibility@firstdirectbankarena.com"
+      "email": "accessibility@firstdirectbankarena.com",
+      "url": "https://www.firstdirectbankarena.com/accessibility"
     },
     "leeds grand theatre": {
       "email": "info@leedsheritagetheatres.com"
@@ -2917,10 +2944,12 @@
       "email": "disabled@leedsunited.com"
     },
     "hampden park": {
-      "email": "enquiries@hampdenpark.co.uk"
+      "email": "enquiries@hampdenpark.co.uk",
+      "url": "https://gigsinscotlandsupport.zendesk.com/hc/en-gb/requests/new?ticket_form_id=34970789309335"
     },
     "hampden park, glasgow": {
-      "email": "enquiries@hampdenpark.co.uk"
+      "email": "enquiries@hampdenpark.co.uk",
+      "url": "https://gigsinscotlandsupport.zendesk.com/hc/en-gb/requests/new?ticket_form_id=34970789309335"
     },
     "glasgow royal concert hall": {
       "email": "GRCHVM@glasgowlife.org.uk"
@@ -3001,10 +3030,12 @@
       "email": "accessibility@nottinghamforest.co.uk"
     },
     "principality stadium": {
-      "email": "customercare@wru.wales"
+      "email": "customercare@wru.wales",
+      "url": "https://www.principalitystadium.wales/information/accessible-facilities/"
     },
     "principality stadium, cardiff": {
-      "email": "customercare@wru.wales"
+      "email": "customercare@wru.wales",
+      "url": "https://www.principalitystadium.wales/information/accessible-facilities/"
     },
     "utilita arena cardiff": {
       "email": "liveaccessmotorpointarenacardiff@livenation.co.uk"
@@ -3034,16 +3065,20 @@
       "email": "edinburghaccess@atgentertainment.com"
     },
     "scottish gas murrayfield": {
-      "email": "tickets@sru.org.uk"
+      "email": "tickets@sru.org.uk",
+      "url": "https://ask.scottishrugby.org/hc/en-gb/articles/27298748216988-Is-BSL-available-at-Scottish-Gas-Murrayfield"
     },
     "scottish gas murrayfield, edinburgh": {
-      "email": "tickets@sru.org.uk"
+      "email": "tickets@sru.org.uk",
+      "url": "https://ask.scottishrugby.org/hc/en-gb/articles/27298748216988-Is-BSL-available-at-Scottish-Gas-Murrayfield"
     },
     "murrayfield": {
-      "email": "tickets@sru.org.uk"
+      "email": "tickets@sru.org.uk",
+      "url": "https://ask.scottishrugby.org/hc/en-gb/articles/27298748216988-Is-BSL-available-at-Scottish-Gas-Murrayfield"
     },
     "murrayfield stadium": {
-      "email": "tickets@sru.org.uk"
+      "email": "tickets@sru.org.uk",
+      "url": "https://ask.scottishrugby.org/hc/en-gb/articles/27298748216988-Is-BSL-available-at-Scottish-Gas-Murrayfield"
     },
     "brighton centre": {
       "email": "brightoncentre@brighton-hove.gov.uk"
