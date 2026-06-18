@@ -166,7 +166,8 @@
           },
           {
             "key": "First Direct Arena, Leeds",
-            "display": "First Direct Arena"
+            "display": "First Direct Arena",
+            "imageUrl": "/venue-heroes/first-direct-arena-leeds.jpg"
           },
           {
             "key": "Leeds Grand Theatre, Leeds",
@@ -201,7 +202,8 @@
         "venues": [
           {
             "key": "Anfield (Liverpool FC), Liverpool",
-            "display": "Anfield (Liverpool FC)"
+            "display": "Anfield (Liverpool FC)",
+            "imageUrl": "/venue-heroes/anfield-liverpool-fc-liverpool.jpg"
           },
           {
             "key": "Goodison Park (Everton FC), Liverpool",
@@ -213,7 +215,8 @@
           },
           {
             "key": "M&S Bank Arena, Liverpool",
-            "display": "M&S Bank Arena"
+            "display": "M&S Bank Arena",
+            "imageUrl": "/venue-heroes/mands-bank-arena-liverpool.jpg"
           }
         ]
       },
@@ -250,11 +253,13 @@
           },
           {
             "key": "Emirates Stadium (Arsenal), London",
-            "display": "Emirates Stadium (Arsenal)"
+            "display": "Emirates Stadium (Arsenal)",
+            "imageUrl": "/venue-heroes/emirates-stadium-arsenal-london.jpg"
           },
           {
             "key": "Eventim Apollo, London",
-            "display": "Eventim Apollo"
+            "display": "Eventim Apollo",
+            "imageUrl": "/venue-heroes/eventim-apollo-london.jpg"
           },
           {
             "key": "Fairfield Halls, Croydon, London",
@@ -270,7 +275,8 @@
           },
           {
             "key": "London Stadium (West Ham), London",
-            "display": "London Stadium (West Ham)"
+            "display": "London Stadium (West Ham)",
+            "imageUrl": "/venue-heroes/london-stadium-west-ham-london.jpg"
           },
           {
             "key": "O2 Academy Brixton, London",
@@ -286,7 +292,8 @@
           },
           {
             "key": "Royal Albert Hall, London",
-            "display": "Royal Albert Hall"
+            "display": "Royal Albert Hall",
+            "imageUrl": "/venue-heroes/royal-albert-hall-london.jpg"
           },
           {
             "key": "Selhurst Park (Crystal Palace FC), London",
@@ -306,11 +313,13 @@
           },
           {
             "key": "The O2 Arena, London",
-            "display": "The O2 Arena"
+            "display": "The O2 Arena",
+            "imageUrl": "/venue-heroes/the-o2-arena-london.jpg"
           },
           {
             "key": "Tottenham Hotspur Stadium, London",
-            "display": "Tottenham Hotspur Stadium"
+            "display": "Tottenham Hotspur Stadium",
+            "imageUrl": "/venue-heroes/tottenham-hotspur-stadium-london.jpg"
           },
           {
             "key": "Wembley Stadium, London",
@@ -587,7 +596,8 @@
           },
           {
             "key": "Scottish Gas Murrayfield, Edinburgh",
-            "display": "Scottish Gas Murrayfield"
+            "display": "Scottish Gas Murrayfield",
+            "imageUrl": "/venue-heroes/scottish-gas-murrayfield-edinburgh.jpg"
           },
           {
             "key": "Usher Hall, Edinburgh",
@@ -608,7 +618,8 @@
           },
           {
             "key": "Hampden Park, Glasgow",
-            "display": "Hampden Park"
+            "display": "Hampden Park",
+            "imageUrl": "/venue-heroes/hampden-park-glasgow.jpg"
           },
           {
             "key": "Ibrox Stadium (Rangers FC), Glasgow",
@@ -651,7 +662,8 @@
           },
           {
             "key": "Principality Stadium, Cardiff",
-            "display": "Principality Stadium"
+            "display": "Principality Stadium",
+            "imageUrl": "/venue-heroes/principality-stadium-cardiff.jpg"
           },
           {
             "key": "Utilita Arena Cardiff, Cardiff",
