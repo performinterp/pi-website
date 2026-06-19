@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 export interface ArtistDate {
@@ -65,11 +65,55 @@ function ArtistImage({ src, artist }: { src: string; artist: string }) {
 export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] }) {
   const [selected, setSelected] = useState(0);
   const active = groups[selected] ?? groups[0];
+  const scrollRef = useRef<HTMLUListElement>(null);
+
+  // One-time scroll hint: when the row first comes into view, gently nudge it
+  // sideways and back so it's obvious there are more acts to swipe to. Skipped
+  // when everything already fits, the user has already scrolled, or the user
+  // prefers reduced motion.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let done = false;
+    const nudge = () => {
+      if (done || !el) return;
+      if (el.scrollWidth - el.clientWidth < 24) return; // nothing to scroll to
+      if (el.scrollLeft > 8) { done = true; return; } // already scrolled
+      done = true;
+      // Snap-mandatory would fight a partial scroll and snap straight back, so
+      // disable snap for the duration of the hint, then restore it.
+      el.style.scrollSnapType = "none";
+      el.scrollTo({ left: 56, behavior: "smooth" });
+      window.setTimeout(() => {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+        window.setTimeout(() => {
+          el.style.scrollSnapType = "";
+        }, 500);
+      }, 600);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          window.setTimeout(nudge, 350);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div className="mt-5">
       {/* Swipeable row of acts */}
-      <ul className="-mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-3 [scrollbar-width:thin]">
+      <ul
+        ref={scrollRef}
+        className="-mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-3 [scrollbar-width:thin]"
+      >
         {groups.map((g, i) => {
           const pill = statusPill(g.status);
           const isActive = i === selected;
