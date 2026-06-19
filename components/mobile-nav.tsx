@@ -122,7 +122,7 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         {/* Nav links */}
         <nav
           aria-label="Mobile navigation"
-          className="flex flex-col flex-1 px-6 py-8 gap-1"
+          className="flex flex-col flex-1 min-h-0 overflow-y-auto overscroll-contain px-6 py-8 gap-1"
           style={{ backgroundColor: "#020142" }}
         >
           {nav.mainNav.map((item, i) => {
