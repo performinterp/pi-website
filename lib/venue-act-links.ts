@@ -10,8 +10,8 @@
 // remove the stale entry then.
 const ACT_INFO_LINKS: Record<string, Record<string, string>> = {
   "wembley stadium, london": {
-    "harry styles":
-      "https://help.wembleystadium.com/support/solutions/articles/7000096874-harry-styles-together-together-12-13-17-19-20-23-26-27-29-june-1-3-4-july-2026",
+    // "harry styles" removed 2026-07-10 — run ended 4 Jul, article now 404s
+    // (falls back to the venue contact form). Audit finding.
     "bruno mars":
       "https://help.wembleystadium.com/support/solutions/articles/7000096724-bruno-mars-the-romantic-tour-2026-18-19-22-24-25-28-july-2026",
     "bon jovi":
