@@ -37,6 +37,10 @@
         {
           "title": "Communications data",
           "description": "Records of emails, form submissions and other correspondence you send to us."
+        },
+        {
+          "title": "Accessibility and communication needs (special category)",
+          "description": "If you use our events app to contact a venue about access, you may share disability-related information. We process this only with your explicit consent. See the app privacy policy at performanceinterpreting.co.uk/app-privacy for detail."
         }
       ]
     },
@@ -69,6 +73,10 @@
         {
           "title": "Website and app improvement (Legitimate interests)",
           "description": "To understand how our platforms are used and to improve them."
+        },
+        {
+          "title": "Facilitating access requests (Explicit consent — UK GDPR Art 9(2)(a))",
+          "description": "To help you contact venues about interpreter and access requirements via our events app, where you choose to share disability-related information."
         }
       ]
     },

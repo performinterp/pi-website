@@ -1,0 +1,133 @@
+{
+  "title": "PI Events App Privacy Policy",
+  "subtitle": "How the PI Events app handles your data. Last updated: 11 July 2026.",
+  "heroImage": "/images/concert.jpg",
+  "metaDescription": "Privacy policy for the PI Events app (iOS, Android and web) by Performance Interpreting Ltd. How we collect, use, store and protect your data under UK GDPR.",
+  "sections": [
+    {
+      "heading": "What information we collect",
+      "body": [
+        "When you use our feedback form ('Share Your Thoughts'), which is provided by Tally.so and available in the web version only, we may collect your email address, your feedback, suggestions or questions, and any other information you voluntarily provide.",
+        "We do not ask for your name, email, or identity when you simply browse events. We do record anonymous, aggregated usage analytics (see 'Engagement analytics' below) to understand which features help people most — this cannot be used to identify you."
+      ]
+    },
+    {
+      "heading": "Microphone access",
+      "body": [
+        "The app uses your device's microphone for two features: Speech to Text (converts spoken words to text on screen, using your device's built-in speech recognition) and Feel the Music (detects bass frequencies in music and converts them to haptic vibrations).",
+        "For both features: audio is processed entirely on your device in real time; no audio is recorded, stored, or transmitted; you must explicitly grant microphone permission when prompted; and you can revoke microphone access at any time through your device settings."
+      ]
+    },
+    {
+      "heading": "Location services (Near Me filter)",
+      "body": [
+        "The app includes an optional 'Near Me' filter that shows events within a distance you choose. When you turn it on, your device asks permission to share your location with the app. Your location is read on your device only, distances are calculated on your device, and your location is never sent to us or to any third party. It is not saved between sessions — it is read fresh each time you use the filter.",
+        "If you do not turn on the Near Me filter, no location data is accessed. You can revoke location permission at any time through your device settings."
+      ]
+    },
+    {
+      "heading": "Notification preferences",
+      "body": [
+        "If you opt in to event notifications, we store your preferences (chosen event categories and cities) locally on your device.",
+        "Push notification subscriptions use the standard Web Push protocol for the web version, and Apple Push Notification service (APNs) / Firebase Cloud Messaging (FCM) for the native iOS and Android apps. We store a push token linked to your device so we can send you notifications you asked for. No personal information such as your name, email, or identity is collected as part of notifications.",
+        "We may occasionally send a general announcement to everyone who has notifications turned on (for example, an important service update or a major PI Events milestone). We will not use push notifications to advertise unrelated products or services."
+      ]
+    },
+    {
+      "heading": "Tool Kit card preferences",
+      "body": [
+        "The Communication Tool Kit lets you customise and pin cards (for example, allergy cards, dietary cards, emergency cards). All of your choices — which cards you pin, any edits you make to the wording, severity settings, and any personal notes — are stored only on your device. Nothing from your Tool Kit leaves your device, and we do not sync Tool Kit data to our servers. If you uninstall the app or clear its storage, your Tool Kit data is deleted."
+      ]
+    },
+    {
+      "heading": "Event data caching",
+      "body": [
+        "Event listings are cached on your device for offline access using browser or app storage. This data consists of publicly available event information only and does not contain any personal data."
+      ]
+    },
+    {
+      "heading": "Video feedback",
+      "body": [
+        "You can send us feedback about the app or an event using a BSL or ISL video. This is always optional. When you send a video, it is uploaded securely to our feedback service (hosted on Vercel Blob Storage). Only authorised members of the PI team can view your video, it is not shared publicly, and we store it so the team can review and respond. You can request deletion of your video at any time by contacting us.",
+        "Before you record or choose a video, the app shows a consent notice explaining how the video will be used. Submitting the video constitutes informed consent."
+      ]
+    },
+    {
+      "heading": "Contacting venues about your access needs",
+      "body": [
+        "The app can help you email a venue to request an interpreter or accessible seating. If you choose to send one of these emails, you may include details about your access and communication needs — for example that you are Deaf or Deafblind, that you use a wheelchair, or that you have an assistance dog.",
+        "This information describes your health or disability, which is a 'special category' of personal data under UK GDPR. We only ever process it on the basis of your explicit consent, given when you choose to send the email. You do not have to provide any of it, and you can send the email without it.",
+        "The email is sent from your own device using your email app, to the venue's access team. Performance Interpreting is copied in so we can support your request if the venue does not respond. For some venues, the venue's own booking contact is also copied in so they can arrange your seats — the app tells you before you send if this applies.",
+        "We do not store the contents of these emails on our servers. Any copy Performance Interpreting receives is held in our email system and retained in line with 'How we store your data' below. You can withdraw consent for future emails simply by not sending them, and you can ask us to delete any copy we hold by contacting us."
+      ]
+    },
+    {
+      "heading": "Error monitoring and 'Report a Problem'",
+      "body": [
+        "To help us find and fix bugs, the app uses Sentry, an error-monitoring service. Sentry automatically records when the app crashes or hits an unexpected error. The app also includes a 'Report a Problem' button so you can tell us when something feels broken, even if the app did not crash.",
+        "When an error is recorded, the following may be sent to Sentry: a description of the error, the app version, your device platform, the screen or feature where the error happened, your accessibility preferences if set (so we can prioritise fixes that affect accessibility features), the text you wrote in the 'Report a Problem' form if you used it, and a technical summary of your device (user agent).",
+        "We do not send: your location, your Tool Kit content, your saved events, your contact details, any video you uploaded, or any field that would identify you personally. Sentry is provided by Functional Software, Inc. and processes data under their privacy policy. Data is retained according to our Sentry project settings and is used solely to diagnose and fix bugs."
+      ]
+    },
+    {
+      "heading": "Anonymous install tracking",
+      "body": [
+        "When the app is first opened (whether installed from the App Store, Google Play, or as a web app), a single anonymous event may be sent to our server. This contains only the device type (mobile or desktop) and platform (iOS, Android, or web). No personal identifiers, IP addresses, names, or other identifying information is collected or stored. This data is used solely to understand how many people use the app."
+      ]
+    },
+    {
+      "heading": "Engagement analytics",
+      "body": [
+        "To understand which features help people most, we record when you tap key buttons — for example, marking an event as 'Interested' or 'Going', tapping 'Get Tickets', adding an event to your calendar, searching, or sending feedback. We record: the action you took; the event name, date, venue, and category (where the action relates to an event); your language preference (BSL or ISL); and search terms you type, with the number of results, so we can find events people are looking for but we don't yet list.",
+        "This data does not include your name, email, identity, IP address, or location. It is stored in our Cloudflare Analytics Engine dataset, which retains records for approximately 90 days on a rolling basis. Because this dataset is aggregate and append-only, individual records cannot be singled out or deleted on request; they age out automatically. We use it only to understand how the app is used so we can improve it."
+      ]
+    },
+    {
+      "heading": "How we use your information",
+      "body": [
+        "We use data collected through the feedback form, video feedback, and 'Report a Problem' button to respond to your feedback or questions, fix bugs and improve the app, and share updates about BSL & ISL interpreted events (only if you've opted in).",
+        "We do not sell or share your personal data with third parties for advertising or marketing purposes."
+      ]
+    },
+    {
+      "heading": "Third-party services",
+      "body": [
+        "The app uses the following third-party services:"
+      ],
+      "items": [
+        { "title": "Cloudflare Web Analytics (web version only)", "description": "Collects anonymous page view counts. No cookies, no personal data." },
+        { "title": "Cloudflare Workers & Analytics Engine", "description": "Hosts our push notification backend and engagement analytics dataset." },
+        { "title": "Tally.so (feedback form, web version only)", "description": "Processes feedback submissions under Tally's privacy policy." },
+        { "title": "Vercel", "description": "Hosts our video feedback upload service; videos are stored in Vercel Blob Storage." },
+        { "title": "Sentry", "description": "Error monitoring (see 'Error monitoring' above)." },
+        { "title": "Apple Push Notification service / Firebase Cloud Messaging", "description": "Deliver push notifications you have opted in to, on iOS and Android respectively." }
+      ]
+    },
+    {
+      "heading": "No tracking",
+      "body": [
+        "This app is designed with privacy in mind. We do not use cookies for tracking, advertising identifiers, cross-app or cross-site tracking, or user profiling. We do not share data with third parties for advertising, and we do not track your location."
+      ]
+    },
+    {
+      "heading": "Your rights under GDPR and UK GDPR",
+      "body": [
+        "Performance Interpreting Ltd is the data controller for any personal data collected through this app. Under the UK GDPR and EU GDPR you have the right to: access the data we hold about you; request correction or deletion; withdraw your consent at any time; object to or restrict processing; request data portability; and lodge a complaint with the Information Commissioner's Office (ICO)."
+      ]
+    },
+    {
+      "heading": "How we store your data",
+      "body": [
+        "All personal data collected through the feedback form and video feedback is stored securely using password-protected tools and services. Only authorised members of our team have access.",
+        "We retain feedback and video data for up to 12 months unless you request deletion sooner. Error reports (Sentry) are retained according to our Sentry project settings, typically 30 to 90 days.",
+        "Data stored locally on your device — notification preferences, cached events, Tool Kit card preferences, and your Interested/Going lists — remains on your device and can be cleared at any time through your device settings or by uninstalling the app."
+      ]
+    },
+    {
+      "heading": "Contact us",
+      "body": [
+        "Performance Interpreting Ltd is the data controller (ICO registration ZA912087). To access, update, or delete your personal data, or to exercise any of your rights, contact us at admin@performanceinterpreting.co.uk. We aim to respond to all data-related requests within 30 days, in line with UK GDPR guidelines."
+      ]
+    }
+  ]
+}
