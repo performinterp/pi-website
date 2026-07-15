@@ -76,6 +76,12 @@ export function buildDraft(input: DraftInput): EmailDraft {
     body += `\n\nExtra support needed: ${label}`;
   }
 
+  // LOAD-BEARING: the Enquiries mailbox auto-reply flow matches on this exact
+  // sentence (and on 'can you arrange one' above) to distinguish app/website
+  // requests from organic business email. Reword it and the auto-ack stops firing.
+  // The app's sheet templates (PI Live Config → templates tab) carry the same line.
+  body += `\n\nPerformance Interpreting is supporting this request.`;
+
   const subject = `BSL Interpretation Request - ${input.eventName.trim() || "your event"}`;
 
   return {
