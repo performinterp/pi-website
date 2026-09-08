@@ -261,7 +261,7 @@ export default function RequestDraftBuilder({
               className="mt-3 rounded-2xl border-2 border-pi-accent bg-pi-accent/5 p-4 md:p-5"
             >
               <p className="text-lg font-extrabold text-pi-ink">
-                🎫 At this venue: buy your ticket first
+                🎫 At this venue: <u>you must</u> buy your tickets first
               </p>
               <ol className="mt-3 space-y-3">
                 {[
@@ -324,9 +324,14 @@ export default function RequestDraftBuilder({
             🎫 Ticket or booking reference{ticketFirst ? "" : " (optional)"}
           </label>
           <p className="mt-1 text-xs text-pi-ink/65">
-            {ticketFirst
-              ? "The venue needs your ticket number. Buy any ticket first, then type your reference here."
-              : "Already have a ticket? Add your reference here. It helps the venue help you faster."}
+            {ticketFirst ? (
+              <>
+                The venue <strong>needs</strong> your ticket number. Buy any
+                ticket first, then type your reference here.
+              </>
+            ) : (
+              "Already have a ticket? Add your reference here. It helps the venue help you faster."
+            )}
           </p>
           <input
             id="ticket-ref"
