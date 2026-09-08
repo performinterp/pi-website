@@ -258,15 +258,33 @@ export default function RequestDraftBuilder({
           {ticketFirst && (
             <div
               role="note"
-              className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3.5 text-sm leading-relaxed text-pi-ink"
+              className="mt-3 rounded-2xl border-2 border-pi-accent bg-pi-accent/5 p-4 md:p-5"
             >
-              <p className="font-bold">🎫 Buy your ticket first</p>
-              <p className="mt-1">
-                This venue needs your ticket number before they can act on a
-                BSL request. Buy any ticket — the cheapest is fine — then
-                request with your booking reference and the venue will move
-                you to the BSL area.
+              <p className="text-lg font-extrabold text-pi-ink">
+                🎫 At this venue: buy your ticket first
               </p>
+              <ol className="mt-3 space-y-3">
+                {[
+                  ["Buy any ticket.", "The cheapest ticket is fine."],
+                  [
+                    "Find your booking reference.",
+                    "It is in your confirmation email.",
+                  ],
+                  [
+                    "Type your reference in the box below.",
+                    "The venue will move you to the BSL area.",
+                  ],
+                ].map(([lead, rest], i) => (
+                  <li key={lead} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-pi-accent text-sm font-extrabold text-white">
+                      {i + 1}
+                    </span>
+                    <p className="text-base leading-relaxed text-pi-ink">
+                      <strong>{lead}</strong> {rest}
+                    </p>
+                  </li>
+                ))}
+              </ol>
             </div>
           )}
         </div>
@@ -307,8 +325,8 @@ export default function RequestDraftBuilder({
           </label>
           <p className="mt-1 text-xs text-pi-ink/65">
             {ticketFirst
-              ? "This venue can only act on requests from ticket holders. Buy any ticket first — the cheapest is fine — then enter your reference here."
-              : "Already bought a ticket? Add your reference — it helps the venue act faster."}
+              ? "The venue needs your ticket number. Buy any ticket first, then type your reference here."
+              : "Already have a ticket? Add your reference here. It helps the venue help you faster."}
           </p>
           <input
             id="ticket-ref"
@@ -447,7 +465,7 @@ export default function RequestDraftBuilder({
           {ticketFirst &&
           eventName.trim().length > 0 &&
           venueName.trim().length > 0
-            ? "This venue needs your booking reference before the email can be generated - buy any ticket, then add your reference above."
+            ? "One more step: add your booking reference above. Then we can make your email."
             : "Add at least an event name and venue to generate the email."}
         </p>
       )}
