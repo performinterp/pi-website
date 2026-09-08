@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { findMatchingVenues, type VenueMatch } from "@/lib/venues";
+import { findMatchingVenues, getVenueContact, type VenueMatch } from "@/lib/venues";
 import {
   ACCESS_NEEDS_LABELS,
   buildDraft,
@@ -38,6 +38,7 @@ export default function RequestDraftBuilder({
   const [venueEmail, setVenueEmail] = useState("");
   const [accessNeeds, setAccessNeeds] = useState("");
   const [accessNeedsOther, setAccessNeedsOther] = useState("");
+  const [ticketRef, setTicketRef] = useState("");
 
   const [matches, setMatches] = useState<VenueMatch[]>([]);
   const [lookupState, setLookupState] = useState<
@@ -97,6 +98,16 @@ export default function RequestDraftBuilder({
     return s.replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
+  // Ticket-first venues (The O2): the venue only actions BSL requests from
+  // ticket holders, so the booking reference becomes required. Mirrors the
+  // app's resolveTicketRefPolicy / ticket-first gate (public/app.js:5213).
+  const ticketFirst = useMemo(() => {
+    const trimmed = venueName.trim();
+    if (trimmed.length < 3) return false;
+    const contact = getVenueContact(trimmed);
+    return /^required$/i.test(contact?.ticketRefPolicy ?? "");
+  }, [venueName]);
+
   const draft = useMemo(
     () =>
       buildDraft({
@@ -106,11 +117,15 @@ export default function RequestDraftBuilder({
         venueEmail,
         accessNeeds,
         accessNeedsOther,
+        ticketRef,
       }),
-    [eventName, venueName, eventDate, venueEmail, accessNeeds, accessNeedsOther]
+    [eventName, venueName, eventDate, venueEmail, accessNeeds, accessNeedsOther, ticketRef]
   );
 
-  const isValid = eventName.trim().length > 0 && venueName.trim().length > 0;
+  const isValid =
+    eventName.trim().length > 0 &&
+    venueName.trim().length > 0 &&
+    (!ticketFirst || ticketRef.trim().length > 0);
   const mailtoUrl = isValid ? buildMailtoUrl(draft) : "";
 
   async function handleCopy() {
@@ -240,6 +255,20 @@ export default function RequestDraftBuilder({
               type it below or send to us instead.
             </p>
           )}
+          {ticketFirst && (
+            <div
+              role="note"
+              className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3.5 text-sm leading-relaxed text-pi-ink"
+            >
+              <p className="font-bold">🎫 Buy your ticket first</p>
+              <p className="mt-1">
+                This venue needs your ticket number before they can act on a
+                BSL request. Buy any ticket — the cheapest is fine — then
+                request with your booking reference and the venue will move
+                you to the BSL area.
+              </p>
+            </div>
+          )}
         </div>
 
         <div>
@@ -268,6 +297,26 @@ export default function RequestDraftBuilder({
               userOverrodeEmail.current = true;
             }}
             placeholder="Auto-filled or type your own..."
+            className={`${inputClass} mt-1.5`}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="ticket-ref" className={labelClass}>
+            🎫 Ticket or booking reference{ticketFirst ? "" : " (optional)"}
+          </label>
+          <p className="mt-1 text-xs text-pi-ink/65">
+            {ticketFirst
+              ? "This venue can only act on requests from ticket holders. Buy any ticket first — the cheapest is fine — then enter your reference here."
+              : "Already bought a ticket? Add your reference — it helps the venue act faster."}
+          </p>
+          <input
+            id="ticket-ref"
+            type="text"
+            required={ticketFirst}
+            value={ticketRef}
+            onChange={(e) => setTicketRef(e.target.value)}
+            placeholder="It's in your confirmation email"
             className={`${inputClass} mt-1.5`}
           />
         </div>
@@ -395,7 +444,11 @@ export default function RequestDraftBuilder({
 
       {!isValid && (
         <p className="text-xs text-pi-ink/65">
-          Add at least an event name and venue to generate the email.
+          {ticketFirst &&
+          eventName.trim().length > 0 &&
+          venueName.trim().length > 0
+            ? "This venue needs your booking reference before the email can be generated - buy any ticket, then add your reference above."
+            : "Add at least an event name and venue to generate the email."}
         </p>
       )}
 

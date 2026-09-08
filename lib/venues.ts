@@ -23,6 +23,10 @@ export interface VenueContact {
   bslGuaranteed?: boolean;
   url?: string;
   form?: string;
+  // Ticket-first venues (The O2): "required" = the venue only actions BSL
+  // requests from ticket holders. Mirrors the app's ticket_ref_policy.
+  ticketRefPolicy?: string;
+  ticketRefNote?: string;
 }
 
 const ACCESS_FEATURE_DEFS = data.ACCESS_FEATURE_DEFS as Record<string, AccessFeatureDef>;

@@ -26,6 +26,7 @@ export interface DraftInput {
   venueEmail: string;
   accessNeeds: string;
   accessNeedsOther: string;
+  ticketRef?: string;
 }
 
 export interface EmailDraft {
@@ -40,12 +41,18 @@ function generateFriendlyMessage(
   eventName: string,
   venueName: string,
   eventDate: string,
-  includePiNote: boolean
+  includePiNote: boolean,
+  ticketRef: string
 ): string {
   const piNote = includePiNote
     ? `\n\nI've CC'd Performance Interpreting to help support this request.`
     : "";
   const dateClause = eventDate ? ` on ${eventDate}` : "";
+  // Ticket-first venues (The O2) only action requests from ticket holders.
+  // Line mirrors the app's template (app.js:7098).
+  const ticketClause = ticketRef
+    ? `\n\nI have already purchased a ticket — booking/ticket reference: ${ticketRef}. Please could you arrange seating in the BSL interpreter viewing area?`
+    : "";
   return `Hi ${venueName} team,
 
 I want to attend ${eventName}${dateClause}!
@@ -53,18 +60,20 @@ I want to attend ${eventName}${dateClause}!
 I am Deaf and use BSL.
 Will there be an interpreter?
 
-If not, can you arrange one?${piNote}
+If not, can you arrange one?${ticketClause}${piNote}
 
 Thank you!`;
 }
 
 export function buildDraft(input: DraftInput): EmailDraft {
   const hasVenueEmail = input.venueEmail.trim().length > 0;
+  const ticketRef = (input.ticketRef ?? "").trim();
   let body = generateFriendlyMessage(
     input.eventName.trim() || "[event]",
     input.venueName.trim() || "[venue]",
     input.eventDate.trim(),
-    hasVenueEmail
+    hasVenueEmail,
+    ticketRef
   );
 
   if (input.accessNeeds && input.accessNeeds !== "") {
@@ -82,7 +91,9 @@ export function buildDraft(input: DraftInput): EmailDraft {
   // The app's sheet templates (PI Live Config → templates tab) carry the same line.
   body += `\n\nPerformance Interpreting is supporting this request.`;
 
-  const subject = `BSL Interpretation Request - ${input.eventName.trim() || "your event"}`;
+  const subject =
+    `BSL Interpretation Request - ${input.eventName.trim() || "your event"}` +
+    (ticketRef ? ` (Ticket Ref: ${ticketRef})` : "");
 
   return {
     subject,

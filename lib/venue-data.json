@@ -2087,36 +2087,42 @@
     "the o2": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "ticketRefPolicy": "required"
     },
     "o2 arena": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "ticketRefPolicy": "required"
     },
     "the o2 arena": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
       "vrsLabel": "SignVideo",
-      "url": "https://www.theo2.co.uk/accessibility/bsl-interpreter-services"
+      "url": "https://www.theo2.co.uk/accessibility/bsl-interpreter-services",
+      "ticketRefPolicy": "required"
     },
     "the o2 arena, london": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
       "vrsLabel": "SignVideo",
-      "url": "https://www.theo2.co.uk/accessibility/bsl-interpreter-services"
+      "url": "https://www.theo2.co.uk/accessibility/bsl-interpreter-services",
+      "ticketRefPolicy": "required"
     },
     "indigo at the o2": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
       "vrsLabel": "SignVideo",
-      "url": "https://www.theo2.co.uk/accessibility/indigo-at-the-o2-2"
+      "url": "https://www.theo2.co.uk/accessibility/indigo-at-the-o2-2",
+      "ticketRefPolicy": "required"
     },
     "indigo at the o2, london": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
       "vrsLabel": "SignVideo",
-      "url": "https://www.theo2.co.uk/accessibility/indigo-at-the-o2-2"
+      "url": "https://www.theo2.co.uk/accessibility/indigo-at-the-o2-2",
+      "ticketRefPolicy": "required"
     },
     "wembley stadium": {
       "form": "https://help.wembleystadium.com/support/tickets/new",
@@ -2712,7 +2718,8 @@
     "o2 london": {
       "email": "access@theo2.co.uk",
       "vrs": "https://service.signvideo.uk/webrtc//#/oneclickcall?dD1vMmFyZW5hQHNpZ252aWRlby51ayZ1PWFub255bW91cyZwPWFub255bW91cw==",
-      "vrsLabel": "SignVideo"
+      "vrsLabel": "SignVideo",
+      "ticketRefPolicy": "required"
     },
     "edinburgh caste": {
       "email": ""
