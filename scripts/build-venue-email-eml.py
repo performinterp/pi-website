@@ -15,9 +15,11 @@ BASE = "https://performanceinterpreting.co.uk/email/venue-listing/"
 SUBJECT = "Help Deaf audiences find more of your events (free listing on PI Events)"
 TEXT = """Hi there,
 
-Deaf people can't book what they can't see. Many don't know an interpreter is possible, so they don't buy a ticket, and you never see the demand.
+The PI Events app is a free app where Deaf customers find events with BSL and ISL interpreters.
 
-The PI Events app is where Deaf audiences look for BSL and ISL events. We'd like to list more of your events, including ones that don't have an interpreter yet. It's free, and every listing is shared on our Instagram and Facebook.
+At the moment, most events only appear in the app once an interpreter has been booked. We'd love to list all of your upcoming events, so Deaf customers can see what's on and ask for an interpreter for the shows they want to go to.
+
+It's completely free for your venue, and every listing is also shared on our Instagram and Facebook.
 
 Events without an interpreter yet are marked "Request Interpreter". Requests go to your access team, with us copied in, and we can arrange the interpreters.
 
