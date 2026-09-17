@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Browse confirmed BSL and ISL interpreted events across the UK and Ireland. Concerts, festivals, theatre, sport, comedy and more - filter by date, city, category or interpretation language.",
 };
 
-export const revalidate = 1800;
+export const revalidate = 7200;
 
 export default async function EventsPage() {
   const events = await fetchEvents();
@@ -68,7 +68,7 @@ export default async function EventsPage() {
         </h2>
         <p className="mb-3 text-right text-xs text-pi-ink/65">
           {upcoming.length} upcoming{" "}
-          {upcoming.length === 1 ? "event" : "events"} - updated every 30 minutes
+          {upcoming.length === 1 ? "event" : "events"} - updated every 2 hours
         </p>
 
         <EventsFilter events={upcoming} cities={cities} categories={categories} />

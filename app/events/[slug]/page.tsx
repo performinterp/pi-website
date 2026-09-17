@@ -11,7 +11,7 @@ import {
   getAccessFeatureDef,
   resolveEventMapsUrl,
 } from "@/lib/venues";
-export const revalidate = 1800;
+export const revalidate = 7200;
 
 interface Params {
   params: Promise<{ slug: string }>;

@@ -35,7 +35,7 @@ function classifyInterpreterStatus(
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTVxv88y3c-1VMujoz2bupvSCnUkoC-r0W-QogbkhivAAvY-EBff7-vp76b7NxYeSQMK43rOb7PI830/pub?gid=57149695&single=true&output=csv";
 
-const REVALIDATE_SECONDS = 60 * 30;
+const REVALIDATE_SECONDS = 60 * 60 * 2;
 
 const COLUMNS = [
   "DATE",

@@ -32,8 +32,8 @@ function cityDisplay(slug: string, eventsForCity: Event[]): string {
     .join(" ");
 }
 
-// Refresh every 30 min — matches the main /events/ page.
-export const revalidate = 1800;
+// Refresh every 2 hours — matches the main /events/ page.
+export const revalidate = 7200;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {

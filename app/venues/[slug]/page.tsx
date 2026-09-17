@@ -39,7 +39,7 @@ function findVenueCoords(keyOrDisplay: string, city: string): { lat: number; lng
   return undefined;
 }
 
-export const revalidate = 1800;
+export const revalidate = 7200;
 
 interface Params {
   params: Promise<{ slug: string }>;
