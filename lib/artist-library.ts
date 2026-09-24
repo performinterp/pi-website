@@ -66,6 +66,9 @@ const ARTIST_LIBRARY: Readonly<Record<string, string>> = {
   "bon-jovi": "/artists/bon-jovi.jpg",
   "my-chemical-romance": "/artists/my-chemical-romance.jpg",
   "luke-combs": "/artists/luke-combs.jpg",
+  // Official Live Tour key art — no year on the artwork, so the prefix key
+  // covers every tour year ("Strictly Come Dancing Tour 2027" and successors).
+  "strictly-come-dancing": "/artists/strictly-come-dancing.jpg",
 };
 
 // Sorted longest-first so progressive prefix match picks the most specific key
