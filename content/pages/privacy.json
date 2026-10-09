@@ -32,7 +32,7 @@
         },
         {
           "title": "Usage data",
-          "description": "Technical data about how you use our website and app, including IP address, browser type, pages visited and device information - collected via cookies and analytics tools."
+          "description": "Technical data about how you use our website and app, including IP address, browser type, pages visited and device information - collected via cookieless analytics tools (see 'Cookies and analytics' below)."
         },
         {
           "title": "Communications data",
@@ -95,7 +95,7 @@
       "body": [
         "We do not sell your personal data. We share it only where necessary:",
         "With interpreters and production staff - where needed to deliver services you have engaged us for (e.g., sharing event details with the interpreter team).",
-        "With technology providers - cloud hosting, email, CRM and analytics tools used to operate our business, all bound by data processing agreements.",
+        "With technology providers - Vercel (website hosting and analytics), Resend (sending emails from our contact form), Tally (embedded forms on some pages) and our feedback video upload service (which emails submitted sign language feedback videos to our staff), plus the CRM tools used to operate our business - all bound by data processing agreements.",
         "With legal and regulatory authorities - where required by law or to protect our legitimate interests.",
         "We do not transfer personal data outside the UK or EEA without appropriate safeguards."
       ]
@@ -115,19 +115,19 @@
       ]
     },
     {
-      "heading": "Cookies",
+      "heading": "Cookies and analytics",
       "body": [
-        "Our website uses cookies to ensure it functions correctly and to understand how it is used. We use:",
-        "Essential cookies: Required for the website to function. Cannot be disabled.",
-        "Analytics cookies: Used to understand how visitors use our site (e.g., pages visited, time on site). We use privacy-respecting analytics and do not share this data with third-party advertising platforms.",
-        "You can control cookie settings through your browser. Blocking all cookies may affect the functionality of our website."
+        "Our website sets no non-essential cookies, so we don't show a cookie consent banner - there's nothing to ask your consent for.",
+        "We use Vercel Web Analytics to understand how our website is used. It is cookieless: it doesn't use cookies or track you across sites, and it only collects aggregated, anonymised page-view data (for example, which pages are visited and how often). No cookie consent is required for this under PECR.",
+        "We use browser storage (not cookies) on your device only for functional preferences you set yourself, so the site remembers your choices as you move between pages: your Easy Read mode setting, your preferred way of talking to our assistant, whether you've dismissed the app promotion banner this visit, and - if you choose to share it - your approximate location so the events map can show events near you. None of this is used for advertising or for tracking you across other sites.",
+        "You can clear this browser storage at any time in your browser's settings; this simply resets those preferences next time you visit."
       ]
     },
     {
       "heading": "Changes to this policy",
       "body": [
         "We may update this privacy policy from time to time. The current version will always be available at performanceinterpreting.co.uk/privacy. Material changes will be communicated where we hold your contact details.",
-        "This policy was last updated in March 2026."
+        "This policy was last updated on 9 October 2026."
       ]
     }
   ]

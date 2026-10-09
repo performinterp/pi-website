@@ -3,7 +3,6 @@ import { DM_Serif_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Nav from "@/components/nav";
-import CookieBanner from "@/components/cookie-banner";
 import DeferredShell from "@/components/deferred-shell";
 import { EasyReadProvider, EASY_READ_INIT_SCRIPT } from "@/lib/easy-read";
 import { Analytics } from "@vercel/analytics/next";
@@ -360,7 +359,6 @@ export default function RootLayout({
           <main id="main-content">{children}</main>
 
           <Footer />
-          <CookieBanner />
           <DeferredShell />
         </EasyReadProvider>
         <Analytics />

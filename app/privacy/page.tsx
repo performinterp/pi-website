@@ -38,7 +38,7 @@ export default function PrivacyPage() {
             description: page.metaDescription,
             inLanguage: "en-GB",
             datePublished: "2026-06-02",
-            dateModified: "2026-06-02",
+            dateModified: "2026-10-09",
             isPartOf: { "@id": "https://performanceinterpreting.co.uk/#website" },
           }),
         }}
