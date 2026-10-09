@@ -153,6 +153,9 @@ export const ContactSchema = z.object({
   // can no longer submit without explicit positive consent.
   consent: z.literal(true),
   website: Honeypot,
+  // How long the form was open before submit (spam scoring, see spam-check.ts).
+  // Never rejected on its own value: a clock change could make it odd for a real person.
+  elapsed_ms: z.number().optional(),
 }).extend(OrganiserFields.shape)
   .extend(DeafCommunityFields.shape)
   .extend(InterpreterFields.shape)

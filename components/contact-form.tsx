@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const enquiryTypes = [
   { value: "organiser", label: "Event organiser - book interpreters" },
@@ -306,6 +306,11 @@ export default function ContactForm() {
   // the deep-linked values.
   const [enquiryType, setEnquiryType] = useState<string>(readEnquiryTypeFromUrl);
   const [prefill] = useState<Prefill>(parseUrlPrefill);
+  // When the form appeared, so the server can spot bots that submit instantly.
+  const openedAt = useRef<number | null>(null);
+  useEffect(() => {
+    openedAt.current = Date.now();
+  }, []);
 
   if (status === "sent") {
     return (
@@ -340,6 +345,7 @@ export default function ContactForm() {
       // without it; this propagates the same signal to the server.
       consent: (form.elements.namedItem("consent") as HTMLInputElement)?.checked,
       website: get("nickname"),
+      elapsed_ms: openedAt.current ? Date.now() - openedAt.current : undefined,
     };
 
     if (baseData.enquiry_type === "organiser") {

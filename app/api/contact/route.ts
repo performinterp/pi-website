@@ -6,6 +6,7 @@ import {
   SECTION_HEADERS,
 } from "@/lib/api-schemas";
 import { isAllowedOrigin } from "@/lib/origin-check";
+import { isLikelySpam, spamSignals } from "@/lib/spam-check";
 import {
   formRateLimitPerMinute,
   formRateLimitPerDay,
@@ -57,6 +58,18 @@ export async function POST(request: Request) {
 
     // Honeypot — silently 200 so bots don't tune around it
     if (website && website.length > 0) {
+      return NextResponse.json({ success: true });
+    }
+
+    // Same silent 200 for submissions with two or more bot signals.
+    const signals = spamSignals({
+      email,
+      message,
+      texts: Object.values(parsed.data).filter((v): v is string => typeof v === "string"),
+      elapsed_ms: parsed.data.elapsed_ms,
+    });
+    if (isLikelySpam(signals)) {
+      console.warn(`[contact] dropped as likely spam: ${signals.join(", ")}`);
       return NextResponse.json({ success: true });
     }
 
@@ -112,13 +125,20 @@ export async function POST(request: Request) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    await resend.emails.send({
+    // The Resend SDK returns API failures (bad key, unverified domain) as
+    // `error` rather than throwing — without this check a failed send still
+    // told the visitor "Message sent" and the enquiry was lost.
+    const { error: sendError } = await resend.emails.send({
       from: "PI Website <website@performanceinterpreting.co.uk>",
       to: ["enquiries@performanceinterpreting.co.uk"],
       replyTo: email,
       subject: `${urgentLabel}New enquiry from ${name} (${enquiryLabel})`,
       text: lines.join("\n"),
     });
+    if (sendError) {
+      console.error("Contact form send failed:", sendError);
+      return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
