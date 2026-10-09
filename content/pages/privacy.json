@@ -118,7 +118,7 @@
       "heading": "Cookies and analytics",
       "body": [
         "Our website sets no non-essential cookies, so we don't show a cookie consent banner - there's nothing to ask your consent for.",
-        "We use Vercel Web Analytics to understand how our website is used. It is cookieless: it doesn't use cookies or track you across sites, and it only collects aggregated, anonymised page-view data (for example, which pages are visited and how often). No cookie consent is required for this under PECR.",
+        "We use Vercel Web Analytics to understand how our website is used. It is cookieless: it doesn't use cookies or track you across sites, and it only collects aggregated, anonymised page-view data (for example, which pages are visited and how often).",
         "We use browser storage (not cookies) on your device only for functional preferences you set yourself, so the site remembers your choices as you move between pages: your Easy Read mode setting, your preferred way of talking to our assistant, whether you've dismissed the app promotion banner this visit, and - if you choose to share it - your approximate location so the events map can show events near you. None of this is used for advertising or for tracking you across other sites.",
         "You can clear this browser storage at any time in your browser's settings; this simply resets those preferences next time you visit."
       ]
