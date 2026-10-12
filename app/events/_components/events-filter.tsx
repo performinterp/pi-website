@@ -272,6 +272,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
 
   const shown = filtered.slice(0, visible);
   const hasMore = filtered.length > shown.length;
+  const showInterpreterNote = shown.some((ev) => ev.interpreters);
 
   function reset() {
     setSearch("");
@@ -676,9 +677,14 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
         </div>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-pi-ink/70" aria-live="polite">
-            {filtered.length} {filtered.length === 1 ? "match" : "matches"}
-          </p>
+          <div>
+            <p className="text-sm text-pi-ink/70" aria-live="polite">
+              {filtered.length} {filtered.length === 1 ? "match" : "matches"}
+            </p>
+            {showInterpreterNote && (
+              <p className="text-xs text-pi-ink/60">* Interpreters may change.</p>
+            )}
+          </div>
           <div className="flex items-center gap-3">
             <div
               role="group"
@@ -1051,6 +1057,8 @@ function EventCard({ event }: { event: Event }) {
         {event.interpreters && (
           <p className="mt-auto text-sm text-pi-ink/65">
             Interpreters: {event.interpreters}
+            <span aria-hidden="true">*</span>
+            <span className="sr-only"> (may change)</span>
           </p>
         )}
       </div>

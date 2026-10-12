@@ -445,11 +445,18 @@ export default async function EventDetailPage({ params }: Params) {
                 {(event.interpreters && isBooked) || event.format ? (
                   <dl className="mt-5 grid gap-4 sm:grid-cols-2">
                     {event.interpreters && isBooked && (
-                      <Detail label="Interpreting team">{event.interpreters}</Detail>
+                      <Detail label="Interpreting team">
+                        {event.interpreters}
+                        <span aria-hidden="true">*</span>
+                        <span className="sr-only"> (may change)</span>
+                      </Detail>
                     )}
                     {event.format && <Detail label="Format">{event.format}</Detail>}
                   </dl>
                 ) : null}
+                {event.interpreters && isBooked && (
+                  <p className="mt-2 text-xs text-pi-ink/60">* Interpreters may change.</p>
+                )}
               </section>
 
               {/* Mobile-only booking panel — desktop renders the same panel
