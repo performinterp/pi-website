@@ -141,7 +141,8 @@ export default function Footer() {
           <p className="max-w-2xl text-xs leading-relaxed text-white/55">
             Performance Interpreting Ltd is registered in England and Wales. Company
             No. 10684652. VAT No. 265 5979 48. Registered office: Onega House, 112
-            Main Road, Sidcup, United Kingdom, DA14 6NE.
+            Main Road, Sidcup, United Kingdom, DA14 6NE. The PI logo is a trade
+            mark of Performance Interpreting Ltd (UK application UK00004458619).
           </p>
           <div className="flex flex-col gap-2 md:items-end md:text-right">
             <p className="text-xs text-white/65">
