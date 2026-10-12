@@ -272,7 +272,8 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
 
   const shown = filtered.slice(0, visible);
   const hasMore = filtered.length > shown.length;
-  const showInterpreterNote = shown.some((ev) => ev.interpreters);
+  // Only booked events carry real names ("Request Interpreter" is a placeholder).
+  const showInterpreterNote = shown.some((ev) => ev.interpreters && ev.interpreterStatus === "booked");
 
   function reset() {
     setSearch("");
@@ -1057,8 +1058,12 @@ function EventCard({ event }: { event: Event }) {
         {event.interpreters && (
           <p className="mt-auto text-sm text-pi-ink/65">
             Interpreters: {event.interpreters}
-            <span aria-hidden="true">*</span>
-            <span className="sr-only"> (may change)</span>
+            {isBooked && (
+              <>
+                <span aria-hidden="true">*</span>
+                <span className="sr-only"> (may change)</span>
+              </>
+            )}
           </p>
         )}
       </div>
