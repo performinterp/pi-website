@@ -8,8 +8,8 @@
       "sort_order": "1",
       "active": "TRUE",
       "teams": "Men|Women",
-      "venue_keys": "emirates-stadium",
-      "bsl_headline": "BSL at every home match",
+      "venue_keys": "emirates-stadium|meadow-park",
+      "bsl_headline": "BSL at every men's home match, and some women's matches",
       "bsl_detail": "PENDING CHRIS — BSL is on the big screens. Sit anywhere. You do not need to ask.",
       "access_email": "",
       "access_phone": "",
@@ -118,6 +118,16 @@
       "postcode": "N7 7AJ",
       "city": "London",
       "maps_url": "https://www.google.com/maps/search/?api=1&query=Emirates+Stadium%2C+Hornsey+Road%2C+London+N7+7AJ"
+    },
+    {
+      "key": "meadow-park",
+      "display": "Meadow Park (Mangata Pay UK Stadium)",
+      "aliases": "Meadow Park | meadow park | Mangata Pay UK Stadium | mangata pay uk stadium | meadow park, borehamwood",
+      "address": "Broughinge Road",
+      "address2": "Borehamwood",
+      "postcode": "WD6 5AL",
+      "city": "Borehamwood",
+      "maps_url": "https://www.google.com/maps/search/?api=1&query=Meadow+Park%2C+Broughinge+Road%2C+Borehamwood+WD6+5AL"
     },
     {
       "key": "chelsea",
