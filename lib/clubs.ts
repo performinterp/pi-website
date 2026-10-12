@@ -50,24 +50,7 @@ export interface ClubGround {
   mapsUrl: string;
 }
 
-export interface ClubView {
-  key: string;
-  display: string;
-  sortOrder: number;
-  teams: string[];
-  venueKeys: string[];
-  bslHeadline: string;
-  bslDetail: string;
-  accessEmail: string;
-  accessPhone: string;
-  accessPageUrl: string;
-  fixturesUrlMen: string;
-  fixturesUrlWomen: string;
-  ticketsUrl: string;
-  imageUrl: string;
-  imageAlt: string;
-  imageCredit: string;
-  aliases: string[];
+export interface ClubView extends ClubBase {
   grounds: ClubGround[];
 }
 
@@ -161,14 +144,7 @@ function normaliseVenue(s: string | undefined | null): string {
 
 const rawGrounds: GroundRow[] = (clubConfig as { grounds?: GroundRow[] }).grounds || [];
 
-interface GroundRaw {
-  key: string;
-  display: string;
-  address: string;
-  mapsUrl: string;
-}
-
-const groundByKey = new Map<string, GroundRaw>();
+const groundByKey = new Map<string, ClubGround>();
 // Every normalised alias (including the ground's own display) mapped to its
 // ground key, used to resolve an event's venue to a ground. Sorted longest
 // alias first so "wembley stadium" beats "wembley".
@@ -231,12 +207,7 @@ export function getClubs(): ClubView[] {
     for (const vk of club.venueKeys) {
       const ground = groundByKey.get(vk);
       if (ground) {
-        grounds.push({
-          key: ground.key,
-          display: ground.display,
-          address: ground.address,
-          mapsUrl: ground.mapsUrl,
-        });
+        grounds.push(ground);
       }
     }
     return { ...club, grounds };
