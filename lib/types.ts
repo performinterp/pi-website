@@ -121,6 +121,8 @@ export interface Event {
   addedDate: string | null;
   interpreterStatus: InterpreterStatus;
   interpreterStatusLabel: string;
+  // set on /events for Sports home matches; see lib/clubs.ts
+  clubKey?: string;
 }
 
 export interface PageContent {

@@ -3,6 +3,7 @@ import PageHero from "@/components/page-hero";
 import ContactCta from "@/components/contact-cta";
 import EventsFilter from "./_components/events-filter";
 import { fetchEvents, uniqueValues } from "@/lib/events";
+import { getClubs, clubKeyFor } from "@/lib/clubs";
 
 export const metadata: Metadata = {
   title: "Find Interpreted Events - Performance Interpreting",
@@ -21,6 +22,9 @@ export default async function EventsPage() {
 
   const cities = uniqueValues(upcoming, "city");
   const categories = uniqueValues(upcoming, "category");
+
+  const clubs = getClubs();
+  const withClubs = upcoming.map((ev) => ({ ...ev, clubKey: clubKeyFor(ev, clubs) }));
 
   const SITE = "https://performanceinterpreting.co.uk";
 
@@ -71,7 +75,7 @@ export default async function EventsPage() {
           {upcoming.length === 1 ? "event" : "events"} - updated every 2 hours
         </p>
 
-        <EventsFilter events={upcoming} cities={cities} categories={categories} />
+        <EventsFilter events={withClubs} cities={cities} categories={categories} clubs={clubs} />
       </section>
 
       <ContactCta />

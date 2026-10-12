@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Event } from "@/lib/types";
+import type { ClubView } from "@/lib/clubs";
 import { eventSlug } from "@/lib/event-slug";
 import {
   fuzzyMatch,
@@ -40,6 +41,7 @@ interface Props {
   events: Event[];
   cities: string[];
   categories: string[];
+  clubs: ClubView[];
 }
 
 const PAGE_SIZE = 24;
@@ -68,11 +70,12 @@ function formatDateLabel(isoDate: string): string {
   });
 }
 
-export default function EventsFilter({ events, cities, categories }: Props) {
+export default function EventsFilter({ events, cities, categories, clubs }: Props) {
   const { on: easyRead } = useEasyRead();
   const [search, setSearch] = useState("");
   const [city, setCity] = useState("all");
   const [category, setCategory] = useState("all");
+  const [club, setClub] = useState("all");
   const [language, setLanguage] = useState("all");
   const [interpreterStatus, setInterpreterStatus] = useState("all");
   const [fromDate, setFromDate] = useState("");
@@ -185,6 +188,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       }
       if (city !== "all" && ev.city !== city) return false;
       if (category !== "all" && !ev.categories.includes(category)) return false;
+      if (club !== "all" && ev.clubKey !== club) return false;
       if (language !== "all" && ev.language !== language) return false;
       if (interpreterStatus !== "all" && ev.interpreterStatus !== interpreterStatus) return false;
       if (fromDate && ev.isoDate < fromDate) return false;
@@ -202,6 +206,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
     search,
     city,
     category,
+    club,
     language,
     interpreterStatus,
     fromDate,
@@ -231,7 +236,9 @@ export default function EventsFilter({ events, cities, categories }: Props) {
         counts.set(c, (counts.get(c) || 0) + 1);
       }
     }
-    const ordered = [...CATEGORY_ORDER].filter((c) => counts.has(c));
+    const ordered = [...CATEGORY_ORDER].filter(
+      (c) => counts.has(c) || (c === "Sports" && clubs.length > 0)
+    );
     const extras = Array.from(counts.keys())
       .filter((c) => !CATEGORY_ORDER.includes(c))
       .sort();
@@ -257,7 +264,9 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       });
     }
     return list;
-  }, [events, category]);
+  }, [events, category, clubs]);
+
+  const selectedClub = club !== "all" ? clubs.find((c) => c.key === club) : undefined;
 
   const activeDatePreset = activePresetKey(fromDate, toDate);
 
@@ -268,6 +277,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
     setSearch("");
     setCity("all");
     setCategory("all");
+    setClub("all");
     setLanguage("all");
     setInterpreterStatus("all");
     setFromDate("");
@@ -404,6 +414,7 @@ export default function EventsFilter({ events, cities, categories }: Props) {
                   type="button"
                   onClick={() => {
                     setCategory(c.key);
+                    setClub("all");
                     setVisible(PAGE_SIZE);
                   }}
                   aria-pressed={active}
@@ -427,6 +438,63 @@ export default function EventsFilter({ events, cities, categories }: Props) {
             })}
           </div>
         </div>
+
+        {/* Club picker — only when Sports is selected and we have club data */}
+        {category === "Sports" && clubs.length > 0 && (
+          <div className="mt-5">
+            <p className={labelClass}>Club</p>
+            <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+              <button
+                type="button"
+                onClick={() => {
+                  setClub("all");
+                  setVisible(PAGE_SIZE);
+                }}
+                aria-pressed={club === "all"}
+                className={`flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-3 text-center transition ${
+                  club === "all"
+                    ? "border-pi-accent bg-pi-accent/10 ring-1 ring-pi-accent"
+                    : "border-pi-ink/10 bg-white hover:border-pi-accent/40"
+                }`}
+              >
+                <span className="text-xs font-semibold leading-tight text-pi-ink">
+                  All clubs
+                </span>
+              </button>
+              {clubs.map((c) => {
+                const active = club === c.key;
+                return (
+                  <button
+                    key={c.key}
+                    type="button"
+                    onClick={() => {
+                      setClub(club === c.key ? "all" : c.key);
+                      setVisible(PAGE_SIZE);
+                    }}
+                    aria-pressed={active}
+                    className={`flex flex-col items-center gap-1.5 rounded-xl border p-2 text-center transition ${
+                      active
+                        ? "border-pi-accent bg-pi-accent/10 ring-1 ring-pi-accent"
+                        : "border-pi-ink/10 bg-white hover:border-pi-accent/40"
+                    }`}
+                  >
+                    <ClubImage
+                      src={c.imageUrl}
+                      alt={c.imageAlt || c.display}
+                      className="aspect-[16/9] w-full rounded-lg object-cover"
+                    />
+                    <span className="text-xs font-semibold leading-tight text-pi-ink">
+                      {c.display}
+                    </span>
+                    <span className="text-[10px] leading-tight text-pi-ink/60">
+                      {c.bslHeadline}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Where — near-me filter */}
         <div className="mt-5">
@@ -654,13 +722,140 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       </div>
 
       <div ref={resultsRef} className="scroll-mt-24">
+      {selectedClub && (
+        <div className="mb-6 overflow-hidden rounded-2xl border border-pi-ink/10 bg-white shadow-sm">
+          <ClubImage
+            src={selectedClub.imageUrl}
+            alt={selectedClub.imageAlt || selectedClub.display}
+            className="aspect-[16/9] w-full object-cover"
+          />
+          <div className="p-5 md:p-6">
+            <h3 className="font-display text-2xl text-pi-ink">{selectedClub.display}</h3>
+            <p className="mt-1 font-semibold text-pi-accent">{selectedClub.bslHeadline}</p>
+            {selectedClub.bslDetail && (
+              <p className="mt-2 text-sm text-pi-ink/70">{selectedClub.bslDetail}</p>
+            )}
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {selectedClub.fixturesUrlMen.startsWith("https://") && (
+                <a
+                  href={selectedClub.fixturesUrlMen}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                >
+                  {selectedClub.fixturesUrlWomen.startsWith("https://")
+                    ? "Men's fixtures"
+                    : "Fixtures"}
+                </a>
+              )}
+              {selectedClub.fixturesUrlWomen.startsWith("https://") && (
+                <a
+                  href={selectedClub.fixturesUrlWomen}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                >
+                  Women&apos;s fixtures
+                </a>
+              )}
+              {selectedClub.ticketsUrl.startsWith("https://") && (
+                <a
+                  href={selectedClub.ticketsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                >
+                  Tickets
+                </a>
+              )}
+              {selectedClub.accessPageUrl.startsWith("https://") && (
+                <a
+                  href={selectedClub.accessPageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                >
+                  Accessibility
+                </a>
+              )}
+            </div>
+
+            {(selectedClub.accessEmail || selectedClub.accessPhone) && (
+              <div className="mt-4">
+                <h4 className="text-sm font-semibold text-pi-ink">Accessibility team</h4>
+                <div className="mt-1 flex flex-wrap gap-4 text-sm">
+                  {selectedClub.accessEmail && (
+                    <a
+                      href={`mailto:${selectedClub.accessEmail}`}
+                      className="text-pi-accent hover:underline"
+                    >
+                      {selectedClub.accessEmail}
+                    </a>
+                  )}
+                  {selectedClub.accessPhone && (
+                    <a
+                      href={`tel:${selectedClub.accessPhone.replace(/\s+/g, "")}`}
+                      className="text-pi-accent hover:underline"
+                    >
+                      {selectedClub.accessPhone}
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {selectedClub.grounds.length > 0 && (
+              <div className="mt-4">
+                <h4 className="text-sm font-semibold text-pi-ink">
+                  {selectedClub.grounds.length === 1 ? "Ground" : "Grounds"}
+                </h4>
+                <ul className="mt-1 space-y-2">
+                  {selectedClub.grounds.map((g) => (
+                    <li
+                      key={g.key}
+                      className="flex flex-wrap items-center gap-3 text-sm text-pi-ink/80"
+                    >
+                      <span>
+                        <span className="font-semibold text-pi-ink">{g.display}</span>
+                        {g.address ? ` — ${g.address}` : ""}
+                      </span>
+                      {g.mapsUrl.startsWith("https://") && (
+                        <a
+                          href={g.mapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-full border border-pi-accent px-4 py-2 text-xs font-semibold text-pi-accent hover:bg-pi-accent/10"
+                        >
+                          Map
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {filtered.length === 0 && (
+              <p className="mt-4 rounded-lg bg-pi-accent/5 p-3 text-sm text-pi-ink/70">
+                No PI-listed matches here right now. Use the fixtures button to see what&apos;s
+                coming up.
+              </p>
+            )}
+
+            {selectedClub.imageCredit && (
+              <p className="mt-4 text-xs text-pi-ink/50">{selectedClub.imageCredit}</p>
+            )}
+          </div>
+        </div>
+      )}
       {viewMode === "map" ? (
         <EventsMap
           events={filtered}
           userCoords={userCoords}
           onClose={() => setViewMode("list")}
         />
-      ) : shown.length === 0 ? (
+      ) : shown.length === 0 && !selectedClub ? (
         <div className="rounded-2xl border border-dashed border-pi-ink/15 p-12 text-center">
           {search.trim() ? (
             <>
@@ -755,6 +950,37 @@ export default function EventsFilter({ events, cities, categories }: Props) {
       )}
       </div>
     </>
+  );
+}
+
+// Image with a graceful fallback to the same gradient EventCard uses — for
+// club thumbnails/panel images that have no URL, or whose URL 404s.
+function ClubImage({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) {
+    return (
+      <div
+        className={`flex items-center justify-center bg-gradient-to-br from-pi-deep to-pi-navy ${className || ""}`}
+      />
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className={className}
+    />
   );
 }
 
