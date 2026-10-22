@@ -11,6 +11,7 @@ import {
   getAccessFeatureDef,
   resolveEventMapsUrl,
 } from "@/lib/venues";
+import AppPromo from "@/components/app-promo";
 export const revalidate = 7200;
 
 interface Params {
@@ -466,6 +467,11 @@ export default async function EventDetailPage({ params }: Params) {
                   {bookingPanel}
                 </div>
               )}
+
+              <AppPromo
+                heading="Going? Take the free app"
+                text="Show staff a card that says you are Deaf, build a food order on screen, and get an alert when new events are added."
+              />
 
               {(mapsUrl ||
                 venueDetails?.address ||

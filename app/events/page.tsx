@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/page-hero";
 import ContactCta from "@/components/contact-cta";
+import AppPromo from "@/components/app-promo";
 import EventsFilter from "./_components/events-filter";
 import { fetchEvents, uniqueValues } from "@/lib/events";
 import { getClubs, clubKeyFor } from "@/lib/clubs";
@@ -67,6 +68,12 @@ export default async function EventsPage() {
       />
 
       <section className="section-padding section-gap" aria-labelledby="events-heading">
+        <div className="mb-10">
+          <AppPromo
+            heading="Get these events in the free app"
+            text="Pick the artists, venues or cities you like and get an alert when a new event is added. On the day, show staff a card that says you are Deaf."
+          />
+        </div>
         <h2 id="events-heading" className="sr-only">
           Upcoming interpreted events
         </h2>
