@@ -74,6 +74,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // Business-card QR (Nov 2026). Temporary on purpose: the destination
+        // can change later without reprinting, and browsers won't cache it.
+        source: "/card",
+        destination: "/organisers/",
+        permanent: false,
+      },
+      {
         source: "/photo-consent",
         destination:
           "https://docs.google.com/forms/d/e/1FAIpQLSeUKd3cA2qrMl3mbri1ASi0l4CAKci7THRdG6lVxdGShoGC7g/viewform",
