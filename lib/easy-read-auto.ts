@@ -18,6 +18,18 @@ function longDate(isoDate: string): string {
     .replace(",", "");
 }
 
+// "18:30" -> "6:30pm", "19:00" -> "7pm". Anything else (already "7:30pm",
+// "Doors 6pm") is left as written.
+function friendlyTime(time: string): string {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(time);
+  if (!m) return time;
+  const h = Number(m[1]);
+  if (h > 23) return time;
+  const suffix = h < 12 ? "am" : "pm";
+  const h12 = h % 12 || 12;
+  return m[2] === "00" ? `${h12}${suffix}` : `${h12}:${m[2]}${suffix}`;
+}
+
 function interpreterPoint(language: Event["language"]): EasyReadPoint {
   if (language === "ISL") return { icon: ISL_ICON, text: "An ISL interpreter is booked." };
   if (language === "BSL_AND_ISL") return { icon: BSL_ICON, text: "BSL and ISL interpreters are booked." };
@@ -36,7 +48,7 @@ export function eventEasyRead(
     { icon: "📅", text: `It is on ${longDate(ev.isoDate)}.` },
   ];
   const time = ev.time.trim();
-  if (time && !/tbc/i.test(time)) points.push({ icon: "🕖", text: `It starts at ${time}.` });
+  if (time && !/tbc/i.test(time)) points.push({ icon: "🕖", text: `It starts at ${friendlyTime(time)}.` });
   const booked = ev.interpreterStatus === "booked";
   points.push(
     booked
@@ -73,15 +85,19 @@ export function venueEasyRead(v: {
   city: string;
   email?: string;
   phone?: string;
+  /** SignVideo (BSL video relay) link — the most direct route for a BSL user. */
+  vrs?: string;
 }): EasyReadPage {
   const points: EasyReadPoint[] = [
     { icon: "📍", text: `${v.name} is in ${v.city}.` },
   ];
-  if (v.email || v.phone) points.push({ icon: "✉️", text: "You can contact their access team." });
+  if (v.vrs) points.push({ icon: "📹", text: "You can call their access team in BSL. Use SignVideo." });
+  else if (v.email || v.phone) points.push({ icon: "✉️", text: "You can contact their access team." });
   points.push({ icon: "❓", text: "You can ask us for an interpreter here." });
 
   const actions = [];
-  if (v.email) actions.push({ label: "Email their access team", href: `mailto:${v.email}` });
+  if (v.vrs) actions.push({ label: "Call in BSL", href: v.vrs });
+  else if (v.email) actions.push({ label: "Email their access team", href: `mailto:${v.email}` });
   else if (v.phone) actions.push({ label: "Call their access team", href: `tel:${v.phone}` });
   actions.push({
     label: "Ask for an interpreter",

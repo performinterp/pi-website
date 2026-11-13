@@ -259,7 +259,7 @@ export default async function VenueDetailPage({ params }: Params) {
       </section>
 
       <EasyReadSummary
-        page={venueEasyRead({ name: venue.display, city: venue.city, email: contact?.email, phone: contact?.phone })}
+        page={venueEasyRead({ name: venue.display, city: venue.city, email: contact?.email, phone: contact?.phone, vrs: contact?.vrs })}
       />
 
       <article className="bg-pi-canvas">

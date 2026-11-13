@@ -72,3 +72,16 @@ test("venue pages", () => {
   const q = venueEasyRead({ name: "X", city: "Y" });
   assert.ok(!texts(q).includes("You can contact their access team."));
 });
+
+test("24-hour times read as 12-hour", () => {
+  assert.ok(texts(eventEasyRead({ ...base, time: "18:30" })).includes("It starts at 6:30pm."));
+  assert.ok(texts(eventEasyRead({ ...base, time: "19:00" })).includes("It starts at 7pm."));
+  assert.ok(texts(eventEasyRead({ ...base, time: "12:15" })).includes("It starts at 12:15pm."));
+});
+
+test("venue with SignVideo leads with calling in BSL", () => {
+  const p = venueEasyRead({ name: "Emirates Stadium", city: "London", vrs: "https://signvideo.example/arsenal" });
+  assert.ok(texts(p).includes("You can call their access team in BSL. Use SignVideo."));
+  assert.deepEqual(p.actions[0], { label: "Call in BSL", href: "https://signvideo.example/arsenal" });
+  assert.equal(p.actions.length, 2);
+});
