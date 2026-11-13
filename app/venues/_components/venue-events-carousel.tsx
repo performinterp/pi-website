@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useCalmMotion } from "@/lib/easy-read";
 
 export interface ArtistDate {
   slug: string;
@@ -66,6 +67,7 @@ export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] 
   const [selected, setSelected] = useState(0);
   const active = groups[selected] ?? groups[0];
   const scrollRef = useRef<HTMLUListElement>(null);
+  const calm = useCalmMotion();
 
   // One-time scroll hint: when the row first comes into view, gently nudge it
   // sideways and back so it's obvious there are more acts to swipe to. Skipped
@@ -74,7 +76,7 @@ export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (calm) return;
 
     let done = false;
     const nudge = () => {
@@ -105,7 +107,7 @@ export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] 
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [calm]);
 
   return (
     <div className="mt-5">

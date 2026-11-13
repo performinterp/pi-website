@@ -19,6 +19,7 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
   return (
     <section
       id={heroId}
+      data-page-hero=""
       className={`relative w-full overflow-hidden bg-pi-navy ${tall ? "min-h-[70vh]" : "min-h-[55vh]"}`}
       style={
         backgroundImage
@@ -56,7 +57,7 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
       )}
 
       {/* Content drives section height — no separate min-h on the section */}
-      <div className={`section-padding relative z-10 flex flex-col justify-end pt-24 pb-3 md:pb-5 lg:pb-8 xl:pb-12 ${tall ? "min-h-[70vh] md:pt-40" : "min-h-[55vh] md:pt-32"}`}>
+      <div data-page-hero-inner="" className={`section-padding relative z-10 flex flex-col justify-end pt-24 pb-3 md:pb-5 lg:pb-8 xl:pb-12 ${tall ? "min-h-[70vh] md:pt-40" : "min-h-[55vh] md:pt-32"}`}>
         <div className="max-w-3xl">
           <h1
             className="font-display text-4xl leading-tight text-white md:text-5xl lg:text-6xl"

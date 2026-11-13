@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useCalmMotion } from "@/lib/easy-read";
 
 type Props = {
   src: string;
@@ -11,10 +12,17 @@ type Props = {
 export default function ScrollVideo({ src, poster, className }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
+  const calm = useCalmMotion();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Easy Read / reduced motion: stay paused (controls are shown instead).
+    if (calm) {
+      el.pause();
+      return;
+    }
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -42,7 +50,7 @@ export default function ScrollVideo({ src, poster, className }: Props) {
       io.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [calm]);
 
   return (
     <div className="relative h-full w-full">
@@ -51,7 +59,8 @@ export default function ScrollVideo({ src, poster, className }: Props) {
         src={src}
         poster={poster}
         muted
-        loop
+        loop={!calm}
+        controls={calm}
         playsInline
         preload="metadata"
         className={className ?? "h-full w-full object-cover"}

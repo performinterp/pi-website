@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useCalmMotion } from "@/lib/easy-read";
 
 interface AnimatedCounterProps {
   value: number | string;
@@ -9,6 +10,7 @@ interface AnimatedCounterProps {
 
 export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
+  const calm = useCalmMotion();
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -49,7 +51,7 @@ export default function AnimatedCounter({ value, suffix = "" }: AnimatedCounterP
 
   return (
     <span ref={ref}>
-      {count}
+      {calm ? numericValue : count}
       <span className="text-pi-gold">{suffix}</span>
     </span>
   );

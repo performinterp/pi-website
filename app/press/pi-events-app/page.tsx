@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/page-hero";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
+import CalmVideo from "@/components/calm-video";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -223,7 +224,7 @@ export default function PiEventsAppPressKitPage() {
               {demos.map((d) => (
                 <div key={d.feature} className="flex flex-col rounded-2xl border border-pi-ink/10 bg-white p-5">
                   <div className="rounded-xl overflow-hidden bg-pi-navy/5">
-                    <video
+                    <CalmVideo
                       src={d.cardMp4}
                       autoPlay
                       muted

@@ -120,6 +120,10 @@ html[data-easy-read="on"] [data-page-hero-inner] {
    Step 8. */
 html[data-easy-read="on"] [data-hero-own] { min-height: 0 !important; height: auto !important; }
 
+/* Events desktop hero: its text is absolutely positioned, so it can't
+   collapse to auto height. Cap it instead. */
+html[data-easy-read="on"] [data-hero-cap] { min-height: 0 !important; height: 40vh !important; }
+
 /* 6. The client logo ticker becomes a still, wrapped row (Task 3 Step 9
    stops rendering the duplicate set). */
 html[data-easy-read="on"] [data-ticker] {

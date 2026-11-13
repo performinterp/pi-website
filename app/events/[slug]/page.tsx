@@ -206,7 +206,7 @@ export default async function EventDetailPage({ params }: Params) {
         </div>
 
         {/* Desktop hero — cinematic overlay treatment (more room to breathe). */}
-        <div className="relative hidden h-[55vh] min-h-[420px] w-full overflow-hidden bg-pi-navy md:block">
+        <div data-hero-cap="" className="relative hidden h-[55vh] min-h-[420px] w-full overflow-hidden bg-pi-navy md:block">
           {event.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img

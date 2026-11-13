@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Client } from "@/lib/types";
+import { useCalmMotion } from "@/lib/easy-read";
 
 interface LogoTickerProps {
   clients: Client[];
@@ -9,10 +10,12 @@ interface LogoTickerProps {
 
 export default function LogoTicker({ clients }: LogoTickerProps) {
   const [paused, setPaused] = useState(false);
+  const calm = useCalmMotion();
 
   // Duplicate for seamless loop - animation moves -50% so the second copy
   // lines up perfectly when it wraps.
-  const allClients = [...clients, ...clients];
+  // In Easy Read (calm) there is no loop, so no duplicate set.
+  const allClients = calm ? clients : [...clients, ...clients];
 
   return (
     <section
@@ -27,6 +30,7 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
       <div className="hidden md:flex flex-col items-center justify-center pt-6 pb-6">
         <div className="w-full overflow-hidden">
           <div
+            data-ticker=""
             className="flex w-max"
             style={{
               animation: "ticker-scroll 40s linear infinite",

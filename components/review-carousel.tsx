@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useCalmMotion } from "@/lib/easy-read";
 
 type Review = {
   quote: string;
@@ -11,6 +12,7 @@ type Review = {
 
 export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   const [active, setActive] = useState(0);
+  const calm = useCalmMotion();
 
   const next = useCallback(
     () => setActive((a) => (a + 1) % reviews.length),
@@ -18,9 +20,10 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   );
 
   useEffect(() => {
+    if (calm) return;
     const id = setInterval(next, 5000);
     return () => clearInterval(id);
-  }, [next]);
+  }, [next, calm]);
 
   return (
     <div className="relative mx-auto max-w-3xl text-center">

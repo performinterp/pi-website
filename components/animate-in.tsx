@@ -39,6 +39,7 @@ export default function AnimateIn({ children, delay = 0, className = "" }: Anima
   return (
     <div
       ref={ref}
+      data-animate-in=""
       className={className}
       style={{
         opacity: visible ? 1 : 0,

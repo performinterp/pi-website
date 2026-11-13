@@ -90,7 +90,7 @@ export default function Home() {
       <div className="er-hide contents">
 
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section className="relative flex min-h-[72vh] items-end overflow-hidden">
+      <section data-hero-own="" className="relative flex min-h-[72vh] items-end overflow-hidden">
         {/* Background image */}
         <Image
           src={hero.posterImage}

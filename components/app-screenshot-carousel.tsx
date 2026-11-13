@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCalmMotion } from "@/lib/easy-read";
 
 const screenshots = [
   { src: "/images/screenshots/browse-categories.png", label: "Browse by Category" },
@@ -21,6 +22,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
   const [pos, setPos] = useState(total);
   const [transitioning, setTransitioning] = useState(true);
   const [paused, setPaused] = useState(false);
+  const calm = useCalmMotion();
   const [perView, setPerView] = useState(compact ? 3 : 3);
 
   const activeIndex = ((pos % total) + total) % total;
@@ -81,10 +83,10 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
 
   // Auto-advance
   useEffect(() => {
-    if (paused) return;
+    if (paused || calm) return;
     const interval = setInterval(next, compact ? 7000 : perView === 1 ? 2000 : 3000);
     return () => clearInterval(interval);
-  }, [next, paused, perView]);
+  }, [next, paused, perView, calm]);
 
   const items = [...screenshots, ...screenshots, ...screenshots];
   const itemWidth = 100 / perView;
@@ -190,6 +192,7 @@ function MobileScreenshotCarousel({
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [userTookControl, setUserTookControl] = useState(false);
+  const calm = useCalmMotion();
 
   function takeControl() {
     setUserTookControl(true);
@@ -197,7 +200,7 @@ function MobileScreenshotCarousel({
 
   // Auto-advance with seamless loop. Stops once user interacts.
   useEffect(() => {
-    if (userTookControl) return;
+    if (userTookControl || calm) return;
     const interval = setInterval(() => {
       const el = scrollRef.current;
       if (!el) return;
@@ -208,7 +211,7 @@ function MobileScreenshotCarousel({
       el.scrollTo({ left: nextCard.offsetLeft, behavior: "smooth" });
     }, 4000);
     return () => clearInterval(interval);
-  }, [userTookControl, items.length]);
+  }, [userTookControl, items.length, calm]);
 
   // Track scroll position for dots / arrows
   useEffect(() => {

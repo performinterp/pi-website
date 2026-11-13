@@ -4,11 +4,13 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import AppStoreButtons from "@/components/app-store-buttons";
+import { useCalmMotion } from "@/lib/easy-read";
 
 const HIDE_ON = ["/deaf-community", "/app-guide"];
 
 export default function AppPromoBanner() {
   const pathname = usePathname();
+  const calm = useCalmMotion();
   const [open, setOpen] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -17,6 +19,7 @@ export default function AppPromoBanner() {
 
   useEffect(() => {
     if (hidden) return;
+    if (calm) return;
     if (sessionStorage.getItem("app-promo-dismissed")) {
       setDismissed(true);
       return;
@@ -31,7 +34,7 @@ export default function AppPromoBanner() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [hidden]);
+  }, [hidden, calm]);
 
   useEffect(() => {
     if (open && videoRef.current) {
@@ -46,6 +49,7 @@ export default function AppPromoBanner() {
   }
 
   if (dismissed || hidden) return null;
+  if (calm && !open) return null;
 
   return (
     <>
