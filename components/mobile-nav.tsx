@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { X, ChevronDown } from "lucide-react";
 import type { NavigationContent } from "@/lib/types";
+import EasyReadToggle from "@/components/easy-read-toggle";
 
 interface MobileNavProps {
   nav: NavigationContent;
@@ -171,6 +172,9 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
           className="px-6 pb-10 pt-4 border-t border-white/10"
           style={{ backgroundColor: "#020142" }}
         >
+          <div className="mb-3">
+            <EasyReadToggle variant="menu" />
+          </div>
           <Link
             href={nav.ctaButton.href}
             onClick={onClose}
