@@ -1,0 +1,691 @@
+{
+  "/": {
+    "title": "Welcome to Performance Interpreting",
+    "points": [
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "We bring BSL and ISL interpreters to live events."
+      },
+      {
+        "icon": "ℹ️",
+        "text": "BSL means British Sign Language. ISL means Irish Sign Language."
+      },
+      {
+        "icon": "🎵",
+        "text": "We work at concerts, sport, festivals, theatre and comedy."
+      },
+      {
+        "icon": "🔍",
+        "text": "You can look for an event with an interpreter."
+      },
+      {
+        "icon": "✉️",
+        "text": "You can ask us for an interpreter at an event."
+      },
+      {
+        "icon": "❓",
+        "text": "Need help? Email enquiries@performanceinterpreting.co.uk. We will help you book an interpreter."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Find an event",
+        "href": "/events"
+      },
+      {
+        "label": "Ask for an interpreter",
+        "href": "/events/request"
+      }
+    ]
+  },
+  "/deaf-community": {
+    "title": "For the Deaf community",
+    "points": [
+      {
+        "icon": "🎵",
+        "text": "We help Deaf people enjoy live events. These are concerts, sport, festivals, theatre and comedy."
+      },
+      {
+        "icon": "📱",
+        "text": "Get the PI Events app. It is free. You see all our events on your phone."
+      },
+      {
+        "icon": "🔍",
+        "text": "Find an event on our website. You can see concerts, sport, festivals, theatre and comedy."
+      },
+      {
+        "icon": "✉️",
+        "text": "Ask for an interpreter at an event. Use the app or this website."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get the app",
+        "href": "/get-app"
+      },
+      {
+        "label": "Find an event",
+        "href": "/events"
+      }
+    ],
+    "signed": {
+      "videoKey": "orientation",
+      "label": "A tour of the PI Events app"
+    }
+  },
+  "/events": {
+    "title": "Find interpreted events",
+    "points": [
+      {
+        "icon": "📅",
+        "text": "This page lists events in the UK and Ireland. They have a BSL or ISL interpreter."
+      },
+      {
+        "icon": "🔍",
+        "text": "Type a name or place to search. You can pick a type of event, like concerts or sport."
+      },
+      {
+        "icon": "📍",
+        "text": "You can pick a place. You can also pick a date."
+      },
+      {
+        "icon": "⚽",
+        "text": "Pick Sports to see football clubs and their matches."
+      },
+      {
+        "icon": "✅",
+        "text": "Booked means an interpreter is booked. On request means you can ask for one."
+      },
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "BSL means British Sign Language. ISL means Irish Sign Language."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Ask for an interpreter",
+        "href": "/events/request"
+      }
+    ]
+  },
+  "/events/request": {
+    "title": "Ask for an interpreter",
+    "points": [
+      {
+        "icon": "✉️",
+        "text": "We write an email to the venue for you. A venue is the place of the event."
+      },
+      {
+        "icon": "🎟️",
+        "text": "First, tell us about the event you want to go to."
+      },
+      {
+        "icon": "📍",
+        "text": "We fill in the venue's email if we have it. If not, you can type one in."
+      },
+      {
+        "icon": "✅",
+        "text": "You can change the words in the email. Then send it. We get a copy."
+      },
+      {
+        "icon": "❓",
+        "text": "We will help if you need us."
+      },
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "You have a right to BSL. The venue must help."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Send us a message",
+        "href": "/contact"
+      }
+    ],
+    "signed": {
+      "videoKey": "request",
+      "label": "How to ask for an interpreter"
+    }
+  },
+  "/venues": {
+    "title": "Venues",
+    "points": [
+      {
+        "icon": "📍",
+        "text": "This page has contacts for venues in the UK and Ireland. A venue is the place of an event."
+      },
+      {
+        "icon": "🔍",
+        "text": "Search for a venue by name. You can also pick a country, then a city."
+      },
+      {
+        "icon": "✉️",
+        "text": "Can't find your venue? We can help you write an email to the venue."
+      },
+      {
+        "icon": "❓",
+        "text": "You can also contact us. We reply within 48 hours."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Ask for an interpreter",
+        "href": "/events/request"
+      },
+      {
+        "label": "Send us a message",
+        "href": "/contact"
+      }
+    ]
+  },
+  "/app-guide": {
+    "title": "The PI Events app",
+    "points": [
+      {
+        "icon": "📱",
+        "text": "The PI Events app is free. It works on iPhone and any other phone."
+      },
+      {
+        "icon": "📅",
+        "text": "You can see every event with a BSL or ISL interpreter. You can pick a city, a date or a type."
+      },
+      {
+        "icon": "🔍",
+        "text": "Type a name or place to find an event. Typos are OK."
+      },
+      {
+        "icon": "✉️",
+        "text": "No interpreter at an event? The app writes the message to ask for one."
+      },
+      {
+        "icon": "❓",
+        "text": "The app also helps on the day. It has a card to show staff that you are Deaf."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get the app",
+        "href": "/get-app"
+      }
+    ],
+    "signed": {
+      "videoKey": "orientation",
+      "label": "A tour of the PI Events app"
+    }
+  },
+  "/get-app/choose": {
+    "title": "Get the app",
+    "points": [
+      {
+        "icon": "📱",
+        "text": "The PI Events app is free. Pick the right button for your phone."
+      },
+      {
+        "icon": "📱",
+        "text": "Have an iPhone? Use the App Store."
+      },
+      {
+        "icon": "📱",
+        "text": "Have any other phone? Use the Play Store."
+      },
+      {
+        "icon": "✅",
+        "text": "Samsung, Sony, OnePlus, Huawei, Motorola, Xiaomi and Google Pixel phones already have the Play Store."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get it on iPhone",
+        "href": "https://apps.apple.com/gb/app/pi-events/id6760933712"
+      },
+      {
+        "label": "Get it on Android",
+        "href": "https://play.google.com/store/apps/details?id=uk.co.performanceinterpreting.app"
+      }
+    ]
+  },
+  "/about": {
+    "title": "About Performance Interpreting",
+    "points": [
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "We bring interpreters to live events in the UK and Ireland. BSL is British Sign Language and ISL is Irish Sign Language."
+      },
+      {
+        "icon": "👥",
+        "text": "Marie Pascall started Performance Interpreting. She was born deaf in one ear."
+      },
+      {
+        "icon": "⭐",
+        "text": "We have worked at more than 600 events. We started more than 10 years ago."
+      },
+      {
+        "icon": "✅",
+        "text": "Every interpreter is on the NRCPD register. NRCPD is the UK register for people who work with Deaf people."
+      },
+      {
+        "icon": "⚖️",
+        "text": "We gave evidence in the Little Mix BSL court case. It helped show that the law says live events need BSL."
+      },
+      {
+        "icon": "🏟️",
+        "text": "Wembley Stadium promised BSL interpreting at every concert. We worked with them on this."
+      }
+    ],
+    "actions": [
+      {
+        "label": "See our venues",
+        "href": "/venues/"
+      },
+      {
+        "label": "Send us a message",
+        "href": "/contact"
+      }
+    ]
+  },
+  "/organisers": {
+    "title": "For Event Organisers",
+    "points": [
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "We give event organisers BSL interpreters and advice. BSL means British Sign Language."
+      },
+      {
+        "icon": "📅",
+        "text": "First, tell us about your event. Then we plan the access and prepare the interpreters."
+      },
+      {
+        "icon": "🎪",
+        "text": "Book as soon as you know your dates. We will tell you honestly if a request is too late."
+      },
+      {
+        "icon": "⚖️",
+        "text": "The Equality Act 2010 is a law. It says you must make reasonable changes for Deaf customers."
+      },
+      {
+        "icon": "📱",
+        "text": "Your event appears in the PI Events App when you book with us. The app is free to download."
+      },
+      {
+        "icon": "✅",
+        "text": "Every interpreter is on the NRCPD register. NRCPD is the UK register for sign language interpreters."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get a quote",
+        "href": "/contact"
+      },
+      {
+        "label": "See the app guide",
+        "href": "/app-guide"
+      }
+    ]
+  },
+  "/interpreters": {
+    "title": "Join Our Interpreter Team",
+    "points": [
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "We work with interpreters at festivals, arenas and Premier League clubs. BSL means British Sign Language and ISL means Irish Sign Language."
+      },
+      {
+        "icon": "✅",
+        "text": "You must have current NRCPD registration. NRCPD is the register for sign language interpreters."
+      },
+      {
+        "icon": "⭐",
+        "text": "Live events experience helps but is not always needed. We also look for people who stay calm and work well in a team."
+      },
+      {
+        "icon": "🎓",
+        "text": "The PI Academy is our training team. It offers courses and mentoring for interpreters."
+      },
+      {
+        "icon": "👥",
+        "text": "You can volunteer with us to see how live events run. Deaf volunteers fluent in BSL can join. Others need BSL Level 6 or above."
+      },
+      {
+        "icon": "✉️",
+        "text": "To join, send us a message. Tell us about your NRCPD registration and the events you have worked at."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Join our team",
+        "href": "/contact"
+      },
+      {
+        "label": "See Academy courses",
+        "href": "https://academy.performanceinterpreting.co.uk"
+      }
+    ]
+  },
+  "/festivals": {
+    "title": "Sign Language at Festivals",
+    "points": [
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "We provide BSL interpreters at big music festivals, like Reading, Leeds and Download. BSL means British Sign Language."
+      },
+      {
+        "icon": "📱",
+        "text": "Use the free PI Events App to find acts with BSL or ISL. It shows the stage, the time and the interpreter."
+      },
+      {
+        "icon": "📍",
+        "text": "You can see interpreter names and profiles before you go. You can ask for BSL or ISL at sets that do not have it."
+      },
+      {
+        "icon": "📝",
+        "text": "After the festival, tell us how access went. You can write to us or send a sign language video."
+      },
+      {
+        "icon": "🎵",
+        "text": "We also work at Irish festivals, like Electric Picnic. ISL means Irish Sign Language."
+      },
+      {
+        "icon": "🎪",
+        "text": "Festival organisers can ask us to plan access and manage the interpreter team."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get the PI Events App",
+        "href": "/get-app"
+      },
+      {
+        "label": "Find an event",
+        "href": "/events"
+      }
+    ],
+    "signed": {
+      "videoKey": "at-event",
+      "label": "What to do at the event"
+    }
+  },
+  "/sports": {
+    "title": "Sign Language at Sport",
+    "points": [
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "We provide BSL interpreters at Premier League matches and big sports events. BSL means British Sign Language."
+      },
+      {
+        "icon": "⚽",
+        "text": "We work with clubs like Arsenal, Chelsea, Fulham and West Ham. We are also the Deaf access provider for Wembley Stadium."
+      },
+      {
+        "icon": "🏟️",
+        "text": "We interpret announcements, half-time shows and interviews. We also cover FA Cup finals and EFL Cup finals."
+      },
+      {
+        "icon": "📱",
+        "text": "Use the free PI Events App to find matches with BSL. You can also ask for BSL at a match that does not have it."
+      },
+      {
+        "icon": "📝",
+        "text": "After the match, tell us how access went. You can write to us or send a sign language video."
+      },
+      {
+        "icon": "📅",
+        "text": "Clubs can book us for matches across the whole season."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get the PI Events App",
+        "href": "/get-app"
+      },
+      {
+        "label": "Find an event",
+        "href": "/events"
+      }
+    ],
+    "signed": {
+      "videoKey": "at-event",
+      "label": "What to do at the event"
+    }
+  },
+  "/testimonials": {
+    "title": "What People Say About Us",
+    "points": [
+      {
+        "icon": "⭐",
+        "text": "People rate us 5 out of 5 on Google. 100% recommend us on Facebook."
+      },
+      {
+        "icon": "🎪",
+        "text": "An organiser at Croydon PrideFest said our interpreters brought energy and passion to every performance."
+      },
+      {
+        "icon": "🎵",
+        "text": "A visitor at BST Hyde Park was pleased. Interpreters were nearer the main stage, so they could watch both."
+      },
+      {
+        "icon": "🎓",
+        "text": "PI Academy is our training team. People who took part said it felt welcoming and safe."
+      },
+      {
+        "icon": "🏟️",
+        "text": "A concert fan said we gave great help and had great organisation."
+      },
+      {
+        "icon": "👥",
+        "text": "Another fan wished we were at every gig. They said our interpreters were amazing."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Send us a message",
+        "href": "/contact"
+      }
+    ]
+  },
+  "/contact": {
+    "title": "Contact us",
+    "points": [
+      {
+        "icon": "📝",
+        "text": "Tell us what you need. We will help."
+      },
+      {
+        "icon": "📋",
+        "text": "Use the form on this page. Say if you are an event organiser, an audience member, an interpreter or press."
+      },
+      {
+        "icon": "🎭",
+        "text": "Planning an event? Tell us its name, place and date. Tell us how many people will come."
+      },
+      {
+        "icon": "✉️",
+        "text": "You can also email enquiries@performanceinterpreting.co.uk."
+      },
+      {
+        "icon": "⏰",
+        "text": "We aim to reply within 1 working day."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Email us",
+        "href": "mailto:enquiries@performanceinterpreting.co.uk"
+      }
+    ]
+  },
+  "/accessibility": {
+    "title": "Accessibility on our website",
+    "points": [
+      {
+        "icon": "💻",
+        "text": "We want everyone to be able to use this website. We follow the WCAG rules for easy websites."
+      },
+      {
+        "icon": "📖",
+        "text": "This website has an Easy Read button at the top of every page."
+      },
+      {
+        "icon": "⌨️",
+        "text": "You can use the whole site with a keyboard. Pictures have words that describe them."
+      },
+      {
+        "icon": "/icons/easy-read/bsl-interpreter.png",
+        "text": "Many Deaf people use BSL as their first language. You can ask us for a BSL conversation."
+      },
+      {
+        "icon": "✉️",
+        "text": "Tell us if something is hard to use. Email enquiries@performanceinterpreting.co.uk. We aim to reply within 5 working days."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Email us",
+        "href": "mailto:enquiries@performanceinterpreting.co.uk"
+      }
+    ],
+    "signed": {
+      "videoKey": "know-rights",
+      "label": "Your rights as a Deaf customer"
+    }
+  },
+  "/privacy": {
+    "title": "How we use your information",
+    "points": [
+      {
+        "icon": "🔒",
+        "text": "This page explains how we look after your data. Your data means information about you."
+      },
+      {
+        "icon": "📝",
+        "text": "We collect your name, email and phone number when you contact us. We also keep details about events and bookings."
+      },
+      {
+        "icon": "💻",
+        "text": "Our website counts page visits without cookies."
+      },
+      {
+        "icon": "🚫",
+        "text": "We do not sell your data. We share it only when we need to, like telling interpreters about your event."
+      },
+      {
+        "icon": "🗑️",
+        "text": "You can ask to see your data. You can ask us to fix it or delete it."
+      },
+      {
+        "icon": "✉️",
+        "text": "To use your rights, email admin@performanceinterpreting.co.uk. We reply within 1 month."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Email us",
+        "href": "mailto:admin@performanceinterpreting.co.uk"
+      }
+    ]
+  },
+  "/app-privacy": {
+    "title": "PI Events app privacy",
+    "points": [
+      {
+        "icon": "📱",
+        "text": "This page explains how the PI Events app treats your information."
+      },
+      {
+        "icon": "🎤",
+        "text": "The app can use your microphone. The sound stays on your phone and is never recorded."
+      },
+      {
+        "icon": "📍",
+        "text": "The Near Me filter is optional. Your location stays on your phone. We never get it."
+      },
+      {
+        "icon": "🎥",
+        "text": "You can send us a feedback video in BSL or ISL. Only people in our team can watch it."
+      },
+      {
+        "icon": "🔒",
+        "text": "We do not sell your data. We do not track you for adverts."
+      },
+      {
+        "icon": "🗑️",
+        "text": "You can ask us to delete your data. Email admin@performanceinterpreting.co.uk."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Email us",
+        "href": "mailto:admin@performanceinterpreting.co.uk"
+      }
+    ]
+  },
+  "/press": {
+    "title": "News about us",
+    "points": [
+      {
+        "icon": "📰",
+        "text": "News websites and magazines have written about our work. This page lists some of them."
+      },
+      {
+        "icon": "📺",
+        "text": "They include the BBC, NME and Rolling Stone UK."
+      },
+      {
+        "icon": "🔗",
+        "text": "Each story has a link. You can read it on the news website."
+      },
+      {
+        "icon": "📱",
+        "text": "We also have a press kit for the PI Events app. Journalists can use it for free."
+      },
+      {
+        "icon": "📝",
+        "text": "Are you a journalist? Use our contact form and choose press."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Open the press kit",
+        "href": "/press/pi-events-app/"
+      },
+      {
+        "label": "Send us a message",
+        "href": "/contact"
+      }
+    ]
+  },
+  "/press/pi-events-app": {
+    "title": "PI Events app press kit",
+    "points": [
+      {
+        "icon": "📱",
+        "text": "The PI Events app is free on iPhone and Android. It helps Deaf people find events with BSL or ISL interpreters."
+      },
+      {
+        "icon": "📰",
+        "text": "This press kit is for journalists. It is free and you do not need to sign up."
+      },
+      {
+        "icon": "🖼️",
+        "text": "It has logos, app screenshots and short demo videos you can download."
+      },
+      {
+        "icon": "💬",
+        "text": "It also has quotes you can use. It has a short story about our founder, Marie Pascall."
+      },
+      {
+        "icon": "📝",
+        "text": "Want an interview or more help? Use our contact form and choose press."
+      }
+    ],
+    "actions": [
+      {
+        "label": "Download the press kit",
+        "href": "/press-kit/pi-events-press-kit.zip"
+      },
+      {
+        "label": "Send us a message",
+        "href": "/contact?enquiry_type=press"
+      }
+    ]
+  }
+}
