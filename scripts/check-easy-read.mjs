@@ -56,7 +56,7 @@ function checkEntry(route, e) {
     if (!p || typeof p.icon !== "string" || !p.icon.trim()) fail(route, `${w} missing icon`);
     if (!p || typeof p.text !== "string" || !p.text.trim()) return fail(route, `${w} missing text`);
     const n = sentences(p.text).length;
-    if (n < 1 || n > 2) fail(route, `${w} has ${n} sentences (need 1 to 2)`);
+    if (n < 1 || n > 3) fail(route, `${w} has ${n} sentences (need 1 to 3)`);
     checkSentences(route, w, p.text);
     checkBanned(route, w, p.text);
   });

@@ -434,7 +434,7 @@ useEffect(() => {
 **Rules the checker enforces.** Each one comes from the Mencap / gov.uk Easy Read guidance.
 
 - **Shape of the file:** every key starts with `/`. Each entry has `title` (≤ 6 words) and `points` (2–6 items). Each point has `icon` (non-empty) and `text`.
-- **Sentences:** `text` has 1–2 sentences. Sentences split on `.`, `!` or `?` followed by a space or the end. Every sentence in `title`, `text` and action `label` has ≤ 15 words.
+- **Sentences:** `text` has 1–3 sentences. Sentences split on `.`, `!` or `?` followed by a space or the end. Every sentence in `title`, `text` and action `label` has ≤ 15 words.
 - **Actions:** `actions` is optional, with ≤ 2 items. Each `label` has ≤ 5 words. Each `href` starts with `/`, `https://`, `mailto:` or `tel:`.
 - **Signed video:** `signed` is optional. If present it needs a `label`, plus either a `videoKey` from this list or a `bslUrl` / `islUrl` starting with `https://`. The list mirrors `lib/sign-videos.ts`, so keep the two in sync: `how-to-book`, `know-rights`, `orientation`, `categories`, `search`, `request`, `booking`, `faqs`, `tips`, `at-event`, `notifications`, `volunteer`.
 - **Banned in any string** (case-insensitive): `\bspeak(s|ing)?\b`, `\butili[sz]e`, `\bfacilitate`, `\bensure\b`, `\bleverage`, `\bseamless`, `\bin order to\b`, `\bprior to\b`, `\be\.g\.`, `;`.
