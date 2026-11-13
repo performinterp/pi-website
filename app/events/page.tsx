@@ -77,7 +77,7 @@ export default async function EventsPage() {
         <h2 id="events-heading" className="sr-only">
           Upcoming interpreted events
         </h2>
-        <p className="mb-3 text-right text-xs text-pi-ink/65">
+        <p className="mb-3 text-right text-sm text-pi-ink/65">
           {upcoming.length} upcoming{" "}
           {upcoming.length === 1 ? "event" : "events"} - updated every 2 hours
         </p>

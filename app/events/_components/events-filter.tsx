@@ -29,7 +29,7 @@ import { useEasyRead } from "@/lib/easy-read";
 const EventsMap = dynamic(() => import("./events-map"), {
   ssr: false,
   loading: () => (
-    <div className="flex h-[60vh] min-h-[400px] items-center justify-center rounded-2xl border border-pi-ink/10 bg-white text-sm text-pi-ink/60">
+    <div className="flex h-[60vh] min-h-[400px] items-center justify-center rounded-2xl border border-pi-ink/10 bg-white text-base text-pi-ink/60">
       Loading map…
     </div>
   ),
@@ -308,8 +308,8 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
   void categories;
 
   const inputClass =
-    "w-full rounded-lg border border-pi-ink/15 bg-white px-3 py-2.5 text-sm text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent";
-  const labelClass = "block text-xs font-semibold uppercase tracking-wide text-pi-ink/70";
+    "w-full rounded-lg border border-pi-ink/15 bg-white px-3 py-2.5 text-base text-pi-ink placeholder-pi-ink/40 outline-none transition focus:border-pi-accent focus:ring-1 focus:ring-pi-accent";
+  const labelClass = "block text-sm font-semibold uppercase tracking-wide text-pi-ink/70";
 
   return (
     <>
@@ -330,7 +330,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
           </div>
           <Link
             href="/events/request"
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-base font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
           >
             Request an Interpreter →
           </Link>
@@ -390,10 +390,10 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                         setVisible(PAGE_SIZE);
                         scrollToResults();
                       }}
-                      className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm text-pi-ink hover:bg-pi-warmth/10 focus:bg-pi-warmth/10 focus:outline-none"
+                      className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-base text-pi-ink hover:bg-pi-warmth/10 focus:bg-pi-warmth/10 focus:outline-none"
                     >
                       <span className="truncate">{s.label}</span>
-                      <span className="shrink-0 rounded-full bg-pi-ink/5 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-pi-ink/60">
+                      <span className="shrink-0 rounded-full bg-pi-ink/5 px-2 py-0.5 text-sm font-semibold uppercase tracking-wide text-pi-ink/60">
                         {s.type}
                       </span>
                     </button>
@@ -429,10 +429,10 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   <span aria-hidden="true" className="text-2xl leading-none">
                     {c.icon}
                   </span>
-                  <span className="text-xs font-semibold leading-tight text-pi-ink">
+                  <span className="text-sm font-semibold leading-tight text-pi-ink">
                     {c.label}
                   </span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wide text-pi-ink/50">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-pi-ink/50">
                     {c.count}
                   </span>
                 </button>
@@ -459,7 +459,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                     : "border-pi-ink/10 bg-white hover:border-pi-accent/40"
                 }`}
               >
-                <span className="text-xs font-semibold leading-tight text-pi-ink">
+                <span className="text-base font-semibold leading-tight text-pi-ink">
                   All clubs
                 </span>
               </button>
@@ -485,10 +485,10 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                       alt={c.imageAlt || c.display}
                       className="aspect-[16/9] w-full rounded-lg object-cover"
                     />
-                    <span className="text-xs font-semibold leading-tight text-pi-ink">
+                    <span className="text-base font-semibold leading-tight text-pi-ink">
                       {c.display}
                     </span>
-                    <span className="text-[10px] leading-tight text-pi-ink/60">
+                    <span className="text-sm leading-snug text-pi-ink/70">
                       {c.bslHeadline}
                     </span>
                   </button>
@@ -507,7 +507,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
               onClick={activateNearMe}
               aria-pressed={nearMeActive}
               disabled={nearMeStatus === "loading"}
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-semibold transition disabled:opacity-60 ${
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-base font-semibold transition disabled:opacity-60 ${
                 nearMeActive
                   ? "border-pi-accent bg-pi-accent text-white"
                   : "border-pi-ink/15 bg-white text-pi-ink hover:border-pi-accent/40"
@@ -521,17 +521,17 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   : "Near me"}
             </button>
             {nearMeStatus === "denied" && (
-              <span className="text-xs text-pi-ink/60">
+              <span className="text-sm text-pi-ink/60">
                 Location denied — use the City filter instead.
               </span>
             )}
             {nearMeStatus === "unavailable" && (
-              <span className="text-xs text-pi-ink/60">
+              <span className="text-sm text-pi-ink/60">
                 Location not available — use the City filter instead.
               </span>
             )}
             {nearMeStatus === "timeout" && (
-              <span className="text-xs text-pi-ink/60">
+              <span className="text-sm text-pi-ink/60">
                 Couldn&apos;t get your location — try again or use City.
               </span>
             )}
@@ -550,7 +550,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   type="button"
                   onClick={() => applyDatePreset(p.key)}
                   aria-pressed={active}
-                  className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
+                  className={`rounded-full border px-4 py-1.5 text-base font-semibold transition ${
                     active
                       ? "border-pi-accent bg-pi-accent text-white"
                       : "border-pi-ink/15 bg-white text-pi-ink hover:border-pi-accent/40"
@@ -567,7 +567,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   setFromDate("");
                   setToDate("");
                 }}
-                className="rounded-full border border-pi-ink/15 bg-white px-3 py-1.5 text-sm text-pi-ink/60 hover:text-pi-ink"
+                className="rounded-full border border-pi-ink/15 bg-white px-3 py-1.5 text-base text-pi-ink/60 hover:text-pi-ink"
               >
                 Clear dates ✕
               </button>
@@ -579,7 +579,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
           {!easyRead && (
             <div className="mt-3 grid grid-cols-2 gap-3">
               <div>
-                <label htmlFor="ev-from" className="text-[11px] uppercase tracking-wide text-pi-ink/50">
+                <label htmlFor="ev-from" className="text-xs uppercase tracking-wide text-pi-ink/50">
                   From
                 </label>
                 <input
@@ -594,7 +594,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                 />
               </div>
               <div>
-                <label htmlFor="ev-to" className="text-[11px] uppercase tracking-wide text-pi-ink/50">
+                <label htmlFor="ev-to" className="text-xs uppercase tracking-wide text-pi-ink/50">
                   To
                 </label>
                 <input
@@ -679,11 +679,11 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-sm text-pi-ink/70" aria-live="polite">
+            <p className="text-base text-pi-ink/70" aria-live="polite">
               {filtered.length} {filtered.length === 1 ? "match" : "matches"}
             </p>
             {showInterpreterNote && (
-              <p className="text-xs text-pi-ink/60">* Interpreters may change.</p>
+              <p className="text-sm text-pi-ink/60">* Interpreters may change.</p>
             )}
           </div>
           <div className="flex items-center gap-3">
@@ -696,7 +696,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                 type="button"
                 onClick={() => setViewMode("list")}
                 aria-pressed={viewMode === "list"}
-                className={`px-3 py-1.5 text-xs font-semibold transition ${
+                className={`px-3 py-1.5 text-sm font-semibold transition ${
                   viewMode === "list"
                     ? "bg-pi-accent text-white"
                     : "bg-white text-pi-ink hover:bg-pi-accent/10"
@@ -708,7 +708,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                 type="button"
                 onClick={() => setViewMode("map")}
                 aria-pressed={viewMode === "map"}
-                className={`px-3 py-1.5 text-xs font-semibold transition ${
+                className={`px-3 py-1.5 text-sm font-semibold transition ${
                   viewMode === "map"
                     ? "bg-pi-accent text-white"
                     : "bg-white text-pi-ink hover:bg-pi-accent/10"
@@ -720,7 +720,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
             <button
               type="button"
               onClick={reset}
-              className="text-sm font-medium text-pi-accent hover:text-pi-ink"
+              className="text-base font-medium text-pi-accent hover:text-pi-ink"
             >
               Reset filters
             </button>
@@ -740,7 +740,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
             <h3 className="font-display text-2xl text-pi-ink">{selectedClub.display}</h3>
             <p className="mt-1 font-semibold text-pi-accent">{selectedClub.bslHeadline}</p>
             {selectedClub.bslDetail && (
-              <p className="mt-2 text-sm text-pi-ink/70">{selectedClub.bslDetail}</p>
+              <p className="mt-2 text-base text-pi-ink/70">{selectedClub.bslDetail}</p>
             )}
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -749,7 +749,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   href={selectedClub.fixturesUrlMen}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-base font-semibold text-pi-accent hover:bg-pi-accent/10"
                 >
                   {selectedClub.fixturesUrlWomen.startsWith("https://")
                     ? "Men's fixtures"
@@ -761,7 +761,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   href={selectedClub.fixturesUrlWomen}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-base font-semibold text-pi-accent hover:bg-pi-accent/10"
                 >
                   Women&apos;s fixtures
                 </a>
@@ -771,7 +771,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   href={selectedClub.ticketsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-base font-semibold text-pi-accent hover:bg-pi-accent/10"
                 >
                   Tickets
                 </a>
@@ -781,7 +781,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   href={selectedClub.accessPageUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
+                  className="rounded-full border border-pi-accent px-4 py-2 text-base font-semibold text-pi-accent hover:bg-pi-accent/10"
                 >
                   Accessibility
                 </a>
@@ -790,8 +790,8 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
 
             {(selectedClub.accessEmail || selectedClub.accessPhone) && (
               <div className="mt-4">
-                <h4 className="text-sm font-semibold text-pi-ink">Accessibility team</h4>
-                <div className="mt-1 flex flex-wrap gap-4 text-sm">
+                <h4 className="text-base font-semibold text-pi-ink">Accessibility team</h4>
+                <div className="mt-1 flex flex-wrap gap-4 text-base">
                   {selectedClub.accessEmail && (
                     <a
                       href={`mailto:${selectedClub.accessEmail}`}
@@ -814,14 +814,14 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
 
             {selectedClub.grounds.length > 0 && (
               <div className="mt-4">
-                <h4 className="text-sm font-semibold text-pi-ink">
+                <h4 className="text-base font-semibold text-pi-ink">
                   {selectedClub.grounds.length === 1 ? "Ground" : "Grounds"}
                 </h4>
                 <ul className="mt-1 space-y-2">
                   {selectedClub.grounds.map((g) => (
                     <li
                       key={g.key}
-                      className="flex flex-wrap items-center gap-3 text-sm text-pi-ink/80"
+                      className="flex flex-wrap items-center gap-3 text-base text-pi-ink/80"
                     >
                       <span>
                         <span className="font-semibold text-pi-ink">{g.display}</span>
@@ -832,7 +832,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                           href={g.mapsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="rounded-full border border-pi-accent px-4 py-2 text-xs font-semibold text-pi-accent hover:bg-pi-accent/10"
+                          className="rounded-full border border-pi-accent px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent/10"
                         >
                           Map
                         </a>
@@ -844,14 +844,14 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
             )}
 
             {filtered.length === 0 && (
-              <p className="mt-4 rounded-lg bg-pi-accent/5 p-3 text-sm text-pi-ink/70">
+              <p className="mt-4 rounded-lg bg-pi-accent/5 p-3 text-base text-pi-ink/70">
                 No PI-listed matches here right now. Use the fixtures button to see what&apos;s
                 coming up.
               </p>
             )}
 
             {selectedClub.imageCredit && (
-              <p className="mt-4 text-xs text-pi-ink/50">{selectedClub.imageCredit}</p>
+              <p className="mt-4 text-sm text-pi-ink/50">{selectedClub.imageCredit}</p>
             )}
           </div>
         </div>
@@ -884,13 +884,13 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                           setVisible(PAGE_SIZE);
                           setShowSuggestions(false);
                         }}
-                        className="rounded-full border border-pi-accent/30 bg-white px-4 py-2 text-sm font-semibold text-pi-accent hover:bg-pi-accent hover:text-white"
+                        className="rounded-full border border-pi-accent/30 bg-white px-4 py-2 text-base font-semibold text-pi-accent hover:bg-pi-accent hover:text-white"
                       >
                         {s.label}
                       </button>
                     ))}
                   </div>
-                  <p className="mx-auto mt-5 max-w-md text-sm text-pi-ink/60">
+                  <p className="mx-auto mt-5 max-w-md text-base text-pi-ink/60">
                     Or ask us to set this up:
                   </p>
                 </>
@@ -901,7 +901,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
               )}
               <Link
                 href={`/events/request?event=${encodeURIComponent(search.trim())}`}
-                className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+                className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-base font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
               >
                 Request &ldquo;{search.trim()}&rdquo; →
               </Link>
@@ -916,7 +916,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                   </p>
                   <Link
                     href="/events/request"
-                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-sm font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
+                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-pi-warmth-strong px-6 py-3 text-base font-bold text-white shadow-lg shadow-pi-warmth/30 transition hover:brightness-110 hover:shadow-pi-warmth/50"
                   >
                     ✉️ Ask for an interpreter
                   </Link>
@@ -949,7 +949,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
           <button
             type="button"
             onClick={() => setVisible((v) => v + PAGE_SIZE)}
-            className="inline-flex items-center gap-2 rounded-full border border-pi-accent/30 bg-white px-6 py-2.5 text-sm font-semibold text-pi-accent transition hover:bg-pi-accent hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-pi-accent/30 bg-white px-6 py-2.5 text-base font-semibold text-pi-accent transition hover:bg-pi-accent hover:text-white"
           >
             Show more events
           </button>
@@ -1020,17 +1020,17 @@ function EventCard({ event }: { event: Event }) {
             className="h-full w-full object-cover transition group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-pi-deep to-pi-navy text-sm font-semibold uppercase tracking-wide text-white/70">
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-pi-deep to-pi-navy text-base font-semibold uppercase tracking-wide text-white/70">
             {event.category || "Event"}
           </div>
         )}
         <span
-          className={`absolute left-3 top-3 rounded-full ${langPillBg} px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm`}
+          className={`absolute left-3 top-3 rounded-full ${langPillBg} px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm`}
         >
           {langLabel}
         </span>
         {event.soldOut && (
-          <span className="absolute right-3 top-3 rounded-full bg-pi-error px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+          <span className="absolute right-3 top-3 rounded-full bg-pi-error px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white">
             Sold out
           </span>
         )}
@@ -1040,23 +1040,23 @@ function EventCard({ event }: { event: Event }) {
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-center justify-between gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-pi-accent">
+          <p className="text-sm font-semibold uppercase tracking-wide text-pi-accent">
             {formatDateLabel(event.isoDate)}
             {event.time ? ` · ${event.time}` : ""}
           </p>
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${stripLabelClass}`}
+            className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold uppercase tracking-wider ${stripLabelClass}`}
           >
             {isBooked ? "Booked" : "On request"}
           </span>
         </div>
         <h3 className="font-display text-xl leading-tight text-pi-ink">{event.name}</h3>
-        <p className="text-sm text-pi-ink/70">
+        <p className="text-base text-pi-ink/70">
           {event.venue}
           {event.city && !event.venue.includes(event.city) ? `, ${event.city}` : ""}
         </p>
         {event.interpreters && (
-          <p className="mt-auto text-sm text-pi-ink/65">
+          <p className="mt-auto text-base text-pi-ink/65">
             Interpreters: {event.interpreters}
             {isBooked && (
               <>

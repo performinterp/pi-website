@@ -69,7 +69,7 @@ export default function BslHelpVideo() {
             <span className="block font-display text-lg leading-tight text-pi-ink">
               Watch in BSL or ISL
             </span>
-            <span className="block text-sm text-pi-ink/65">
+            <span className="block text-base text-pi-ink/65">
               How to find your event
             </span>
           </span>
@@ -88,7 +88,7 @@ export default function BslHelpVideo() {
               type="button"
               onClick={() => setLanguage("BSL")}
               aria-pressed={language === "BSL"}
-              className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+              className={`rounded-full px-4 py-1.5 text-base font-semibold transition ${
                 language === "BSL"
                   ? "bg-pi-accent text-white"
                   : "bg-white text-pi-ink/70 hover:bg-pi-accent/10"
@@ -100,7 +100,7 @@ export default function BslHelpVideo() {
               type="button"
               onClick={() => setLanguage("ISL")}
               aria-pressed={language === "ISL"}
-              className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+              className={`rounded-full px-4 py-1.5 text-base font-semibold transition ${
                 language === "ISL"
                   ? "bg-pi-accent text-white"
                   : "bg-white text-pi-ink/70 hover:bg-pi-accent/10"
@@ -160,7 +160,7 @@ export default function BslHelpVideo() {
               />
             </div>
           </div>
-          <p className="mt-3 text-xs text-pi-ink/60">
+          <p className="mt-3 text-sm text-pi-ink/60">
             Tap the video to play or pause. If the video does not load, your
             network may be blocking media.performanceinterpreting.co.uk.
           </p>
