@@ -76,7 +76,15 @@ export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    if (calm) return;
+    // The hook is false on the very first pass (before Easy Read and
+    // reduced-motion state load), so check the page directly as well.
+    if (
+      calm ||
+      document.documentElement.dataset.easyRead === "on" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const timers: number[] = [];
 
     let done = false;
     const nudge = () => {
@@ -88,25 +96,32 @@ export default function VenueEventsCarousel({ groups }: { groups: ArtistGroup[] 
       // disable snap for the duration of the hint, then restore it.
       el.style.scrollSnapType = "none";
       el.scrollTo({ left: 56, behavior: "smooth" });
-      window.setTimeout(() => {
-        el.scrollTo({ left: 0, behavior: "smooth" });
+      timers.push(
         window.setTimeout(() => {
-          el.style.scrollSnapType = "";
-        }, 500);
-      }, 600);
+          el.scrollTo({ left: 0, behavior: "smooth" });
+          timers.push(
+            window.setTimeout(() => {
+              el.style.scrollSnapType = "";
+            }, 500)
+          );
+        }, 600)
+      );
     };
 
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          window.setTimeout(nudge, 350);
+          timers.push(window.setTimeout(nudge, 350));
           io.disconnect();
         }
       },
       { threshold: 0.35 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      timers.forEach((t) => window.clearTimeout(t));
+    };
   }, [calm]);
 
   return (

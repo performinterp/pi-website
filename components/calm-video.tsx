@@ -11,7 +11,12 @@ export default function CalmVideo(props: ComponentProps<"video">) {
   const calm = useCalmMotion();
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    if (calm) ref.current?.pause();
-  }, [calm]);
+    const v = ref.current;
+    if (!v) return;
+    // pause() clears the autoplay flag, so turning Easy Read off again has
+    // to restart playback by hand.
+    if (calm) v.pause();
+    else if (props.autoPlay) v.play().catch(() => {});
+  }, [calm, props.autoPlay]);
   return <video ref={ref} {...props} autoPlay={!calm && props.autoPlay} loop={!calm && props.loop} controls={calm || props.controls} />;
 }

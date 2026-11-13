@@ -17,7 +17,7 @@ const buttonClasses =
 export default function GetAppChoosePage() {
   return (
     <>
-    <EasyReadSummary page={getEasyRead("/get-app/choose")} />
+    <EasyReadSummary page={getEasyRead("/get-app/choose")} clearHeader />
     <main className="section-padding flex min-h-[60vh] items-center justify-center py-16">
       {/* ─── BreadcrumbList ──────────────────────────────────────── */}
       <script

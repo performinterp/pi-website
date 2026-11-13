@@ -14,7 +14,7 @@ const SECONDARY =
 
 function ActionLink({ action, primary }: { action: EasyReadAction; primary: boolean }) {
   const cls = (action.style ?? (primary ? "primary" : "secondary")) === "primary" ? PRIMARY : SECONDARY;
-  if (action.href.startsWith("/")) {
+  if (/^\/(?!\/)/.test(action.href)) {
     return <Link href={action.href} className={cls}>{action.label}</Link>;
   }
   const external = action.href.startsWith("https://");
@@ -43,10 +43,17 @@ function PointIcon({ icon }: { icon: string }) {
   return <span aria-hidden="true" className={`${box} bg-pi-accent/10 text-3xl`}>{icon}</span>;
 }
 
-export default function EasyReadSummary({ page }: { page: EasyReadPage | undefined }) {
+export default function EasyReadSummary({
+  page,
+  clearHeader = false,
+}: {
+  page: EasyReadPage | undefined;
+  /** For pages with no hero: push the box below the fixed header. */
+  clearHeader?: boolean;
+}) {
   if (!page) return null;
   return (
-    <section className="er-only section-padding pt-8 pb-2">
+    <section className={`er-only section-padding pb-2 ${clearHeader ? "pt-24 md:pt-28" : "pt-8"}`}>
       <div className="mx-auto max-w-3xl rounded-3xl border-2 border-pi-accent/30 bg-white p-6 shadow-sm md:p-8">
         <p className="text-base font-semibold text-pi-accent">This page in Easy Read</p>
         <h2 className="mt-1 font-display text-3xl leading-tight text-pi-ink">{page.title}</h2>

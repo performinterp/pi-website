@@ -40,6 +40,7 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
             {allClients.map((client, i) => (
               <div
                 key={`${client.name}-${i}`}
+                data-ticker-dup={i >= clients.length ? "" : undefined}
                 className="flex flex-shrink-0 items-center justify-center px-8"
               >
                 {client.url ? (

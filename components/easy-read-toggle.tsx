@@ -5,8 +5,8 @@
 //     An icon alone wasn't recognisable, and the people who need this
 //     most are the least likely to guess what an eye symbol means.
 //   - "menu" (mobile menu): a full-width row that says On / Off.
-// The accessible name says the current state so screen readers announce
-// "Easy Read is on" / "Easy Read is off".
+// Screen readers get the visible words "Easy Read" plus aria-pressed
+// (on/off), so the state is announced once, not twice.
 
 import { BookOpen, Check } from "lucide-react";
 import { useEasyRead } from "@/lib/easy-read";
@@ -17,7 +17,6 @@ interface Props {
 
 export default function EasyReadToggle({ variant = "pill" }: Props) {
   const { on, toggle } = useEasyRead();
-  const label = on ? "Easy Read is on. Tap to turn it off." : "Easy Read is off. Tap to turn it on.";
 
   if (variant === "menu") {
     return (
@@ -25,7 +24,6 @@ export default function EasyReadToggle({ variant = "pill" }: Props) {
         type="button"
         onClick={toggle}
         aria-pressed={on}
-        aria-label={label}
         className="flex w-full items-center justify-between rounded-2xl border border-white/20 px-5 py-4 text-left text-base font-semibold text-white transition hover:bg-white/10"
       >
         <span className="flex items-center gap-3">
@@ -44,7 +42,6 @@ export default function EasyReadToggle({ variant = "pill" }: Props) {
       type="button"
       onClick={toggle}
       aria-pressed={on}
-      aria-label={label}
       className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1.5 text-xs font-semibold transition sm:px-3.5 sm:text-sm ${
         on
           ? "border-pi-accent bg-pi-accent text-white shadow-sm"

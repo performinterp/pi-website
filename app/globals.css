@@ -78,19 +78,21 @@ html[data-easy-read="on"] main .text-center p { margin-inline: auto; }
 html[data-easy-read="on"] .uppercase { text-transform: none; }
 html[data-easy-read="on"] [class*="tracking-"] { letter-spacing: normal; }
 html[data-easy-read="on"] :is(.italic, em, i, blockquote) { font-style: normal; }
-html[data-easy-read="on"] main :is(p, li) a { text-decoration: underline; text-underline-offset: 3px; }
+html[data-easy-read="on"] main p a { text-decoration: underline; text-underline-offset: 3px; }
 html[data-easy-read="on"] :focus-visible { outline: 3px solid var(--color-pi-accent); outline-offset: 3px; }
 
 /* 3. Stronger text colour. Faded grey text becomes near-black and faded
    white text on dark panels becomes solid white. The selectors match a
    class at the start or after a space, so hover:/focus: variants such
-   as "hover:text-pi-ink/80" are left alone. :where() keeps specificity
-   low (0,1,1), so an element's own hover:text-… colour still wins on
-   hover. */
-html[data-easy-read="on"] :where([class^="text-pi-ink/"], [class*=" text-pi-ink/"]) {
-  color: color-mix(in srgb, var(--color-pi-ink) 88%, transparent);
+   as "hover:text-pi-ink/80" are left alone. Inside Tailwind's utilities layer with
+   :where(), the rule (0,1,1) beats a plain text-pi-ink/60 (0,1,0) but
+   loses to hover:/group-hover: colours, so those still work. */
+@layer utilities {
+  html[data-easy-read="on"] :where([class^="text-pi-ink/"], [class*=" text-pi-ink/"]) {
+    color: color-mix(in srgb, var(--color-pi-ink) 88%, transparent);
+  }
+  html[data-easy-read="on"] :where([class^="text-white/"], [class*=" text-white/"]) { color: #fff; }
 }
-html[data-easy-read="on"] :where([class^="text-white/"], [class*=" text-white/"]) { color: #fff; }
 
 /* 4. Nothing moves by itself. Spinners, the recording dot and the chat
    "thinking" dots keep moving because they tell the visitor something
@@ -122,10 +124,13 @@ html[data-easy-read="on"] [data-hero-own] { min-height: 0 !important; height: au
 
 /* Events desktop hero: its text is absolutely positioned, so it can't
    collapse to auto height. Cap it instead. */
-html[data-easy-read="on"] [data-hero-cap] { min-height: 0 !important; height: 40vh !important; }
+/* Fixed 30rem: the hero text is absolutely positioned, and at Easy Read
+   sizes it needs ~22rem plus the header, so 40vh clipped it on laptops. */
+html[data-easy-read="on"] [data-hero-cap] { min-height: 0 !important; height: 30rem !important; }
 
 /* 6. The client logo ticker becomes a still, wrapped row (Task 3 Step 9
    stops rendering the duplicate set). */
+html[data-easy-read="on"] [data-ticker-dup] { display: none; }
 html[data-easy-read="on"] [data-ticker] {
   width: auto !important;
   flex-wrap: wrap;
