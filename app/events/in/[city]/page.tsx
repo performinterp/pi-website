@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHero from "@/components/page-hero";
 import ContactCta from "@/components/contact-cta";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { cityEasyRead } from "@/lib/easy-read-auto";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug } from "@/lib/event-slug";
 import type { Event } from "@/lib/types";
@@ -190,6 +192,8 @@ export default async function CityEventsPage({
         subtitle={`${cityEvents.length} upcoming Deaf-accessible live event${cityEvents.length === 1 ? "" : "s"} in ${display}.`}
         backgroundImage="/images/concert.jpg"
       />
+
+      <EasyReadSummary page={cityEasyRead(display, cityEvents.length)} />
 
       <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">

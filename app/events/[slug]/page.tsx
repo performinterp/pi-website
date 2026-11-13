@@ -12,6 +12,8 @@ import {
   resolveEventMapsUrl,
 } from "@/lib/venues";
 import AppPromo from "@/components/app-promo";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { eventEasyRead } from "@/lib/easy-read-auto";
 export const revalidate = 7200;
 
 interface Params {
@@ -274,6 +276,8 @@ export default async function EventDetailPage({ params }: Params) {
             </div>
           </div>
         </div>
+
+        <EasyReadSummary page={eventEasyRead(event)} />
 
         {/*
           Booking panel is rendered at TWO positions so the visual order is

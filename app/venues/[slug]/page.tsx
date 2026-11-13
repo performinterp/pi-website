@@ -15,6 +15,8 @@ import venueCoordinates from "@/lib/venue-coordinates.json";
 import VenueEventsCarousel, {
   type ArtistGroup,
 } from "../_components/venue-events-carousel";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { venueEasyRead } from "@/lib/easy-read-auto";
 import { getActInfoUrl } from "@/lib/venue-act-links";
 
 const VENUE_COORDS = venueCoordinates as Record<string, { lat: number; lng: number; match?: string }>;
@@ -255,6 +257,10 @@ export default async function VenueDetailPage({ params }: Params) {
           )}
         </div>
       </section>
+
+      <EasyReadSummary
+        page={venueEasyRead({ name: venue.display, city: venue.city, email: contact?.email, phone: contact?.phone })}
+      />
 
       <article className="bg-pi-canvas">
         <div className="section-padding section-gap">
