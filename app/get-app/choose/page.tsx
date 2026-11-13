@@ -1,3 +1,6 @@
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
+
 export const metadata = {
   title: "Get PI Events on your phone",
   description:
@@ -13,6 +16,8 @@ const buttonClasses =
 
 export default function GetAppChoosePage() {
   return (
+    <>
+    <EasyReadSummary page={getEasyRead("/get-app/choose")} />
     <main className="section-padding flex min-h-[60vh] items-center justify-center py-16">
       {/* ─── BreadcrumbList ──────────────────────────────────────── */}
       <script
@@ -79,5 +84,6 @@ export default function GetAppChoosePage() {
         </p>
       </div>
     </main>
+    </>
   );
 }

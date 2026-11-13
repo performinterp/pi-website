@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
-import { getPage } from "@/lib/content";
+import { getPage, getEasyRead } from "@/lib/content";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -112,6 +113,8 @@ export default function PressPage() {
         subtitle="Performance Interpreting in the national media."
         backgroundImage="/images/concert.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/press")} />
 
       <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">

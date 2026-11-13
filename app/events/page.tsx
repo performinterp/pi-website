@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import ContactCta from "@/components/contact-cta";
 import AppPromo from "@/components/app-promo";
 import EventsFilter from "./_components/events-filter";
@@ -66,6 +68,8 @@ export default async function EventsPage() {
         subtitle="Confirmed BSL and ISL interpreted events across the UK and Ireland. Filter by date, city, category or language."
         backgroundImage="/images/concert.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/events")} />
 
       <section className="section-padding section-gap" aria-labelledby="events-heading">
         <div className="mb-10">

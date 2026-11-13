@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import ContactCta from "@/components/contact-cta";
 import TestimonialQuote from "@/components/testimonial-quote";
 import AnimateIn from "@/components/animate-in";
@@ -217,6 +219,8 @@ export default function OrganisersPage() {
         subtitle="Deaf access consultancy and sign language interpreting that fits your event - not the other way around."
         backgroundImage="/images/organisers-silverstone.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/organisers")} />
 
       {/* ─── What We Offer - image + text ────────────────── */}
       <section className="section-padding section-gap">

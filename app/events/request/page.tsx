@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import RequestDraftBuilder from "../_components/request-draft-builder";
 import RequestIntro from "../_components/request-intro";
 
@@ -72,6 +74,8 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
         subtitle="Contacting a venue can feel daunting. We've made it as easy as possible by writing the email for you - edit it freely, then copy it or open it in your mail app."
         backgroundImage="/images/concert.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/events/request")} />
 
       <section className="section-padding section-gap">
         <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1fr_1.4fr]">

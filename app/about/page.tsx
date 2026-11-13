@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { getPage } from "@/lib/content";
+import { getPage, getEasyRead } from "@/lib/content";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
 import ContentSection from "@/components/content-section";
 import ContactCta from "@/components/contact-cta";
 
@@ -97,6 +98,8 @@ export default function AboutPage() {
         subtitle={page.subtitle}
         backgroundImage={page.heroImage}
       />
+
+      <EasyReadSummary page={getEasyRead("/about")} />
       {page.sections.map((section, i) => (
         <ContentSection
           key={section.heading ?? i}

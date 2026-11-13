@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import CalmVideo from "@/components/calm-video";
@@ -143,6 +145,8 @@ export default function PiEventsAppPressKitPage() {
         subtitle="Everything journalists need to cover the app. Logos, screenshots, demo videos, ready-to-use quotes and direct contact."
         backgroundImage="/images/deaf-app-user.png"
       />
+
+      <EasyReadSummary page={getEasyRead("/press/pi-events-app")} />
 
       <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import ContactCta from "@/components/contact-cta";
 import TestimonialQuote from "@/components/testimonial-quote";
 import AnimateIn from "@/components/animate-in";
@@ -178,6 +180,8 @@ export default function InterpretersPage() {
         subtitle="Join the team shaping Deaf access at the UK and Ireland's biggest live events."
         backgroundImage="/images/interpreters-team.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/interpreters")} />
 
       {/* ─── Working with PI - image + text ────────────── */}
       <section className="section-padding section-gap">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import AnimateIn from "@/components/animate-in";
 import ScrollVideo from "@/components/scroll-video";
 import AppStoreButtons from "@/components/app-store-buttons";
@@ -223,6 +225,8 @@ export default function AppGuidePage() {
         imagePosition="65% 30%"
         mobileImagePosition="50% 30%"
       />
+
+      <EasyReadSummary page={getEasyRead("/app-guide")} />
 
       {/* ─── Download strip (top-of-page CTA) ─────────────── */}
       <section className="bg-pi-navy section-padding py-6 md:py-8">

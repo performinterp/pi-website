@@ -10,7 +10,9 @@ import {
   getAudienceCards,
   getConsultancy,
   getTestimonials,
+  getEasyRead,
 } from "@/lib/content";
+import EasyReadSummary from "@/components/easy-read-summary";
 import LogoTicker from "@/components/logo-ticker";
 import AnimateIn from "@/components/animate-in";
 import AnimatedCounter from "@/components/animated-counter";
@@ -32,63 +34,6 @@ export default function Home() {
 
   return (
     <>
-      {/* ─── Easy-Read variant ─────────────────────────────
-          Hidden by default (CSS), shown when [data-easy-read="on"].
-          Strips the page to its three core jobs for low-fluency users:
-          find events, request an interpreter, contact us. */}
-      <section className="er-only section-padding section-gap">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="font-display text-4xl leading-tight text-pi-ink md:text-5xl">
-            Welcome to Performance Interpreting
-          </h1>
-          <p className="mt-6 text-xl leading-relaxed text-pi-ink/80">
-            We bring BSL and ISL to live events.
-          </p>
-          <p className="mt-2 text-xl leading-relaxed text-pi-ink/80">
-            Concerts. Sport. Festivals. Theatre. Comedy.
-          </p>
-
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/events"
-              className="inline-flex items-center gap-2 rounded-full bg-pi-accent px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-pi-accent/25 transition hover:brightness-110"
-            >
-              <span aria-hidden="true">👁</span> Find an event
-            </Link>
-            <Link
-              href="/events/request"
-              className="inline-flex items-center gap-2 rounded-full bg-pi-warmth-strong px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-pi-warmth/25 transition hover:brightness-110"
-            >
-              <span aria-hidden="true">✉️</span> Ask for an interpreter
-            </Link>
-          </div>
-
-          <div className="mt-14 rounded-2xl border border-pi-ink/10 bg-white p-6 text-left">
-            <h2 className="font-display text-2xl text-pi-ink">Need help?</h2>
-            <p className="mt-3 text-lg leading-relaxed text-pi-ink/80">
-              Email us. We will help you book an interpreter.
-            </p>
-            <a
-              href="mailto:enquiries@performanceinterpreting.co.uk"
-              className="mt-4 inline-block text-lg font-semibold text-pi-accent underline decoration-2 underline-offset-2 hover:text-pi-ink"
-            >
-              enquiries@performanceinterpreting.co.uk
-            </a>
-            <div className="mt-5">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-pi-accent/30 bg-white px-6 py-2.5 text-base font-semibold text-pi-accent transition hover:bg-pi-accent hover:text-white"
-              >
-                Send us a message →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Standard variant — hidden when Easy-Read is on ─── */}
-      <div className="er-hide contents">
-
       {/* ─── Hero ─────────────────────────────────────────── */}
       <section data-hero-own="" className="relative flex min-h-[72vh] items-end overflow-hidden">
         {/* Background image */}
@@ -140,6 +85,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <EasyReadSummary page={getEasyRead("/")} />
 
       {/* ─── Logo Ticker ──────────────────────────────────── */}
       <LogoTicker clients={clients} />
@@ -613,7 +560,6 @@ export default function Home() {
         </div>
       </section>
 
-      </div>
     </>
   );
 }

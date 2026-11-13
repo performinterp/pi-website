@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import { VENUE_TREE, getAllVenues, totalVenues } from "@/lib/venue-tree";
 import VenuesSearch from "./_components/venues-search";
 
@@ -71,6 +73,8 @@ export default function VenuesIndexPage() {
         subtitle={`Access contacts for ${total} UK and Ireland venues. Search by name, or browse by country and city.`}
         backgroundImage="/images/concert.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/venues")} />
 
       <section className="section-padding section-gap" aria-labelledby="venues-heading">
         <h2 id="venues-heading" className="sr-only">

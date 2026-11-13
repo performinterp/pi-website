@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { getPage } from "@/lib/content";
+import { getPage, getEasyRead } from "@/lib/content";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
 import ContentSection from "@/components/content-section";
 
 const page = getPage("accessibility");
@@ -42,6 +43,8 @@ export default function AccessibilityPage() {
         }}
       />
       <PageHero title={page.title} subtitle={page.subtitle} />
+
+      <EasyReadSummary page={getEasyRead("/accessibility")} />
       {page.sections.map((section, i) => (
         <ContentSection
           key={section.heading ?? i}

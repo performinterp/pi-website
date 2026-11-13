@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
-import { getTestimonials } from "@/lib/content";
+import { getTestimonials, getEasyRead } from "@/lib/content";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -84,6 +85,8 @@ export default function TestimonialsPage() {
         subtitle="What event organisers, Deaf community members and interpreters say about working with Performance Interpreting."
         backgroundImage="/images/concert.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/testimonials")} />
 
       {/* Headline rating callout */}
       <section className="section-padding pt-12">

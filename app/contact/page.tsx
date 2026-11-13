@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { getPage } from "@/lib/content";
+import { getPage, getEasyRead } from "@/lib/content";
+import EasyReadSummary from "@/components/easy-read-summary";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
 import AnimateIn from "@/components/animate-in";
@@ -49,31 +50,13 @@ export default function ContactPage() {
         backgroundImage={page.heroImage}
       />
 
+      <EasyReadSummary page={getEasyRead("/contact")} />
+
       {/* Enquiry types + form */}
       <section className="section-padding section-gap">
         <div className="mx-auto max-w-4xl">
-          {/* Easy-Read intro — shown when Easy-Read mode is on */}
-          <div className="er-only">
-            <h2 className="font-display text-2xl text-pi-ink md:text-3xl">
-              Send us a message
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-pi-ink/80">
-              Tell us what you need. We will help.
-            </p>
-            <p className="mt-3 text-lg leading-relaxed text-pi-ink/80">
-              You can email us at{" "}
-              <a
-                href="mailto:enquiries@performanceinterpreting.co.uk"
-                className="font-semibold text-pi-accent underline decoration-2 underline-offset-2"
-              >
-                enquiries@performanceinterpreting.co.uk
-              </a>{" "}
-              or fill in the form below.
-            </p>
-          </div>
-
-          {/* Standard enquiry-types intro — hidden in Easy-Read */}
-          <div className="er-hide">
+          {/* Enquiry types intro */}
+          <div>
             <AnimateIn>
               {enquirySection?.label && (
                 <p className="text-xs font-semibold uppercase tracking-widest text-pi-gold-dark">

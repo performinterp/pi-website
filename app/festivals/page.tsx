@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/page-hero";
+import EasyReadSummary from "@/components/easy-read-summary";
+import { getEasyRead } from "@/lib/content";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import Icon from "@/components/icon";
@@ -409,6 +411,8 @@ export default function FestivalsPage() {
         subtitle="BSL and ISL interpretation at the UK and Ireland's biggest festivals - designed, staffed and delivered end-to-end."
         backgroundImage="/images/festival-signing.jpg"
       />
+
+      <EasyReadSummary page={getEasyRead("/festivals")} />
 
       {/* ─── Intro + stats ────────────────────────────────── */}
       <section className="section-padding section-gap">
