@@ -46,6 +46,89 @@
 [data-easy-read="on"] .er-only { display: revert; }
 [data-easy-read="on"] .er-hide { display: none !important; }
 
+/* ─── Easy Read mode ──────────────────────────────────────────────────
+   Applies on every page when the visitor turns Easy Read on
+   (data-easy-read="on" on <html>, set before first paint). No per-page
+   code needed: bigger text, calmer layout, nothing moving. Page
+   summaries in plain English come from content/easy-read.json (see
+   components/easy-read-summary.tsx). */
+
+/* 1. Bigger text. Tailwind v4 text utilities read these theme
+   variables, so this scales every text-xs/sm/base/lg/xl on the site.
+   The biggest headings come down a little so they don't dominate. */
+html[data-easy-read="on"] {
+  --text-xs: 0.9375rem;   /* 12px -> 15px */
+  --text-sm: 1.0625rem;   /* 14px -> 17px */
+  --text-base: 1.1875rem; /* 16px -> 19px */
+  --text-lg: 1.3125rem;   /* 18px -> 21px */
+  --text-xl: 1.4375rem;   /* 20px -> 23px */
+  --text-5xl: 2.75rem;    /* 48px -> 44px */
+  --text-6xl: 3rem;       /* 60px -> 48px */
+  scroll-behavior: auto;
+}
+html[data-easy-read="on"] :is([class*="text-[10px]"], [class*="text-[11px]"], [class*="text-[12px]"], [class*="text-[13px]"]) {
+  font-size: var(--text-sm) !important;
+}
+
+/* 2. Easier to read: more space between lines, shorter lines, no ALL
+   CAPS, no italics, normal letter spacing, underlined links in text. */
+html[data-easy-read="on"] main :is(p, li, dd, label) { line-height: 1.7; }
+html[data-easy-read="on"] main p { max-width: 70ch; }
+html[data-easy-read="on"] main .text-center p { margin-inline: auto; }
+html[data-easy-read="on"] .uppercase { text-transform: none; }
+html[data-easy-read="on"] [class*="tracking-"] { letter-spacing: normal; }
+html[data-easy-read="on"] :is(.italic, em, i, blockquote) { font-style: normal; }
+html[data-easy-read="on"] main :is(p, li) a { text-decoration: underline; text-underline-offset: 3px; }
+html[data-easy-read="on"] :focus-visible { outline: 3px solid var(--color-pi-accent); outline-offset: 3px; }
+
+/* 3. Stronger text colour. Faded grey text becomes near-black and faded
+   white text on dark panels becomes solid white. The selectors match a
+   class at the start or after a space, so hover:/focus: variants such
+   as "hover:text-pi-ink/80" are left alone. :where() keeps specificity
+   low (0,1,1), so an element's own hover:text-… colour still wins on
+   hover. */
+html[data-easy-read="on"] :where([class^="text-pi-ink/"], [class*=" text-pi-ink/"]) {
+  color: color-mix(in srgb, var(--color-pi-ink) 88%, transparent);
+}
+html[data-easy-read="on"] :where([class^="text-white/"], [class*=" text-white/"]) { color: #fff; }
+
+/* 4. Nothing moves by itself. Spinners, the recording dot and the chat
+   "thinking" dots keep moving because they tell the visitor something
+   is happening. Fade-in-on-scroll blocks (AnimateIn) show straight away. */
+html[data-easy-read="on"] *:not(.animate-spin, .animate-pulse, .animate-bounce),
+html[data-easy-read="on"] *::before,
+html[data-easy-read="on"] *::after {
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+html[data-easy-read="on"] [data-animate-in] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* 5. Shorter picture banners, so the page content (and its Easy Read
+   summary) is on screen straight away. The top padding clears the
+   fixed header (h-16 / md:h-20). */
+html[data-easy-read="on"] [data-page-hero] { min-height: 0 !important; }
+html[data-easy-read="on"] [data-page-hero-inner] {
+  min-height: 0 !important;
+  padding-top: 6.5rem !important;
+  padding-bottom: 1.75rem !important;
+}
+/* Heroes that aren't PageHero (home, event and venue pages) — see Task 3
+   Step 8. */
+html[data-easy-read="on"] [data-hero-own] { min-height: 0 !important; height: auto !important; }
+
+/* 6. The client logo ticker becomes a still, wrapped row (Task 3 Step 9
+   stops rendering the duplicate set). */
+html[data-easy-read="on"] [data-ticker] {
+  width: auto !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 1.5rem;
+}
+
 @layer base {
   html, body {
     margin: 0;
