@@ -38,6 +38,10 @@ const EasyReadContext = createContext<EasyReadContextValue>({
 
 export function EasyReadProvider({ children }: { children: ReactNode }) {
   const [on, setOnState] = useState(false);
+  // The inline <head> script already set data-easy-read for first paint.
+  // Don't mirror state back until localStorage has been read, or the first
+  // commit (on=false) would overwrite "on" with "off" and flash the page.
+  const [ready, setReady] = useState(false);
 
   // Hydrate from localStorage on mount. Keep server render as `off` to
   // avoid hydration mismatch — the inline script handles the visual
@@ -51,20 +55,21 @@ export function EasyReadProvider({ children }: { children: ReactNode }) {
     } catch {
       // localStorage may be unavailable (private mode, etc.) — ignore
     }
+    setReady(true);
   }, []);
 
   // Mirror the React state to the data attribute and localStorage so the
   // two stay in sync after the user toggles. (The inline script handles
-  // the *initial* paint; this handles every change after.)
+  // the *initial* paint; this handles every change after, once hydrated.)
   useEffect(() => {
-    if (typeof document === "undefined") return;
+    if (!ready || typeof document === "undefined") return;
     document.documentElement.dataset.easyRead = on ? "on" : "off";
     try {
       window.localStorage.setItem(STORAGE_KEY, on ? "on" : "off");
     } catch {
       // localStorage may be unavailable — ignore
     }
-  }, [on]);
+  }, [on, ready]);
 
   const toggle = useCallback(() => setOnState((v) => !v), []);
   const setOn = useCallback((next: boolean) => setOnState(next), []);
@@ -78,6 +83,23 @@ export function EasyReadProvider({ children }: { children: ReactNode }) {
 
 export function useEasyRead(): EasyReadContextValue {
   return useContext(EasyReadContext);
+}
+
+// True when moving parts should stay still: Easy Read is on, or the
+// visitor's system asks for reduced motion. Carousels, counters, the app
+// pop-up and looping demo videos read this instead of starting timers.
+export function useCalmMotion(): boolean {
+  const { on } = useEasyRead();
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return on || reduced;
 }
 
 // Inline script for the document <head>. Run by the browser before React
