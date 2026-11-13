@@ -138,3 +138,9 @@ Edit the relevant file in `content/pages/` — e.g. `content/pages/about.json` f
 
 ### Add a new image
 Drop it in `public/images/`, then reference it as `/images/filename.jpg` in the relevant JSON or component.
+
+### Easy Read wording
+- The plain-English summary at the top of each page is in `content/easy-read.json`, one entry per page.
+- The wording rules (short sentences, no "speak", etc.) are checked by `scripts/check-easy-read.mjs`.
+- Run `npm run check:easy-read` before pushing.
+- Event, venue and city pages build their own summaries from their data (`lib/easy-read-auto.ts`), so there is nothing to edit for those.
