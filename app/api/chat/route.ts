@@ -58,6 +58,20 @@ function streamRefusal(text: string): Response {
 
 type Audience = "deaf" | "organiser" | "interpreter" | "skipped" | null;
 
+// Appended when the visitor has Easy Read on. Changes how PIPA writes,
+// not what it knows or the rules above.
+const EASY_READ_BLOCK = `
+
+## Easy Read mode
+This visitor has Easy Read turned on. Write every reply in Easy Read:
+- Short sentences. Aim for 10 words or fewer. One idea per sentence.
+- Everyday words. If you must use a hard word, explain it straight away.
+- No idioms, jokes or figures of speech.
+- Put the most important thing first.
+- Use a numbered list for steps.
+- Keep the reply short: 5 sentences or fewer unless they ask for more.
+- Write numbers as digits.`;
+
 function audienceContext(a: Audience | undefined): string {
   switch (a) {
     case "deaf":
@@ -308,7 +322,7 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
     });
   }
-  const { audience } = parsed.data;
+  const { audience, easyRead } = parsed.data;
   // The Zod schema (lib/api-schemas.ts) gives us a minimum shape — role +
   // parts[{type}] — that the classifier code below safely reads. The AI
   // SDK's UIMessage is structurally broader (typed `parts` variants), so a
@@ -398,7 +412,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: anthropic("claude-haiku-4-5"),
-    system: `${knowledge}\n\n${audienceBlock}`,
+    system: `${knowledge}\n\n${audienceBlock}${easyRead ? EASY_READ_BLOCK : ""}`,
     providerOptions: {
       anthropic: {
         cacheControl: { type: "ephemeral" },

@@ -355,6 +355,7 @@ export const ChatBodySchema = z.object({
     .enum(["deaf", "organiser", "interpreter", "skipped"])
     .nullable()
     .optional(),
+  easyRead: z.boolean().optional(),
 });
 
 // Render a single structured field as `Label: value`. Returns null when

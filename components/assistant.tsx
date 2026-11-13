@@ -5,6 +5,7 @@ import { DefaultChatTransport, type UIMessage } from "ai";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, X, SendHorizonal, Mail } from "lucide-react";
 import Link from "next/link";
+import { useEasyRead } from "@/lib/easy-read";
 
 const SAME_ORIGIN = "https://performanceinterpreting.co.uk";
 
@@ -287,6 +288,11 @@ export default function Assistant() {
   // is called per-request and needs the current audience without
   // recreating the transport).
   const audienceRef = useRef<Audience | null>(null);
+  const { on: easyRead } = useEasyRead();
+  const easyReadRef = useRef(false);
+  useEffect(() => {
+    easyReadRef.current = easyRead;
+  }, [easyRead]);
   const [handoff, setHandoff] = useState<{
     summary: HumanSummary;
     transcript: { role: "user" | "assistant"; content: string }[];
@@ -339,7 +345,7 @@ export default function Assistant() {
     () =>
       new DefaultChatTransport<UIMessage>({
         api: "/api/chat/",
-        body: () => ({ audience: audienceRef.current }),
+        body: () => ({ audience: audienceRef.current, easyRead: easyReadRef.current }),
       }),
     []
   );
