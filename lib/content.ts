@@ -4,7 +4,7 @@ import type {
   HeroContent, Stat, Milestone, Client,
   Sector, AudienceCard, AboutTeaser,
   NavigationContent, PageContent, ContactCta,
-  ConsultancyContent
+  ConsultancyContent, EasyReadPage
 } from "./types";
 
 const contentDir = join(process.cwd(), "content");
@@ -27,3 +27,6 @@ export const getConsultancy = () => load<ConsultancyContent>("consultancy.json")
 export const getContactCta = () => load<ContactCta>("contact-cta.json");
 export const getTestimonials = () => load<{ quote: string; name: string; context: string; source: string; rating?: number }[]>("testimonials.json");
 export const getPage = (slug: string) => load<PageContent>(`pages/${slug}.json`);
+
+export const getEasyRead = (route: string): EasyReadPage | undefined =>
+  load<Record<string, EasyReadPage>>("easy-read.json")[route];

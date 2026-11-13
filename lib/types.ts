@@ -144,3 +144,30 @@ export interface PageContent {
     ctaExternal?: boolean;
   }[];
 }
+
+// ─── Easy Read summaries (content/easy-read.json + lib/easy-read-auto.ts)
+export interface EasyReadPoint {
+  /** An emoji, or a path under /public (e.g. /icons/easy-read/bsl-interpreter.png).
+   *  Image paths containing "-white" are drawn on a dark circle. */
+  icon: string;
+  text: string;
+}
+export interface EasyReadAction {
+  label: string;
+  href: string;
+  style?: "primary" | "secondary";
+}
+export interface EasyReadSigned {
+  label: string;
+  /** A clip from the existing catalogue in lib/sign-videos.ts. */
+  videoKey?: import("./sign-videos").VideoKey;
+  /** Or our own signed intro for this page, once it's filmed. */
+  bslUrl?: string;
+  islUrl?: string;
+}
+export interface EasyReadPage {
+  title: string;
+  points: EasyReadPoint[];
+  actions?: EasyReadAction[];
+  signed?: EasyReadSigned;
+}
