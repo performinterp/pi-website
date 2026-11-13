@@ -61,9 +61,42 @@ export function useCalmMotion(): boolean {
 
 `useState` and `useEffect` are already imported in this file.
 
-- [ ] **Step 2: Typecheck.** Run `npx tsc --noEmit -p .`. Expected: no errors.
+- [ ] **Step 2: Fix the returning-visitor flash (existing bug).** In `EasyReadProvider` today the hydrate effect queues `setOnState(true)`, but the mirror effect runs in the same commit with `on=false` and writes `data-easy-read="off"` and localStorage `"off"` before flipping back. Every returning Easy Read visitor sees the standard page flash. Add a `ready` flag so the mirror effect only writes after hydration:
 
-- [ ] **Step 3: Commit.** Run `git add lib/easy-read.tsx` and commit with `feat(easy-read): useCalmMotion hook`.
+```tsx
+const [on, setOnState] = useState(false);
+// The inline <head> script already set data-easy-read for first paint.
+// Don't mirror state back until localStorage has been read, or the first
+// commit (on=false) would overwrite "on" with "off" and flash the page.
+const [ready, setReady] = useState(false);
+
+useEffect(() => {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (stored === "on") setOnState(true);
+  } catch {
+    // localStorage may be unavailable (private mode, etc.) — ignore
+  }
+  setReady(true);
+}, []);
+
+useEffect(() => {
+  if (!ready || typeof document === "undefined") return;
+  document.documentElement.dataset.easyRead = on ? "on" : "off";
+  try {
+    window.localStorage.setItem(STORAGE_KEY, on ? "on" : "off");
+  } catch {
+    // localStorage may be unavailable — ignore
+  }
+}, [on, ready]);
+```
+
+Keep the existing comments above these effects, updated to match.
+
+- [ ] **Step 3: Typecheck.** Run `npx tsc --noEmit -p .`. Expected: no errors.
+
+- [ ] **Step 4: Commit.** Run `git add lib/easy-read.tsx` and commit with `feat(easy-read): useCalmMotion hook; stop the returning-visitor flash`.
 
 ### Task 2: Easy Read CSS layer
 
@@ -111,11 +144,13 @@ html[data-easy-read="on"] :focus-visible { outline: 3px solid var(--color-pi-acc
 /* 3. Stronger text colour. Faded grey text becomes near-black and faded
    white text on dark panels becomes solid white. The selectors match a
    class at the start or after a space, so hover:/focus: variants such
-   as "hover:text-pi-ink/80" are left alone. */
-html[data-easy-read="on"] :is([class^="text-pi-ink/"], [class*=" text-pi-ink/"]) {
+   as "hover:text-pi-ink/80" are left alone. :where() keeps specificity
+   low (0,1,1), so an element's own hover:text-… colour still wins on
+   hover. */
+html[data-easy-read="on"] :where([class^="text-pi-ink/"], [class*=" text-pi-ink/"]) {
   color: color-mix(in srgb, var(--color-pi-ink) 88%, transparent);
 }
-html[data-easy-read="on"] :is([class^="text-white/"], [class*=" text-white/"]) { color: #fff; }
+html[data-easy-read="on"] :where([class^="text-white/"], [class*=" text-white/"]) { color: #fff; }
 
 /* 4. Nothing moves by itself. Spinners, the recording dot and the chat
    "thinking" dots keep moving because they tell the visitor something
@@ -141,7 +176,21 @@ html[data-easy-read="on"] [data-page-hero-inner] {
   padding-top: 6.5rem !important;
   padding-bottom: 1.75rem !important;
 }
+/* Heroes that aren't PageHero (home, event and venue pages) — see Task 3
+   Step 8. */
+html[data-easy-read="on"] [data-hero-own] { min-height: 0 !important; height: auto !important; }
+
+/* 6. The client logo ticker becomes a still, wrapped row (Task 3 Step 9
+   stops rendering the duplicate set). */
+html[data-easy-read="on"] [data-ticker] {
+  width: auto !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 1.5rem;
+}
 ```
+
+Note: the arbitrary-size rule uses `!important`, so `text-[11px] md:text-base` becomes `--text-sm` at every width. That's intended; the Task 6 visual check includes the header and footer.
 
 - [ ] **Step 2: Check Tailwind uses the variables.** Run `npm run build`. Then run:
 
@@ -193,15 +242,45 @@ useEffect(() => {
 
 - [ ] **Step 4: `scroll-video.tsx`.** Import the hook and add `const calm = useCalmMotion();`.
   - **In the effect:** when `calm` is true, don't create the IntersectionObserver. Call `el.pause()` and return a cleanup that only cancels the rAF loop. Add `calm` to the deps.
-  - **On the `<video>`:** add `controls={calm}`, so Easy Read visitors can press play themselves.
+  - **On the `<video>`:** add `controls={calm}` and `loop={!calm}`, so Easy Read visitors press play themselves and it doesn't repeat forever.
 
 - [ ] **Step 5: `app-promo-banner.tsx`.** Import the hook and add `const calm = useCalmMotion();`.
   - **In the scroll effect:** add `if (calm) return;` right after `if (hidden) return;`, and add `calm` to the deps.
   - **Before `return (`:** add `if (calm && !open) return null;`. That way it never pops up in Easy Read, and a banner that is already open still closes normally.
 
-- [ ] **Step 6: Lint and typecheck.** Run `npx tsc --noEmit -p . && npx eslint components/animate-in.tsx components/page-hero.tsx components/animated-counter.tsx components/review-carousel.tsx components/app-screenshot-carousel.tsx components/scroll-video.tsx components/app-promo-banner.tsx`. Expected: no errors. Warnings that were already there are fine.
+- [ ] **Step 6: Logo ticker (`components/logo-ticker.tsx`).** The desktop marquee (`flex w-max` + inline `animation: ticker-scroll`) would freeze at translateX(0) with the duplicate set and overflow logos cut off. Import the hook; `const calm = useCalmMotion();`; render `const allClients = calm ? clients : [...clients, ...clients];` and add `data-ticker=""` to the animated `<div className="flex w-max" …>`. The CSS from Task 2 §6 wraps it into a still, centred row. Leave `MobileLogoReveal` alone (it doesn't move by itself).
 
-- [ ] **Step 7: Commit.** Stage those 7 files and commit with `feat(easy-read): carousels, counters, pop-up and demo videos stay still`.
+- [ ] **Step 7: Press kit demo videos (`app/press/pi-events-app/page.tsx`, ~line 226, `autoPlay muted loop`).** The page is a server component, so create `components/calm-video.tsx`:
+
+```tsx
+"use client";
+
+// A muted demo <video> that autoplays and loops normally, but in Easy
+// Read (or with reduced motion) stays paused with controls so the visitor
+// chooses when to play it. The server render still has autoPlay, so we
+// pause it after hydration if needed.
+import { useEffect, useRef, type ComponentProps } from "react";
+import { useCalmMotion } from "@/lib/easy-read";
+
+export default function CalmVideo(props: ComponentProps<"video">) {
+  const calm = useCalmMotion();
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (calm) ref.current?.pause();
+  }, [calm]);
+  return <video ref={ref} {...props} autoPlay={!calm && props.autoPlay} loop={!calm && props.loop} controls={calm || props.controls} />;
+}
+```
+
+Replace each autoplaying `<video …>` on that page with `<CalmVideo …>` (same props). Do not touch `components/assistant.tsx:89` (that video starts on the visitor's tap).
+
+- [ ] **Step 8: Venue events carousel nudge (`app/venues/_components/venue-events-carousel.tsx`, ~lines 89–100).** It runs a `setTimeout` scroll "nudge" to hint it scrolls. Import the hook, `const calm = useCalmMotion();`, skip the nudge when `calm` (early return in that effect, add `calm` to deps).
+
+- [ ] **Step 9: Heroes that aren't `PageHero`.** Add `data-hero-own=""` to the tall hero section in `app/page.tsx` (~line 93, `min-h-[72vh]`), `app/events/[slug]/page.tsx` (~line 209, `h-[55vh] min-h-[420px]`, and its mobile hero if separate) and the hero in `app/venues/[slug]/page.tsx`. Task 2's CSS sets `min-height:0; height:auto` on them in Easy Read. **Check each one in the browser (Task 6):** if a hero's text is absolutely positioned and the hero collapses to nothing with `height:auto`, instead give that element `data-hero-cap=""` and add to globals.css `html[data-easy-read="on"] [data-hero-cap] { min-height: 0 !important; height: 40vh !important; }`. Report which you used.
+
+- [ ] **Step 10: Lint and typecheck.** Run `npx tsc --noEmit -p . && npx eslint` on every file touched in this task. Expected: no errors. Warnings that were already there are fine.
+
+- [ ] **Step 11: Commit.** Stage the touched files explicitly and commit with `feat(easy-read): carousels, counters, ticker, pop-up and demo videos stay still`.
 
 ### Task 4: The toggle is findable on phones
 
@@ -424,7 +503,7 @@ test("fails an unknown video key", () => {
 ```
 
 - [ ] **Step 2: Run it and confirm it fails.** Run `node --test scripts/check-easy-read.test.mjs`. Expected: FAIL, because the script doesn't exist yet.
-- [ ] **Step 3: Write `scripts/check-easy-read.mjs`** implementing the rules above. Use plain Node, no dependencies, and a short header comment saying what it checks and how to run it.
+- [ ] **Step 3: Write `scripts/check-easy-read.mjs`** implementing the rules above. Use plain Node, no dependencies, and a short header comment saying what it checks and how to run it. Import `process` from `node:process` (and use `node:` imports throughout) so ESLint's flat config doesn't flag `no-undef`; run `npx eslint scripts/` and fix anything it reports.
 - [ ] **Step 4: Run the tests and confirm they pass.** Run `node --test scripts/check-easy-read.test.mjs`. Expected: 4 pass.
 - [ ] **Step 5: Commit.** Stage the 2 scripts and `package.json`, then commit with `feat(easy-read): wording checker for Easy Read copy`.
 
@@ -572,7 +651,8 @@ import { getEasyRead } from "@/lib/content";
 
 **Pages that already have Easy Read blocks.** They follow James's decision: the full page stays below.
 
-- **`app/page.tsx`:** remove the `er-only` section (lines ~35–87) and unwrap the `<div className="er-hide contents">` wrapper around the standard page, keeping its children. Put `<EasyReadSummary page={getEasyRead("/")} />` first. The removed block's links (Find an event, Ask for an interpreter, email, contact) must appear in the `/` JSON entry.
+- **Unwrapping `er-hide contents`:** delete the opening `<div className="er-hide contents">` AND its matching closing `</div>` (it's near the end of the page's JSX — find it by matching indentation/comments, then confirm with `npx tsc --noEmit -p .`). Keep everything between them.
+- **`app/page.tsx`:** remove the `er-only` section (lines ~35–87) and unwrap the `<div className="er-hide contents">` wrapper around the standard page, keeping its children. Put `<EasyReadSummary page={getEasyRead("/")} />` directly AFTER the hero section, not above it — the header is transparent with a white logo at the top of the page, so a white box above the hero would hide the logo. The removed block's links (Find an event, Ask for an interpreter, email, contact) must appear in the `/` JSON entry.
 - **`app/deaf-community/page.tsx`:** same. Remove the `er-only` "Welcome" section and unwrap the `er-hide contents` wrapper. Insert the summary after the hero. The 3 steps and the app store buttons are covered by JSON points and actions. App store links are external `https://` actions; copy the URLs from `components/app-store-buttons.tsx`.
 - **`app/contact/page.tsx`:** replace the `er-only` intro with the summary, and remove the `er-hide` from the enquiry cards.
 - **`app/events/request/page.tsx`:** add the summary after the hero. Keep `request-intro.tsx`. Its Easy Read steps are good and stay.
@@ -588,7 +668,7 @@ import { getEasyRead } from "@/lib/content";
 **Files:**
 - Create: `lib/easy-read-auto.ts`. Pure functions only, with type-only imports (so Node can strip types).
 - Create: `scripts/easy-read-auto.test.mjs`
-- Create: `public/icons/easy-read/bsl-interpreter.png` and `public/icons/easy-read/isl-interpreter-white.png`, each resized to 160px wide from `../../../Logos/` with `sips -Z 160 <src> --out <dest>`.
+- Create: `public/icons/easy-read/bsl-interpreter.png` and `public/icons/easy-read/isl-interpreter-white.png`, resized from PI's own sign icons (never generated or stock — those draw ASL): `mkdir -p public/icons/easy-read && sips -Z 160 ../../../Logos/bsl-interpreter-logo.png --out public/icons/easy-read/bsl-interpreter.png && sips -Z 160 ../../../Logos/isl-interpreter-logo-white.png --out public/icons/easy-read/isl-interpreter-white.png`. **Do this first** — Task 10's wording already uses the BSL icon.
 - Modify: `app/events/[slug]/page.tsx`, `app/venues/[slug]/page.tsx` and `app/events/in/[city]/page.tsx`. Insert `<EasyReadSummary page={…} />` after each page's header or hero.
 
 - [ ] **Step 1: Write the failing test** in `scripts/easy-read-auto.test.mjs`. Run it with `node --test --experimental-strip-types scripts/easy-read-auto.test.mjs`. It imports `../lib/easy-read-auto.ts` and covers:
