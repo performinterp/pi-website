@@ -82,12 +82,17 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
   const [toDate, setToDate] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  // Suggestion highlighted with the arrow keys (-1 = none).
+  const [activeIdx, setActiveIdx] = useState(-1);
+  // Phones only: the place/date/language filters fold away by default.
+  const [moreOpen, setMoreOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
   const [userCoords, setUserCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [nearMeActive, setNearMeActive] = useState(false);
   const [nearMeStatus, setNearMeStatus] = useState<"idle" | "loading" | "denied" | "unavailable" | "timeout">("idle");
   const searchWrapRef = useRef<HTMLDivElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
+  const categoryRef = useRef<HTMLDivElement | null>(null);
 
   function scrollToSearch() {
     // Delay slightly so mobile keyboard / focus-driven native scroll
@@ -101,6 +106,28 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
     setTimeout(() => {
       resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 60);
+  }
+
+  // Phones: after a category tap, if the first result is still off-screen,
+  // bring the category row to the top so the chips, the match count and the
+  // first results are all in view together. Without this a tap changed
+  // nothing visible.
+  function revealResults() {
+    if (!window.matchMedia("(max-width: 767px)").matches) return;
+    setTimeout(() => {
+      const top = resultsRef.current?.getBoundingClientRect().top ?? 0;
+      if (top < window.innerHeight - 160) return;
+      const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      categoryRef.current?.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+    }, 60);
+  }
+
+  function chooseSuggestion(label: string) {
+    setSearch(label);
+    setShowSuggestions(false);
+    setActiveIdx(-1);
+    setVisible(PAGE_SIZE);
+    scrollToResults();
   }
 
   // Re-hydrate cached user coords on mount (set during a previous Near me
@@ -269,6 +296,13 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
   const selectedClub = club !== "all" ? clubs.find((c) => c.key === club) : undefined;
 
   const activeDatePreset = activePresetKey(fromDate, toDate);
+  const moreActive = [
+    nearMeActive,
+    !!(fromDate || toDate),
+    interpreterStatus !== "all",
+    city !== "all",
+    language !== "all",
+  ].filter(Boolean).length;
 
   const shown = filtered.slice(0, visible);
   const hasMore = filtered.length > shown.length;
@@ -319,7 +353,16 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
           message is repeated in the empty state where it's most relevant,
           and it adds visual noise here for low-fluency users). */}
       {!easyRead && (
-        <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-pi-gold/30 bg-gradient-to-r from-pi-gold/10 via-pi-warmth/5 to-transparent p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+        <Link
+          href="/events/request"
+          className="mb-4 block rounded-xl border border-pi-gold/30 bg-pi-gold/10 px-4 py-3 text-base text-pi-ink md:hidden"
+        >
+          Can&apos;t find your event?{" "}
+          <span className="font-bold underline underline-offset-2">Request an Interpreter →</span>
+        </Link>
+      )}
+      {!easyRead && (
+        <div className="mb-6 hidden flex-col gap-3 rounded-2xl border border-pi-gold/30 bg-gradient-to-r from-pi-gold/10 via-pi-warmth/5 to-transparent p-5 sm:flex-row sm:items-center sm:justify-between md:flex md:p-6">
           <div>
             <p className="font-display text-lg leading-tight text-pi-ink md:text-xl">
               Can&apos;t find your event?
@@ -352,15 +395,33 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                 setSearch(e.target.value);
                 setVisible(PAGE_SIZE);
                 setShowSuggestions(true);
+                setActiveIdx(-1);
               }}
               onFocus={() => {
                 setShowSuggestions(true);
                 scrollToSearch();
               }}
               onKeyDown={(e) => {
-                if (e.key === "Escape") setShowSuggestions(false);
+                const open = showSuggestions && suggestions.length > 0;
+                if (e.key === "ArrowDown" && suggestions.length > 0) {
+                  e.preventDefault();
+                  setShowSuggestions(true);
+                  setActiveIdx((i) => Math.min(i + 1, suggestions.length - 1));
+                }
+                if (e.key === "ArrowUp" && open) {
+                  e.preventDefault();
+                  setActiveIdx((i) => Math.max(i - 1, -1));
+                }
+                if (e.key === "Escape") {
+                  setShowSuggestions(false);
+                  setActiveIdx(-1);
+                }
                 if (e.key === "Enter") {
                   e.preventDefault();
+                  if (open && activeIdx >= 0) {
+                    chooseSuggestion(suggestions[activeIdx].label);
+                    return;
+                  }
                   setShowSuggestions(false);
                   (e.currentTarget as HTMLInputElement).blur();
                   scrollToResults();
@@ -368,35 +429,42 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
               }}
               placeholder={easyRead ? "Type a name or place" : "Type anything — name, venue, interpreter (typos OK)"}
               autoComplete="off"
+              role="combobox"
               aria-autocomplete="list"
               aria-expanded={showSuggestions && suggestions.length > 0}
               aria-controls="ev-search-suggestions"
+              aria-activedescendant={
+                showSuggestions && activeIdx >= 0 ? `ev-sugg-${activeIdx}` : undefined
+              }
               className={`${inputClass} mt-1.5`}
             />
             {showSuggestions && suggestions.length > 0 && (
               <ul
                 id="ev-search-suggestions"
                 role="listbox"
+                aria-label="Suggestions"
                 className="absolute left-0 right-0 top-full z-20 mt-1 max-h-64 overflow-y-auto rounded-lg border border-pi-ink/15 bg-white shadow-lg"
               >
+                {/* Options aren't focusable: focus stays in the input and the
+                    arrow keys move aria-activedescendant (combobox pattern). */}
                 {suggestions.map((s, i) => (
-                  <li key={`${s.type}-${i}-${s.label}`} role="option" aria-selected="false">
-                    <button
-                      type="button"
-                      onMouseDown={(e) => {
-                        e.preventDefault();
-                        setSearch(s.label);
-                        setShowSuggestions(false);
-                        setVisible(PAGE_SIZE);
-                        scrollToResults();
-                      }}
-                      className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-base text-pi-ink hover:bg-pi-warmth/10 focus:bg-pi-warmth/10 focus:outline-none"
-                    >
-                      <span className="truncate">{s.label}</span>
-                      <span className="shrink-0 rounded-full bg-pi-ink/5 px-2 py-0.5 text-sm font-semibold uppercase tracking-wide text-pi-ink/60">
-                        {s.type}
-                      </span>
-                    </button>
+                  <li
+                    key={`${s.type}-${i}-${s.label}`}
+                    id={`ev-sugg-${i}`}
+                    role="option"
+                    aria-selected={i === activeIdx}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      chooseSuggestion(s.label);
+                    }}
+                    className={`flex w-full cursor-pointer items-center justify-between gap-3 px-3 py-2 text-left text-base text-pi-ink hover:bg-pi-warmth/10 ${
+                      i === activeIdx ? "bg-pi-warmth/15 outline outline-2 -outline-offset-2 outline-pi-accent" : ""
+                    }`}
+                  >
+                    <span className="truncate">{s.label}</span>
+                    <span className="shrink-0 rounded-full bg-pi-ink/5 px-2 py-0.5 text-sm font-semibold uppercase tracking-wide text-pi-ink/60">
+                      {s.type}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -405,9 +473,9 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
         </div>
 
         {/* Visual category grid */}
-        <div className="mt-5">
+        <div ref={categoryRef} className="mt-5 scroll-mt-20">
           <p className={labelClass}>Category</p>
-          <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
+          <div className="-mx-5 mt-2 flex gap-2 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-6 md:overflow-visible md:px-0 md:pb-0">
             {categoryCards.map((c) => {
               const active = category === c.key;
               return (
@@ -418,9 +486,10 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                     setCategory(c.key);
                     setClub("all");
                     setVisible(PAGE_SIZE);
+                    revealResults();
                   }}
                   aria-pressed={active}
-                  className={`flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-3 text-center transition ${
+                  className={`flex w-28 shrink-0 flex-col items-center justify-center gap-1 rounded-xl border px-2 py-3 text-center transition md:w-auto ${
                     active
                       ? "border-pi-accent bg-pi-accent/10 ring-1 ring-pi-accent"
                       : "border-pi-ink/10 bg-white hover:border-pi-accent/40"
@@ -498,6 +567,26 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
           </div>
         )}
 
+        <button
+          type="button"
+          onClick={() => setMoreOpen((v) => !v)}
+          aria-expanded={moreOpen}
+          aria-controls="ev-more-filters"
+          className="mt-5 flex w-full items-center justify-between gap-3 rounded-xl border border-pi-ink/15 px-4 py-3 text-left md:hidden"
+        >
+          <span>
+            <span className="block text-base font-semibold text-pi-ink">
+              More filters{moreActive > 0 ? ` (${moreActive} on)` : ""}
+            </span>
+            <span className="block text-sm text-pi-ink/70">Near me, dates, city, language</span>
+          </span>
+          <span aria-hidden="true" className={`text-pi-ink/70 transition-transform motion-reduce:transition-none ${moreOpen ? "rotate-180" : ""}`}>
+            ▾
+          </span>
+        </button>
+
+        {/* Always open from md up; behind the button above on phones. */}
+        <div id="ev-more-filters" className={moreOpen ? "" : "hidden md:block"}>
         {/* Where — near-me filter */}
         <div className="mt-5">
           <p className={labelClass}>Where</p>
@@ -675,6 +764,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
               ))}
             </select>
           </div>
+        </div>
         </div>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">

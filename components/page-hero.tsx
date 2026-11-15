@@ -9,18 +9,22 @@ interface PageHeroProps {
   tall?: boolean;
   /** Hide the subtitle on small screens (subtitle still renders on md+). */
   hideSubtitleOnMobile?: boolean;
+  /** On phones, size to the text instead of half the screen, so content
+   *  below (e.g. the event listings) starts sooner. md+ is unchanged. */
+  compact?: boolean;
 }
 
-export default function PageHero({ title, subtitle, backgroundImage, imagePosition, mobileImagePosition, tall, hideSubtitleOnMobile }: PageHeroProps) {
+export default function PageHero({ title, subtitle, backgroundImage, imagePosition, mobileImagePosition, tall, hideSubtitleOnMobile, compact }: PageHeroProps) {
   const desktopPos = imagePosition ?? "center";
   const mobilePos = mobileImagePosition ?? desktopPos;
   const reactId = useId();
   const heroId = `hero-${reactId.replace(/[^a-zA-Z0-9]/g, "")}`;
+  const minH = tall ? "min-h-[70vh]" : compact ? "md:min-h-[55vh]" : "min-h-[55vh]";
   return (
     <section
       id={heroId}
       data-page-hero=""
-      className={`relative w-full overflow-hidden bg-pi-navy ${tall ? "min-h-[70vh]" : "min-h-[55vh]"}`}
+      className={`relative w-full overflow-hidden bg-pi-navy ${minH}`}
       style={
         backgroundImage
           ? {
@@ -57,7 +61,7 @@ export default function PageHero({ title, subtitle, backgroundImage, imagePositi
       )}
 
       {/* Content drives section height — no separate min-h on the section */}
-      <div data-page-hero-inner="" className={`section-padding relative z-10 flex flex-col justify-end pt-24 pb-3 md:pb-5 lg:pb-8 xl:pb-12 ${tall ? "min-h-[70vh] md:pt-40" : "min-h-[55vh] md:pt-32"}`}>
+      <div data-page-hero-inner="" className={`section-padding relative z-10 flex flex-col justify-end pt-24 pb-3 md:pb-5 lg:pb-8 xl:pb-12 ${minH} ${tall ? "md:pt-40" : "md:pt-32"}`}>
         <div className="max-w-3xl">
           <h1
             className="font-display text-4xl leading-tight text-white md:text-5xl lg:text-6xl"

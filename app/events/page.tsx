@@ -32,6 +32,13 @@ export default async function EventsPage() {
 
   const SITE = "https://performanceinterpreting.co.uk";
 
+  const appPromo = (
+    <AppPromo
+      heading="Get these events in the free app"
+      text="Pick the artists, venues or cities you like and get an alert when a new event is added. On the day, show staff a card that says you are Deaf."
+    />
+  );
+
   return (
     <>
       <script
@@ -68,17 +75,16 @@ export default async function EventsPage() {
         title="Find interpreted events"
         subtitle="Confirmed BSL and ISL interpreted events across the UK and Ireland. Filter by date, city, category or language."
         backgroundImage="/images/concert.jpg"
+        compact
       />
 
       <EasyReadSummary page={getEasyRead("/events")} />
 
       <section className="section-padding section-gap" aria-labelledby="events-heading">
-        <div className="mb-10">
-          <AppPromo
-            heading="Get these events in the free app"
-            text="Pick the artists, venues or cities you like and get an alert when a new event is added. On the day, show staff a card that says you are Deaf."
-          />
-        </div>
+        {/* Phones get the listings first and the app card after them. Two
+            copies (one hidden) rather than CSS reordering, so the reading
+            order matches what's on screen. */}
+        <div className="mb-10 hidden md:block">{appPromo}</div>
         <h2 id="events-heading" className="sr-only">
           Upcoming interpreted events
         </h2>
@@ -88,6 +94,7 @@ export default async function EventsPage() {
         </p>
 
         <EventsFilter events={withClubs} cities={cities} categories={categories} clubs={clubs} />
+        <div className="mt-10 md:hidden">{appPromo}</div>
       </section>
 
       <ContactCta />
