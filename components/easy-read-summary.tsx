@@ -61,7 +61,7 @@ export default function EasyReadSummary({
           {page.points.map((p) => (
             <li key={p.text} className="flex items-start gap-4">
               <PointIcon icon={p.icon} />
-              <span className="pt-2.5 text-xl leading-relaxed text-pi-ink">{p.text}</span>
+              <span className="min-w-0 pt-2.5 text-xl leading-relaxed text-pi-ink wrap-break-word">{p.text}</span>
             </li>
           ))}
         </ul>
