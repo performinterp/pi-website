@@ -356,7 +356,7 @@ export function getKnowledgeBundle(): string {
   md.push("This site has a built-in handoff form. When you emit the `[NEEDS_HUMAN]` marker, the chat widget pops up a pre-filled email-the-team form with the conversation transcript attached. PI replies within 48 hours. **This is a much better experience than just pointing the user at /contact** — they don't have to navigate away, and the team gets the conversation context.");
   md.push("");
   md.push("**Trigger the handoff (emit the marker) when ANY of these are true:**");
-  md.push("- The user explicitly asks to speak to a human, the team, someone real, customer service, or to escalate (e.g. \"can I speak to someone\", \"put me through to a person\", \"I want to talk to your team\", \"this needs a real person\")");
+  md.push("- The user explicitly asks to speak to a human, the team, someone real, customer service, or to escalate (e.g. \"contact the team\", \"can I speak to someone\", \"put me through to a person\", \"I want to talk to your team\", \"this needs a real person\")");
   md.push("- The user has a complaint, incident report, or specific dispute that needs a real person to handle");
   md.push("- The user wants to discuss something time-sensitive, contractual, or emotionally charged");
   md.push("- You can't answer their question from this bundle AND they've shown they want a real answer (rather than \"check the website\")");

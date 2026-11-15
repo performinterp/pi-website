@@ -33,8 +33,9 @@ const sharedSecurityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
-    // BSL video feedback recorder needs camera + mic on this origin only.
-    value: "camera=(self), microphone=(self), geolocation=(), payment=(), usb=()",
+    // BSL video feedback recorder needs camera + mic on this origin only;
+    // the events "Near me" button needs location (it was blocked here).
+    value: "camera=(self), microphone=(self), geolocation=(self), payment=(), usb=()",
   },
 ];
 

@@ -255,14 +255,14 @@ function audienceChips(a: Audience | null): string[] {
         "Find a BSL or ISL gig",
         "Show me how to book in BSL",
         "What are my access rights?",
-        "Speak to the team",
+        "Contact the team",
       ];
     case "organiser":
       return [
         "Get a tailored quote",
         "What are my compliance duties?",
         "What does full-service access include?",
-        "Speak to the team",
+        "Contact the team",
       ];
     case "interpreter":
       return [
@@ -276,7 +276,7 @@ function audienceChips(a: Audience | null): string[] {
         "Find a BSL or ISL gig",
         "Request access for an event",
         "How do I book accessible seating?",
-        "Speak to the team",
+        "Contact the team",
       ];
   }
 }

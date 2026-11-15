@@ -33,10 +33,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/testimonials/`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/press/`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/app-guide/`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE}/get-app/`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    // /get-app/ itself is a redirect (route.ts), so only its choose page is listed.
+    { url: `${BASE}/get-app/choose/`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${BASE}/events/request/`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/press/pi-events-app/`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/contact/`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
     { url: `${BASE}/accessibility/`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE}/privacy/`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/app-privacy/`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   // Event slug pages — only currently-upcoming events go in the sitemap.
