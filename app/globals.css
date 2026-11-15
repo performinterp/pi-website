@@ -33,6 +33,15 @@
   --font-display: var(--font-display-loaded), Georgia, serif;
   --font-body: var(--font-body-loaded), system-ui, sans-serif;
 
+  /* Bigger default text (Marie, Nov 2026): measured on the live site, 45%
+     of visible text was 14px or less. Every step goes up 2px; Easy Read
+     (below) still goes a step further. Line heights are ratios, so they
+     follow automatically. */
+  --text-xs: 0.875rem;   /* 12px -> 14px */
+  --text-sm: 1rem;       /* 14px -> 16px */
+  --text-base: 1.125rem; /* 16px -> 18px */
+  --text-lg: 1.25rem;    /* 18px -> 20px */
+  --text-xl: 1.375rem;   /* 20px -> 22px */
 }
 
 @keyframes ticker-scroll {
@@ -151,6 +160,9 @@ html[data-easy-read="on"] [data-ticker] {
   body {
     background-color: var(--color-pi-canvas);
     color: var(--color-pi-ink);
+    /* Text with no size class follows the scale too (and Easy Read). */
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
     -webkit-font-smoothing: antialiased;
   }
 
