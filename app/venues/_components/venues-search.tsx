@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
 
@@ -51,6 +51,8 @@ export default function VenuesSearch({ venues }: Props) {
   const [focused, setFocused] = useState(false);
   const inputId = useId();
   const listId = useId();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const suggestions = useMemo(() => {
     const q = query.trim();
@@ -65,8 +67,40 @@ export default function VenuesSearch({ venues }: Props) {
 
   const showList = focused && query.trim().length >= 2;
 
+  // The results are links to venue pages, so they're a plain list of links
+  // that Tab reaches, not a listbox. The list stays open while focus is
+  // anywhere inside the search (it used to close 150ms after the input lost
+  // focus, so Tab could never reach a result). Arrow keys move too.
+  function results(): HTMLAnchorElement[] {
+    return Array.from(wrapRef.current?.querySelectorAll<HTMLAnchorElement>("ul a") ?? []);
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    const links = results();
+    const at = links.indexOf(document.activeElement as HTMLAnchorElement);
+    if (e.key === "ArrowDown" && links.length > 0) {
+      e.preventDefault();
+      links[Math.min(at + 1, links.length - 1)].focus();
+    } else if (e.key === "ArrowUp" && at >= 0) {
+      e.preventDefault();
+      if (at === 0) inputRef.current?.focus();
+      else links[at - 1].focus();
+    } else if (e.key === "Escape") {
+      inputRef.current?.focus();
+      setFocused(false);
+    }
+  }
+
   return (
-    <div className="relative">
+    <div
+      ref={wrapRef}
+      className="relative"
+      onFocus={() => setFocused(true)}
+      onBlur={(e) => {
+        if (!wrapRef.current?.contains(e.relatedTarget as Node | null)) setFocused(false);
+      }}
+      onKeyDown={onKeyDown}
+    >
       <label htmlFor={inputId} className="sr-only">
         Search venues
       </label>
@@ -76,24 +110,33 @@ export default function VenuesSearch({ venues }: Props) {
           className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-pi-ink/40"
         />
         <input
+          ref={inputRef}
           id={inputId}
           type="search"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setTimeout(() => setFocused(false), 150)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setFocused(true);
+          }}
           placeholder="Search venues — try city or venue name"
           autoComplete="off"
-          aria-controls={listId}
-          aria-expanded={showList}
+          aria-describedby={`${listId}-count`}
           className="w-full rounded-full border border-pi-ink/15 bg-white pl-11 pr-4 py-3 text-base text-pi-ink placeholder-pi-ink/45 outline-none transition focus:border-pi-accent focus:ring-2 focus:ring-pi-accent"
         />
       </div>
 
+      <p id={`${listId}-count`} className="sr-only" aria-live="polite">
+        {showList
+          ? suggestions.length === 0
+            ? "No venues found"
+            : `${suggestions.length} ${suggestions.length === 1 ? "venue" : "venues"} found. Press Tab or the down arrow to reach them.`
+          : ""}
+      </p>
+
       {showList && (
         <ul
           id={listId}
-          role="listbox"
+          aria-label="Matching venues"
           className="absolute left-0 right-0 top-full z-20 mt-2 max-h-[60vh] overflow-y-auto rounded-2xl border border-pi-ink/10 bg-white shadow-2xl shadow-black/10"
         >
           {suggestions.length === 0 ? (
@@ -102,7 +145,7 @@ export default function VenuesSearch({ venues }: Props) {
             </li>
           ) : (
             suggestions.map((v) => (
-              <li key={v.slug} role="option">
+              <li key={v.slug}>
                 <Link
                   href={`/venues/${v.slug}/`}
                   className="block border-b border-pi-ink/5 px-4 py-3 text-base text-pi-ink transition hover:bg-pi-accent/5 last:border-b-0"
