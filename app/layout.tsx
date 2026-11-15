@@ -54,6 +54,8 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${dmSerifDisplay.variable} ${dmSans.variable}`}
+      // EASY_READ_INIT_SCRIPT sets data-easy-read here before hydration.
+      suppressHydrationWarning
     >
       <head>
         {/* Set Easy-Read data attribute before paint to prevent flash of
