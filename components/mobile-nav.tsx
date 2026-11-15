@@ -17,6 +17,7 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
 
   // Close on Escape key
@@ -30,9 +31,11 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Focus management: move focus to close button when opened
+  // Focus management: move focus to close button when opened, and back to
+  // whatever opened the menu (the burger) when it closes.
   useEffect(() => {
     if (isOpen) {
+      returnFocusRef.current = document.activeElement as HTMLElement | null;
       document.body.style.overflow = "hidden";
       // Small delay to allow transition to start before focusing
       const timer = setTimeout(() => {
@@ -41,6 +44,8 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
       return () => clearTimeout(timer);
     } else {
       document.body.style.overflow = "";
+      returnFocusRef.current?.focus();
+      returnFocusRef.current = null;
     }
     return undefined;
   }, [isOpen]);
@@ -95,8 +100,12 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
         ref={overlayRef}
         id="mobile-nav-panel"
         role="dialog"
-        aria-modal="true"
+        aria-modal={isOpen ? true : undefined}
         aria-label="Navigation menu"
+        // The closed panel stays in the DOM (slid off-screen), so without
+        // inert its links were tabbable and the Tab-wrap trap held keyboard
+        // users inside it on every page.
+        inert={!isOpen}
         onKeyDown={handleKeyDownTrap}
         className={`fixed top-0 right-0 z-50 h-screen h-[100dvh] w-full max-w-sm transition-transform duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -230,6 +239,7 @@ function ExpandableNavGroup({
       </button>
       <div
         id={`mobile-submenu-${item.label}`}
+        inert={!open}
         className={`grid transition-all duration-200 ease-out ${
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
