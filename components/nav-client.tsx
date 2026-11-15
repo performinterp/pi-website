@@ -31,7 +31,7 @@ export default function NavClient({ nav, scrolled = false }: NavClientProps) {
       {/* Desktop nav */}
       <nav
         aria-label="Main navigation"
-        className="hidden md:flex items-center gap-8"
+        className="hidden lg:flex items-center gap-8"
       >
         {nav.mainNav.map((item) => {
           const isActive = isItemActive(item);
@@ -105,13 +105,13 @@ export default function NavClient({ nav, scrolled = false }: NavClientProps) {
         </Link>
       </nav>
 
-      {/* Hamburger button - visible only below md */}
+      {/* Hamburger button - visible only below lg (the link row does not fit on upright tablets) */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open menu"
         aria-expanded={isOpen}
         aria-controls="mobile-nav-panel"
-        className="relative z-10 flex md:hidden h-10 w-10 items-center justify-center rounded-full bg-white text-pi-ink shadow-md ring-1 ring-pi-ink/10 transition-colors duration-200 hover:bg-white/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-pi-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+        className="relative z-10 flex lg:hidden h-10 w-10 items-center justify-center rounded-full bg-white text-pi-ink shadow-md ring-1 ring-pi-ink/10 transition-colors duration-200 hover:bg-white/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-pi-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
       >
         <Menu size={22} aria-hidden="true" />
       </button>
