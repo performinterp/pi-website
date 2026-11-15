@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { VideoFeedbackSchema, escapeHtml } from "@/lib/api-schemas";
 import { isAllowedOrigin } from "@/lib/origin-check";
+import {
+  formRateLimitPerMinute,
+  formRateLimitPerDay,
+  checkRateLimits,
+  getClientIp,
+  rateLimitResponse,
+} from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
@@ -23,6 +30,13 @@ export async function POST(request: Request) {
       );
     }
 
+    // Each request emails admin@, so it shares the contact form's limits.
+    const rateDecision = await checkRateLimits(getClientIp(request), [
+      formRateLimitPerMinute,
+      formRateLimitPerDay,
+    ]);
+    if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
+
     const clHeader = request.headers.get("content-length");
     const contentLength = clHeader !== null ? Number(clHeader) : NaN;
     if (!Number.isFinite(contentLength) || contentLength > 10_000) {
@@ -36,7 +50,8 @@ export async function POST(request: Request) {
     const safeUrl = escapeHtml(parsed.data.url);
 
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
+    // Resend returns failures as `error` rather than throwing (see contact).
+    const { error: sendError } = await resend.emails.send({
       from: "PI Website <website@performanceinterpreting.co.uk>",
       to: "admin@performanceinterpreting.co.uk",
       subject: "New video feedback received",
@@ -47,6 +62,13 @@ export async function POST(request: Request) {
         <p>This video was uploaded via the PI website feedback form.</p>
       `,
     });
+    if (sendError) {
+      console.error("Video feedback send failed:", sendError);
+      return NextResponse.json(
+        { error: "Failed to send notification" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (error) {

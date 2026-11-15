@@ -105,13 +105,22 @@ export async function POST(request: Request) {
       lines.push(transcriptText);
     }
 
-    await resend.emails.send({
+    // Resend returns failures as `error` rather than throwing (see contact):
+    // without this check a lost handoff still told the visitor it was sent.
+    const { error: sendError } = await resend.emails.send({
       from: "PI Website <website@performanceinterpreting.co.uk>",
       to: ["enquiries@performanceinterpreting.co.uk"],
       replyTo: email,
       subject: `Chat transcript — ${subjectTopic}`,
       text: lines.join("\n"),
     });
+    if (sendError) {
+      console.error("Chat handoff send failed:", sendError);
+      return NextResponse.json(
+        { error: "Failed to send transcript" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
