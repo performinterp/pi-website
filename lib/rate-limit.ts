@@ -38,6 +38,13 @@ export const chatRateLimitPerDay = makeLimiter(100, "1 d", "rl:chat:day");
 // them feel rate-limited.
 export const chatSoftLimitPerDay = makeLimiter(25, "1 d", "rl:chat:soft");
 
+// Site-wide ceiling across ALL visitors. Per-IP limits don't stop many IPs
+// at once, and Anthropic bills the account. With the history and reply caps
+// (lib/chat-limits.ts) a request costs at most about $0.10, so this bounds a
+// many-IP attack at about $50 a day. Tripping it shows the contact-form
+// nudge, not an error. Raise it if real traffic gets near it.
+export const chatGlobalLimitPerDay = makeLimiter(500, "1 d", "rl:chat:global");
+
 export const formRateLimitPerMinute = makeLimiter(5, "60 s", "rl:form:min");
 export const formRateLimitPerDay = makeLimiter(20, "1 d", "rl:form:day");
 

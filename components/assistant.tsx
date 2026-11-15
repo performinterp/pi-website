@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, X, SendHorizonal, Mail } from "lucide-react";
 import Link from "next/link";
 import { useEasyRead } from "@/lib/easy-read";
+import { CHAT_USER_TEXT_MAX } from "@/lib/chat-limits";
 
 const SAME_ORIGIN = "https://performanceinterpreting.co.uk";
 
@@ -787,6 +788,7 @@ export default function Assistant() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
+                  maxLength={CHAT_USER_TEXT_MAX}
                   placeholder="Ask a question..."
                   className="flex-1 rounded-full border border-pi-ink/15 bg-white px-3 py-2 text-base text-pi-ink outline-none focus:border-pi-accent focus:ring-2 focus:ring-pi-accent"
                 />

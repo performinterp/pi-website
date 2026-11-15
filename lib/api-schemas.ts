@@ -1,4 +1,10 @@
 import { z } from "zod";
+import {
+  CHAT_ASSISTANT_TEXT_MAX,
+  CHAT_TOOL_PART_MAX,
+  CHAT_USER_TEXT_MAX,
+  PIPA_TOOL_NAMES,
+} from "./chat-limits";
 
 // Reject CR/LF/NUL — blocks email-header injection in name/email fields.
 const NoHeaderInjection = z
@@ -334,23 +340,61 @@ export const VideoFeedbackSchema = z.object({
     ),
 });
 
-// UIMessage shape from `ai` package: { role: 'user'|'assistant'|'system',
-// parts: Array<{type: string, ...}> }. We validate just enough that the
-// route's downstream `messages.find(m => m.role === ...)` and
-// `lastUser.parts.filter(...)` can't crash on malformed input (null
-// element, missing parts, etc.). `parts` items are kept as z.unknown()
-// because the AI SDK has many part shapes (text, file, tool-call, …) —
-// convertToModelMessages handles the rest.
-const UIMessagePart = z.object({ type: z.string() }).passthrough();
-const UIMessageLike = z
+// PIPA chat body. The widget resends the whole conversation each turn, so
+// every field here is client-controlled. Visitors may only send text.
+// Assistant turns may carry back only text, step markers and PIPA's own
+// tool calls. There is no system role and no file parts: a file part makes
+// the model fetch and read the file at our cost. Zod strips unknown fields,
+// so provider options can't ride along either. A forged assistant turn
+// only misleads the visitor who forged it; the size caps protect the bill.
+const ChatUserMessage = z.object({
+  id: z.string().max(100).optional(),
+  role: z.literal("user"),
+  parts: z
+    .array(z.object({ type: z.literal("text"), text: z.string().max(CHAT_USER_TEXT_MAX) }))
+    .min(1)
+    .max(5),
+});
+
+const TOOL_PART_TYPES = new Set<string>(PIPA_TOOL_NAMES.map((n) => `tool-${n}`));
+const ChatToolPart = z
   .object({
-    role: z.enum(["user", "assistant", "system"]),
-    parts: z.array(UIMessagePart).max(200),
+    type: z.string().refine((t) => TOOL_PART_TYPES.has(t)),
+    toolCallId: z.string().max(100),
+    // A reply cut off mid-tool leaves an incomplete call in the history.
+    // Accept it here; the route drops it before the model sees it.
+    state: z.enum(["input-streaming", "input-available", "output-available", "output-error"]),
+    // Zod 4 treats a bare z.unknown() key as required; incomplete calls
+    // have no output (and a streaming one may have no input yet).
+    input: z.unknown().optional(),
+    output: z.unknown().optional(),
+    errorText: z.string().optional(),
   })
-  .passthrough();
+  // One cap on the whole part. Real ones peak around 2KB (five events from
+  // searchEvents), so a rejection here means a forged or bloated part.
+  .refine((p) => JSON.stringify(p).length <= CHAT_TOOL_PART_MAX);
+
+const ChatAssistantMessage = z.object({
+  id: z.string().max(100).optional(),
+  role: z.literal("assistant"),
+  parts: z
+    .array(
+      z.union([
+        z.object({ type: z.literal("text"), text: z.string().max(CHAT_ASSISTANT_TEXT_MAX) }),
+        z.object({ type: z.literal("step-start") }),
+        ChatToolPart,
+      ])
+    )
+    .max(40),
+});
 
 export const ChatBodySchema = z.object({
-  messages: z.array(UIMessageLike).min(1).max(50),
+  // History is trimmed before the model sees it (trimChatHistory), so this
+  // only rejects absurd payloads; it must not cut off a real long chat.
+  messages: z
+    .array(z.discriminatedUnion("role", [ChatUserMessage, ChatAssistantMessage]))
+    .min(1)
+    .max(100),
   audience: z
     .enum(["deaf", "organiser", "interpreter", "skipped"])
     .nullable()
