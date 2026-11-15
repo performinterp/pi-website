@@ -12,6 +12,7 @@ import {
   resolveEventMapsUrl,
 } from "@/lib/venues";
 import AppPromo from "@/components/app-promo";
+import EventImage from "@/components/event-image";
 import EasyReadSummary from "@/components/easy-read-summary";
 import { eventEasyRead } from "@/lib/easy-read-auto";
 import { jsonLd } from "@/lib/json-ld";
@@ -164,14 +165,11 @@ export default async function EventDetailPage({ params }: Params) {
             screens. Desktop keeps the cinematic overlay (md+ has the
             horizontal room). */}
         <div className="md:hidden">
-          {event.imageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={event.imageUrl}
-              alt=""
-              className="h-56 w-full object-cover"
-            />
-          ) : null}
+          <EventImage
+            src={event.imageUrl}
+            fallback={event.imageFallback}
+            className="h-56 w-full object-cover"
+          />
           <div className="bg-pi-deep px-5 pt-6 pb-7 text-white">
             <Link
               href="/events/"
@@ -210,16 +208,12 @@ export default async function EventDetailPage({ params }: Params) {
 
         {/* Desktop hero — cinematic overlay treatment (more room to breathe). */}
         <div data-hero-cap="" className="relative hidden h-[55vh] min-h-[420px] w-full overflow-hidden bg-pi-navy md:block">
-          {event.imageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={event.imageUrl}
-              alt=""
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="h-full w-full bg-gradient-to-br from-pi-deep to-pi-navy" />
-          )}
+          <EventImage
+            src={event.imageUrl}
+            fallback={event.imageFallback}
+            className="h-full w-full object-cover"
+            placeholder={<div className="h-full w-full bg-gradient-to-br from-pi-deep to-pi-navy" />}
+          />
           <div
             className="absolute inset-0"
             style={{

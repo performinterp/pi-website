@@ -15,6 +15,7 @@ import {
 import { DATE_PRESETS, activePresetKey } from "./preset-dates";
 import { CATEGORY_ICONS, CATEGORY_ORDER, iconForCategory } from "./category-icons";
 import BslHelpVideo from "./bsl-help-video";
+import EventImage from "@/components/event-image";
 import {
   haversineKm,
   venueCoordinates,
@@ -1101,19 +1102,17 @@ function EventCard({ event }: { event: Event }) {
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-pi-ink/10 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-pi-accent/40 hover:shadow-md"
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-pi-canvas-soft">
-        {event.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={event.imageUrl}
-            alt=""
-            loading="lazy"
-            className="h-full w-full object-cover transition group-hover:scale-[1.02]"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-pi-deep to-pi-navy text-base font-semibold uppercase tracking-wide text-white/70">
-            {event.category || "Event"}
-          </div>
-        )}
+        <EventImage
+          src={event.imageUrl}
+          fallback={event.imageFallback}
+          lazy
+          className="h-full w-full object-cover transition group-hover:scale-[1.02]"
+          placeholder={
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-pi-deep to-pi-navy text-base font-semibold uppercase tracking-wide text-white/70">
+              {event.category || "Event"}
+            </div>
+          }
+        />
         <span
           className={`absolute left-3 top-3 rounded-full ${langPillBg} px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm`}
         >

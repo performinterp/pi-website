@@ -111,6 +111,8 @@ export interface Event {
   // contributes to each category's count.
   categories: string[];
   imageUrl: string;
+  // Shown if imageUrl fails to load ("" = the plain category card).
+  imageFallback: string;
   eventUrl: string;
   mapsUrl: string;
   status: string;

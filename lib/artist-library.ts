@@ -1,18 +1,13 @@
-// Curated library of artist images plus category-default fallback, both
-// hosted first-party so cards never go blank.
+// Curated library of artist images plus the category default: the picture
+// an event card falls back to.
 //
-// Why this exists: third-party venue and press images (theo2.co.uk,
-// wembleystadium.com, independent.co.uk, livenationinternational.com,
-// downloadfestival.co.uk, billboard.com, etc.) are aggressively stripped by
-// Safari content blockers and ITP in some user profiles, leaving event cards
-// with empty image boxes. Images on media.performanceinterpreting.co.uk are
-// served first-party and never blocked.
-//
-// Resolution order at sheet-read time (lib/events.ts):
-//   1. First-party sheet URL (per-event curation always wins)
-//   2. Artist library hit (recurring headliners with a curated image)
-//   3. Category default on PI CDN (covers the long tail with category imagery)
-//   4. Original third-party sheet URL (last resort — may be blocked)
+// Order (lib/events.ts, components/event-image.tsx):
+//   1. The sheet's own picture, wherever it's hosted (e.g. the O2's poster).
+//   2. If that's missing or fails to load (some Safari content blockers strip
+//      third-party images): the artist library, then the category default.
+//   3. If none of those: a plain navy card with the category name.
+// Until Nov 2026 the default beat any non-PI sheet picture, so 89% of
+// upcoming events showed a default even when the sheet had the real one.
 //
 // Artist matching is prefix-only — "Harry Styles Concert" matches "harry-styles"
 // but "An Evening with David Sedaris" does NOT match "david-sedaris". To cover
@@ -22,31 +17,29 @@
 const CDN_BASE = "https://media.performanceinterpreting.co.uk/artists/";
 const DEFAULTS_BASE = "https://media.performanceinterpreting.co.uk/defaults/";
 
-// Category defaults already living on the CDN. Verified live 2026-06-09:
-//   default-concert.jpg, default-comedy.jpg, default-family.png,
-//   default-festival.png, default-theatre.jpg
-//
-// Sheet categories that don't have a 1:1 default fall back to the closest
-// match (Pride/Camping Festival/Non-Camping Festival → festival; Other → concert).
-// Sports has no CDN default yet — uses a local first-party fallback below.
+// A default must show the genre and nothing else (Marie, Nov 2026). The
+// comedy, family, festival, theatre and sport photos each showed a specific
+// act, show, stage or person, which on another event implies they're on the
+// bill, so those categories now get the plain navy card instead. Concert
+// keeps its photo of a PI interpreter at work.
 //
 // Normalised match: category name lowercased and reduced to first alphanumeric
 // run (so "Camping Festival" → "camping"), then mapped here.
 const CATEGORY_DEFAULTS: Readonly<Record<string, string>> = {
   concert: `${DEFAULTS_BASE}default-concert.jpg`,
-  comedy: `${DEFAULTS_BASE}default-comedy.jpg`,
-  family: `${DEFAULTS_BASE}default-family.png`,
-  festival: `${DEFAULTS_BASE}default-festival.png`,
-  camping: `${DEFAULTS_BASE}default-festival.png`,
-  "non-camping": `${DEFAULTS_BASE}default-festival.png`,
-  pride: `${DEFAULTS_BASE}default-festival.png`,
-  theatre: `${DEFAULTS_BASE}default-theatre.jpg`,
-  // Sports has no CDN default — served first-party from the site's own /public.
-  sports: "/images/football-stadium.jpg",
-  // Talks & Discussions: no good visual default — return null so the existing
-  // gradient placeholder in events-filter.tsx renders the category name instead.
-  // Same for "Other".
 };
+
+// Sheet values that are placeholders, not pictures of the event: the site's
+// own stock photos (/images/...) and any of the shared defaults. The
+// publishing script writes defaults into the sheet, sometimes the concert one
+// on Family, Comedy or Talks rows, so the site ignores them and picks its own
+// by category.
+const PLACEHOLDER_IMAGE =
+  /^https?:\/\/(www\.)?performanceinterpreting\.co\.uk\/images\/|\/defaults\/default-/;
+
+export function isPlaceholderImage(url: string): boolean {
+  return PLACEHOLDER_IMAGE.test(url);
+}
 
 // Keys MUST be canonical artist/festival slugs (lowercase, hyphenated).
 // Add an entry ONLY after the image is uploaded to CDN_BASE<slug>.<ext> —
@@ -102,13 +95,6 @@ export function resolveCategoryFallback(category: string): string | null {
   if (full.startsWith("non-camping")) return CATEGORY_DEFAULTS["non-camping"] ?? null;
   if (full.startsWith("camping")) return CATEGORY_DEFAULTS["camping"] ?? null;
   return CATEGORY_DEFAULTS[key] ?? null;
-}
-
-export function isFirstPartyImage(url: string): boolean {
-  return (
-    url.startsWith("https://media.performanceinterpreting.co.uk/") ||
-    url.startsWith("/")
-  );
 }
 
 // Test-friendly export — only consumed if a future test runner is added.

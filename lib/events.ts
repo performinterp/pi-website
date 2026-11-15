@@ -1,6 +1,6 @@
 import type { Event, InterpreterStatus } from "./types";
 import {
-  isFirstPartyImage,
+  isPlaceholderImage,
   resolveCategoryFallback,
   resolveLibraryImage,
 } from "./artist-library";
@@ -127,18 +127,18 @@ function parseCategories(raw: string): string[] {
     .filter((c) => c.length > 0);
 }
 
-// Resolution chain (see lib/artist-library.ts for rationale):
-//   1. First-party sheet URL — per-event curation always wins
-//   2. Artist library — recurring headliners
-//   3. Category default — covers the long tail with category imagery
-//   4. Original sheet URL — last resort; may be third-party and blockable
-function resolveImageUrl(eventName: string, category: string, sheetUrl: string): string {
-  if (sheetUrl && isFirstPartyImage(sheetUrl)) return sheetUrl;
-  const library = resolveLibraryImage(eventName);
-  if (library) return library;
-  const fallback = resolveCategoryFallback(category);
-  if (fallback) return fallback;
-  return sheetUrl;
+// The sheet's own picture comes first; see lib/artist-library.ts for the
+// order and why. The fallback is only used if that picture is missing or
+// fails to load in the browser.
+function resolveImage(
+  eventName: string,
+  category: string,
+  sheetUrl: string,
+): { imageUrl: string; imageFallback: string } {
+  const own = sheetUrl && !isPlaceholderImage(sheetUrl) ? sheetUrl : "";
+  const fallback = resolveLibraryImage(eventName) ?? resolveCategoryFallback(category) ?? "";
+  if (!own) return { imageUrl: fallback, imageFallback: "" };
+  return { imageUrl: own, imageFallback: fallback === own ? "" : fallback };
 }
 
 function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null {
@@ -192,11 +192,7 @@ function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null
     categories: parseCategories(cell("CATEGORY")),
     // Image fallback uses the primary category so "Concert,Festival" picks
     // the concert default rather than slugify-merging into a nonsense key.
-    imageUrl: resolveImageUrl(
-      name,
-      parseCategories(cell("CATEGORY"))[0] ?? "",
-      cell("IMAGE URL"),
-    ),
+    ...resolveImage(name, parseCategories(cell("CATEGORY"))[0] ?? "", cell("IMAGE URL")),
     eventUrl: cell("EVENT URL"),
     mapsUrl: cell("MAPS URL"),
     status: cell("STATUS"),
