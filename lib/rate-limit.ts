@@ -80,15 +80,35 @@ export type RateLimitDecision =
       reset: number;
     };
 
+// Upstash itself can fail. Forms fail open (people must still be able to
+// reach PI); PIPA fails closed (every message costs money) by catching this.
+export class RateLimitUnavailable extends Error {}
+
+// One limiter call that returns null instead of throwing if Upstash is down.
+export async function limitSafely(limiter: NonNullable<Limiter>, key: string) {
+  try {
+    return await limiter.limit(key);
+  } catch (err) {
+    console.error(JSON.stringify({ kind: "rate_limit_unavailable", error: String(err).slice(0, 200) }));
+    return null;
+  }
+}
+
 export async function checkRateLimits(
   ip: string,
-  limiters: Limiter[]
+  limiters: Limiter[],
+  { failOpen = false }: { failOpen?: boolean } = {}
 ): Promise<RateLimitDecision> {
   // If Upstash isn't configured, every limiter is null → fail-open.
   const live = limiters.filter((l): l is NonNullable<Limiter> => l !== null);
   if (live.length === 0) return { allowed: true };
 
-  const results = await Promise.all(live.map((l) => l.limit(ip)));
+  const settled = await Promise.all(live.map((l) => limitSafely(l, ip)));
+  if (settled.some((r) => r === null)) {
+    if (failOpen) return { allowed: true };
+    throw new RateLimitUnavailable();
+  }
+  const results = settled.filter((r) => r !== null);
   const exceeded = results.find((r) => !r.success);
   if (!exceeded) return { allowed: true };
 

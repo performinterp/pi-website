@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     const rateDecision = await checkRateLimits(getClientIp(request), [
       formRateLimitPerMinute,
       formRateLimitPerDay,
-    ]);
+    ], { failOpen: true });
     if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
     // Treat missing or non-numeric Content-Length as invalid: chunked

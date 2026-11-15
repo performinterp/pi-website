@@ -30,6 +30,8 @@ import {
   chatSoftLimitPerDay,
   chatGlobalLimitPerDay,
   checkRateLimits,
+  limitSafely,
+  RateLimitUnavailable,
   getClientIp,
   rateLimitResponse,
 } from "@/lib/rate-limit";
@@ -43,6 +45,9 @@ const ORIGIN = "https://performanceinterpreting.co.uk";
 // chat widget renders it as a normal assistant turn. Used for off-topic
 // refusals, soft-rate-limit nudges, and classifier-failure fallbacks —
 // same UX every time, no harsh 4xx surfaced to the user.
+const UNAVAILABLE_TEXT =
+  "PIPA can't answer right now. Our team can still help you through [the contact form](/contact).";
+
 function streamRefusal(text: string): Response {
   const stream = createUIMessageStream({
     execute: async ({ writer }) => {
@@ -282,10 +287,17 @@ export async function POST(req: Request) {
   }
 
   const clientIp = getClientIp(req);
-  const rateDecision = await checkRateLimits(clientIp, [
-    chatRateLimitPerMinute,
-    chatRateLimitPerDay,
-  ]);
+  let rateDecision;
+  try {
+    rateDecision = await checkRateLimits(clientIp, [
+      chatRateLimitPerMinute,
+      chatRateLimitPerDay,
+    ]);
+  } catch (err) {
+    // Upstash is down: without limits PIPA could run up unbounded cost.
+    if (err instanceof RateLimitUnavailable) return streamRefusal(UNAVAILABLE_TEXT);
+    throw err;
+  }
   if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
   // Soft daily budget — kicks in BEFORE the hard 100/day cap. Streams a
@@ -293,7 +305,8 @@ export async function POST(req: Request) {
   // so bored / curious users don't feel rate-limited. The hard cap is
   // still there as a backstop if they ignore the nudge and keep going.
   if (chatSoftLimitPerDay) {
-    const softDecision = await chatSoftLimitPerDay.limit(clientIp);
+    const softDecision = await limitSafely(chatSoftLimitPerDay, clientIp);
+    if (!softDecision) return streamRefusal(UNAVAILABLE_TEXT);
     if (!softDecision.success) {
       console.log(JSON.stringify({
         kind: "assistant_soft_limit",
@@ -319,7 +332,13 @@ export async function POST(req: Request) {
     });
   }
 
-  const parsed = ChatBodySchema.safeParse(await req.json());
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    body = null; // malformed JSON: rejected below as invalid input, not a 500
+  }
+  const parsed = ChatBodySchema.safeParse(body);
   if (!parsed.success) {
     return new Response(JSON.stringify({ error: "Invalid input" }), {
       status: 400,
@@ -329,7 +348,8 @@ export async function POST(req: Request) {
   // Checked after validation so malformed requests can't use up everyone's
   // allowance. Each IP reaches this at most 25 times a day (soft limit above).
   if (chatGlobalLimitPerDay) {
-    const globalDecision = await chatGlobalLimitPerDay.limit("all");
+    const globalDecision = await limitSafely(chatGlobalLimitPerDay, "all");
+    if (!globalDecision) return streamRefusal(UNAVAILABLE_TEXT);
     if (!globalDecision.success) {
       console.warn(JSON.stringify({ kind: "assistant_global_limit" }));
       return streamRefusal(
@@ -401,6 +421,10 @@ export async function POST(req: Request) {
         prompt: lastUserText,
         temperature: 0,
         maxOutputTokens: 5,
+        // A stalled classifier must not eat the 30s function budget; on
+        // timeout it fails open like any other classifier error.
+        abortSignal: AbortSignal.timeout(5_000),
+        maxRetries: 1,
       });
       verdict = classification.text.trim().toUpperCase();
     } catch (error) {
@@ -445,6 +469,9 @@ export async function POST(req: Request) {
     maxOutputTokens: CHAT_MAX_OUTPUT_TOKENS,
     tools,
     stopWhen: stepCountIs(5),
+    // Classifier (max 5s) + this stays inside maxDuration (30s), so a stall
+    // ends the reply cleanly instead of the function being killed mid-stream.
+    abortSignal: AbortSignal.timeout(22_000),
     onStepFinish: ({ toolCalls, text }) => {
       for (const call of toolCalls ?? []) {
         console.log(JSON.stringify({

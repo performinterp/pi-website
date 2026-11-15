@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     const rateDecision = await checkRateLimits(getClientIp(request), [
       formRateLimitPerMinute,
       formRateLimitPerDay,
-    ]);
+    ], { failOpen: true });
     if (!rateDecision.allowed) return rateLimitResponse(rateDecision);
 
     const clHeader = request.headers.get("content-length");

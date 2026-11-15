@@ -215,11 +215,19 @@ export async function fetchEvents(): Promise<Event[]> {
     throw new Error(`Failed to fetch events CSV: ${res.status} ${res.statusText}`);
   }
 
+  // A 200 that isn't the events CSV (e.g. Google's sign-in page if publishing
+  // is switched off) or has no events must not quietly become "no events".
+  // Throwing keeps the last good copy: Next.js keeps serving the previous
+  // page when a background refresh fails (and a failed build isn't deployed).
   const text = await res.text();
   const rows = parseCsv(text);
-  if (rows.length < 2) return [];
+  if (rows.length < 2) throw new Error("Events CSV has no rows");
 
   const header = rows[0].map((c) => c.trim());
+  const missingCore = ["EVENT", "DATE", "VENUE"].filter((c) => !header.includes(c));
+  if (missingCore.length) {
+    throw new Error(`Events CSV is missing ${missingCore.join(", ")}: not the events sheet?`);
+  }
   // Build a header→index map keyed by actual sheet header. Missing columns
   // are simply absent from the map, and rowToEvent's cell() returns "" for
   // them. Tolerates added/reordered/removed columns without breaking.
@@ -238,6 +246,7 @@ export async function fetchEvents(): Promise<Event[]> {
     if (ev) events.push(ev);
   }
 
+  if (events.length === 0) throw new Error("Events CSV has no readable events");
   events.sort((a, b) => a.isoDate.localeCompare(b.isoDate));
   return events;
 }
