@@ -220,6 +220,7 @@ function TextField({
         name={name}
         defaultValue={prefillStr(prefill, name)}
         placeholder={placeholder}
+        maxLength={200}
         className={inputClass}
       />
     </div>
@@ -300,6 +301,10 @@ export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
+  const sentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (status === "sent") sentRef.current?.focus();
+  }, [status]);
   // Synchronous init so defaultValue / defaultChecked are correct at FIRST
   // mount — fixing the prior bug where prefill landed via useEffect after
   // paint and defaultValue (which only applies on mount) silently dropped
@@ -314,7 +319,12 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-2xl border border-pi-success/30 bg-pi-success/5 p-8 text-center md:p-12">
+      <div
+        ref={sentRef}
+        tabIndex={-1}
+        role="status"
+        className="rounded-2xl border border-pi-success/30 bg-pi-success/5 p-8 text-center outline-none md:p-12"
+      >
         <p className="font-display text-2xl text-pi-ink">Message sent</p>
         <p className="mt-3 text-pi-ink/65">
           We&apos;ll aim to reply within 48 hours.
@@ -434,6 +444,7 @@ export default function ContactForm() {
         <textarea
           id="other_access_needs"
           name="other_access_needs"
+          maxLength={500}
           rows={2}
           defaultValue={prefillStr(prefill, "other_access_needs")}
           className={inputClass}
@@ -465,6 +476,7 @@ export default function ContactForm() {
         <textarea
           id="specific_access_need"
           name="specific_access_need"
+          maxLength={500}
           rows={2}
           defaultValue={prefillStr(prefill, "specific_access_need")}
           className={inputClass}
@@ -522,6 +534,7 @@ export default function ContactForm() {
         <textarea
           id="article_angle"
           name="article_angle"
+          maxLength={500}
           rows={2}
           defaultValue={prefillStr(prefill, "article_angle")}
           className={inputClass}
@@ -577,6 +590,8 @@ export default function ContactForm() {
             id="name"
             name="name"
             required
+            maxLength={100}
+            autoComplete="name"
             className={inputClass}
             placeholder="Your name"
           />
@@ -590,6 +605,8 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
+            maxLength={254}
+            autoComplete="email"
             className={inputClass}
             placeholder="your@email.com"
           />
@@ -610,6 +627,7 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
+          maxLength={5000}
           className={inputClass}
           placeholder={
             enquiryType === "organiser"
@@ -655,7 +673,7 @@ export default function ContactForm() {
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-pi-error">
+        <p role="alert" className="text-sm text-pi-error">
           Something went wrong. Please try again or email us directly at
           enquiries@performanceinterpreting.co.uk.
         </p>

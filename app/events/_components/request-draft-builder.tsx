@@ -172,7 +172,10 @@ export default function RequestDraftBuilder({
             value={venueName}
             onChange={(e) => {
               setVenueName(e.target.value);
-              userOverrodeEmail.current = false;
+              // An email we filled in belongs to the previous venue: clear it
+              // so the request can't go to the wrong venue. Keep one the
+              // visitor typed themselves.
+              if (!userOverrodeEmail.current) setVenueEmail("");
             }}
             placeholder="e.g. Wembley Stadium"
             className={`${inputClass} mt-1.5`}
