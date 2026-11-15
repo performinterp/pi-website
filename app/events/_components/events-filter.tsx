@@ -13,7 +13,7 @@ import {
   type VocabEntry,
 } from "./search-utils";
 import { DATE_PRESETS, activePresetKey } from "./preset-dates";
-import { CATEGORY_ICONS, CATEGORY_ORDER, iconForCategory } from "./category-icons";
+import { CATEGORY_ICONS, CATEGORY_ORDER, groupCategory, iconForCategory } from "./category-icons";
 import BslHelpVideo from "./bsl-help-video";
 import EventImage from "@/components/event-image";
 import {
@@ -215,7 +215,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
         if (!fuzzyMatch(haystack, term)) return false;
       }
       if (city !== "all" && ev.city !== city) return false;
-      if (category !== "all" && !ev.categories.includes(category)) return false;
+      if (category !== "all" && !ev.categories.some((c) => groupCategory(c) === category)) return false;
       if (club !== "all" && ev.clubKey !== club) return false;
       if (language !== "all" && ev.language !== language) return false;
       if (interpreterStatus !== "all" && ev.interpreterStatus !== interpreterStatus) return false;
@@ -259,7 +259,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
   const categoryCards = useMemo(() => {
     const counts = new Map<string, number>();
     for (const ev of events) {
-      const cats = ev.categories.length > 0 ? ev.categories : ["Other"];
+      const cats = ev.categories.length > 0 ? [...new Set(ev.categories.map(groupCategory))] : ["Other"];
       for (const c of cats) {
         counts.set(c, (counts.get(c) || 0) + 1);
       }
@@ -274,7 +274,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
       { key: "all", label: "All", count: events.length, icon: CATEGORY_ICONS.All },
       ...[...ordered, ...extras].map((c) => ({
         key: c,
-        label: c,
+        label: c === "Festival" ? "Festivals" : c,
         count: counts.get(c) || 0,
         icon: iconForCategory(c),
       })),
@@ -476,7 +476,9 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
         {/* Visual category grid */}
         <div ref={categoryRef} className="mt-5 scroll-mt-20">
           <p className={labelClass}>Category</p>
-          <div className="-mx-5 mt-2 flex gap-2 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-6 md:overflow-visible md:px-0 md:pb-0">
+          {/* Phones: small wrapping buttons so every category is visible at
+              once (a swipe row looked like only two). md+: the card grid. */}
+          <div className="mt-2 flex flex-wrap gap-2 md:grid md:grid-cols-6">
             {categoryCards.map((c) => {
               const active = category === c.key;
               return (
@@ -490,19 +492,19 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                     revealResults();
                   }}
                   aria-pressed={active}
-                  className={`flex w-28 shrink-0 flex-col items-center justify-center gap-1 rounded-xl border px-2 py-3 text-center transition md:w-auto ${
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-2.5 transition md:flex md:flex-col md:justify-center md:gap-1 md:rounded-xl md:px-2 md:py-3 md:text-center ${
                     active
                       ? "border-pi-accent bg-pi-accent/10 ring-1 ring-pi-accent"
                       : "border-pi-ink/10 bg-white hover:border-pi-accent/40"
                   }`}
                 >
-                  <span aria-hidden="true" className="text-2xl leading-none">
+                  <span aria-hidden="true" className="text-lg leading-none md:text-2xl">
                     {c.icon}
                   </span>
                   <span className="text-sm font-semibold leading-tight text-pi-ink">
                     {c.label}
                   </span>
-                  <span className="text-xs font-semibold uppercase tracking-wide text-pi-ink/50">
+                  <span className="text-xs font-semibold tracking-wide text-pi-ink/70 md:uppercase">
                     {c.count}
                   </span>
                 </button>
@@ -668,7 +670,9 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
               dd/mm/yyyy format conventions. */}
           {!easyRead && (
             <div className="mt-3 grid grid-cols-2 gap-3">
-              <div>
+              {/* min-w-0: iPhone date boxes otherwise refuse to shrink and
+                  spill out of the panel. */}
+              <div className="min-w-0">
                 <label htmlFor="ev-from" className="text-xs uppercase tracking-wide text-pi-ink/50">
                   From
                 </label>
@@ -680,10 +684,10 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                     setFromDate(e.target.value);
                     setVisible(PAGE_SIZE);
                   }}
-                  className={`${inputClass} mt-1`}
+                  className={`${inputClass} mt-1 min-w-0`}
                 />
               </div>
-              <div>
+              <div className="min-w-0">
                 <label htmlFor="ev-to" className="text-xs uppercase tracking-wide text-pi-ink/50">
                   To
                 </label>
@@ -695,7 +699,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
                     setToDate(e.target.value);
                     setVisible(PAGE_SIZE);
                   }}
-                  className={`${inputClass} mt-1`}
+                  className={`${inputClass} mt-1 min-w-0`}
                 />
               </div>
             </div>

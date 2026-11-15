@@ -24,6 +24,18 @@ export const CATEGORY_ICONS: Record<string, string> = {
   Other: "🎟️",
 };
 
+// The sheet splits festivals three ways, and some sit in between (Victorious
+// has camping, but off-site with shuttle buses), so visitors get a single
+// Festivals button that covers all three.
+const GROUPED: Record<string, string> = {
+  "Camping Festival": "Festival",
+  "Non-Camping Festival": "Festival",
+};
+
+export function groupCategory(category: string): string {
+  return GROUPED[category] || category;
+}
+
 export function iconForCategory(category: string): string {
   return CATEGORY_ICONS[category] || CATEGORY_ICONS.Other;
 }
