@@ -94,6 +94,7 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
   const searchWrapRef = useRef<HTMLDivElement | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
   const categoryRef = useRef<HTMLDivElement | null>(null);
+  const countRef = useRef<HTMLDivElement | null>(null);
 
   function scrollToSearch() {
     // Delay slightly so mobile keyboard / focus-driven native scroll
@@ -109,18 +110,18 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
     }, 60);
   }
 
-  // Phones: after a category tap, if the first result is still off-screen,
-  // bring the category row to the top so the chips, the match count and the
-  // first results are all in view together. Without this a tap changed
-  // nothing visible.
-  function revealResults() {
-    if (!window.matchMedia("(max-width: 767px)").matches) return;
+  // Phones: a category tap takes you to the results (the match count, then
+  // the events). Otherwise the tap looks like it did nothing. The count row
+  // has a link back up to the categories.
+  function scrollToRef(ref: React.RefObject<HTMLDivElement | null>) {
     setTimeout(() => {
-      const top = resultsRef.current?.getBoundingClientRect().top ?? 0;
-      if (top < window.innerHeight - 160) return;
       const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      categoryRef.current?.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+      ref.current?.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
     }, 60);
+  }
+
+  function revealResults() {
+    if (window.matchMedia("(max-width: 767px)").matches) scrollToRef(countRef);
   }
 
   function chooseSuggestion(label: string) {
@@ -772,11 +773,20 @@ export default function EventsFilter({ events, cities, categories, clubs }: Prop
         </div>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <div ref={countRef} className="mt-5 flex scroll-mt-20 flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-base text-pi-ink/70" aria-live="polite">
               {filtered.length} {filtered.length === 1 ? "match" : "matches"}
             </p>
+            {category !== "all" && (
+              <button
+                type="button"
+                onClick={() => scrollToRef(categoryRef)}
+                className="text-base font-semibold text-pi-accent underline underline-offset-2 md:hidden"
+              >
+                {categoryCards.find((c) => c.key === category)?.label ?? category} · change
+              </button>
+            )}
             {showInterpreterNote && (
               <p className="text-sm text-pi-ink/60">* Interpreters may change.</p>
             )}
