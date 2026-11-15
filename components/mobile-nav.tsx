@@ -93,6 +93,7 @@ export default function MobileNav({ nav, isOpen, onClose }: MobileNavProps) {
           bg-color in some compositing paths. */}
       <div
         ref={overlayRef}
+        id="mobile-nav-panel"
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
