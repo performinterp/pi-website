@@ -297,7 +297,6 @@ export async function POST(req: Request) {
     if (!softDecision.success) {
       console.log(JSON.stringify({
         kind: "assistant_soft_limit",
-        ip: clientIp,
         remaining: softDecision.remaining,
       }));
       return streamRefusal(
@@ -332,7 +331,7 @@ export async function POST(req: Request) {
   if (chatGlobalLimitPerDay) {
     const globalDecision = await chatGlobalLimitPerDay.limit("all");
     if (!globalDecision.success) {
-      console.warn(JSON.stringify({ kind: "assistant_global_limit", ip: clientIp }));
+      console.warn(JSON.stringify({ kind: "assistant_global_limit" }));
       return streamRefusal(
         "PIPA has had a very busy day and is resting now. Our team can still help you through [the contact form](/contact)."
       );
@@ -376,11 +375,13 @@ export async function POST(req: Request) {
   const skipClassifier =
     lastUserText.length > 0 && ON_TOPIC_KEYWORDS.test(lastUserText);
 
+  // Logs carry verdicts and lengths, never visitors' words or IPs: messages
+  // can hold health details, and Vercel's logs sit outside our privacy notice.
   if (lastUserText.length > 0 && skipClassifier) {
     console.log(JSON.stringify({
       kind: "assistant_classifier",
       verdict: "SKIP",
-      preview: lastUserText.slice(0, 120),
+      chars: lastUserText.length,
     }));
   }
 
@@ -409,7 +410,7 @@ export async function POST(req: Request) {
     console.log(JSON.stringify({
       kind: "assistant_classifier",
       verdict: verdict.startsWith("OFF") ? "OFF" : "ON",
-      preview: lastUserText.slice(0, 120),
+      chars: lastUserText.length,
     }));
     if (verdict.startsWith("OFF")) {
       return streamRefusal(
@@ -449,14 +450,10 @@ export async function POST(req: Request) {
         console.log(JSON.stringify({
           kind: "assistant_tool_call",
           tool: call.toolName,
-          input: call.input,
         }));
       }
       if (text && text.includes("[NEEDS_HUMAN]")) {
-        console.log(JSON.stringify({
-          kind: "assistant_handoff",
-          preview: lastUserText.slice(0, 120),
-        }));
+        console.log(JSON.stringify({ kind: "assistant_handoff" }));
       }
     },
   });

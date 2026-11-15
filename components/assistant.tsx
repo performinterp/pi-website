@@ -597,7 +597,7 @@ export default function Assistant() {
                     className="mt-1 w-full rounded-lg border border-pi-ink/15 bg-white px-2.5 py-2 text-sm leading-relaxed text-pi-ink outline-none focus:border-pi-accent focus:ring-1 focus:ring-pi-accent"
                   />
                   <p className="mt-1 text-[10px] text-pi-ink/45">
-                    A summary of our conversation will be included for context.
+                    Our full conversation will be sent too, so the team has the context.
                   </p>
                 </div>
                 {sendState === "error" && (
