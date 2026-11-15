@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:easy-read": "node scripts/check-easy-read.mjs"
+    "check:easy-read": "node scripts/check-easy-read.mjs",
+    "check:chat": "jiti scripts/check-chat-schema.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.74",
