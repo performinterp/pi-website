@@ -14,6 +14,7 @@ import {
 import AppPromo from "@/components/app-promo";
 import EasyReadSummary from "@/components/easy-read-summary";
 import { eventEasyRead } from "@/lib/easy-read-auto";
+import { jsonLd } from "@/lib/json-ld";
 export const revalidate = 7200;
 
 interface Params {
@@ -152,7 +153,7 @@ export default async function EventDetailPage({ params }: Params) {
       {eventSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(eventSchema) }}
         />
       )}
 

@@ -5,6 +5,7 @@ import EasyReadSummary from "@/components/easy-read-summary";
 import { getEasyRead } from "@/lib/content";
 import { VENUE_TREE, getAllVenues, totalVenues } from "@/lib/venue-tree";
 import VenuesSearch from "./_components/venues-search";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "Venues — BSL & ISL access contacts | Performance Interpreting",
@@ -41,7 +42,7 @@ export default function VenuesIndexPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "ItemList",
             name: "Venues with BSL & ISL access contacts",
@@ -58,7 +59,7 @@ export default function VenuesIndexPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

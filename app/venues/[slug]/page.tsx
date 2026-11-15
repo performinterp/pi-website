@@ -18,6 +18,7 @@ import VenueEventsCarousel, {
 import EasyReadSummary from "@/components/easy-read-summary";
 import { venueEasyRead } from "@/lib/easy-read-auto";
 import { getActInfoUrl } from "@/lib/venue-act-links";
+import { jsonLd } from "@/lib/json-ld";
 
 const VENUE_COORDS = venueCoordinates as Record<string, { lat: number; lng: number; match?: string }>;
 
@@ -180,12 +181,12 @@ export default async function VenueDetailPage({ params }: Params) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(placeSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(placeSchema) }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -199,7 +200,7 @@ export default async function VenueDetailPage({ params }: Params) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": `${venueUrl}#webpage`,

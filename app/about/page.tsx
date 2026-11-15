@@ -4,6 +4,7 @@ import PageHero from "@/components/page-hero";
 import EasyReadSummary from "@/components/easy-read-summary";
 import ContentSection from "@/components/content-section";
 import ContactCta from "@/components/contact-cta";
+import { jsonLd } from "@/lib/json-ld";
 
 const page = getPage("about");
 
@@ -22,7 +23,7 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "@id": `${SITE}/about/#aboutpage`,
@@ -55,7 +56,7 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "Person",
             "@id": `${SITE}/#marie-pascall`,
@@ -82,7 +83,7 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

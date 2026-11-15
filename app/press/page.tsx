@@ -4,6 +4,7 @@ import EasyReadSummary from "@/components/easy-read-summary";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import { getPage, getEasyRead } from "@/lib/content";
+import { jsonLd } from "@/lib/json-ld";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -61,7 +62,7 @@ export default function PressPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -77,7 +78,7 @@ export default function PressPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             url: `${SITE}/press/`,

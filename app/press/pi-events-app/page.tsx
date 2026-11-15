@@ -6,6 +6,7 @@ import { getEasyRead } from "@/lib/content";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import CalmVideo from "@/components/calm-video";
+import { jsonLd } from "@/lib/json-ld";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -128,7 +129,7 @@ export default function PiEventsAppPressKitPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

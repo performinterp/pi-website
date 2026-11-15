@@ -8,6 +8,7 @@ import ContactCta from "@/components/contact-cta";
 import TestimonialQuote from "@/components/testimonial-quote";
 import AnimateIn from "@/components/animate-in";
 import Icon from "@/components/icon";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "For Interpreters - Performance Interpreting",
@@ -62,7 +63,7 @@ export default function InterpretersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "Service",
             "@id": `${SITE}/interpreters/#interpreter-careers`,
@@ -121,7 +122,7 @@ export default function InterpretersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": `${SITE}/interpreters/#webpage`,
@@ -151,7 +152,7 @@ export default function InterpretersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: INTERPRETER_FAQS.map((f) => ({
@@ -165,7 +166,7 @@ export default function InterpretersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

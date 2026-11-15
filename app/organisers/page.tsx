@@ -10,6 +10,7 @@ import AnimateIn from "@/components/animate-in";
 import AppScreenshotCarousel from "@/components/app-screenshot-carousel";
 import MobileTestimonialsCarousel from "@/components/mobile-testimonials-carousel";
 import Icon from "@/components/icon";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "For Event Organisers - Performance Interpreting",
@@ -62,7 +63,7 @@ export default function OrganisersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "Service",
             "@id": "https://performanceinterpreting.co.uk/organisers/#organisers-service",
@@ -158,7 +159,7 @@ export default function OrganisersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: ORGANISER_FAQS.map((f) => ({
@@ -174,7 +175,7 @@ export default function OrganisersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -189,7 +190,7 @@ export default function OrganisersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": "https://performanceinterpreting.co.uk/organisers/#webpage",

@@ -4,6 +4,7 @@ import EasyReadSummary from "@/components/easy-read-summary";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
 import AnimateIn from "@/components/animate-in";
+import { jsonLd } from "@/lib/json-ld";
 
 const page = getPage("contact");
 
@@ -21,7 +22,7 @@ export default function ContactPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "ContactPage",
             url: `${SITE}/contact/`,
@@ -34,7 +35,7 @@ export default function ContactPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

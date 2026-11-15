@@ -7,6 +7,7 @@ import AppPromo from "@/components/app-promo";
 import EventsFilter from "./_components/events-filter";
 import { fetchEvents, uniqueValues } from "@/lib/events";
 import { getClubs, clubKeyFor } from "@/lib/clubs";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "Find Interpreted Events - Performance Interpreting",
@@ -36,7 +37,7 @@ export default async function EventsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "ItemList",
             name: "Upcoming BSL & ISL interpreted events",
@@ -53,7 +54,7 @@ export default async function EventsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

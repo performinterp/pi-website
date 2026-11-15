@@ -12,6 +12,7 @@ import MobileTestimonialsCarousel from "@/components/mobile-testimonials-carouse
 import MobileEventCard from "@/components/mobile-event-card";
 import VideoFeedback from "@/components/video-feedback";
 import Icon from "@/components/icon";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "For the Deaf Community - Performance Interpreting",
@@ -121,7 +122,7 @@ export default function DeafCommunityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "Service",
             "@id": "https://performanceinterpreting.co.uk/deaf-community/#deaf-community-service",
@@ -200,7 +201,7 @@ export default function DeafCommunityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -215,7 +216,7 @@ export default function DeafCommunityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": "https://performanceinterpreting.co.uk/deaf-community/#webpage",
@@ -605,7 +606,7 @@ export default function DeafCommunityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: DEAF_COMMUNITY_FAQS.map((f) => ({

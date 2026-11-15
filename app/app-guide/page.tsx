@@ -7,6 +7,7 @@ import AnimateIn from "@/components/animate-in";
 import ScrollVideo from "@/components/scroll-video";
 import AppStoreButtons from "@/components/app-store-buttons";
 import Icon from "@/components/icon";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "The PI Events App - Full Guide",
@@ -119,7 +120,7 @@ export default function AppGuidePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "MobileApplication",
             "@id": "https://performanceinterpreting.co.uk/#pi-events-app",
@@ -177,7 +178,7 @@ export default function AppGuidePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -192,7 +193,7 @@ export default function AppGuidePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": "https://performanceinterpreting.co.uk/app-guide/#webpage",

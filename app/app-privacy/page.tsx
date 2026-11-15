@@ -3,6 +3,7 @@ import { getPage, getEasyRead } from "@/lib/content";
 import PageHero from "@/components/page-hero";
 import EasyReadSummary from "@/components/easy-read-summary";
 import ContentSection from "@/components/content-section";
+import { jsonLd } from "@/lib/json-ld";
 
 const page = getPage("app-privacy");
 
@@ -17,7 +18,7 @@ export default function AppPrivacyPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -30,7 +31,7 @@ export default function AppPrivacyPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": "https://performanceinterpreting.co.uk/app-privacy/#webpage",

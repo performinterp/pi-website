@@ -8,6 +8,7 @@ import { cityEasyRead } from "@/lib/easy-read-auto";
 import { fetchEvents } from "@/lib/events";
 import { eventSlug } from "@/lib/event-slug";
 import type { Event } from "@/lib/types";
+import { jsonLd } from "@/lib/json-ld";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -114,7 +115,7 @@ export default async function CityEventsPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -128,7 +129,7 @@ export default async function CityEventsPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "ItemList",
             name: `BSL & ISL interpreted events in ${display}`,

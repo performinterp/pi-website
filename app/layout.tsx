@@ -6,6 +6,7 @@ import Nav from "@/components/nav";
 import DeferredShell from "@/components/deferred-shell";
 import { EasyReadProvider, EASY_READ_INIT_SCRIPT } from "@/lib/easy-read";
 import { Analytics } from "@vercel/analytics/next";
+import { jsonLd } from "@/lib/json-ld";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -68,7 +69,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLd({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "@id": "https://performanceinterpreting.co.uk/#website",
@@ -92,7 +93,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLd({
               "@context": "https://schema.org",
               "@type": ["Organization", "LocalBusiness"],
               "@id": "https://performanceinterpreting.co.uk/#organization",

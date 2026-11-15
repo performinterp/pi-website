@@ -4,6 +4,7 @@ import EasyReadSummary from "@/components/easy-read-summary";
 import { getEasyRead } from "@/lib/content";
 import RequestDraftBuilder from "../_components/request-draft-builder";
 import RequestIntro from "../_components/request-intro";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "Request an Interpreter - Performance Interpreting",
@@ -22,7 +23,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "ContactPage",
             "@id": "https://performanceinterpreting.co.uk/events/request/#contactpage",
@@ -39,7 +40,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -53,7 +54,7 @@ export default async function EventRequestPage({ searchParams }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": "https://performanceinterpreting.co.uk/events/request/#webpage",

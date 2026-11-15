@@ -4,6 +4,7 @@ import EasyReadSummary from "@/components/easy-read-summary";
 import ContactCta from "@/components/contact-cta";
 import AnimateIn from "@/components/animate-in";
 import { getTestimonials, getEasyRead } from "@/lib/content";
+import { jsonLd } from "@/lib/json-ld";
 
 const SITE = "https://performanceinterpreting.co.uk";
 
@@ -30,7 +31,7 @@ export default function TestimonialsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -50,7 +51,7 @@ export default function TestimonialsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
+          __html: jsonLd(
             testimonials.map((t) => ({
               "@context": "https://schema.org",
               "@type": "Review",

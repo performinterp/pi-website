@@ -151,7 +151,9 @@ function rowToEvent(row: string[], headerIdx: Map<string, number>): Event | null
   const cell = (col: (typeof COLUMNS)[number]) => {
     const idx = headerIdx.get(col);
     if (idx === undefined) return "";
-    return (row[idx] ?? "").trim();
+    // Sheet text is copied from third-party pages; angle brackets are never
+    // real content there, so drop them before they can reach any HTML.
+    return (row[idx] ?? "").replace(/[<>]/g, "").trim();
   };
 
   const name = cell("EVENT");

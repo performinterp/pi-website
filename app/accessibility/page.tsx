@@ -3,6 +3,7 @@ import { getPage, getEasyRead } from "@/lib/content";
 import PageHero from "@/components/page-hero";
 import EasyReadSummary from "@/components/easy-read-summary";
 import ContentSection from "@/components/content-section";
+import { jsonLd } from "@/lib/json-ld";
 
 const page = getPage("accessibility");
 
@@ -18,7 +19,7 @@ export default function AccessibilityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": `${SITE}/accessibility/`,
@@ -32,7 +33,7 @@ export default function AccessibilityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

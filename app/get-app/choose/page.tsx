@@ -1,5 +1,6 @@
 import EasyReadSummary from "@/components/easy-read-summary";
 import { getEasyRead } from "@/lib/content";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata = {
   title: "Get PI Events on your phone",
@@ -23,7 +24,7 @@ export default function GetAppChoosePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
@@ -39,7 +40,7 @@ export default function GetAppChoosePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebPage",
             "@id": "https://performanceinterpreting.co.uk/get-app/choose/#webpage",
