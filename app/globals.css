@@ -28,8 +28,10 @@
   --color-pi-error: #EF4444;
   --color-pi-success: #22C55E;
 
-  --font-display: "var(--font-display-loaded)", "Georgia", serif;
-  --font-body: "var(--font-body-loaded)", system-ui, sans-serif;
+  /* No quotes round var(): quoted, it is read as a font *name* and the
+     browser falls back to Georgia / system-ui. */
+  --font-display: var(--font-display-loaded), Georgia, serif;
+  --font-body: var(--font-body-loaded), system-ui, sans-serif;
 
 }
 
@@ -64,6 +66,8 @@ html[data-easy-read="on"] {
   --text-xl: 1.4375rem;   /* 20px -> 23px */
   --text-5xl: 2.75rem;    /* 48px -> 44px */
   --text-6xl: 3rem;       /* 60px -> 48px */
+  /* One clear sans-serif everywhere: headings drop the display serif. */
+  --font-display: var(--font-body);
   scroll-behavior: auto;
 }
 html[data-easy-read="on"] :is([class*="text-[10px]"], [class*="text-[11px]"], [class*="text-[12px]"], [class*="text-[13px]"]) {
