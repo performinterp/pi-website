@@ -23,10 +23,17 @@ export default function EventImage({
   const current = sources[step];
   const ref = useRef<HTMLImageElement>(null);
 
+  // Move past `failed` only if it's still the picture showing. A picture
+  // that fails the instant it mounts is reported twice (the check below and
+  // onError); counting both skipped the fallback straight to the placeholder.
+  const fail = (failed: string) =>
+    setStep((s) => (sources[s] === failed ? s + 1 : s));
+
   // A picture that failed before React hydrated never fires onError.
   useEffect(() => {
     const img = ref.current;
-    if (img && img.complete && img.naturalWidth === 0) setStep((s) => s + 1);
+    if (img && img.complete && img.naturalWidth === 0) fail(current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current]);
 
   if (!current) return <>{placeholder}</>;
@@ -38,7 +45,7 @@ export default function EventImage({
       src={current}
       alt=""
       loading={lazy ? "lazy" : undefined}
-      onError={() => setStep((s) => s + 1)}
+      onError={() => fail(current)}
       className={className}
     />
   );

@@ -4,30 +4,31 @@ import type { NextConfig } from "next";
 // prevent FOUC and ~25 JSON-LD <script type="application/ld+json"> blocks
 // inject schema.org metadata. 'unsafe-inline' for script-src is the pragmatic
 // baseline until we migrate every inline script to nonces.
-const STRICT_IMG_SRC =
-  "img-src 'self' data: blob: https://media.performanceinterpreting.co.uk";
-// /events/ renders venue-scraped images from arbitrary HTTPS hosts (the page
-// has no user input — it's curated from the PI Workflow sheet — so loosening
-// here doesn't open an exfiltration path that strict 'self' was guarding).
-const EVENTS_IMG_SRC = "img-src 'self' data: blob: https:";
+//
+// Pictures may come from any HTTPS host on every page. Events and venue pages
+// show each event's official picture from the venue's own site. A per-route
+// rule (strict everywhere but /events/, Jun 2026) broke this: Next.js keeps
+// the first page's CSP on client-side navigation, so arriving at /events/
+// from the home page blocked every venue picture, and the venue pages were
+// always blocked (16 Nov 2026). Pictures can't run code, and with
+// 'unsafe-inline' scripts a narrow img-src never closed the exfiltration path.
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "media-src 'self' blob: https://media.performanceinterpreting.co.uk",
+  "font-src 'self' data:",
+  "connect-src 'self' https://pi-feedback-uploads.vercel.app https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  "frame-src https://tally.so",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "base-uri 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
 
-const buildCSP = (imgSrc: string) =>
-  [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
-    "style-src 'self' 'unsafe-inline'",
-    imgSrc,
-    "media-src 'self' blob: https://media.performanceinterpreting.co.uk",
-    "font-src 'self' data:",
-    "connect-src 'self' https://pi-feedback-uploads.vercel.app https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-    "frame-src https://tally.so",
-    "frame-ancestors 'none'",
-    "form-action 'self'",
-    "base-uri 'self'",
-    "upgrade-insecure-requests",
-  ].join("; ");
-
-const sharedSecurityHeaders = [
+const securityHeaders = [
+  { key: "Content-Security-Policy", value: csp },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -39,16 +40,6 @@ const sharedSecurityHeaders = [
   },
 ];
 
-const strictHeaders = [
-  { key: "Content-Security-Policy", value: buildCSP(STRICT_IMG_SRC) },
-  ...sharedSecurityHeaders,
-];
-
-const eventsHeaders = [
-  { key: "Content-Security-Policy", value: buildCSP(EVENTS_IMG_SRC) },
-  ...sharedSecurityHeaders,
-];
-
 const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
@@ -57,10 +48,7 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000,
   },
   async headers() {
-    return [
-      { source: "/events/:path*", headers: eventsHeaders },
-      { source: "/:path((?!events(?:/|$)).*)", headers: strictHeaders },
-    ];
+    return [{ source: "/:path*", headers: securityHeaders }];
   },
   async redirects() {
     return [
