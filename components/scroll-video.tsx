@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useCalmMotion } from "@/lib/easy-read";
+import MotionToggle from "./motion-toggle";
 
 type Props = {
   src: string;
@@ -12,6 +13,9 @@ type Props = {
 export default function ScrollVideo({ src, poster, className }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
+  const [paused, setPaused] = useState(true);
+  // A visitor's Pause sticks: scrolling away and back doesn't restart it.
+  const pausedByVisitor = useRef(false);
   const calm = useCalmMotion();
 
   useEffect(() => {
@@ -27,7 +31,7 @@ export default function ScrollVideo({ src, poster, className }: Props) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.play().catch(() => {});
+          if (!pausedByVisitor.current) el.play().catch(() => {});
         } else {
           el.pause();
         }
@@ -52,6 +56,14 @@ export default function ScrollVideo({ src, poster, className }: Props) {
     };
   }, [calm]);
 
+  const toggle = () => {
+    const el = ref.current;
+    if (!el) return;
+    pausedByVisitor.current = !el.paused;
+    if (el.paused) el.play().catch(() => {});
+    else el.pause();
+  };
+
   return (
     <div className="relative h-full w-full">
       <video
@@ -63,8 +75,19 @@ export default function ScrollVideo({ src, poster, className }: Props) {
         controls={calm}
         playsInline
         preload="metadata"
+        onPlay={() => setPaused(false)}
+        onPause={() => setPaused(true)}
         className={className ?? "h-full w-full object-cover"}
       />
+      {!calm && (
+        <MotionToggle
+          paused={paused}
+          onToggle={toggle}
+          name="video"
+          overlay
+          className="absolute bottom-3 right-3"
+        />
+      )}
       {/* Subtle progress bar - lighter pi-accent, low-key but legible */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-white/10">
         <div

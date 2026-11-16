@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useCalmMotion } from "@/lib/easy-read";
 
 interface Testimonial {
   name: string;
@@ -18,6 +19,7 @@ export default function MobileTestimonialsCarousel({
 }: MobileTestimonialsCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const calm = useCalmMotion();
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -37,13 +39,17 @@ export default function MobileTestimonialsCarousel({
     if (!el) return;
     const card = el.children[idx] as HTMLElement | undefined;
     if (!card) return;
-    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+    // "instant", not "auto": auto would follow the strip's CSS scroll-smooth.
+    el.scrollTo({ left: card.offsetLeft, behavior: calm ? "instant" : "smooth" });
   }
 
   return (
     <div className="md:hidden -mx-5">
       <div
         ref={scrollRef}
+        role="region"
+        aria-label="Reviews"
+        tabIndex={0}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollPaddingLeft: "20px" }}
       >

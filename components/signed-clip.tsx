@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { Pause, Play } from "lucide-react";
 import { getSignVideo, type VideoKey } from "@/lib/sign-videos";
 
 // Signed (BSL / ISL) video player, shared by /events and Easy Read summaries.
@@ -8,8 +9,9 @@ import { getSignVideo, type VideoKey } from "@/lib/sign-videos";
 // media.performanceinterpreting.co.uk (progressive download, HTTP range
 // requests supported for instant scrub). Player mirrors the PI Academy
 // pattern: no native browser controls (Safari's huge play/pause overlay
-// blocks the signer's hands), custom minimal scrubber, autoplay-loop on
-// open. Click anywhere on the video to pause/resume.
+// blocks the signer's hands), autoplay-loop on open. Click anywhere on the
+// video to pause/resume; the controls sit below the video, so keyboard and
+// screen reader users can pause and seek without covering the signer.
 
 interface SignedClipProps {
   /** Second line on the button, and the video's accessible name. */
@@ -34,7 +36,6 @@ export default function SignedClip({ label, videoKey, bslUrl, islUrl }: SignedCl
   // Fall back to whichever language exists when only one is available.
   const language = chosen === "ISL" && islSrc ? "ISL" : bslSrc ? "BSL" : "ISL";
   const src = language === "BSL" ? bslSrc : islSrc;
-  const progress = duration > 0 ? (time / duration) * 100 : 0;
 
   // Restart playback when drawer opens or language changes.
   useEffect(() => {
@@ -43,9 +44,8 @@ export default function SignedClip({ label, videoKey, bslUrl, islUrl }: SignedCl
     if (!v) return;
     v.currentTime = 0;
     setPaused(false);
-    void v.play().catch(() => {
-      /* Browser blocked autoplay — user can tap to start. */
-    });
+    // Browser blocked autoplay: show Play so the visitor can start it.
+    void v.play().catch(() => setPaused(true));
   }, [open, src]);
 
   const togglePlay = () => {
@@ -58,12 +58,11 @@ export default function SignedClip({ label, videoKey, bslUrl, islUrl }: SignedCl
     }
   };
 
-  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
+  const seek = (to: number) => {
     const v = videoRef.current;
     if (!v || !duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    v.currentTime = frac * duration;
+    v.currentTime = to;
+    setTime(to);
   };
 
   if (!src) return null;
@@ -146,44 +145,61 @@ export default function SignedClip({ label, videoKey, bslUrl, islUrl }: SignedCl
               aria-label={`${label}, in ${language}`}
               className="block w-full aspect-video object-contain cursor-pointer"
             />
-            {/* Centred play overlay — only shown when paused, fades out
-                immediately on resume so it doesn't block the signer. */}
+            {/* Centred play sign — only shown when paused, gone on resume
+                so it doesn't block the signer. A tap reaches the video. */}
             {paused && (
-              <button
-                type="button"
-                onClick={togglePlay}
-                aria-label="Play video"
+              <span
+                aria-hidden="true"
                 className="pointer-events-none absolute inset-0 flex items-center justify-center"
               >
-                <span className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm">
-                  <svg className="h-6 w-6 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm">
+                  <Play size={24} className="translate-x-0.5" fill="currentColor" />
                 </span>
-              </button>
+              </span>
             )}
-            {/* Minimal scrubber — thin bar at the bottom, click to seek */}
-            <div
-              role="slider"
-              aria-label="Seek"
-              aria-valuemin={0}
-              aria-valuemax={Math.round(duration)}
-              aria-valuenow={Math.round(time)}
-              onClick={seek}
-              className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/15 cursor-pointer hover:h-2 transition-all"
+          </div>
+          <div className="mt-2 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={paused ? "Play video" : "Pause video"}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pi-accent text-white transition hover:brightness-110"
             >
-              <div
-                className="h-full bg-pi-accent/85 transition-[width] duration-100"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+              {paused ? (
+                <Play size={18} fill="currentColor" aria-hidden="true" />
+              ) : (
+                <Pause size={18} fill="currentColor" aria-hidden="true" />
+              )}
+            </button>
+            {/* Native range: arrow keys move a second, Home/End jump to the
+                ends, and screen readers hear the time. */}
+            <input
+              type="range"
+              min={0}
+              max={duration || 0}
+              step={1}
+              value={time}
+              onChange={(e) => seek(Number(e.target.value))}
+              disabled={!duration}
+              aria-label="Seek"
+              aria-valuetext={`${clock(time)} of ${clock(duration)}`}
+              className="h-2 min-w-0 flex-1 cursor-pointer accent-pi-accent"
+            />
+            <span aria-hidden="true" className="shrink-0 text-sm tabular-nums text-pi-ink/70">
+              {clock(time)} / {clock(duration)}
+            </span>
           </div>
           <p className="mt-3 text-sm text-pi-ink/60">
-            Tap the video to play or pause. If the video does not load, your
+            Tap the video or the button to play or pause. If the video does not load, your
             network may be blocking media.performanceinterpreting.co.uk.
           </p>
         </div>
       )}
     </div>
   );
+}
+
+function clock(seconds: number): string {
+  const s = Math.floor(seconds || 0);
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }

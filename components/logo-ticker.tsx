@@ -3,13 +3,17 @@
 import { useState } from "react";
 import type { Client } from "@/lib/types";
 import { useCalmMotion } from "@/lib/easy-read";
+import MotionToggle, { stopOnFocus } from "./motion-toggle";
 
 interface LogoTickerProps {
   clients: Client[];
 }
 
 export default function LogoTicker({ clients }: LogoTickerProps) {
-  const [paused, setPaused] = useState(false);
+  // hovered: paused while the pointer is over it. stopped: the visitor
+  // pressed Pause or tabbed onto a logo; only Play restarts it.
+  const [hovered, setHovered] = useState(false);
+  const [stopped, setStopped] = useState(false);
   const calm = useCalmMotion();
 
   // Duplicate for seamless loop - animation moves -50% so the second copy
@@ -20,8 +24,9 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
   return (
     <section
       className="group/ticker relative bg-pi-canvas border-b border-pi-ink/10"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={stopOnFocus(() => setStopped(true))}
     >
       {/* Mobile: 3 hero logos + reveal-all expander */}
       <MobileLogoReveal clients={clients} />
@@ -34,32 +39,45 @@ export default function LogoTicker({ clients }: LogoTickerProps) {
             className="flex w-max"
             style={{
               animation: "ticker-scroll 40s linear infinite",
-              animationPlayState: paused ? "paused" : "running",
+              animationPlayState: hovered || stopped ? "paused" : "running",
             }}
           >
-            {allClients.map((client, i) => (
-              <div
-                key={`${client.name}-${i}`}
-                data-ticker-dup={i >= clients.length ? "" : undefined}
-                className="flex flex-shrink-0 items-center justify-center px-8"
-              >
-                {client.url ? (
-                  <a
-                    href={client.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={client.name}
-                    className="block"
-                  >
+            {allClients.map((client, i) => {
+              const dup = i >= clients.length;
+              return (
+                <div
+                  key={`${client.name}-${i}`}
+                  data-ticker-dup={dup ? "" : undefined}
+                  aria-hidden={dup ? true : undefined}
+                  className="flex flex-shrink-0 items-center justify-center px-8"
+                >
+                  {client.url ? (
+                    <a
+                      href={client.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={client.name}
+                      tabIndex={dup ? -1 : undefined}
+                      className="block"
+                    >
+                      <LogoImage client={client} />
+                    </a>
+                  ) : (
                     <LogoImage client={client} />
-                  </a>
-                ) : (
-                  <LogoImage client={client} />
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
+        {!calm && (
+          <MotionToggle
+            paused={stopped}
+            onToggle={() => setStopped((s) => !s)}
+            name="logos"
+            className="mt-4"
+          />
+        )}
       </div>
     </section>
   );

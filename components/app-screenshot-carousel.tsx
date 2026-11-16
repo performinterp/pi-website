@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCalmMotion } from "@/lib/easy-read";
+import MotionToggle, { stopOnFocus } from "./motion-toggle";
 
 const screenshots = [
   { src: "/images/screenshots/browse-categories.png", label: "Browse by Category" },
@@ -21,7 +22,10 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
   const total = screenshots.length;
   const [pos, setPos] = useState(total);
   const [transitioning, setTransitioning] = useState(true);
-  const [paused, setPaused] = useState(false);
+  // hovered: paused while the pointer is over it. stopped: the visitor
+  // pressed Pause, swiped, or moved keyboard focus in; only Play restarts it.
+  const [hovered, setHovered] = useState(false);
+  const [stopped, setStopped] = useState(false);
   const calm = useCalmMotion();
   const [perView, setPerView] = useState(compact ? 3 : 3);
 
@@ -83,10 +87,10 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
 
   // Auto-advance
   useEffect(() => {
-    if (paused || calm) return;
+    if (hovered || stopped || calm) return;
     const interval = setInterval(next, compact ? 7000 : perView === 1 ? 2000 : 3000);
     return () => clearInterval(interval);
-  }, [next, paused, perView, calm]);
+  }, [next, hovered, stopped, perView, calm, compact]);
 
   const items = [...screenshots, ...screenshots, ...screenshots];
   const itemWidth = 100 / perView;
@@ -94,14 +98,15 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
   return (
     <div
       className="flex flex-col items-center gap-8"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={stopOnFocus(() => setStopped(true))}
     >
       {/* Mobile: native snap-scroll, one phone fully framed per page */}
       <MobileScreenshotCarousel
         items={screenshots}
-        activeIndex={activeIndex}
-        onChangeIndex={goTo}
+        stopped={stopped}
+        onStop={() => setStopped(true)}
       />
 
       {/* Desktop: existing chevron carousel */}
@@ -126,6 +131,7 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
             {items.map((shot, i) => (
               <div
                 key={`${shot.src}-${i}`}
+                aria-hidden={i < total || i >= total * 2 ? true : undefined}
                 className="shrink-0"
                 style={{ width: `${itemWidth}%` }}
               >
@@ -158,21 +164,38 @@ export default function AppScreenshotCarousel({ compact = false }: { compact?: b
         </button>
       </div>
 
-      {/* Dot indicators — desktop only; mobile carousel has its own */}
-      <div className="hidden gap-2 md:flex">
+      {/* Dot indicators — desktop only; mobile carousel has its own.
+          The button is the 24px target, the span the visible dot. */}
+      <div className="hidden md:flex">
         {screenshots.map((shot, i) => (
           <button
             key={shot.src}
+            type="button"
             onClick={() => goTo(i)}
             aria-label={`View ${shot.label}`}
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              i === activeIndex
-                ? "w-8 bg-pi-accent"
-                : "w-2.5 bg-pi-ink/25 hover:bg-pi-ink/45"
-            }`}
-          />
+            aria-current={i === activeIndex ? "true" : undefined}
+            className="group flex h-6 min-w-6 items-center justify-center px-1"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-2.5 rounded-full transition-all duration-300 ${
+                i === activeIndex
+                  ? "w-8 bg-pi-accent"
+                  : "w-2.5 bg-pi-ink/25 group-hover:bg-pi-ink/45"
+              }`}
+            />
+          </button>
         ))}
       </div>
+
+      {!calm && (
+        <MotionToggle
+          paused={stopped}
+          onToggle={() => setStopped((s) => !s)}
+          name="slideshow"
+          className="-mt-4"
+        />
+      )}
     </div>
   );
 }
@@ -184,23 +207,22 @@ interface Shot {
 
 function MobileScreenshotCarousel({
   items,
+  stopped,
+  onStop,
 }: {
   items: Shot[];
-  activeIndex?: number;
-  onChangeIndex?: (i: number) => void;
+  stopped: boolean;
+  onStop: () => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [userTookControl, setUserTookControl] = useState(false);
   const calm = useCalmMotion();
-
-  function takeControl() {
-    setUserTookControl(true);
-  }
+  // "instant", not "auto": auto would follow the strip's CSS scroll-smooth.
+  const behavior: ScrollBehavior = calm ? "instant" : "smooth";
 
   // Auto-advance with seamless loop. Stops once user interacts.
   useEffect(() => {
-    if (userTookControl || calm) return;
+    if (stopped || calm) return;
     const interval = setInterval(() => {
       const el = scrollRef.current;
       if (!el) return;
@@ -211,7 +233,7 @@ function MobileScreenshotCarousel({
       el.scrollTo({ left: nextCard.offsetLeft, behavior: "smooth" });
     }, 4000);
     return () => clearInterval(interval);
-  }, [userTookControl, items.length, calm]);
+  }, [stopped, items.length, calm]);
 
   // Track scroll position for dots / arrows
   useEffect(() => {
@@ -227,20 +249,23 @@ function MobileScreenshotCarousel({
   }, [items.length]);
 
   function scrollToIndex(i: number) {
-    takeControl();
+    onStop();
     const el = scrollRef.current;
     if (!el) return;
     const wrappedIdx = ((i % items.length) + items.length) % items.length;
     const card = el.children[wrappedIdx] as HTMLElement | undefined;
     if (!card) return;
-    el.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+    el.scrollTo({ left: card.offsetLeft, behavior });
   }
 
   return (
     <div className="md:hidden relative -mx-5 w-screen max-w-[100vw]">
       <div
         ref={scrollRef}
-        onTouchStart={takeControl}
+        onTouchStart={onStop}
+        role="region"
+        aria-label="App screenshots"
+        tabIndex={0}
         className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((shot, idx) => (
@@ -292,18 +317,24 @@ function MobileScreenshotCarousel({
         <ChevronRight size={18} />
       </button>
 
-      {/* Pagination dots */}
-      <div className="mt-2 flex justify-center gap-1.5">
-        {items.map((_, i) => (
+      {/* Pagination dots: the button is the 24px target, the span the dot */}
+      <div className="mt-2 flex justify-center">
+        {items.map((shot, i) => (
           <button
             key={i}
             type="button"
             onClick={() => scrollToIndex(i)}
-            aria-label={`View screenshot ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
-              i === activeIndex ? "w-6 bg-pi-gold" : "w-1.5 bg-pi-ink/20"
-            }`}
-          />
+            aria-label={`View ${shot.label}`}
+            aria-current={i === activeIndex ? "true" : undefined}
+            className="flex h-6 min-w-6 items-center justify-center px-0.5"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-1.5 rounded-full transition-all duration-300 ease-out ${
+                i === activeIndex ? "w-6 bg-pi-gold" : "w-1.5 bg-pi-ink/20"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

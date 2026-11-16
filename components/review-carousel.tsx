@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useCalmMotion } from "@/lib/easy-read";
+import MotionToggle, { stopOnFocus } from "./motion-toggle";
 
 type Review = {
   quote: string;
@@ -12,6 +13,10 @@ type Review = {
 
 export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   const [active, setActive] = useState(0);
+  // hovered: paused while the pointer is over it. stopped: the visitor
+  // pressed Pause or moved keyboard focus in; only Play restarts it.
+  const [hovered, setHovered] = useState(false);
+  const [stopped, setStopped] = useState(false);
   const calm = useCalmMotion();
 
   const next = useCallback(
@@ -20,13 +25,18 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   );
 
   useEffect(() => {
-    if (calm) return;
+    if (calm || hovered || stopped) return;
     const id = setInterval(next, 5000);
     return () => clearInterval(id);
-  }, [next, calm]);
+  }, [next, calm, hovered, stopped]);
 
   return (
-    <div className="relative mx-auto max-w-3xl text-center">
+    <div
+      className="relative mx-auto max-w-3xl text-center"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={stopOnFocus(() => setStopped(true))}
+    >
       <div className="relative min-h-[200px] md:min-h-[160px]">
         {reviews.map((review, i) => (
           <div
@@ -84,6 +94,14 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
           </button>
         ))}
       </div>
+      {!calm && (
+        <MotionToggle
+          paused={stopped}
+          onToggle={() => setStopped((s) => !s)}
+          name="reviews"
+          className="mt-4"
+        />
+      )}
     </div>
   );
 }
