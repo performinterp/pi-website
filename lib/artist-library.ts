@@ -17,16 +17,23 @@
 const CDN_BASE = "https://media.performanceinterpreting.co.uk/artists/";
 const DEFAULTS_BASE = "https://media.performanceinterpreting.co.uk/defaults/";
 
-// A default must show the genre and nothing else (Marie, Nov 2026). The
-// comedy, family, festival, theatre and sport photos each showed a specific
-// act, show, stage or person, which on another event implies they're on the
-// bill, so those categories now get the plain navy card instead. Concert
-// keeps its photo of a PI interpreter at work.
+// A default must show the genre and nothing else (Marie, Nov 2026). Since
+// 16 Nov 2026 each one is an empty scene with a PI object in it (no people,
+// no venue, no act), so every genre can have its own again. The app and the
+// publishing script use the same files.
 //
 // Normalised match: category name lowercased and reduced to first alphanumeric
 // run (so "Camping Festival" → "camping"), then mapped here.
 const CATEGORY_DEFAULTS: Readonly<Record<string, string>> = {
   concert: `${DEFAULTS_BASE}default-concert.jpg`,
+  comedy: `${DEFAULTS_BASE}default-comedy.jpg`,
+  theatre: `${DEFAULTS_BASE}default-theatre.jpg`,
+  family: `${DEFAULTS_BASE}default-family.png`,
+  festival: `${DEFAULTS_BASE}default-festival.png`,
+  camping: `${DEFAULTS_BASE}default-festival.png`,
+  "non-camping": `${DEFAULTS_BASE}default-festival.png`,
+  sport: `${DEFAULTS_BASE}default-sport.png`,
+  sports: `${DEFAULTS_BASE}default-sport.png`,
 };
 
 // Sheet values that are placeholders, not pictures of the event: the site's
